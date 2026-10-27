@@ -68,6 +68,41 @@ static int err_701(char *out, size_t outsz, int *status)
     return fault(out, outsz, 701, "Transition not available");
 }
 
+/* AVTransport:1 error codes. These are not interchangeable with 402: a control
+ * point distinguishes "bad arguments" from "that instance does not exist" from
+ * "this transport cannot do that", and mapping them all to 402/701 makes a
+ * conformant client misreport the cause. */
+static int err_718(char *out, size_t outsz, int *status)
+{
+    *status = 500;
+    return fault(out, outsz, 718, "Invalid InstanceID");
+}
+
+static int err_717(char *out, size_t outsz, int *status)
+{
+    *status = 500;
+    return fault(out, outsz, 717, "Play speed not supported");
+}
+
+static int err_710(char *out, size_t outsz, int *status)
+{
+    *status = 500;
+    return fault(out, outsz, 710, "Seek mode not supported");
+}
+
+/* Emits the fault for a failed instance check, choosing the code the spec
+ * requires: a missing argument is Invalid Args (402), a well-formed request for
+ * an instance that does not exist is Invalid InstanceID (718). Collapsing both
+ * into one code is what made this renderer's faults non-conformant. */
+static int err_instance(char *out, size_t outsz, int *status, const char *body)
+{
+    long id;
+
+    if (xml_get_int(body, "InstanceID", &id) != 0)
+        return err_402(out, outsz, status);
+    return err_718(out, outsz, status);
+}
+
 static int instance_ok(const char *body)
 {
     long id;
@@ -139,7 +174,7 @@ static int avt_action(struct dlna_renderer *r, const char *action,
 
     if (strcmp(action, "SetAVTransportURI") == 0) {
         if (!instance_ok(body))
-            return err_402(out, outsz, status);
+            return err_instance(out, outsz, status, body);
         if (xml_get(body, "CurrentURI", uri, sizeof(uri)) != 0 || !uri[0])
             return err_402(out, outsz, status);
         if (xml_get(body, "CurrentURIMetaData", meta, sizeof(meta)) != 0) {
@@ -157,11 +192,11 @@ static int avt_action(struct dlna_renderer *r, const char *action,
         char speed[16];
 
         if (!instance_ok(body))
-            return err_402(out, outsz, status);
+            return err_instance(out, outsz, status, body);
         if (xml_get(body, "Speed", speed, sizeof(speed)) == 0) {
             trim_ws(speed);
             if (speed[0] && strcmp(speed, "1") != 0)
-                return err_701(out, outsz, status);
+                return err_717(out, outsz, status);
         }
         rc = renderer_play(r);
         if (rc != RENDERER_OK)
@@ -171,7 +206,7 @@ static int avt_action(struct dlna_renderer *r, const char *action,
         close_ok(&b, action);
     } else if (strcmp(action, "Pause") == 0) {
         if (!instance_ok(body))
-            return err_402(out, outsz, status);
+            return err_instance(out, outsz, status, body);
         rc = renderer_pause(r);
         if (rc != RENDERER_OK)
             return map_renderer_error(rc, out, outsz, status);
@@ -180,7 +215,7 @@ static int avt_action(struct dlna_renderer *r, const char *action,
         close_ok(&b, action);
     } else if (strcmp(action, "Stop") == 0) {
         if (!instance_ok(body))
-            return err_402(out, outsz, status);
+            return err_instance(out, outsz, status, body);
         rc = renderer_stop(r);
         if (rc != RENDERER_OK)
             return map_renderer_error(rc, out, outsz, status);
@@ -193,13 +228,13 @@ static int avt_action(struct dlna_renderer *r, const char *action,
         unsigned pos;
 
         if (!instance_ok(body))
-            return err_402(out, outsz, status);
+            return err_instance(out, outsz, status, body);
         if (xml_get(body, "Unit", unit, sizeof(unit)) != 0 ||
             xml_get(body, "Target", target, sizeof(target)) != 0)
             return err_402(out, outsz, status);
         trim_ws(unit);
         if (strcmp(unit, "REL_TIME") != 0)
-            return err_701(out, outsz, status);
+            return err_710(out, outsz, status);
         if (parse_hms(target, &pos) != 0)
             return err_402(out, outsz, status);
         rc = renderer_seek(r, pos);
@@ -210,7 +245,7 @@ static int avt_action(struct dlna_renderer *r, const char *action,
         close_ok(&b, action);
     } else if (strcmp(action, "GetTransportInfo") == 0) {
         if (!instance_ok(body))
-            return err_402(out, outsz, status);
+            return err_instance(out, outsz, status, body);
         renderer_snapshot(r, &pb);
         sb_init(&b, out, outsz);
         open_ok(&b, DLNA_SVC_AVT, action);
@@ -223,7 +258,7 @@ static int avt_action(struct dlna_renderer *r, const char *action,
         int track;
 
         if (!instance_ok(body))
-            return err_402(out, outsz, status);
+            return err_instance(out, outsz, status, body);
         renderer_snapshot(r, &pb);
         track = renderer_has_uri(r) ? 1 : 0;
         sb_init(&b, out, outsz);
@@ -247,7 +282,7 @@ static int avt_action(struct dlna_renderer *r, const char *action,
         int tracks;
 
         if (!instance_ok(body))
-            return err_402(out, outsz, status);
+            return err_instance(out, outsz, status, body);
         renderer_snapshot(r, &pb);
         tracks = renderer_has_uri(r) ? 1 : 0;
         sb_init(&b, out, outsz);
@@ -268,7 +303,7 @@ static int avt_action(struct dlna_renderer *r, const char *action,
         close_ok(&b, action);
     } else if (strcmp(action, "GetTransportSettings") == 0) {
         if (!instance_ok(body))
-            return err_402(out, outsz, status);
+            return err_instance(out, outsz, status, body);
         sb_init(&b, out, outsz);
         open_ok(&b, DLNA_SVC_AVT, action);
         sb_puts(&b, "<PlayMode>NORMAL</PlayMode>");
@@ -276,7 +311,7 @@ static int avt_action(struct dlna_renderer *r, const char *action,
         close_ok(&b, action);
     } else if (strcmp(action, "GetCurrentTransportActions") == 0) {
         if (!instance_ok(body))
-            return err_402(out, outsz, status);
+            return err_instance(out, outsz, status, body);
         renderer_snapshot(r, &pb);
         sb_init(&b, out, outsz);
         open_ok(&b, DLNA_SVC_AVT, action);
@@ -285,7 +320,7 @@ static int avt_action(struct dlna_renderer *r, const char *action,
         close_ok(&b, action);
     } else if (strcmp(action, "GetDeviceCapabilities") == 0) {
         if (!instance_ok(body))
-            return err_402(out, outsz, status);
+            return err_instance(out, outsz, status, body);
         sb_init(&b, out, outsz);
         open_ok(&b, DLNA_SVC_AVT, action);
         sb_puts(&b, "<PlayMedia>NETWORK</PlayMedia>");
