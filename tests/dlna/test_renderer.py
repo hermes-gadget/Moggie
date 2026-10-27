@@ -393,7 +393,8 @@ def parse_headers(text):
     return headers
 
 
-def ssdp_search(st, port=SSDP_PORT, mx=1, mode="multicast", wait_extra=0.5):
+def ssdp_search(st, port=SSDP_PORT, mx=1, mode="multicast", wait_extra=0.5,
+                man='"ssdp:discover"'):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
     s.settimeout(0.2)
     s.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 1)
@@ -403,10 +404,10 @@ def ssdp_search(st, port=SSDP_PORT, mx=1, mode="multicast", wait_extra=0.5):
     msg = (
         "M-SEARCH * HTTP/1.1\r\n"
         "HOST: %s:%d\r\n"
-        'MAN: "ssdp:discover"\r\n'
+        "MAN: %s\r\n"
         "MX: %d\r\n"
         "ST: %s\r\n"
-        "\r\n" % (SSDP_GROUP, port, mx, st)
+        "\r\n" % (SSDP_GROUP, port, man, mx, st)
     ).encode("ascii")
     dest = (SSDP_GROUP, port) if mode == "multicast" else ("127.0.0.1", port)
     try:
@@ -1192,7 +1193,8 @@ def test_gena_avt(suite, renderer, callback):
     suite.check(event is not None, "initial AVT NOTIFY arrives")
     if not event:
         return
-    suite.eq("initial NOTIFY SEQ", event["headers"].get("seq"), "0")
+    # UPnP GENA: the first event of a subscription carries SEQ 1. 0 is reserved.
+    suite.eq("initial NOTIFY SEQ", event["headers"].get("seq"), "1")
     suite.eq("initial NOTIFY NT", event["headers"].get("nt"), "upnp:event")
     suite.eq("initial NOTIFY NTS", event["headers"].get("nts"),
              "upnp:propchange")
@@ -1214,7 +1216,7 @@ def test_gena_avt(suite, renderer, callback):
         callback, sid, lambda v: v.get("TransportState") == "PLAYING")
     suite.check(event is not None, "NOTIFY reports PLAYING after Play")
     if event:
-        suite.eq("PLAYING SEQ", event["headers"].get("seq"), "1")
+        suite.eq("PLAYING SEQ", event["headers"].get("seq"), "2")
         suite.eq("PLAYING URI", values.get("AVTransportURI"), TEST_URI)
 
     resp = renderer.soap("AVTransport", "Pause", arg("InstanceID", 0))
@@ -1234,8 +1236,10 @@ def test_gena_avt(suite, renderer, callback):
     for item in callback.snapshot():
         if item["headers"].get("sid") == sid:
             seqs.append(int(item["headers"].get("seq", "-1")))
-    suite.check(seqs and seqs[0] == 0 and seqs == list(range(len(seqs))),
-                "AVT SEQ starts at 0 and increments by one", repr(seqs))
+    # 1-based and contiguous: the first event is 1, so a run of n events is
+    # range(1, n + 1). This asserted 0-based until the spec was checked.
+    suite.check(seqs and seqs[0] == 1 and seqs == list(range(1, len(seqs) + 1)),
+                "AVT SEQ starts at 1 and increments by one", repr(seqs))
     return sid
 
 
@@ -1516,6 +1520,13 @@ def test_ssdp(suite, listener, client, ssdp_mode_holder):
     responses = ssdp_search("urn:schemas-upnp-org:device:MediaServer:1",
                             mx=1, mode=mode)
     suite.eq("foreign ST gets no response", len(responses), 0)
+
+    # MAN must be exactly "ssdp:discover". This used to match by substring, so
+    # a malformed search was answered as though it were well formed.
+    for bad in ('"xssdp:discovery"', '"ssdp:discover-ish"', "ssdp:discoverX"):
+        responses = ssdp_search("ssdp:all", mx=1, mode=mode, man=bad,
+                                wait_extra=0.3)
+        suite.eq("malformed MAN %s ignored" % bad, len(responses), 0)
 
     if listener.ok:
         alive = [e for e in listener.snapshot()

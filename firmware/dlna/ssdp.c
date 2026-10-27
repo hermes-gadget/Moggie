@@ -247,9 +247,26 @@ static void handle_search(struct ssdp *s, const char *req,
 
     if (strncmp(req, "M-SEARCH * HTTP/1.", 18) != 0)
         return;
-    if (header_lookup(req, "MAN", man, sizeof(man)) != 0 ||
-        !strstr(man, "ssdp:discover"))
+    /* MAN must be exactly "ssdp:discover" (quoted in the header). A substring
+     * match accepted anything containing it, e.g. "xssdp:discovery", so a
+     * malformed search was answered as if it were well formed. */
+    if (header_lookup(req, "MAN", man, sizeof(man)) != 0)
         return;
+    {
+        char *m = man;
+        char *e;
+
+        while (*m == ' ' || *m == '\t') m++;
+        e = m + strlen(m);
+        while (e > m && (e[-1] == ' ' || e[-1] == '\t' || e[-1] == '\r')) e--;
+        *e = '\0';
+        if (m[0] == '"' && e > m + 1 && e[-1] == '"') {
+            m++;
+            e[-1] = '\0';
+        }
+        if (strcasecmp(m, "ssdp:discover") != 0)
+            return;
+    }
     if (header_lookup(req, "ST", st, sizeof(st)) != 0 || !st[0])
         return;
 

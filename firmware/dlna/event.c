@@ -237,6 +237,15 @@ static int queue_event(struct gena *g, struct gena_sub *s,
     if (!inet_ntop(AF_INET, &s->addr.sin_addr, host, sizeof(host)))
         snprintf(host, sizeof(host), "127.0.0.1");
 
+    /* Advance before building the header: SEQ belongs to the event being
+     * queued, and this is the point where the event is identified. UPnP GENA
+     * requires the first event to carry SEQ 1 and the counter to wrap from
+     * 2^32-1 back to 1; 0 is reserved and must never be emitted. */
+    if (s->seq == 0 || s->seq == 0xFFFFFFFFu)
+        s->seq = 1;
+    else
+        s->seq++;
+
     hn = snprintf(hdr, sizeof(hdr),
         "NOTIFY %s HTTP/1.1\r\n"
         "HOST: %s:%u\r\n"
@@ -265,8 +274,6 @@ static int queue_event(struct gena *g, struct gena_sub *s,
     o->stage = 0;
     o->deadline_ms = now + DLNA_GENA_TIMEOUT_MS;
     snprintf(o->sid, sizeof(o->sid), "%s", s->sid);
-
-    s->seq++;
 
     fd = socket(AF_INET, SOCK_STREAM, 0);
     if (fd < 0) {
