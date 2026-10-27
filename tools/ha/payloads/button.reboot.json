@@ -1,0 +1,33 @@
+{
+  "topic": "homeassistant/button/moggie_play5/reboot/config",
+  "qos": 1,
+  "retain": true,
+  "payload": {
+    "name": "Reboot",
+    "unique_id": "moggie_play5_button_reboot",
+    "default_entity_id": "button.moggie_reboot",
+    "icon": "mdi:restart",
+    "availability_topic": "moggie/play5/availability",
+    "payload_available": "online",
+    "payload_not_available": "offline",
+    "device": {
+      "identifiers": [
+        "moggie_play5"
+      ],
+      "name": "Moggie",
+      "manufacturer": "Sonos",
+      "model": "Play:5 (Gen 1)",
+      "sw_version": "0.1.0",
+      "hw_version": "Play:5 Gen 1",
+      "suggested_area": "Living Room"
+    },
+    "origin": {
+      "name": "Moggie",
+      "sw_version": "0.1.0",
+      "support_url": "https://github.com/hermes-gadget/Moggie"
+    },
+    "device_class": "restart",
+    "command_topic": "moggie/play5/reboot",
+    "payload_press": "PRESS"
+  }
+}

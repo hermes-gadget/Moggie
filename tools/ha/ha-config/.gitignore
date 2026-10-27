@@ -1,0 +1,7 @@
+# Everything Home Assistant creates at runtime stays out of the repository.
+# Only the hand-written configuration and the packages directory are tracked.
+*
+!*/
+!.gitignore
+!configuration.yaml
+!packages/**

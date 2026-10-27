@@ -1,0 +1,35 @@
+{
+  "topic": "homeassistant/sensor/moggie_play5/uptime/config",
+  "qos": 1,
+  "retain": true,
+  "payload": {
+    "name": "Uptime",
+    "unique_id": "moggie_play5_sensor_uptime",
+    "default_entity_id": "sensor.moggie_uptime",
+    "entity_category": "diagnostic",
+    "icon": "mdi:clock-outline",
+    "availability_topic": "moggie/play5/availability",
+    "payload_available": "online",
+    "payload_not_available": "offline",
+    "device": {
+      "identifiers": [
+        "moggie_play5"
+      ],
+      "name": "Moggie",
+      "manufacturer": "Sonos",
+      "model": "Play:5 (Gen 1)",
+      "sw_version": "0.1.0",
+      "hw_version": "Play:5 Gen 1",
+      "suggested_area": "Living Room"
+    },
+    "origin": {
+      "name": "Moggie",
+      "sw_version": "0.1.0",
+      "support_url": "https://github.com/hermes-gadget/Moggie"
+    },
+    "state_topic": "moggie/play5/uptime",
+    "device_class": "duration",
+    "unit_of_measurement": "s",
+    "state_class": "total_increasing"
+  }
+}

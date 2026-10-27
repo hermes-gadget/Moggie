@@ -1,0 +1,33 @@
+{
+  "topic": "homeassistant/sensor/moggie_play5/playback_state/config",
+  "qos": 1,
+  "retain": true,
+  "payload": {
+    "name": "Playback state",
+    "unique_id": "moggie_play5_sensor_playback_state",
+    "default_entity_id": "sensor.moggie_playback_state",
+    "entity_category": "diagnostic",
+    "icon": "mdi:play-circle-outline",
+    "availability_topic": "moggie/play5/availability",
+    "payload_available": "online",
+    "payload_not_available": "offline",
+    "device": {
+      "identifiers": [
+        "moggie_play5"
+      ],
+      "name": "Moggie",
+      "manufacturer": "Sonos",
+      "model": "Play:5 (Gen 1)",
+      "sw_version": "0.1.0",
+      "hw_version": "Play:5 Gen 1",
+      "suggested_area": "Living Room"
+    },
+    "origin": {
+      "name": "Moggie",
+      "sw_version": "0.1.0",
+      "support_url": "https://github.com/hermes-gadget/Moggie"
+    },
+    "state_topic": "moggie/play5/player",
+    "value_template": "{{ value_json.state }}"
+  }
+}

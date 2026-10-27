@@ -1,0 +1,157 @@
+{
+  "generator": "tools/ha/gen_discovery.py",
+  "discovery_prefix": "homeassistant",
+  "node_id": "moggie_play5",
+  "device_id": "play5",
+  "base_topic": "moggie",
+  "entity_prefix": "moggie",
+  "firmware_version": "0.1.0",
+  "entity_count": 16,
+  "required_entity_count": 13,
+  "entities": [
+    {
+      "entity_id": "media_player.moggie_play5",
+      "component": "media_player",
+      "object_id": "speaker",
+      "unique_id": "moggie_play5_media_player_speaker",
+      "topic": "homeassistant/media_player/moggie_play5/speaker/config",
+      "file": "media_player.speaker.json",
+      "required": true
+    },
+    {
+      "entity_id": "number.moggie_bass",
+      "component": "number",
+      "object_id": "bass",
+      "unique_id": "moggie_play5_number_bass",
+      "topic": "homeassistant/number/moggie_play5/bass/config",
+      "file": "number.bass.json",
+      "required": true
+    },
+    {
+      "entity_id": "number.moggie_treble",
+      "component": "number",
+      "object_id": "treble",
+      "unique_id": "moggie_play5_number_treble",
+      "topic": "homeassistant/number/moggie_play5/treble/config",
+      "file": "number.treble.json",
+      "required": true
+    },
+    {
+      "entity_id": "number.moggie_balance",
+      "component": "number",
+      "object_id": "balance",
+      "unique_id": "moggie_play5_number_balance",
+      "topic": "homeassistant/number/moggie_play5/balance/config",
+      "file": "number.balance.json",
+      "required": true
+    },
+    {
+      "entity_id": "switch.moggie_loudness",
+      "component": "switch",
+      "object_id": "loudness",
+      "unique_id": "moggie_play5_switch_loudness",
+      "topic": "homeassistant/switch/moggie_play5/loudness/config",
+      "file": "switch.loudness.json",
+      "required": true
+    },
+    {
+      "entity_id": "switch.moggie_led",
+      "component": "switch",
+      "object_id": "led",
+      "unique_id": "moggie_play5_switch_led",
+      "topic": "homeassistant/switch/moggie_play5/led/config",
+      "file": "switch.led.json",
+      "required": true
+    },
+    {
+      "entity_id": "switch.moggie_night_mode",
+      "component": "switch",
+      "object_id": "night_mode",
+      "unique_id": "moggie_play5_switch_night_mode",
+      "topic": "homeassistant/switch/moggie_play5/night_mode/config",
+      "file": "switch.night_mode.json",
+      "required": true
+    },
+    {
+      "entity_id": "sensor.moggie_temperature",
+      "component": "sensor",
+      "object_id": "temperature",
+      "unique_id": "moggie_play5_sensor_temperature",
+      "topic": "homeassistant/sensor/moggie_play5/temperature/config",
+      "file": "sensor.temperature.json",
+      "required": true
+    },
+    {
+      "entity_id": "sensor.moggie_uptime",
+      "component": "sensor",
+      "object_id": "uptime",
+      "unique_id": "moggie_play5_sensor_uptime",
+      "topic": "homeassistant/sensor/moggie_play5/uptime/config",
+      "file": "sensor.uptime.json",
+      "required": true
+    },
+    {
+      "entity_id": "sensor.moggie_buffer",
+      "component": "sensor",
+      "object_id": "buffer",
+      "unique_id": "moggie_play5_sensor_buffer",
+      "topic": "homeassistant/sensor/moggie_play5/buffer/config",
+      "file": "sensor.buffer.json",
+      "required": true
+    },
+    {
+      "entity_id": "button.moggie_identify",
+      "component": "button",
+      "object_id": "identify",
+      "unique_id": "moggie_play5_button_identify",
+      "topic": "homeassistant/button/moggie_play5/identify/config",
+      "file": "button.identify.json",
+      "required": true
+    },
+    {
+      "entity_id": "button.moggie_reboot",
+      "component": "button",
+      "object_id": "reboot",
+      "unique_id": "moggie_play5_button_reboot",
+      "topic": "homeassistant/button/moggie_play5/reboot/config",
+      "file": "button.reboot.json",
+      "required": true
+    },
+    {
+      "entity_id": "update.moggie_firmware",
+      "component": "update",
+      "object_id": "firmware",
+      "unique_id": "moggie_play5_update_firmware",
+      "topic": "homeassistant/update/moggie_play5/firmware/config",
+      "file": "update.firmware.json",
+      "required": true
+    },
+    {
+      "entity_id": "number.moggie_volume",
+      "component": "number",
+      "object_id": "volume",
+      "unique_id": "moggie_play5_number_volume",
+      "topic": "homeassistant/number/moggie_play5/volume/config",
+      "file": "number.volume.json",
+      "required": false
+    },
+    {
+      "entity_id": "select.moggie_source",
+      "component": "select",
+      "object_id": "source",
+      "unique_id": "moggie_play5_select_source",
+      "topic": "homeassistant/select/moggie_play5/source/config",
+      "file": "select.source.json",
+      "required": false
+    },
+    {
+      "entity_id": "sensor.moggie_playback_state",
+      "component": "sensor",
+      "object_id": "playback_state",
+      "unique_id": "moggie_play5_sensor_playback_state",
+      "topic": "homeassistant/sensor/moggie_play5/playback_state/config",
+      "file": "sensor.playback_state.json",
+      "required": false
+    }
+  ]
+}
