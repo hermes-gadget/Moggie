@@ -27,10 +27,11 @@ Status legend: `done` · `in progress` · `blocked on hardware` · `planned`
 - [ ] MQTT state and commands
 - [ ] GPIO: buttons, LED ring, thermal, accelerometer
 
-## Phase 4 — Native endpoints — `planned`
+## Phase 4 — Native endpoints — `in progress`
 - [ ] `shairport-sync` + `nqptp` cross-build
 - [ ] `cspot` cross-build
-- [ ] DLNA renderer
+- [x] DLNA renderer — `firmware/dlna/`, protocol tested (`make dlna-test`);
+      audio still via the stub/mock arbiter backend
 - [ ] Optional `snapclient`
 - [ ] RSS measurement on hardware ← **blocked on hardware**
 

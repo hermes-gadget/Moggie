@@ -116,6 +116,14 @@ Its `name: Moggie Play5` is what produces the entity id `media_player.moggie_pla
 stable across restarts. Pass `--no-media-player-shim` to `gen_discovery.py` if
 you want strictly the thirteen required entities.
 
+The native alternative is UPnP: the same Home Assistant image ships
+`integrations/dlna_dmr`, which autodiscovers a MediaRenderer over SSDP.
+`firmware/dlna/` implements that device (SSDP, description, SCPDs, SOAP, GENA),
+so a control point can create a real `media_player` without the universal-player
+wrapper. It is protocol-tested but has not been run against a live HA instance,
+and its audio output still depends on the sonosd backend. See
+[DLNA.md](DLNA.md).
+
 ## Topics
 
 ```

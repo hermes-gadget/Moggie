@@ -13,8 +13,8 @@ the vendor firmware dump and Sonos's GPL source drop.
 | 1 — Kernel + `audiodev` | **done** | `make kernel` → vmlinux + module, size-gated |
 | 2 — Rootfs | **partial** | minimal rootfs measured at 5.87 MiB; Buildroot not wired up |
 | 3 — `sonosd` | **partial** | real MQTT backend verified against a broker; no audio path yet |
-| 4 — Endpoints | **in progress** | DLNA renderer being built (#13) |
-| 5 — Home Assistant | **partial** | 7 entities verified on a real broker; `media_player` blocked on #13 |
+| 4 — Endpoints | **in progress** | DLNA renderer builds, 296 protocol checks; no audio backend |
+| 5 — Home Assistant | **partial** | 7 entities verified on a real broker; `media_player` needs `dlna_dmr` (#13) |
 | 6 — OTA | **done** | 23/23 negative tests pass |
 | 7 — Hardware | **blocked** | needs UART and the speaker |
 | 8 — Installer | **not started** | depends on a root path |
@@ -35,6 +35,7 @@ boot chooser   17/17 slot-selection checks, under dash and busybox sh
 compat probe   15/15 on the target ABI, static and dynamic
 emulation      6/6; `sonosd --selftest` 108 checks under qemu-ppc
 HA             7 entities published and verified; 16 was the design target
+dlna           296/296 protocol checks; ELF 32-bit MSB PowerPC, 132,668 B stripped
 rootfs         minimal set 6,152,200 B = 5.87 MiB uncompressed
 audio          stock DSP graph mapped; capture tool self-tests 4/4
 ```
@@ -52,11 +53,13 @@ audio          stock DSP graph mapped; capture tool self-tests 4/4
   itself has still never run on a device.
 - **Kernel builds are not byte-reproducible.** No `KBUILD_BUILD_TIMESTAMP`; two
   builds hash differently.
-- **`sonosd` MQTT is now real**, but `mqtt_mosquitto.c` still publishes a
-  `media_player` document HA ignores, and no reconnect/backoff test exists.
+- **`sonosd` MQTT is now real**, but no reconnect/backoff test exists.
 - **The stock DSP graph is mapped but not implemented.** `sonosd` has no biquad
   engine and its volume is linear, while the original is dB with a clamp.
-- **No endpoint daemons exist yet** — no AirPlay, Spotify or DLNA.
+- **The DLNA renderer has no audio backend.** Its SSDP/HTTP/SOAP/GENA protocol
+  is tested end to end, but playback goes through the stub or mock arbiter;
+  `sonosd` does not implement the seam yet.
+- **No AirPlay or Spotify endpoint daemons exist yet.**
 
 ## Findings that changed the design
 

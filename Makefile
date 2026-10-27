@@ -1,4 +1,4 @@
-.PHONY: all check toolchain sources kernel rootfs ota ota-test ha-payloads ha-test ha-rig mqtt-lib mqtt-test emulated-test compat-probe boot-test clean
+.PHONY: all check toolchain sources kernel rootfs ota ota-test ha-payloads ha-test ha-rig dlna dlna-test mqtt-lib mqtt-test emulated-test compat-probe boot-test clean
 
 SHELL := /bin/bash
 OUT   := out
@@ -37,6 +37,13 @@ ha-test:
 ha-rig:
 	@cd tools/ha && docker compose up -d && ./sync-config.sh
 
+# Native UPnP AV MediaRenderer — see docs/DLNA.md
+dlna:
+	@$(MAKE) -C firmware/dlna
+
+dlna-test:
+	@$(MAKE) -C firmware/dlna test
+
 # The MQTT integration test needs a real libmosquitto on the host. There is no
 # system-wide copy on the build box (and no root to install one), so it builds
 # into dl/ instead.
@@ -64,3 +71,4 @@ boot-test:
 clean:
 	rm -rf $(OUT)
 	@$(MAKE) -C firmware/updater clean
+	@$(MAKE) -C firmware/dlna clean

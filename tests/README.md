@@ -2,6 +2,7 @@
 
 - `ota/` — negative tests for the update path. Every case must fail safely.
 - `ha/` — MQTT discovery payload validation. Stdlib only, pytest-compatible.
+<<<<<<< HEAD
 - `mqtt/` — sonosd against a **real** Mosquitto broker (see below).
 - `emulated/` — the PowerPC binaries running under qemu-user (see below).
 - `compat/` — the runtime probe that decides whether a libc works on 2.6.35.
@@ -140,6 +141,13 @@ make mqtt-test
 The multi-key case is a regression test. The command handler used an `else if`
 chain, so `{"mute":true,"loudness":true}` applied mute and silently dropped
 loudness — worse than refusing it.
+=======
+- `dlna/` — live protocol tests for the UPnP AV MediaRenderer. Stdlib only.
+- `../firmware/sonosd/tests/` — sonosd unit tests (arbiter, volume, jsonlite, config).
+
+Run with `make ota-test`, `make ha-test` and `make dlna-test`, and `make test` in
+`firmware/sonosd`.
+>>>>>>> 8472107 (feat(dlna): UPnP AV MediaRenderer with SSDP, SOAP and GENA)
 
 ```sh
 bash tests/ota/run.sh        # or: make ota-test
