@@ -16,7 +16,8 @@ make check
 make toolchain
 ```
 
-Downloads Bootlin's `powerpc-e300c3--glibc--stable-2026.08-1`, verifies its SHA-256
+Uses the crosstool-NG `powerpc-buildroot-linux-gnu` toolchain (glibc 2.23,
+`--enable-kernel=2.6.35`), located through `toolchain.lock`
 against `toolchain.lock`, and extracts it to `toolchain/`.
 
 The hash check is not advisory. If it fails, the build stops.
@@ -79,10 +80,11 @@ The rootfs is built by Buildroot 2026.02.3 from the br2-external tree in
 `buildroot/`, against the pinned Bootlin toolchain. `buildroot.lock` pins the
 Buildroot tarball; `buildroot/MANIFEST.md` lists every package and its licence.
 
-> **Read `buildroot/MANIFEST.md` before flashing.** The pinned toolchain ships
-> glibc 2.44, whose minimum kernel is 3.2.0; the device runs 2.6.35. The image
-> builds and fits the slot, but it is **not hardware-ready** — key syscalls it
-> uses (direct socket calls, `prlimit64`) do not exist in 2.6.35.
+> **The image is built for the device's kernel, but has never run on it.** The
+> toolchain's libc declares `Linux, ABI: 2.6.35`, every ELF in the image carries
+> the same tag, and a scan for `li r0,<nr>; sc` pairs finds **no** syscall above
+> the 2.6.35 PowerPC table. That removes the known incompatibility; it is not
+> the same as a boot. See `buildroot/MANIFEST.md`.
 
 ## 6. Verify
 
