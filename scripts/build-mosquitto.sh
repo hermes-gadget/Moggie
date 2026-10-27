@@ -45,7 +45,19 @@ make -C "$SRC/lib" clean >/dev/null 2>&1 || true
 if [ "$TARGET" = ppc ]; then
     # shellcheck disable=SC1091
     source ./toolchain.lock
-    export PATH="$PWD/toolchain/$TOOLCHAIN_DIR/bin:$PATH"
+    # Use the same toolchain the image is built with. TOOLCHAIN_DIR is the
+    # Bootlin fallback, and a libmosquitto built with it carries glibc 2.34
+    # symbols that will not link against the 2.6.35 libc (pthread_join@GLIBC_2.34
+    # and friends). Cached output in dl/mosq-ppc outlives a toolchain switch, so
+    # this must follow toolchain.lock's 2.6.35 entry.
+    if [ -d "${TOOLCHAIN26_PATH:-/nonexistent}/bin" ]; then
+        TC_BIN="$TOOLCHAIN26_PATH/bin"
+    else
+        TC_BIN="$PWD/toolchain/$TOOLCHAIN_DIR/bin"
+        echo "WARNING: 2.6.35 toolchain not found; building libmosquitto with the" >&2
+        echo "         Bootlin fallback. It will not link against the shipped libc." >&2
+    fi
+    export PATH="$TC_BIN:$PATH"
     # The mosquitto Makefile derives CC by prefixing CROSS_COMPILE, so setting
     # CROSS_COMPILE and CC both results in "<prefix>-<prefix>-gcc" and fails.
     BUILD_ENV=(env CROSS_COMPILE=powerpc-buildroot-linux-gnu-)

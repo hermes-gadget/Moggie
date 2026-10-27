@@ -27,8 +27,20 @@ source "$REPO/toolchain.lock"
 DL="${MOGGIE_DL:-$HOME/Moggie/dl}"
 [ -d "$REPO/dl" ] && DL="$REPO/dl"
 
-TOOLROOT="${TOOLCHAIN_ROOT:-$REPO/toolchain/$TOOLCHAIN_DIR}"
-[ -d "$TOOLROOT" ] || TOOLROOT="$HOME/Moggie/toolchain/$TOOLCHAIN_DIR"
+# Probe the toolchain the image is actually built with. toolchain.lock pins the
+# 2.6.35 toolchain (TOOLCHAIN26_PATH); TOOLCHAIN_DIR is the Bootlin fallback,
+# which produces a rootfs that cannot run on 2.6.35. Resolving TOOLCHAIN_DIR
+# here is how these probes once reported green against the wrong toolchain.
+if [ -d "${TOOLCHAIN26_PATH:-/nonexistent}" ] || [ -n "${MOGGIE_TOOLCHAIN26:-}" ]; then
+    TOOLROOT="${TOOLCHAIN_ROOT:-$TOOLCHAIN26_PATH}"
+    TOOLCHAIN_KIND="2.6.35"
+else
+    TOOLROOT="${TOOLCHAIN_ROOT:-$REPO/toolchain/$TOOLCHAIN_DIR}"
+    [ -d "$TOOLROOT" ] || TOOLROOT="$HOME/Moggie/toolchain/$TOOLCHAIN_DIR"
+    TOOLCHAIN_KIND="Bootlin fallback"
+    echo "WARNING: the 2.6.35 toolchain was not found; probing the Bootlin fallback." >&2
+    echo "         These results do NOT describe the shipped image." >&2
+fi
 
 SYSROOT="$TOOLROOT/powerpc-buildroot-linux-gnu/sysroot"
 QEMU="$DL/qemu-ppc-static"
