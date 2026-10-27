@@ -174,6 +174,134 @@ int mqtt_publish_ha_media_player(const char *object_id, const char *name)
     return g_be->publish(topic, json, 1);
 }
 
+static int publish_entity(const char *component, const char *object_id,
+                          const char *json)
+{
+    char topic[MQTT_TOPIC_MAX];
+    int n;
+
+    n = snprintf(topic, sizeof(topic), "homeassistant/%s/%s/config",
+                 component, object_id);
+    if (n < 0 || (size_t)n >= sizeof(topic)) {
+        log_error("discovery topic truncated for '%s'", object_id);
+        return -1;
+    }
+    log_info("mqtt: publishing discovery to %s", topic);
+    return g_be->publish(topic, json, 1);
+}
+
+int mqtt_publish_ha_entities(const char *object_id, const char *name)
+{
+    char clean_id[48];
+    char clean_name[48];
+    char uid[64];
+    char dev[192];
+    char json[MQTT_PAYLOAD_MAX];
+    char ent[MQTT_TOPIC_MAX];
+    int rc = 0;
+    size_t i;
+
+    static const struct {
+        const char *key;
+        const char *label;
+        int min;
+        int max;
+    } numbers[] = {
+        { "volume",  "Volume",   0,  100 },
+        { "bass",    "Bass",   -10,   10 },
+        { "treble",  "Treble", -10,   10 },
+        { "balance", "Balance",-10,   10 }
+    };
+
+    static const struct {
+        const char *key;
+        const char *label;
+    } switches[] = {
+        { "loudness",   "Loudness"   },
+        { "night_mode", "Night mode" }
+    };
+
+    if (!g_be || !g_started || !object_id || !*object_id)
+        return -1;
+
+    sanitize(clean_id, sizeof(clean_id), object_id);
+    sanitize(clean_name, sizeof(clean_name), name ? name : object_id);
+    snprintf(uid, sizeof(uid), "moggie_%s", clean_id);
+    snprintf(dev, sizeof(dev),
+             "\"device\":{\"identifiers\":[\"%s\"],\"name\":\"%s\","
+             "\"manufacturer\":\"Sonos\",\"model\":\"Play:5 Gen 1\","
+             "\"sw_version\":\"moggie\"}",
+             uid, clean_name);
+
+    /* HA sends the bare value to command_topic, so the template wraps it into
+     * the JSON the daemon already parses. That keeps one inbound parser
+     * instead of one per entity. */
+    for (i = 0; i < sizeof(numbers) / sizeof(numbers[0]); i++) {
+        snprintf(ent, sizeof(ent), "%s_%s", uid, numbers[i].key);
+        snprintf(json, sizeof(json),
+                 "{\"name\":\"%s\",\"unique_id\":\"%s\","
+                 "\"command_topic\":\"%s\","
+                 "\"command_template\":\"{\\\"%s\\\": {{ value }}}\","
+                 "\"state_topic\":\"%s\","
+                 "\"value_template\":\"{{ value_json.%s }}\","
+                 "\"min\":%d,\"max\":%d,\"step\":1,%s}",
+                 numbers[i].label, ent, g_cmd_topic, numbers[i].key,
+                 g_state_topic, numbers[i].key,
+                 numbers[i].min, numbers[i].max, dev);
+
+        if (publish_entity("number", ent, json) != 0)
+            rc = -1;
+    }
+
+    for (i = 0; i < sizeof(switches) / sizeof(switches[0]); i++) {
+        snprintf(ent, sizeof(ent), "%s_%s", uid, switches[i].key);
+        snprintf(json, sizeof(json),
+                 "{\"name\":\"%s\",\"unique_id\":\"%s\","
+                 "\"command_topic\":\"%s\","
+                 "\"command_template\":\"{\\\"%s\\\": \\\"{{ value }}\\\"}\","
+                 "\"state_topic\":\"%s\","
+                 "\"value_template\":\"{{ 'ON' if value_json.%s else 'OFF' }}\","
+                 "\"payload_on\":\"ON\",\"payload_off\":\"OFF\","
+                 "\"state_on\":\"ON\",\"state_off\":\"OFF\",%s}",
+                 switches[i].label, ent, g_cmd_topic, switches[i].key,
+                 g_state_topic, switches[i].key, dev);
+
+        if (publish_entity("switch", ent, json) != 0)
+            rc = -1;
+    }
+
+    snprintf(ent, sizeof(ent), "%s_uptime", uid);
+    snprintf(json, sizeof(json),
+             "{\"name\":\"Uptime\",\"unique_id\":\"%s\","
+             "\"state_topic\":\"%s/uptime\","
+             "\"unit_of_measurement\":\"s\",\"device_class\":\"duration\","
+             "\"state_class\":\"total_increasing\","
+             "\"entity_category\":\"diagnostic\",%s}",
+             ent, g_cfg.base_topic, dev);
+
+    if (publish_entity("sensor", ent, json) != 0)
+        rc = -1;
+
+    return rc;
+}
+
+int mqtt_publish_uptime(unsigned long seconds)
+{
+    char topic[MQTT_TOPIC_MAX];
+    char buf[24];
+    int n;
+
+    if (!g_be || !g_started)
+        return -1;
+
+    n = snprintf(topic, sizeof(topic), "%s/uptime", g_cfg.base_topic);
+    if (n < 0 || (size_t)n >= sizeof(topic))
+        return -1;
+
+    snprintf(buf, sizeof(buf), "%lu", seconds);
+    return g_be->publish(topic, buf, 1);
+}
+
 /* ---- mock helpers ----------------------------------------------------- */
 
 int mqtt_mock_inject(const char *payload)

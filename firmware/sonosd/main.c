@@ -218,6 +218,15 @@ static void handle_command(const char *topic, const char *payload, void *user)
 
 /* Bring the broker connection up and publish the retained baseline: online,
  * discovery, state. Returns 1 on success. */
+static time_t g_started_at;
+
+static unsigned long uptime_seconds(void)
+{
+    if (g_started_at == 0)
+        g_started_at = time(NULL);
+    return (unsigned long)(time(NULL) - g_started_at);
+}
+
 static int mqtt_bring_up(const struct config *cfg)
 {
     if (mqtt_start() != 0)
@@ -225,6 +234,8 @@ static int mqtt_bring_up(const struct config *cfg)
 
     (void)mqtt_publish_availability(1);
     (void)mqtt_publish_ha_media_player(cfg->device_id, cfg->device_name);
+    (void)mqtt_publish_ha_entities(cfg->device_id, cfg->device_name);
+    (void)mqtt_publish_uptime(uptime_seconds());
     publish_state();
     return 1;
 }
@@ -389,6 +400,7 @@ int main(int argc, char **argv)
             last_publish = time(NULL);
         } else if (time(NULL) - last_publish >= STATE_HEARTBEAT) {
             publish_state();
+            (void)mqtt_publish_uptime(uptime_seconds());
             last_publish = time(NULL);
         }
     }
