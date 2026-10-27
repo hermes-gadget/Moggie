@@ -20,11 +20,11 @@
 # MTD: char major 90, block major 31.
 # mtd0 u-boot | mtd1 jffs2 | mtd2 ramdisk | mtd3 rootfs A/B | mtd4 kernel | mtd5 dtb
 /dev/mtd0	c	600	0	0	90	0	-	-	-
-/dev/mtd1	c	600	0	0	90	1	-	-	-
-/dev/mtd2	c	600	0	0	90	2	-	-	-
-/dev/mtd3	c	600	0	0	90	3	-	-	-
-/dev/mtd4	c	600	0	0	90	4	-	-	-
-/dev/mtd5	c	600	0	0	90	5	-	-	-
+/dev/mtd1	c	600	0	0	90	2	-	-	-
+/dev/mtd2	c	600	0	0	90	4	-	-	-
+/dev/mtd3	c	600	0	0	90	6	-	-	-
+/dev/mtd4	c	600	0	0	90	8	-	-	-
+/dev/mtd5	c	600	0	0	90	10	-	-	-
 /dev/mtdblock0	b	600	0	0	31	0	-	-	-
 /dev/mtdblock1	b	600	0	0	31	1	-	-	-
 /dev/mtdblock2	b	600	0	0	31	2	-	-	-

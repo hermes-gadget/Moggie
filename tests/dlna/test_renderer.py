@@ -1247,6 +1247,22 @@ def test_gena_rcs(suite, renderer, callback):
 
     event = callback.wait(lambda e: e["headers"].get("sid") == sid, timeout=3)
     suite.check(event is not None, "initial RCS NOTIFY arrives")
+
+    # The evented VolumeDB must agree with what GetVolumeDB returns. These are
+    # two independent code paths (event.c builds the LastChange, soap.c answers
+    # the action) and they disagreed: event.c applied the 1/256 scaling twice,
+    # so volume 30 evented -1,835,008 while SOAP returned -7,168.
+    if event:
+        ev = lastchange_values(event["body"])
+        soap = renderer.soap("RenderingControl", "GetVolumeDB",
+                             arg("InstanceID", 0) + arg("Channel", "Master"))
+        soap_db = int(renderer.value(soap, "CurrentVolume"))
+        suite.check("VolumeDB" in ev,
+                    "LastChange carries VolumeDB",
+                    "keys: %s" % sorted(ev))
+        if "VolumeDB" in ev:
+            suite.eq("evented VolumeDB matches GetVolumeDB",
+                     int(ev["VolumeDB"]), soap_db)
     if event:
         values = lastchange_values(event["body"])
         suite.eq("initial Volume", values.get("Volume"), "30")

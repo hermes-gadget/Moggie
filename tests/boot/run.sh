@@ -218,6 +218,28 @@ for sh_bin in dash "busybox sh"; do
     fi
 done
 
+# --- static device table ----------------------------------------------------
+# Linux maps MTD character devices as (minor >> 1) = device, (minor & 1) =
+# read-only alias. A table that numbers mtd0..mtd5 as minors 0..5 therefore
+# points /dev/mtd3 at read-only mtd1 and /dev/mtd4 at mtd2 -- and the updater
+# writes "mtd4" and "mtd3" by name. On a device whose mtd2 is the ramdisk that
+# is not a failed update, it is a different partition being written.
+TABLE="$REPO/buildroot/board/moggie/device_table_dev.txt"
+if [ -f "$TABLE" ]; then
+    bad_minors=""
+    for n in 0 1 2 3 4 5; do
+        minor=$(awk -F'\t' -v dev="/dev/mtd$n" '$1==dev && $2=="c" {print $7}' "$TABLE")
+        [ "$minor" = "$((n * 2))" ] || bad_minors="$bad_minors mtd$n=$minor(want $((n * 2)))"
+    done
+    if [ -z "$bad_minors" ]; then
+        pass=$((pass + 1)); echo "ok    MTD char minors follow minor = 2 * device"
+    else
+        fail=$((fail + 1)); echo "FAIL  MTD char minors follow minor = 2 * device:$bad_minors"
+    fi
+else
+    echo "skip  device table not found"
+fi
+
 echo
 rm -rf "$T" 2>/dev/null
 if [ "$fail" -eq 0 ]; then
