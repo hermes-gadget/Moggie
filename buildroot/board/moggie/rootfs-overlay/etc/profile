@@ -1,0 +1,4 @@
+# /etc/profile -- Moggie
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+export PATH
+umask 022

@@ -1,0 +1,19 @@
+
+  Moggie -- open firmware for the Sonos Play:5 Gen 1
+  =================================================
+
+  Console access is a root shell with no password prompt. That is
+  deliberate: the UART is inside the case, and root's password in
+  /etc/shadow is locked, so no password can authenticate anything.
+
+  SSH is off unless you provision, on the jffs2 partition (mtd1):
+
+      /jffs/ssh/enable           (any content)
+      /jffs/ssh/host_key         dropbear host key
+      /jffs/ssh/authorized_keys  your public key(s)
+
+  Dropbear then runs with password authentication disabled.
+
+  Settings live in /jffs/sonosd.conf (symlinked from /etc/sonosd.conf).
+  Logs: /var/log/sonosd.log (tmpfs, lost on reboot).
+

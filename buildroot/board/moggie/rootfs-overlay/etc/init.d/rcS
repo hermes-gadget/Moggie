@@ -1,0 +1,112 @@
+#!/bin/sh
+#
+# Moggie first-stage init -- runs as PID 1's sysinit from /etc/inittab.
+#
+# POSIX sh, busybox ash compatible. Must work with:
+#   * no network
+#   * a read-only squashfs root
+#   * a 2.6.35 kernel with no CONFIG_DEVTMPFS and no CONFIG_SQUASHFS_XATTRS
+#
+# sonosd itself is respawned by init (see /etc/inittab), not started here.
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+export PATH
+
+log() { echo "moggie: $*"; }
+
+# --- pseudo filesystems ---------------------------------------------------
+mount -t proc  proc  /proc 2>/dev/null || log "proc: mount failed"
+mount -t sysfs sysfs /sys  2>/dev/null || log "sysfs: mount failed"
+
+for d in /tmp /run /var/log; do
+    [ -d "$d" ] || mkdir -p "$d" 2>/dev/null
+done
+mount -t tmpfs -o mode=1777,nosuid,nodev tmpfs /tmp     2>/dev/null || log "tmpfs /tmp: mount failed"
+mount -t tmpfs -o mode=0755,nosuid,nodev tmpfs /run     2>/dev/null || log "tmpfs /run: mount failed"
+mount -t tmpfs -o mode=0755,nosuid,nodev tmpfs /var/log 2>/dev/null || log "tmpfs /var/log: mount failed"
+
+# --- /dev -----------------------------------------------------------------
+# The shipped 2.6.35 kernel was built without CONFIG_DEVTMPFS, so the image
+# carries static nodes and this script layers tmpfs + mdev on top. If a
+# future kernel does provide devtmpfs, use it instead.
+if grep -qw devtmpfs /proc/filesystems 2>/dev/null; then
+    mount -t devtmpfs devtmpfs /dev 2>/dev/null && log "/dev: devtmpfs"
+else
+    mount -t tmpfs -o mode=0755,nosuid tmpfs /dev 2>/dev/null && log "/dev: tmpfs + mdev"
+fi
+
+# Minimum nodes mdev needs before it can run; also the fallback if the tmpfs
+# mount above failed and we are still looking at the read-only image /dev.
+[ -c /dev/console ] || mknod -m 600 /dev/console c 5 1 2>/dev/null
+[ -c /dev/null ]    || mknod -m 666 /dev/null    c 1 3 2>/dev/null
+[ -c /dev/zero ]    || mknod -m 666 /dev/zero    c 1 5 2>/dev/null
+
+if [ -x /sbin/mdev ]; then
+    mdev -s 2>/dev/null || log "mdev: scan failed"
+fi
+
+# --- identity -------------------------------------------------------------
+if [ -r /etc/hostname ]; then
+    read -r HN < /etc/hostname 2>/dev/null
+    [ -n "$HN" ] && hostname "$HN" 2>/dev/null
+fi
+
+# --- persistent state -----------------------------------------------------
+# docs/ARCHITECTURE.md: mtd0 u-boot, mtd1 jffs2 (7 MB), mtd2 ramdisk,
+# mtd3 rootfs A/B, mtd4 kernel, mtd5 dtb. A missing or unformatted jffs2
+# must not stop the boot.
+mkdir -p /jffs 2>/dev/null
+if [ -b /dev/mtdblock1 ]; then
+    if ! mount -t jffs2 /dev/mtdblock1 /jffs 2>/dev/null; then
+        log "/jffs: not mounted (unformatted or no jffs2 support)"
+    fi
+else
+    log "/jffs: /dev/mtdblock1 absent"
+fi
+
+# --- network (best effort) ------------------------------------------------
+if [ -d /sys/class/net/lo ]; then
+    ip link set lo up 2>/dev/null || ifconfig lo up 2>/dev/null
+fi
+
+if [ -d /sys/class/net/eth0 ]; then
+    ip link set eth0 up 2>/dev/null || ifconfig eth0 up 2>/dev/null
+    (
+        if command -v udhcpc >/dev/null 2>&1; then
+            udhcpc -i eth0 -n -q -t 4 -T 3 \
+                   -s /usr/share/udhcpc/default.script >/dev/null 2>&1
+        fi
+        if ! ip addr show dev eth0 2>/dev/null | grep -q 'inet '; then
+            # No DHCP server on the wire. 169.254/16 is deliberate: a
+            # hard-coded 192.168.x address could collide with the LAN.
+            if ip addr add 169.254.10.1/16 dev eth0 2>/dev/null; then
+                log "eth0: no DHCP lease, link-local 169.254.10.1/16"
+            else
+                log "eth0: no DHCP lease and no static fallback"
+            fi
+        else
+            log "eth0: DHCP lease acquired"
+        fi
+    ) &
+fi
+
+# --- ssh (opt-in, key-only) -----------------------------------------------
+# dropbear is installed but silent by default. To enable it, put on the
+# jffs2 partition:  /jffs/ssh/enable  /jffs/ssh/host_key  /jffs/ssh/authorized_keys
+# Password authentication is disabled unconditionally (-s).
+if [ -r /jffs/ssh/enable ] && [ -r /jffs/ssh/host_key ] \
+   && [ -r /jffs/ssh/authorized_keys ]; then
+    mkdir -p /root/.ssh 2>/dev/null
+    cp /jffs/ssh/authorized_keys /root/.ssh/authorized_keys 2>/dev/null
+    chmod 700 /root/.ssh 2>/dev/null
+    chmod 600 /root/.ssh/authorized_keys 2>/dev/null
+    if /usr/sbin/dropbear -s -p 22 -r /jffs/ssh/host_key 2>/dev/null; then
+        log "sshd: listening on :22 (key only)"
+    else
+        log "sshd: failed to start"
+    fi
+else
+    log "sshd: disabled (provision /jffs/ssh/{enable,host_key,authorized_keys})"
+fi
+
+log "boot complete"

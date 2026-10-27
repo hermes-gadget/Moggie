@@ -1,0 +1,13 @@
+# /etc/fstab -- Moggie
+#
+# Most of this is mounted explicitly by rcS; the file exists so `mount -a`
+# and `mount` output agree with reality. /jffs is mtd1 (see the flash map in
+# docs/ARCHITECTURE.md) and is only mounted if it is present and formatted.
+
+proc		/proc		proc		defaults		0 0
+sysfs		/sys		sysfs		defaults		0 0
+tmpfs		/dev		tmpfs		mode=0755,nosuid	0 0
+tmpfs		/tmp		tmpfs		mode=1777,nosuid	0 0
+tmpfs		/run		tmpfs		mode=0755,nosuid	0 0
+tmpfs		/var/log	tmpfs		mode=0755,nosuid	0 0
+/dev/mtdblock1	/jffs		jffs2		rw,noatime		0 0

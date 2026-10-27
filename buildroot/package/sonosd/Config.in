@@ -1,0 +1,8 @@
+config BR2_PACKAGE_SONOSD
+	bool "sonosd"
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	help
+	  Moggie's audio daemon: owns /dev/dsp and /dev/audioctl, arbitrates
+	  between audio sources and speaks MQTT.
+
+	  Built from the in-tree source at firmware/sonosd.
