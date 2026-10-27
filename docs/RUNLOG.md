@@ -47,6 +47,12 @@ _2026-10-27, hardware-free autonomous run. Newest entries first._
 4. **A 3.5 MB tool database in the repo.** A `git add -A` swept `.tokensave/`
    into a commit. Untracked and ignored.
 5. **Buildroot agent's toolchain prefix typo** (`${PREFIX}gcc`), self-corrected.
+6. **A healthy speaker would have rolled itself back.** The initramfs chooser
+   charges a boot attempt before `switch_root` and only clears it when userspace
+   writes `/jffs/boot_ok`. `sonosd` never wrote it, so every boot counted as a
+   failure and the third boot would have fallen back to the other slot — then
+   ping-ponged forever. Fixed with a `bootstate` module; verified on the host and
+   cross-compiled under qemu.
 
 ## Toolchain
 
