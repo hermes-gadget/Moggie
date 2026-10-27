@@ -1,6 +1,14 @@
 # Toolchain compatibility
 
-**This is the biggest open risk in the project.** Everything in `firmware/` is built
+> **Resolved — see [TOOLCHAIN-2.6.35.md](TOOLCHAIN-2.6.35.md).** A crosstool-NG
+> toolchain with glibc 2.23 and `--enable-kernel=2.6.35` has been built and
+> verified: its libc carries `OS: Linux, ABI: 2.6.35`, and `sonosd` built with it
+> passes its selftest under qemu. The rootfs has **not** been rebuilt with it
+> yet. The document below records the problem and the measured exposure; it is
+> kept because the reasoning still applies to anything built with the old
+> Bootlin toolchain.
+
+**This was the biggest open risk in the project.** Everything in `firmware/` is built
 with a toolchain whose C library requires a newer kernel than the speaker runs.
 
 ## The numbers
