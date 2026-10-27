@@ -1,0 +1,55 @@
+# BusyBox applets Moggie needs on top of Buildroot's default busybox.config.
+# The default is already generous; this fragment makes the firmware's
+# requirements explicit so a future Buildroot bump cannot silently drop them.
+
+# shell (the boot chooser runs under ash too)
+CONFIG_ASH=y
+CONFIG_ASH_JOB_CONTROL=y
+
+# block devices / modules / hotplug
+CONFIG_MOUNT=y
+CONFIG_UMOUNT=y
+CONFIG_INSMOD=y
+CONFIG_LSMOD=y
+CONFIG_MDEV=y
+CONFIG_FEATURE_MDEV_CONF=y
+CONFIG_FEATURE_MDEV_RENAME=y
+CONFIG_FEATURE_MDEV_EXEC=y
+
+# networking
+CONFIG_IP=y
+CONFIG_FEATURE_IP_ADDRESS=y
+CONFIG_FEATURE_IP_LINK=y
+CONFIG_FEATURE_IP_ROUTE=y
+CONFIG_IFCONFIG=y
+CONFIG_ROUTE=y
+CONFIG_UDHCPC=y
+CONFIG_WGET=y
+CONFIG_NC=y
+
+# misc the init scripts use
+CONFIG_DD=y
+CONFIG_SLEEP=y
+CONFIG_HOSTNAME=y
+CONFIG_GREP=y
+CONFIG_CAT=y
+CONFIG_CHMOD=y
+CONFIG_MKDIR=y
+CONFIG_MKNOD=y
+CONFIG_SYNC=y
+CONFIG_UMOUNT=y
+CONFIG_GETTY=y
+CONFIG_LOGIN=y
+CONFIG_PS=y
+CONFIG_KILL=y
+CONFIG_FREE=y
+CONFIG_DMESG=y
+
+# busybox in this image runs as root only; a setuid-root busybox would let
+# any future unprivileged account escalate with `busybox sh`.
+# CONFIG_FEATURE_SUID is not set
+
+# mtd in busybox: mtd-utils ships the authoritative tools, but flash_eraseall
+# is the name the existing OTA notes use, so keep it available.
+CONFIG_FLASH_ERASEALL=y
+CONFIG_FLASHCP=y

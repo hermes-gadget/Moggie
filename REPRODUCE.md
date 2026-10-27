@@ -71,8 +71,18 @@ audiodev.ko     120,720 B
 make rootfs
 ```
 
-Produces `out/rootfs.squashfs`. Must be ≤ 7,864,320 bytes (7.5 MiB) — that's half of
+Produces `out/rootfs.squashfs` (and `out/rootfs.nand.img`, padded to the
+128 KiB NAND eraseblock). Must be ≤ 7,864,320 bytes (7.5 MiB) — that's half of
 the 16 MB rootfs partition, and the whole A/B scheme depends on it.
+
+The rootfs is built by Buildroot 2026.02.3 from the br2-external tree in
+`buildroot/`, against the pinned Bootlin toolchain. `buildroot.lock` pins the
+Buildroot tarball; `buildroot/MANIFEST.md` lists every package and its licence.
+
+> **Read `buildroot/MANIFEST.md` before flashing.** The pinned toolchain ships
+> glibc 2.44, whose minimum kernel is 3.2.0; the device runs 2.6.35. The image
+> builds and fits the slot, but it is **not hardware-ready** — key syscalls it
+> uses (direct socket calls, `prlimit64`) do not exist in 2.6.35.
 
 ## 6. Verify
 

@@ -5,6 +5,7 @@
 TOOLCHAIN_URL=https://toolchains.bootlin.com/downloads/releases/toolchains/powerpc-e300c3/tarballs/powerpc-e300c3--glibc--stable-2026.08-1.tar.xz
 TOOLCHAIN_SHA256=623c15594a4be26c63a2090a0b3ce9efcf15809c9b9a8bfb95773240c70d8403
 TOOLCHAIN_DIR=powerpc-e300c3--glibc--stable-2026.08-1
+TOOLCHAIN_PREFIX=powerpc-buildroot-linux-gnu
 
 # Sonos GPL drop (version 14.4 hosts the 2.6.35 sources we need)
 GPL_BASE=https://www.sonos.com/documents/gpl/14.4

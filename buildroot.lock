@@ -1,0 +1,42 @@
+# Pinned Buildroot release.
+#
+# Same rule as toolchain.lock: the hash is verified before the build starts,
+# and a mismatch stops the build rather than producing an image from a
+# different tree.
+
+BUILDROOT_VERSION=2026.02.3
+BUILDROOT_TARBALL=buildroot-2026.02.3.tar.xz
+BUILDROOT_URL=https://buildroot.org/downloads/buildroot-2026.02.3.tar.xz
+BUILDROOT_SHA256=5a59e7501b0b4ec52c41f4bfa79412320e0b37eae5f719605a258e8d0c6fc7fb
+
+# Fixed timestamp for SOURCE_DATE_EPOCH. 2023-11-14T22:13:20Z, i.e. a round
+# number, not a real build time. It is baked into every inode mtime through
+# mksquashfs's -all-time (see the defconfig) so two builds hash identically.
+SOURCE_DATE_EPOCH=1700000000
+
+# Target fact, repeated here because the rootfs build enforces it.
+ROOTFS_SLOT_BYTES=8388608        # 8 MiB per A/B slot
+ROOTFS_MAX_BYTES=7864320         # hard cap: half of the 16 MiB mtd3
+NAND_ERASEBLOCK=131072           # 128 KiB
+
+# Known incompatibility, deliberately not papered over
+# ----------------------------------------------------
+# The pinned toolchain is glibc 2.44 (Bootlin 2026.08-1). Its own libc
+# carries a .note.ABI-tag of "Linux, ABI: 3.2.0": glibc 2.34+ dropped
+# support for kernels older than 3.2. The target kernel is 2.6.35.
+#
+# The toolchain's kernel headers are 5.10, and Buildroot's external-toolchain
+# check is strict, so BR2_TOOLCHAIN_EXTERNAL_HEADERS_5_10 is the only value
+# that lets the build run. Consequences:
+#   * the rootfs is built against a 5.10 kernel API despite a 2.6.35 kernel;
+#   * binaries may call syscalls added after 2.6.35 (prlimit64 is 2.6.36 --
+#     one release later -- and glibc assumes it exists);
+#   * whether the image actually boots on the speaker is UNVERIFIED. It
+#     cannot be verified without the hardware, and qemu-user cannot model a
+#     2.6.35 kernel.
+# The only real fixes are a different C library (uClibc-ng/musl toolchain for
+# e300c3) or a much older glibc toolchain, both of which contradict the
+# pinned-toolchain requirement. Recorded here so nobody discovers it on the
+# bench and thinks the rootfs is at fault.
+GLIBC_MIN_KERNEL=3.2.0
+TARGET_KERNEL=2.6.35

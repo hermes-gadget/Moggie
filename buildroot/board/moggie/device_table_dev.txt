@@ -1,0 +1,37 @@
+# Moggie static /dev -- used because the 2.6.35 kernel has no CONFIG_DEVTMPFS.
+#
+# <name>	<type>	<mode>	<uid>	<gid>	<major>	<minor>	<start>	<inc>	<count>
+#
+# Modes are deliberately stricter than a desktop /dev: /dev/null etc. are
+# 0600 here because these nodes live on a read-only squashfs and every
+# process on the speaker runs as root. At boot rcS mounts a tmpfs over /dev
+# and mdev recreates the normal modes there.
+
+/dev/console	c	600	0	0	5	1	-	-	-
+/dev/null	c	600	0	0	1	3	-	-	-
+/dev/zero	c	600	0	0	1	5	-	-	-
+/dev/tty	c	600	0	0	5	0	-	-	-
+/dev/ptmx	c	600	0	0	5	2	-	-	-
+/dev/random	c	644	0	0	1	8	-	-	-
+/dev/urandom	c	644	0	0	1	9	-	-	-
+/dev/ttyS0	c	600	0	5	4	64	-	-	-
+/dev/ttyS1	c	600	0	5	4	65	-	-	-
+
+# MTD: char major 90, block major 31.
+# mtd0 u-boot | mtd1 jffs2 | mtd2 ramdisk | mtd3 rootfs A/B | mtd4 kernel | mtd5 dtb
+/dev/mtd0	c	600	0	0	90	0	-	-	-
+/dev/mtd1	c	600	0	0	90	1	-	-	-
+/dev/mtd2	c	600	0	0	90	2	-	-	-
+/dev/mtd3	c	600	0	0	90	3	-	-	-
+/dev/mtd4	c	600	0	0	90	4	-	-	-
+/dev/mtd5	c	600	0	0	90	5	-	-	-
+/dev/mtdblock0	b	600	0	0	31	0	-	-	-
+/dev/mtdblock1	b	600	0	0	31	1	-	-	-
+/dev/mtdblock2	b	600	0	0	31	2	-	-	-
+/dev/mtdblock3	b	600	0	0	31	3	-	-	-
+/dev/mtdblock4	b	600	0	0	31	4	-	-	-
+/dev/mtdblock5	b	600	0	0	31	5	-	-	-
+
+# Sonos audiodev (GPL driver): major numbers from audioctl_abi.h.
+/dev/dsp	c	660	0	18	250	0	-	-	-
+/dev/audioctl	c	660	0	18	252	0	-	-	-

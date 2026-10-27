@@ -1,0 +1,25 @@
+# Moggie permissions table (applied by makedevs under fakeroot).
+#
+# <name>	<type>	<mode>	<uid>	<gid>	<major>	<minor>	<start>	<inc>	<count>
+
+/		d	755	0	0	-	-	-	-	-
+/dev		d	755	0	0	-	-	-	-	-
+/tmp		d	755	0	0	-	-	-	-	-
+/run		d	755	0	0	-	-	-	-	-
+/root		d	700	0	0	-	-	-	-	-
+/jffs		d	755	0	0	-	-	-	-	-
+/var/log	d	755	0	0	-	-	-	-	-
+/etc		d	755	0	0	-	-	-	-	-
+
+/etc/shadow	f	600	0	0	-	-	-	-	-
+/etc/passwd	f	644	0	0	-	-	-	-	-
+/etc/group	f	644	0	0	-	-	-	-	-
+/etc/inittab	f	644	0	0	-	-	-	-	-
+/etc/init.d/rcS	f	755	0	0	-	-	-	-	-
+/etc/fstab	f	644	0	0	-	-	-	-	-
+
+# Buildroot's busybox package adds its own permissions entry (4755) and
+# makedevs applies package tables before this one, so this overrides it.
+# Nothing here runs as a non-root user; a setuid-root busybox is only an
+# escalation path.
+/bin/busybox	f	755	0	0	-	-	-	-	-

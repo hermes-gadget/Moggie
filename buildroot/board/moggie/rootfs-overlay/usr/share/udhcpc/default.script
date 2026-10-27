@@ -1,0 +1,26 @@
+#!/bin/sh
+# udhcpc hook -- Moggie
+#
+# Deliberately tiny and busybox-only: no resolvconf, no /etc/network scripts.
+# /etc/resolv.conf is a symlink to /run/resolv.conf because the rootfs is a
+# read-only squashfs.
+
+case "$1" in
+    deconfig)
+        ifconfig "$interface" 0.0.0.0 2>/dev/null
+        ;;
+    bound|renew)
+        ifconfig "$interface" "$ip" netmask "$subnet" 2>/dev/null
+        if [ -n "$router" ]; then
+            for r in $router; do
+                route add default gw "$r" dev "$interface" 2>/dev/null
+            done
+        fi
+        : > /run/resolv.conf 2>/dev/null
+        for d in $dns; do
+            echo "nameserver $d" >> /run/resolv.conf 2>/dev/null
+        done
+        ;;
+esac
+
+exit 0
