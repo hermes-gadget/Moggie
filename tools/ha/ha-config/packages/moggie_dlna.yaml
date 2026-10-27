@@ -1,0 +1,16 @@
+# The real media_player: Home Assistant's dlna_dmr integration talking to
+# Moggie's own UPnP AV MediaRenderer.
+#
+# This replaces the universal-media-player shim in moggie_media_player.yaml,
+# which existed only because HA's MQTT integration has no media_player platform.
+# With a renderer on the device there is no reason to synthesise one: dlna_dmr
+# gives a native entity whose transport state comes from the speaker itself.
+#
+# Configured by URL rather than SSDP discovery: the rig runs HA in a container
+# on the default bridge, where multicast rarely reaches the host, so discovery
+# would test Docker's networking rather than the renderer. Discovery is covered
+# separately by dlna-test (real multicast M-SEARCH on the loopback interface).
+media_player:
+  - platform: dlna_dmr
+    url: http://host.docker.internal:49494/description.xml
+    name: Moggie Play:5 (DLNA)

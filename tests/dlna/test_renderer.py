@@ -754,6 +754,43 @@ def test_scpds(suite, client):
         suite.check(len(last) == 1 and last[0].attrib.get("sendEvents") == "yes",
                     "%s LastChange is evented" % service)
 
+    # Regression: the RenderingControl SCPD used to declare only A_ARG_TYPE_*
+    # variables, with action arguments relating to those instead of to the
+    # service's own state variables. UPnP requires relatedStateVariable to name
+    # a state variable of the service, and control points read its range.
+    #
+    # async_upnp_client's DmrDevice._supports() is literally
+    #   state_variable("RC", name) is not None and action("RC", "Set"+name)
+    # so a missing Volume variable made Home Assistant expose a media_player
+    # with no volume control at all -- 306 passing protocol checks missed it,
+    # a real HA instance found it immediately.
+    decl = {child_text(sv, "name"): sv
+            for sv in all_local(rcs_root, "stateVariable")}
+    for var in ("Volume", "Mute", "VolumeDB"):
+        suite.check(var in decl,
+                    "RenderingControl declares the %s state variable" % var,
+                    "declared: %s" % sorted(decl))
+
+    vol = decl.get("Volume")
+    if vol is not None:
+        rng = [e for e in vol.iter() if local(e.tag) == "allowedValueRange"]
+        suite.check(bool(rng) and child_text(rng[0], "minimum") == "0" and
+                    child_text(rng[0], "maximum") == "100",
+                    "RenderingControl Volume carries its 0..100 range")
+        suite.check(vol.attrib.get("sendEvents") == "yes",
+                    "RenderingControl Volume is evented")
+
+    # Every argument must relate to a state variable the service declares.
+    missing = []
+    for action in all_local(rcs_root, "action"):
+        for arg in all_local(action, "argument"):
+            rel = child_text(arg, "relatedStateVariable")
+            if rel and rel not in decl:
+                missing.append("%s/%s" % (child_text(action, "name"), rel))
+    suite.check(not missing,
+                "every RenderingControl argument relates to a declared variable",
+                ", ".join(missing))
+
 
 def test_http_edges(suite, client, port):
     suite.eq("GET / is 404", client.request("GET", "/").status, 404)

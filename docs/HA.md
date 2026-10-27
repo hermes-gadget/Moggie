@@ -426,3 +426,85 @@ entity — a user sees a working-looking switch and gets silence.
 `tools/ha/payloads/` and `tools/ha/gen_discovery.py` still generate the
 target-contract documents (one topic per entity). Until they are aligned, the
 rig validates a contract the daemon does not speak. Tracked in #14.
+
+## The `media_player`: dlna_dmr, and what it actually required
+
+`media_player` does not come from MQTT. Home Assistant's MQTT integration has no
+`media_player` platform, and the discovery document the generator emits for
+`homeassistant/media_player/...` is inert on a stock install. The entity comes
+from **`dlna_dmr`** talking to `dlna-renderer` on the device (#13).
+
+### It cannot be configured in YAML
+
+On current Home Assistant the integration is **config-entry only**. Putting this
+in a package produces a hard error and no entity:
+
+```yaml
+media_player:
+  - platform: dlna_dmr
+    url: http://host.docker.internal:49494/description.xml
+```
+
+```
+ERROR (MainThread) [homeassistant.components.media_player] The dlna_dmr
+platform for the media_player integration does not support platform setup,
+please remove it from your config
+```
+
+Add it through the UI, or through the config-entry API:
+
+```sh
+# start the flow, then submit the URL it asks for
+curl -X POST http://127.0.0.1:18123/api/config/config_entries/flow \
+     -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' \
+     -d '{"handler":"dlna_dmr"}'
+```
+
+The rig's `tools/ha/ha-config/packages/moggie_dlna.yaml` is kept as
+documentation of intent only; it is not what creates the entity. The old
+universal-media-player shim is retained as
+`moggie_media_player.yaml.disabled` for anyone running without a renderer.
+
+### What the renderer had to get right
+
+`async_upnp_client`'s `DmrDevice._supports()` is literally:
+
+```python
+return (self._state_variable("RC", var_name) is not None
+        and self._action("RC", f"Set{var_name}") is not None)
+```
+
+So `RenderingControl` must declare state variables **named `Volume`, `Mute` and
+`VolumeDB`**, with `Volume` carrying an `allowedValueRange` of 0..100. The
+renderer originally declared only `A_ARG_TYPE_*` types and related its action
+arguments to those. That is not conformant — `relatedStateVariable` must name a
+state variable *of the service* — and the effect was a `media_player` that
+reported no volume and rejected `volume_set` with HTTP 400.
+
+306 protocol checks passed with that defect present. It was found in minutes by
+putting a real Home Assistant in front of the device, which is the argument for
+having this rig at all. `dlna-test` now asserts the variables exist, carry the
+range, and are evented, and that every RCS argument relates to a declared
+variable.
+
+`AVTransport` was already complete: `CurrentTransportActions` drives which
+transport buttons HA offers, so while stopped it correctly offers only Play, and
+while playing it offers Pause, Stop and Seek.
+
+### Verifying it
+
+```sh
+HA_API_TOKEN=... tools/ha/verify_dlna_entity.sh
+```
+
+Asserts the entity is available, supports `VOLUME_SET`/`VOLUME_MUTE`/`PLAY`,
+that `volume_set` reaches the *device* (read back over SOAP, not from HA's
+cache), that `play_media` leaves the URI on the device, and that pause and stop
+move both HA and the device. 13 checks.
+
+### Tokens without a password
+
+The rig enables HA's `trusted_networks` provider, scoped to the Docker bridge
+(`172.21.0.0/16`, `172.17.0.0/16`), so automated checks can obtain a token
+without an interactive login. It is test-rig configuration only and cannot
+authenticate anything off-host.

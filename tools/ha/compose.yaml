@@ -51,6 +51,11 @@ services:
       - "${MOGGIE_HA_PORT:-18123}:8123"
     environment:
       TZ: "${TZ:-Europe/London}"
+    # The DLNA renderer runs on the host while HA runs here, so HA needs a name
+    # for the host that is not loopback. host-gateway maps it to the bridge
+    # address; without it dlna_dmr cannot reach the description URL.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ha-config:/config
       - /etc/localtime:/etc/localtime:ro
