@@ -28,9 +28,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
-#include <sys/random.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
+#include <sys/syscall.h>
 #include <sys/time.h>
 #include <sys/types.h>
 #include <time.h>
@@ -267,19 +267,25 @@ static void test_entropy(void)
 {
     unsigned char buf[16];
     int fd;
-    ssize_t n;
+    long n;
 
-    /* getrandom() is Linux 3.17+. On an older kernel glibc is supposed to fall
-     * back to /dev/urandom; if that fallback is broken, this is where a 2.6.35
-     * device will tell us. */
-    n = getrandom(buf, sizeof(buf), 0);
-    if (n == (ssize_t)sizeof(buf))
-        ok("entropy: getrandom()");
-    else if (n < 0 && (errno == ENOSYS || errno == EPERM))
-        printf("  note  entropy: getrandom() -> %s (fallback path in use)\n",
+    /* getrandom() is Linux 3.17+, and glibc did not wrap it until 2.25 -- the
+     * stock-era libc we are targeting has no <sys/random.h> at all. Call the
+     * syscall directly so this probe builds against both, and treat ENOSYS as
+     * the expected answer on a 2.6.35 kernel rather than a failure. */
+#ifdef SYS_getrandom
+    n = syscall(SYS_getrandom, buf, sizeof(buf), 0);
+    if (n == (long)sizeof(buf)) {
+        ok("entropy: getrandom() syscall");
+    } else if (n < 0 && (errno == ENOSYS || errno == EPERM)) {
+        printf("  note  entropy: getrandom() -> %s (expected on 2.6.35)\n",
                strerror(errno));
-    else
+    } else {
         bad("entropy: getrandom", n < 0 ? strerror(errno) : "short read");
+    }
+#else
+    printf("  note  entropy: no SYS_getrandom for this architecture\n");
+#endif
 
     fd = open("/dev/urandom", O_RDONLY);
     if (fd < 0) {
@@ -288,7 +294,7 @@ static void test_entropy(void)
     }
     n = read(fd, buf, sizeof(buf));
     close(fd);
-    if (n == (ssize_t)sizeof(buf))
+    if (n == (long)sizeof(buf))
         ok("entropy: /dev/urandom");
     else
         bad("entropy: /dev/urandom read", n < 0 ? strerror(errno) : "short read");
