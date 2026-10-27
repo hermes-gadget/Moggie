@@ -889,6 +889,11 @@ def test_connection_manager(suite, renderer, client):
 
 
 def test_avtransport(suite, renderer):
+    # Fault codes below are from UPnP AVTransport:1, not from this renderer's
+    # behaviour. 718 = Invalid InstanceID, 717 = Play speed not supported,
+    # 710 = Seek mode not supported, 701 = Transition not available. They were
+    # all 402/701 once, and the tests asserted whatever the code did -- which
+    # made the suite unable to detect the conformance bug.
     # Before any URI: Play/Pause/Seek must be refused, Stop is legal.
     resp = renderer.soap("AVTransport", "Play",
                          arg("InstanceID", 0) + arg("Speed", "1"))
@@ -1028,7 +1033,7 @@ def test_avtransport(suite, renderer):
     # Negative arguments and transitions.
     resp = renderer.soap("AVTransport", "Play",
                          arg("InstanceID", 0) + arg("Speed", "2"))
-    suite.eq("non-1 Speed fault", renderer.fault_code(resp), 701)
+    suite.eq("non-1 Speed fault", renderer.fault_code(resp), 717)
     resp = renderer.soap("AVTransport", "Pause", arg("InstanceID", 0))
     suite.eq("Pause while stopped fault", renderer.fault_code(resp), 701)
     resp = renderer.soap("AVTransport", "Seek",
@@ -1038,7 +1043,7 @@ def test_avtransport(suite, renderer):
     resp = renderer.soap("AVTransport", "Seek",
                          arg("InstanceID", 0) + arg("Unit", "ABS_TIME") +
                          arg("Target", "00:00:05"))
-    suite.eq("unsupported Seek unit fault", renderer.fault_code(resp), 701)
+    suite.eq("unsupported Seek unit fault", renderer.fault_code(resp), 710)
     resp = renderer.soap("AVTransport", "Seek",
                          arg("InstanceID", 0) + arg("Unit", "REL_TIME") +
                          arg("Target", "not-a-time"))
@@ -1048,7 +1053,7 @@ def test_avtransport(suite, renderer):
     suite.eq("empty URI fault", renderer.fault_code(resp), 402)
     resp = renderer.soap("AVTransport", "GetMediaInfo",
                          arg("InstanceID", 1))
-    suite.eq("wrong InstanceID fault", renderer.fault_code(resp), 402)
+    suite.eq("wrong InstanceID fault", renderer.fault_code(resp), 718)
     resp = renderer.soap("AVTransport", "GetMediaInfo")
     suite.eq("missing InstanceID fault", renderer.fault_code(resp), 402)
 
