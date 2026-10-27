@@ -14,7 +14,10 @@ int description_build(const struct dlna_config *cfg, char *buf, size_t cap)
     sb_init(&b, buf, cap);
     sb_puts(&b, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
     sb_puts(&b, "<root xmlns=\"urn:schemas-upnp-org:device-1-0\"");
-    sb_printf(&b, " configId=\"%d\">\n", cfg->boot_id & 0xffff);
+    /* UPnP 1.1 reserves configId 0, and boot_id is time(), whose low 16
+         * bits are zero about once every 65,536 starts. */
+        sb_printf(&b, " configId=\"%d\">\n",
+                  (cfg->boot_id & 0xffff) ? (cfg->boot_id & 0xffff) : 1);
     sb_puts(&b, "<specVersion><major>1</major><minor>0</minor></specVersion>\n");
     sb_puts(&b, "<device>\n");
     sb_puts(&b, "<deviceType>urn:schemas-upnp-org:device:MediaRenderer:1</deviceType>\n");

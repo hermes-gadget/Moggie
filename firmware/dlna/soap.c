@@ -108,7 +108,8 @@ static const char *actions_for(const struct dlna_playback *pb, int has_uri)
     switch (pb->state) {
     case DLNA_PLAYING: return "Stop,Pause,Seek";
     case DLNA_PAUSED:  return "Play,Stop,Seek";
-    case DLNA_STOPPED: return has_uri ? "Play,Seek" : "Play";
+    /* Seek is refused (701) while stopped, so do not advertise it. */
+    case DLNA_STOPPED: return "Play";
     default:           return "";
     }
 }
@@ -360,10 +361,13 @@ static int rcs_action(struct dlna_renderer *r, const char *action,
         if (!instance_ok(body) || !channel_ok(body))
             return err_402(out, outsz, status);
         renderer_snapshot(r, &pb);
-        db = (pb.volume - 100) * 40 / 100;
+        /* Scale to 1/256 dB before truncating. Rounding to whole dB first
+         * collapses the 101-step range to 41 distinct values and makes
+         * volumes 98, 99 and 100 all report full scale. */
+        db = ((pb.volume - 100) * 40 * 256) / 100;
         sb_init(&b, out, outsz);
         open_ok(&b, DLNA_SVC_RCS, action);
-        sb_printf(&b, "<CurrentVolume>%d</CurrentVolume>", db * 256);
+        sb_printf(&b, "<CurrentVolume>%d</CurrentVolume>", db);
         close_ok(&b, action);
     } else {
         return err_401(out, outsz, status);
