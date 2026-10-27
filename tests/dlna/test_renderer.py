@@ -1221,6 +1221,19 @@ def test_gena_negatives(suite, renderer, callback):
     suite.eq("SUBSCRIBE with wrong NT is 412", resp.status, 412)
     resp = renderer.subscribe("AVTransport", "ftp://127.0.0.1/cb")
     suite.eq("SUBSCRIBE with non-http CALLBACK is 412", resp.status, 412)
+
+    # A CALLBACK naming a hostname used to be resolved with getaddrinfo() inside
+    # the single poll loop, so any unauthenticated peer could stall SSDP and the
+    # control endpoint for the duration of a DNS lookup. Only literal IPv4 is
+    # accepted now; the answer must be 412 and it must be immediate.
+    import time as _time
+    t0 = _time.monotonic()
+    resp = renderer.subscribe("AVTransport", "http://not-a-real-host.invalid:1234/cb")
+    elapsed = _time.monotonic() - t0
+    suite.eq("SUBSCRIBE with a hostname CALLBACK is 412", resp.status, 412)
+    suite.check(elapsed < 1.0,
+                "hostname CALLBACK is refused without a DNS lookup",
+                "took %.3fs" % elapsed)
     resp = renderer.subscribe("AVTransport", sid="uuid:does-not-exist",
                               nt=None, timeout="Second-60")
     suite.eq("renew unknown SID is 412", resp.status, 412)
