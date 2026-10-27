@@ -2,6 +2,32 @@
 
 _2026-10-27, hardware-free autonomous run. Newest entries first._
 
+## Home Assistant: `media_player` verified as a native dlna_dmr entity (#13)
+
+`dlna_dmr` does not support YAML platform setup on current Home Assistant — it
+logs "does not support platform setup" and creates nothing. It is config-entry
+only, so the entity is added through the config-entry API.
+
+With the entry loaded, Home Assistant still offered only `PLAY` and rejected
+`volume_set` with HTTP 400. The cause was in the renderer: the RenderingControl
+SCPD declared only `A_ARG_TYPE_*` variables and related its arguments to those.
+`async_upnp_client`'s `DmrDevice._supports()` requires a state variable *named*
+`Volume`, so a conformant-but-incomplete SCPD cost the whole volume interface.
+
+306 protocol checks had passed with that defect present. A real HA found it in
+minutes — which is what the rig is for.
+
+```
+tools/ha/verify_dlna_entity.sh, 13/13
+  ok  supports VOLUME_SET / VOLUME_MUTE / PLAY
+  ok  volume_set 0.80 -> device GetVolume = 80   (read over SOAP, not HA's cache)
+  ok  play_media -> HA "playing", device TrackURI is the URL sent
+  ok  pause -> HA "paused"
+  ok  stop  -> HA "idle", device STOPPED
+```
+
+`dlna-test` is 312 checks, including five new SCPD conformance assertions.
+
 ## Status at time of writing
 
 | Area | State | Evidence |
