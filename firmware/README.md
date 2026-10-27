@@ -7,4 +7,5 @@ On-device software.
 - `bootchooser/` — initramfs that picks, verifies and mounts a rootfs slot
 - `dlna/` — minimal UPnP renderer
 
-Nothing here is built yet. See `ROADMAP.md`.
+Nothing here ships yet. `sonosd/` builds and is unit-tested; `updater/`,
+`bootchooser/` and `dlna/` are not written. See `ROADMAP.md`.
