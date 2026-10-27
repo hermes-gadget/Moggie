@@ -1,4 +1,4 @@
-.PHONY: all check toolchain sources kernel rootfs ota ota-test ha-payloads ha-test ha-rig clean
+.PHONY: all check toolchain sources kernel rootfs ota ota-test ha-payloads ha-test ha-rig mqtt-lib mqtt-test clean
 
 SHELL := /bin/bash
 OUT   := out
@@ -36,6 +36,15 @@ ha-test:
 
 ha-rig:
 	@cd tools/ha && docker compose up -d && ./sync-config.sh
+
+# The MQTT integration test needs a real libmosquitto on the host. There is no
+# system-wide copy on the build box (and no root to install one), so it builds
+# into dl/ instead.
+mqtt-lib:
+	@./scripts/build-mosquitto.sh host
+
+mqtt-test:
+	@MOSQ_PREFIX=$(CURDIR)/dl/mosq-host/usr ./tests/mqtt/run.sh
 
 clean:
 	rm -rf $(OUT)

@@ -2,9 +2,43 @@
 
 - `ota/` — negative tests for the update path. Every case must fail safely.
 - `ha/` — MQTT discovery payload validation. Stdlib only, pytest-compatible.
+- `mqtt/` — sonosd against a **real** Mosquitto broker (see below).
 - `../firmware/sonosd/tests/` — sonosd unit tests (arbiter, volume, jsonlite, config).
 
-Run with `make ota-test` and `make ha-test`, and `make test` in `firmware/sonosd`.
+Run with `make ota-test`, `make ha-test` and `make mqtt-test`, and `make test` in
+`firmware/sonosd`.
+
+## mqtt/ — the test that was missing
+
+The sonosd unit tests only ever used the in-RAM mock broker, so "the MQTT backend
+compiles" was never evidence that it could connect, subscribe or handle a command.
+`tests/mqtt/run.sh` builds the daemon against the real libmosquitto, starts
+`eclipse-mosquitto:2` in a container, and drives it end to end:
+
+| check | what it proves |
+|---|---|
+| build | the daemon links the real library, not the stub |
+| broker up | the container is actually reachable |
+| availability | retained `online` is published on start |
+| discovery | the discovery document is retained and well-formed |
+| single-key command | `{"volume":42}` reaches the device state |
+| multi-key command | every key in one payload is applied, not just the first |
+| tone group | bass/treble/balance apply as one update, not three clobbers |
+| clamping | `{"bass":99}` clamps to 10 rather than being accepted |
+| bad payload | the daemon survives unparseable input |
+| command payload | the daemon survives a `{"cmd":"status"}` payload |
+
+There is no system-wide libmosquitto on the build host and no root to install one,
+so build it into `dl/` first:
+
+```sh
+make mqtt-lib     # downloads, verifies and builds libmosquitto 2.0.20 into dl/
+make mqtt-test
+```
+
+The multi-key case is a regression test. The command handler used an `else if`
+chain, so `{"mute":true,"loudness":true}` applied mute and silently dropped
+loudness — worse than refusing it.
 
 ```sh
 bash tests/ota/run.sh        # or: make ota-test
