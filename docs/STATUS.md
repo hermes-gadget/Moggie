@@ -31,6 +31,9 @@ sonosd         272 unit checks + 108 selftest checks, all pass
 MQTT           20/20 integration checks against a real Mosquitto broker
                (availability, retained discovery, multi-key commands, clamping)
 OTA            23/23 negative cases pass, no MTD device opened
+boot chooser   17/17 slot-selection checks, under dash and busybox sh
+compat probe   15/15 on the target ABI, static and dynamic
+emulation      6/6; `sonosd --selftest` 108 checks under qemu-ppc
 HA             7 entities published and verified; 16 was the design target
 rootfs         minimal set 6,152,200 B = 5.87 MiB uncompressed
 audio          stock DSP graph mapped; capture tool self-tests 4/4
