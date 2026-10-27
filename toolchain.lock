@@ -1,0 +1,20 @@
+# Pinned build inputs.
+# Everything here is verified by hash before use. If a hash doesn't match, the
+# build stops — no "close enough".
+
+TOOLCHAIN_URL=https://toolchains.bootlin.com/downloads/releases/toolchains/powerpc-e300c3/tarballs/powerpc-e300c3--glibc--stable-2026.08-1.tar.xz
+TOOLCHAIN_SHA256=623c15594a4be26c63a2090a0b3ce9efcf15809c9b9a8bfb95773240c70d8403
+TOOLCHAIN_DIR=powerpc-e300c3--glibc--stable-2026.08-1
+
+# Sonos GPL drop (version 14.4 hosts the 2.6.35 sources we need)
+GPL_BASE=https://www.sonos.com/documents/gpl/14.4
+GPL_DRIVERS=drivers.txz
+GPL_DRIVERS_SHA256=
+GPL_KERNEL=linux-2.6.35.txz
+GPL_KERNEL_SHA256=
+
+# Target
+MODEL=8
+SOC=mpc8247
+KERNEL_VERSION=2.6.35
+ROOTFS_MAX_BYTES=7864320   # 7.5 MiB

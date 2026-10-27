@@ -1,0 +1,29 @@
+# build output
+out/
+build/
+dl/
+
+# toolchain
+toolchain/
+*.tar.xz
+
+# kernel / modules
+*.o
+*.ko
+*.mod.c
+*.order
+*.symvers
+vmlinux
+System.map
+
+# images
+*.img
+*.squashfs
+*.cramfs
+*.ubi
+*.bin
+
+# editor / OS
+.DS_Store
+*.swp
+*~
