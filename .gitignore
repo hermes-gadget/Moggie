@@ -39,3 +39,6 @@ __pycache__/
 
 # Local tool state, not source
 .tokensave/
+
+# build logs
+out*.log
