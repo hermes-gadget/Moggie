@@ -1,0 +1,10 @@
+config BR2_PACKAGE_DLNA
+	bool "dlna"
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	help
+	  Moggie's UPnP AV MediaRenderer: SSDP discovery, an HTTP/1.1 server,
+	  AVTransport/RenderingControl/ConnectionManager over SOAP, and GENA
+	  eventing. This is what gives Home Assistant a real media_player
+	  through its dlna_dmr integration.
+
+	  Built from the in-tree source at firmware/dlna.
