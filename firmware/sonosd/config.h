@@ -39,6 +39,9 @@ struct config {
     int  initial_volume;              /* 0..100, applied at boot           */
     int  volume_step;                 /* for volume_up/volume_down         */
 
+    /* boot handshake with the initramfs chooser; empty disables the commit */
+    char state_dir[CFG_PATH_MAX];     /* where bootslot/boot_ok live        */
+
     /* misc */
     int  log_level;                   /* 0..3                              */
     int  use_syslog;
