@@ -176,6 +176,24 @@ build() {
     say "configuring ($DEFCONFIG)"
     make "${common[@]}" "$DEFCONFIG"
 
+    # Both in-tree packages are fetched with SITE_METHOD=local, and Buildroot
+    # keeps their build stamp: an incremental `make` does not notice that
+    # firmware/sonosd or firmware/dlna changed. That put a stale daemon in the
+    # image twice -- once silently, once caught only by grepping the binary for
+    # a string the new code introduced. Rebuild them explicitly so the image
+    # always matches the source tree, whatever the stamps say.
+    local in_tree=()
+    local pkg
+    for pkg in sonosd dlna; do
+        if [ -f "$BR2_EXTERNAL/package/$pkg/$pkg.mk" ]; then
+            in_tree+=("$pkg-rebuild")
+        fi
+    done
+    if [ ${#in_tree[@]} -gt 0 ]; then
+        say "rebuilding in-tree packages: ${in_tree[*]}"
+        make "${common[@]}" "${in_tree[@]}"
+    fi
+
     say "building with -j$JOBS"
     make "${common[@]}" -j"$JOBS"
 }
