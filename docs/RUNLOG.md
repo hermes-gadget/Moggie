@@ -11,9 +11,9 @@ _2026-10-27, hardware-free autonomous run. Newest entries first._
 | Runtime compatibility probe | done | 15/15 under qemu |
 | PowerPC execution | emulated | 6/6, `--selftest` 108 checks under qemu |
 | Audio analysis | done (analysis only) | DSP graph, amp state machine, thermal derating mapped |
-| Toolchain for 2.6.35 | **in progress** | stock glibc 2.23 vs ours 2.44 — issue #22 |
-| Rootfs (Buildroot) | **in progress** | hand-staged 5.87 MiB; reproducible build not yet landed |
-| DLNA renderer | **in progress** | `firmware/dlna/` being written |
+| Toolchain for 2.6.35 | done | glibc 2.23, libc ABI tag **2.6.35** |
+| Rootfs (Buildroot) | done | 3.00 MiB padded, reproducible, all 27 ELFs tagged 2.6.35 |
+| DLNA renderer | merged | 296 protocol checks; no audio backend (issues #36, #37) |
 | Boot / NAND / OTA | OTA done, boot untested | 23/23 OTA negative cases; chooser never booted |
 | Hardware | **blocked** | UART header not fitted, speaker not powered |
 
@@ -78,11 +78,12 @@ audiodev.ko              120,720 B
 sonosd (PPC, +mosquitto) 308,816 B   links libmosquitto.so.1
 sonosd (PPC, no mqtt)     81,656 B
 compat-probe (static)  1,117,920 B
-rootfs (hand-staged)   6,152,200 B   = 5.87 MiB uncompressed
+rootfs (squashfs)      3,041,095 B   = 3,145,728 B padded, 60% under budget
 ```
 
-Compressed firmware size: **not yet measured** — the reproducible Buildroot image
-is still being built.
+Compressed firmware size: **3,041,095 B** raw, **3,145,728 B** padded to the
+128 KiB eraseblock — 4,718,592 B (60%) under the 7,864,320 B budget. Two clean
+builds produced byte-identical images.
 
 ## Test results
 
@@ -122,8 +123,10 @@ dsp-capture selftest     4 checks, 0 failures
 ## Outstanding blockers
 
 - Replacement toolchain under construction (#22).
-- Buildroot rootfs not yet reproducibly built or size-verified.
-- DLNA renderer not yet merged.
+- No system emulator: `qemu-system-ppc` is absent, so the image has never been
+  booted. qemu-user cannot model a 2.6.35 kernel.
+- The DLNA renderer has no audio backend, and #36/#37 record two real defects
+  found in review (end-of-stream state, blocking DNS in GENA subscribe).
 - Boot chooser has never been executed by a real kernel.
 - NAND behaviour is simulated only.
 
