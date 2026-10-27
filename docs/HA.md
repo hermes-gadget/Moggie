@@ -21,6 +21,11 @@ hardware yet.
 
 ## Entities
 
+> **The table below is the *target* contract.** What the daemon actually
+> publishes today uses one retained state document rather than one topic per
+> entity — see [Implemented today](#implemented-today) at the end of this
+> document for the real topics and the reason for the difference.
+
 Discovery topic: `homeassistant/<component>/moggie_<device_id>/<object_id>/config`,
 published retained with QoS 1. State and command topics sit under
 `moggie/<device_id>/`.
@@ -353,3 +358,63 @@ newer version once the speaker is actually running it.
 Reboot and `update/install` are the two commands with consequences. Reboot goes
 through the same orderly path as a GPIO long-press; `install` goes through the
 OTA path and its signature check, never around it.
+
+## Implemented today
+
+Verified by `tests/mqtt/run.sh` against a real Mosquitto broker: 20 checks, 0
+failures.
+
+The daemon publishes **one retained state document** and **one command topic**,
+and every entity reads from it with `value_template`. That is a deliberate
+departure from the one-topic-per-entity table above:
+
+- a 32 MiB device should not hold twelve retained documents when one will do;
+- one parser handles inbound commands instead of one per entity;
+- HA's `value_template` is designed for exactly this.
+
+### Topics
+
+```
+sonos/<device_id>/state          retained JSON, one document, all values
+sonos/<device_id>/cmd            inbound command JSON
+sonos/<device_id>/availability   retained "online"/"offline" (+ last will)
+sonos/<device_id>/uptime         seconds since start
+```
+
+### Entities published
+
+| Entity | Component | Source |
+|---|---|---|
+| `moggie_<id>_volume` | number | `value_json.volume`, 0–100 |
+| `moggie_<id>_bass` | number | `value_json.bass`, −10–10 |
+| `moggie_<id>_treble` | number | `value_json.treble`, −10–10 |
+| `moggie_<id>_balance` | number | `value_json.balance`, −10–10 |
+| `moggie_<id>_loudness` | switch | `value_json.loudness` |
+| `moggie_<id>_night_mode` | switch | `value_json.night_mode` |
+| `moggie_<id>_uptime` | sensor | `sonos/<id>/uptime` |
+
+HA sends the bare value to `cmd`, so each entity carries a `command_template`
+that wraps it back into the JSON the daemon parses — `{"volume": 42}` for a
+number, `{"loudness": "ON"}` for a switch. The switch payload is a quoted
+string, which is why `json_get_bool()` accepts `ON`/`OFF` as well as
+`true`/`false`/`1`/`0`.
+
+### Deliberately not published
+
+Publishing discovery for a control that does nothing is worse than having no
+entity — a user sees a working-looking switch and gets silence.
+
+| Entity | Why not |
+|---|---|
+| `media_player` | HA has no MQTT media_player; see #13 and the `dlna_dmr` plan |
+| `led` | no GPIO/LED support in the daemon yet |
+| `temperature` | no sensor read path |
+| `buffer` | no PCM stream to measure |
+| `update` | OTA is not wired into the daemon |
+| `identify`, power-cycle button | no safe path implemented |
+
+### Still to reconcile
+
+`tools/ha/payloads/` and `tools/ha/gen_discovery.py` still generate the
+target-contract documents (one topic per entity). Until they are aligned, the
+rig validates a contract the daemon does not speak. Tracked in #14.

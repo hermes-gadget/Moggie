@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 
 /* Find "key" followed by optional whitespace and a colon. Returns a pointer to
  * the first character of the value, or NULL. */
@@ -66,6 +67,17 @@ int json_get_int(const char *json, const char *key, int *out)
     return 1;
 }
 
+/* True when v starts with word, case-insensitively, and the next character is
+ * not a letter — so "on" does not match "online". */
+static int starts_with_word(const char *v, const char *word)
+{
+    size_t n = strlen(word);
+
+    if (strncasecmp(v, word, n) != 0)
+        return 0;
+    return !isalpha((unsigned char)v[n]);
+}
+
 int json_get_bool(const char *json, const char *key, int *out)
 {
     const char *v = find_value(json, key);
@@ -73,12 +85,18 @@ int json_get_bool(const char *json, const char *key, int *out)
     if (!v)
         return 0;
 
-    if (strncmp(v, "true", 4) == 0) {
+    /* Home Assistant's MQTT switch sends "ON"/"OFF" through a command
+     * template, and hand-written payloads often use that spelling too. The
+     * value can also arrive quoted, so step over the opening quote. */
+    if (*v == '"')
+        v++;
+
+    if (starts_with_word(v, "true") || starts_with_word(v, "on")) {
         if (out)
             *out = 1;
         return 1;
     }
-    if (strncmp(v, "false", 5) == 0) {
+    if (starts_with_word(v, "false") || starts_with_word(v, "off")) {
         if (out)
             *out = 0;
         return 1;

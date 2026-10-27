@@ -55,6 +55,23 @@ static void case_bools(void)
 
     T_EQ(0, json_get_bool("{\"mute\":true}", "loudness", &v));
     T_EQ(-1, json_get_bool("{\"mute\":\"yes\"}", "mute", &v));
+
+    /* Home Assistant's MQTT switch sends ON/OFF through a command template,
+     * and the value arrives quoted. */
+    T_EQ(1, json_get_bool("{\"loudness\":\"ON\"}", "loudness", &v));
+    T_EQ(1, v);
+
+    T_EQ(1, json_get_bool("{\"loudness\":\"OFF\"}", "loudness", &v));
+    T_EQ(0, v);
+
+    T_EQ(1, json_get_bool("{\"loudness\":on}", "loudness", &v));
+    T_EQ(1, v);
+
+    T_EQ(1, json_get_bool("{\"loudness\":\"off\"}", "loudness", &v));
+    T_EQ(0, v);
+
+    /* "online" must not be read as a bare "on". */
+    T_EQ(-1, json_get_bool("{\"loudness\":\"online\"}", "loudness", &v));
 }
 
 static void case_strings(void)

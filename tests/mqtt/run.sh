@@ -139,6 +139,25 @@ case "$DISC" in
     *) bad "discovery" "got: ${DISC:0:120}" ;;
 esac
 
+# The control surface beyond the player. Each of these must exist *and* be
+# backed by something the daemon can actually do.
+for ent in number/moggie_play5_volume number/moggie_play5_bass \
+           number/moggie_play5_treble number/moggie_play5_balance \
+           switch/moggie_play5_loudness switch/moggie_play5_night_mode \
+           sensor/moggie_play5_uptime; do
+    doc=$(mqtt_sub -t "homeassistant/$ent/config" -C 1 -W 4)
+    case "$doc" in
+        *'"unique_id"'*) ok "discovery for $ent" ;;
+        *) bad "discovery for $ent" "not retained" ;;
+    esac
+done
+
+UPTIME=$(mqtt_sub -t 'sonos/play5/uptime' -C 1 -W 4)
+case "$UPTIME" in
+    ''|*[!0-9]*) bad "uptime topic" "expected an integer, got '$UPTIME'" ;;
+    *) ok "uptime is published as a bare integer" ;;
+esac
+
 mqtt_pub -t 'sonos/play5/cmd' -m '{"volume":42}'
 sleep 0.5
 STATE=$(mqtt_sub -t 'sonos/play5/state' -C 1 -W 4)
@@ -174,6 +193,19 @@ STATE=$(mqtt_sub -t 'sonos/play5/state' -C 1 -W 4)
 case "$STATE" in
     *'"bass":10'*) ok "out-of-range value clamps instead of being accepted" ;;
     *) bad "clamping" "state: $STATE" ;;
+esac
+
+# Home Assistant's switch command_template produces {"loudness": "ON"} — a
+# quoted string, not a JSON boolean. That is the payload the real integration
+# sends, so it has to work.
+mqtt_pub -t 'sonos/play5/cmd' -m '{"loudness": "OFF"}'
+sleep 0.5
+mqtt_pub -t 'sonos/play5/cmd' -m '{"loudness": "ON"}'
+sleep 0.5
+STATE=$(mqtt_sub -t 'sonos/play5/state' -C 1 -W 4)
+case "$STATE" in
+    *'"loudness":true'*) ok "HA-style quoted ON is accepted" ;;
+    *) bad "HA switch payload" "state: $STATE" ;;
 esac
 
 mqtt_pub -t 'sonos/play5/cmd' -m 'not json at all'

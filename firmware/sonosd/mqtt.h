@@ -20,7 +20,7 @@
 #define MQTT_HOST_MAX     96
 #define MQTT_BASE_MAX     96
 #define MQTT_TOPIC_MAX    128
-#define MQTT_PAYLOAD_MAX  512
+#define MQTT_PAYLOAD_MAX  768
 
 struct mqtt_config {
     char host[MQTT_HOST_MAX];
@@ -56,6 +56,16 @@ int  mqtt_publish_availability(int online);
 /* One media_player entity plus its device block. Feature names are the
  * lowercase strings Home Assistant's MQTT media_player accepts. */
 int  mqtt_publish_ha_media_player(const char *object_id, const char *name);
+
+/* The rest of the control surface: four numbers, two switches and one
+ * diagnostic sensor.
+ *
+ * Deliberately absent, because the daemon cannot back them yet:
+ *   LED, temperature, buffer level, firmware update, reboot.
+ * Publishing discovery for something that does not work puts a control in
+ * front of a user that silently does nothing — worse than no entity. */
+int  mqtt_publish_ha_entities(const char *object_id, const char *name);
+int  mqtt_publish_uptime(unsigned long seconds);
 
 /* Mock-backend helpers. All degrade safely when the real backend is in use:
  * inject returns 0, last returns "", count returns 0. */
