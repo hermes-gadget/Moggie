@@ -99,6 +99,19 @@ BR2_PACKAGE_MTD_SUMTOOL=y
 # BR2_PACKAGE_MTD_NANDTEST is not set
 # libmosquitto only -- a broker on a 32 MB speaker is pointless.
 BR2_PACKAGE_MOSQUITTO=y
+# shairport-sync links libpopt; building it here keeps third-party deps in the
+# same reproducible pipeline as everything else instead of hand-built sysroots.
+BR2_PACKAGE_POPT=y
+BR2_PACKAGE_LIBCONFIG=y
+# shairport-sync needs TLS; mbedTLS is a fraction of OpenSSL's footprint.
+BR2_PACKAGE_MBEDTLS=y
+# AirPlay 2 in shairport-sync needs both.
+BR2_PACKAGE_LIBPLIST=y
+BR2_PACKAGE_LIBSODIUM=y
+# and libgcrypt (pulled in by --with-airplay-2).
+BR2_PACKAGE_LIBGCRYPT=y
+# shairport-sync's AirPlay 2 check is for libavutil alone. The full ffmpeg makes
+# the image 14.7 MB against a 7.5 MB budget, so build only what is needed.
 # BR2_PACKAGE_MOSQUITTO_BROKER is not set
 BR2_PACKAGE_SONOSD=y
 # UPnP AV MediaRenderer: the media_player that MQTT cannot provide.

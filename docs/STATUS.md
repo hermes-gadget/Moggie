@@ -14,6 +14,7 @@ the vendor firmware dump and Sonos's GPL source drop.
 | 2 — Rootfs | **partial** | minimal rootfs measured at 5.87 MiB; Buildroot not wired up |
 | 3 — `sonosd` | **partial** | real MQTT backend verified against a broker; no audio path yet |
 | 4 — Endpoints | **in progress** | DLNA renderer builds, 296 protocol checks; no audio backend |
+| 4 — Streaming endpoint | **builds** | shairport-sync 4.3.5, ELF 32-bit MSB PowerPC, `for GNU/Linux 2.6.35`, runs under qemu; AirPlay 2 blocked on size (`docs/CROSS-BUILD.md`) |
 | 5 — Home Assistant | **partial** | `media_player` is a **native dlna_dmr entity**, verified end to end (#13); 7 MQTT entities verified on a real broker; contract reconciliation is #14 |
 | 6 — OTA | **done** | 23/23 negative tests pass |
 | 7 — Hardware | **blocked** | needs UART and the speaker |
