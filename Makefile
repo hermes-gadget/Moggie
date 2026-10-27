@@ -1,4 +1,4 @@
-.PHONY: all check toolchain sources kernel rootfs ota ota-test ha-payloads ha-test ha-rig mqtt-lib mqtt-test clean
+.PHONY: all check toolchain sources kernel rootfs ota ota-test ha-payloads ha-test ha-rig mqtt-lib mqtt-test emulated-test clean
 
 SHELL := /bin/bash
 OUT   := out
@@ -45,6 +45,11 @@ mqtt-lib:
 
 mqtt-test:
 	@MOSQ_PREFIX=$(CURDIR)/dl/mosq-host/usr ./tests/mqtt/run.sh
+
+# Runs the cross-built PowerPC binaries under qemu-user. This is the only check
+# that proves they execute on the target ABI rather than merely linking.
+emulated-test:
+	@./tests/emulated/run.sh
 
 clean:
 	rm -rf $(OUT)

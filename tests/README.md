@@ -3,10 +3,40 @@
 - `ota/` — negative tests for the update path. Every case must fail safely.
 - `ha/` — MQTT discovery payload validation. Stdlib only, pytest-compatible.
 - `mqtt/` — sonosd against a **real** Mosquitto broker (see below).
+- `emulated/` — the PowerPC binaries running under qemu-user (see below).
 - `../firmware/sonosd/tests/` — sonosd unit tests (arbiter, volume, jsonlite, config).
 
-Run with `make ota-test`, `make ha-test` and `make mqtt-test`, and `make test` in
-`firmware/sonosd`.
+Run with `make ota-test`, `make ha-test`, `make mqtt-test` and
+`make emulated-test`, and `make test` in `firmware/sonosd`.
+
+## emulated/ — does it actually run on the target?
+
+A cross-compiled ELF that links is not evidence that it executes. Endianness
+bugs, unaligned access, ABI mismatches and missing syscalls only show up when the
+binary runs. `tests/emulated/run.sh` runs `sonosd` under `qemu-ppc-static`
+(qemu-user, pulled from `multiarch/qemu-user-static` — this host has docker but
+no root for a package).
+
+| check | what it proves |
+|---|---|
+| qemu present | the emulator is available and runnable |
+| cross build | the target build still succeeds |
+| arch check | `file` reports 32-bit MSB PowerPC |
+| `--version` | the binary loads and executes on the target ABI |
+| `--selftest` | 108 in-process checks pass under emulation |
+| bad config | an unknown key is rejected on the target ABI |
+
+```sh
+make emulated-test
+```
+
+```
+6 passed, 0 failed
+PowerPC binaries execute correctly under qemu-user
+```
+
+This is EMULATED, not HARDWARE VERIFIED. It cannot exercise the DSP, NAND, the
+amplifier or the codec — those need the speaker.
 
 ## mqtt/ — the test that was missing
 
