@@ -47,7 +47,9 @@ audio          stock DSP graph mapped; capture tool self-tests 4/4
 - **NAND behaviour is simulated.** `nandwrite`/`nanddump` sit behind the slotdev
   interface and have not run on real flash.
 - **The boot chooser has never booted.** It is tested against files, under `sh`,
-  `dash` and busybox `ash`, but not by a real kernel.
+  `dash` and busybox `ash` (17 checks), but not by a real kernel. `sonosd` now
+  writes `boot_ok`, so the commit half of the handshake exists; the handshake
+  itself has still never run on a device.
 - **Kernel builds are not byte-reproducible.** No `KBUILD_BUILD_TIMESTAMP`; two
   builds hash differently.
 - **`sonosd` MQTT is now real**, but `mqtt_mosquitto.c` still publishes a
