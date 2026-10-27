@@ -752,13 +752,51 @@ def _test_functions() -> List[Callable[[], Any]]:
     ]
 
 
+def test_every_documented_entity_is_accounted_for() -> None:
+    """The contract may not promise anything that is not accounted for.
+
+    Three states are allowed: published by the daemon, blocked with a recorded
+    reason, or explicitly superseded. Anything else is a document claiming a
+    capability nobody has built -- which is exactly the drift #14 describes.
+    """
+    documented = set(gen.REQUIRED_ENTITY_IDS)
+    published = set(gen.PUBLISHED_ENTITY_IDS)
+    blocked = set(gen.UNSUPPORTED_ENTITY_IDS)
+
+    assert published.isdisjoint(blocked), (
+        f"entity both published and blocked: {sorted(published & blocked)}"
+    )
+
+    superseded = documented - published - blocked
+    assert superseded == {"media_player.moggie_play5"}, (
+        "documented entities neither published, blocked nor explained as "
+        f"superseded: {sorted(superseded)}"
+    )
+
+
+def test_blocked_entities_carry_a_reason() -> None:
+    for entity_id, reason in gen.UNSUPPORTED_ENTITY_IDS.items():
+        assert reason.strip(), f"{entity_id} is blocked but records no reason"
+
+
+def test_published_set_matches_the_generated_entities() -> None:
+    entity_ids = {entity.entity_id for entity in gen.build_entities()}
+    assert set(gen.PUBLISHED_ENTITY_IDS) <= entity_ids, (
+        "published entities missing from the generated payloads: "
+        f"{sorted(set(gen.PUBLISHED_ENTITY_IDS) - entity_ids)}"
+    )
+
+
 def main() -> int:
     entities = default_entities()
     required = sum(1 for entity in entities if entity.required)
     failures: List[Tuple[str, str]] = []
 
+    published = sum(1 for e in entities if e.entity_id in gen.PUBLISHED_ENTITY_IDS)
+    shim = sum(1 for e in entities if e.entity_id in gen.SHIM_ENTITY_IDS)
     print(f"Moggie MQTT discovery payloads: {len(entities)} entities "
-          f"({required} required, {len(entities) - required} media-player shim)")
+          f"({published} published by sonosd, {shim} media-player shim, "
+          f"{len(entities) - published - shim} design-only)")
     print(f"discovery prefix: {DISCOVERY_PREFIX}/<component>/moggie_<device_id>/<object_id>/config")
     print()
 
@@ -781,8 +819,9 @@ def main() -> int:
             print(f"--- {name} ---\n{message}\n")
         return 1
 
-    print(f"all checks passed — {len(entities)} entities ({required} required, "
-          f"{len(entities) - required} shim)")
+    print(f"all checks passed — {len(entities)} entities ({published} published "
+          f"by sonosd, {shim} media-player shim, "
+          f"{len(entities) - published - shim} design-only)")
     return 0
 
 
