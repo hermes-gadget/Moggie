@@ -7,6 +7,19 @@ builds in `docs/STATUS.md` still pass.
 
 - [ ] `make kernel` runs clean and the gzip payload is under 2 MB
 - [ ] `make ota-test` passes 23/23
+- [ ] The rootfs was built against the **2.6.35 toolchain**, and you can prove it:
+
+```sh
+readelf -n out/rootfs-extracted/lib/libc.so.6 | grep 'ABI:'   # -> Linux, ABI: 2.6.35
+```
+
+- [ ] Every ELF in the image carries that tag, and no binary uses a syscall the
+      kernel lacks. A stale image built with the old glibc passes every other
+      check here and then dies before `main()`:
+
+```sh
+python3 out/syscall-scan.py out/rootfs-extracted   # -> (0 distinct)
+```
 - [ ] A **second** machine is available to hold the dumps — never the speaker's own flash
 - [ ] Power is stable. Not a bench supply that can be knocked out.
 - [ ] You know how to get back: the UART is the recovery path, and it is the only one
@@ -53,6 +66,18 @@ been touched.
 - [ ] Point the chooser at slot A
 - [ ] Boot
 - [ ] `sonosd` starts, publishes to MQTT, Home Assistant discovers it
+- [ ] **`/jffs/boot_ok` exists before the first reboot.** The chooser charges a
+      boot attempt before `switch_root` and clears it only when userspace writes
+      that file. If it is missing, the third boot rolls back to the other slot
+      and the speaker ping-pongs forever while looking perfectly healthy:
+
+```sh
+ls -l /jffs/boot_ok && cat /jffs/boot_ok
+```
+
+- [ ] `dlna-renderer` is running and Home Assistant's `dlna_dmr` integration
+      offers a `media_player` for it (check the SSDP advertisement with
+      `ssdp:alive` on port 1900)
 - [ ] Check `free` — the daemon should sit around 20 MB with one decoder idle
 
 ## 4. Audio
