@@ -25,6 +25,7 @@ struct gena_sub {
     int      timeout_s;
     int64_t  expires_ms;
     int      failures;
+    int      pending_initial;   /* initial event not yet sent */
 };
 
 struct gena_out {

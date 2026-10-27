@@ -805,6 +805,22 @@ def test_http_edges(suite, client, port):
                 "Content-Length one byte over DLNA_REQ_MAX (8192) is 413",
                 edge[:200].decode("latin-1", "replace"))
 
+    # RFC 7230 3.3.3: conflicting Content-Length values must be rejected, not
+    # resolved last-one-wins. Previously the second value won and the connection
+    # then hung until the accept deadline closed it with no response at all.
+    dup = raw(b"POST /AVTransport/control HTTP/1.1\r\nHost: x\r\n"
+              b"Content-Length: 0\r\nContent-Length: 400\r\n\r\n")
+    suite.check(dup.startswith(b"HTTP/1.1 400"),
+                "conflicting Content-Length is 400",
+                dup[:200].decode("latin-1", "replace"))
+
+    # Two identical values are legal and must still work.
+    same = raw(b"POST /AVTransport/control HTTP/1.1\r\nHost: x\r\n"
+               b"Content-Length: 0\r\nContent-Length: 0\r\n\r\n")
+    suite.check(same.startswith(b"HTTP/1.1 "),
+                "duplicate but identical Content-Length still answers",
+                same[:120].decode("latin-1", "replace"))
+
 
 def test_connection_manager(suite, renderer, client):
     resp = renderer.soap("ConnectionManager", "GetProtocolInfo")
@@ -1061,6 +1077,27 @@ def test_rendering_control(suite, renderer):
     db = int(renderer.value(resp, "CurrentVolume"))
     suite.check(-10240 <= db <= 0, "GetVolumeDB in SCPD range",
                 "CurrentVolume=%d" % db)
+
+    # The full 101-step range must map to distinct 1/256 dB values. Truncating
+    # to whole dB first collapsed it to 41 values and made 98, 99 and 100 all
+    # report 0 (full scale) although 99 is attenuated by 0.4 dB.
+    seen = {}
+    for vol in (0, 1, 50, 98, 99, 100):
+        renderer.soap("RenderingControl", "SetVolume",
+                      arg("InstanceID", 0) + arg("Channel", "Master") +
+                      arg("DesiredVolume", vol))
+        r = renderer.soap("RenderingControl", "GetVolumeDB",
+                          arg("InstanceID", 0) + arg("Channel", "Master"))
+        seen[vol] = int(renderer.value(r, "CurrentVolume"))
+    suite.eq("volume 0 dB", seen[0], -10240)
+    suite.eq("volume 100 dB", seen[100], 0)
+    suite.check(seen[99] != 0, "volume 99 is not full scale",
+                "CurrentVolume=%d" % seen[99])
+    suite.check(len(set(seen.values())) == len(seen),
+                "volume steps map to distinct dB values", str(seen))
+    renderer.soap("RenderingControl", "SetVolume",
+                  arg("InstanceID", 0) + arg("Channel", "Master") +
+                  arg("DesiredVolume", 50))
 
 
 def test_soap_errors(suite, renderer):

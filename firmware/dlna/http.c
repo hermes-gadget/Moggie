@@ -262,6 +262,12 @@ static int parse_request(char *buf, size_t hdr_end, struct http_req_info *ri)
             v = strtoul(value, &num_end, 10);
             if (num_end == value || *num_end != '\0' || value[0] == '-') {
                 ri->bad = 1;
+            } else if (ri->has_content_length && ri->content_length != (size_t)v) {
+                /* RFC 7230 3.3.3: a message whose Content-Length values
+                 * disagree must be rejected. Last-one-wins let a sender smuggle
+                 * a different body length past anything that inspects only the
+                 * first header. */
+                ri->bad = 1;
             } else {
                 ri->content_length = (size_t)v;
                 ri->has_content_length = 1;

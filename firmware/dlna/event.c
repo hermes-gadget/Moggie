@@ -40,7 +40,7 @@ static void build_avt_lastchange(struct dlna_renderer *r, struct sbuf *b)
     switch (pb.state) {
     case DLNA_PLAYING: actions = "Stop,Pause,Seek"; break;
     case DLNA_PAUSED:  actions = "Play,Stop,Seek";  break;
-    case DLNA_STOPPED: actions = track ? "Play,Seek" : "Play"; break;
+    case DLNA_STOPPED: actions = "Play"; break;  /* Seek is refused here */
     default:           actions = "";                break;
     }
 
@@ -70,7 +70,8 @@ static void build_rcs_lastchange(struct dlna_renderer *r, struct sbuf *b)
     int db;
 
     renderer_snapshot(r, &pb);
-    db = (pb.volume - 100) * 40 / 100;   /* -40..0 dB, matches the SCPD range */
+    /* 1/256 dB units, computed before truncation -- see GetVolumeDB. */
+    db = ((pb.volume - 100) * 40 * 256) / 100;
 
     sb_puts(b, "<Event xmlns=\"urn:schemas-upnp-org:metadata-1-0/RCS/\">");
     sb_puts(b, "<InstanceID val=\"0\">");
@@ -440,8 +441,6 @@ int gena_subscribe(struct gena *g, int service,
     int timeout;
     int i;
     int64_t now = now_ms();
-    char body[DLNA_GENA_OUT_BUF];
-    int blen;
 
     if (!sid_out || sid_outsz == 0)
         return 412;
@@ -503,9 +502,12 @@ int gena_subscribe(struct gena *g, int service,
     log_info("event: %s subscribed to %s for %ds",
              s->sid, dlna_svc_dir[service], timeout);
 
-    blen = build_property_set(g, service, body, sizeof(body));
-    if (blen > 0)
-        (void)queue_event(g, s, body, (size_t)blen, now);
+    /* Do NOT send the initial event here. UPnP requires it to follow the
+     * SUBSCRIBE response, and on loopback connect() succeeds synchronously, so
+     * queueing now makes the NOTIFY arrive before the control point has the
+     * SID -- it discards the event and, because seq was already bumped, can
+     * never accept SEQ 0. gena_tick() sends it once the response is out. */
+    s->pending_initial = 1;
     return 200;
 }
 
@@ -581,6 +583,16 @@ void gena_tick(struct gena *g, int64_t now)
         if (s->used && now >= s->expires_ms) {
             log_info("event: subscription %s expired", s->sid);
             memset(s, 0, sizeof(*s));
+            continue;
+        }
+        if (s->used && s->pending_initial) {
+            char body[DLNA_GENA_OUT_BUF];
+            int blen;
+
+            blen = build_property_set(g, (int)s->service, body, sizeof(body));
+            if (blen > 0)
+                (void)queue_event(g, s, body, (size_t)blen, now);
+            s->pending_initial = 0;
         }
     }
 }
