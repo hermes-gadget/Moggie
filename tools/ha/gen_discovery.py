@@ -48,30 +48,49 @@ SUPPORT_URL = "https://github.com/hermes-gadget/Moggie"
 #: Sources the arbiter can hand the DAC to. Also the media_player source_list.
 SOURCES: Sequence[str] = ("AirPlay", "Spotify", "DLNA", "Snapcast")
 
-#: Entities the HA control plane is specified to contain.  The media player is
-#: the headline entity; everything else is a first-class MQTT component.
-REQUIRED_ENTITY_IDS: Sequence[str] = (
-    "media_player.moggie_play5",
+#: The executable contract: what ``sonosd`` publishes over MQTT discovery, and
+#: what ``tests/mqtt/run.sh`` asserts against a running daemon. Keep in step with
+#: ``mqtt_publish_ha_entities()`` in firmware/sonosd/mqtt.c.
+PUBLISHED_ENTITY_IDS: Sequence[str] = (
+    "number.moggie_volume",
     "number.moggie_bass",
     "number.moggie_treble",
     "number.moggie_balance",
     "switch.moggie_loudness",
-    "switch.moggie_led",
     "switch.moggie_night_mode",
-    "sensor.moggie_temperature",
     "sensor.moggie_uptime",
-    "sensor.moggie_buffer",
-    "button.moggie_identify",
-    "button.moggie_reboot",
-    "update.moggie_firmware",
 )
 
-#: Helper entities that let a *stock* Home Assistant build a real
-#: ``media_player.moggie_play5``.  See docs/HA.md — HA's MQTT integration has no
-#: media_player platform, so ``tools/ha/ha-config/packages/moggie_media_player.yaml``
-#: wraps these three in a universal media player.
+#: Designed and documented, deliberately not published, each with its reason.
+#: Not bugs, and not to be silently deleted: they record what the control plane
+#: should grow into. None can be published today without inventing data.
+UNSUPPORTED_ENTITY_IDS: Mapping[str, str] = {
+    "switch.moggie_led": "no GPIO/LED path in the daemon",
+    "sensor.moggie_temperature": "no sensor read path",
+    "sensor.moggie_buffer": "no PCM stream to measure",
+    "button.moggie_identify": "no safe path implemented",
+    "button.moggie_reboot": "no safe path implemented",
+    "update.moggie_firmware": "OTA is not wired into the daemon",
+}
+
+#: The full design set: published, blocked, or superseded. Nothing documented
+#: may fall outside these -- see test_every_documented_entity_is_accounted_for.
+#: ``media_player.moggie_play5`` is designed but *superseded*: HA has no MQTT
+#: media_player platform and the player is now a native dlna_dmr entity (#13),
+#: whose entity id is ``media_player.moggie_play_5``.
+REQUIRED_ENTITY_IDS: Sequence[str] = (
+    ("media_player.moggie_play5",)
+    + PUBLISHED_ENTITY_IDS
+    + tuple(UNSUPPORTED_ENTITY_IDS)
+)
+
+#: Backing entities for a universal media player built from MQTT primitives.
+#: Superseded by the native dlna_dmr entity (#13); retained for anyone running
+#: the daemon with no renderer.
+#:
+#: ``number.moggie_volume`` is deliberately NOT here: the daemon publishes it in
+#: its own right, so it is part of the base contract, not a shim helper.
 SHIM_ENTITY_IDS: Sequence[str] = (
-    "number.moggie_volume",
     "select.moggie_source",
     "sensor.moggie_playback_state",
 )
@@ -281,6 +300,23 @@ def number_entities(layout: Layout) -> Iterable[Entity]:
             mode="slider",
         )
 
+    # Published by the daemon in its own right, not as a shim helper.
+    yield _add(
+        layout,
+        "number",
+        "volume",
+        "Volume",
+        required=False,
+        icon="mdi:volume-high",
+        state_topic=layout.player_state_topic,
+        value_template="{{ value_json.volume_level }}",
+        command_topic=layout.topic("player/volume/set"),
+        min=0,
+        max=1,
+        step=0.01,
+        mode="slider",
+    )
+
 
 def switch_entities(layout: Layout) -> Iterable[Entity]:
     for object_id, name, icon in (
@@ -393,21 +429,6 @@ def update_entity(layout: Layout) -> Entity:
 
 def shim_entities(layout: Layout) -> Iterable[Entity]:
     """Backing entities for the universal media player (see docs/HA.md)."""
-    yield _add(
-        layout,
-        "number",
-        "volume",
-        "Volume",
-        required=False,
-        icon="mdi:volume-high",
-        state_topic=layout.player_state_topic,
-        value_template="{{ value_json.volume_level }}",
-        command_topic=layout.topic("player/volume/set"),
-        min=0,
-        max=1,
-        step=0.01,
-        mode="slider",
-    )
     yield _add(
         layout,
         "select",
@@ -674,10 +695,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     out_dir = Path(args.out) if args.out else Path(__file__).resolve().parent / "payloads"
     written = write_payloads(entities, out_dir, meta)
-    required = meta["required_entity_count"]
+    shim = sum(1 for e in entities if e.entity_id in SHIM_ENTITY_IDS)
+    published = sum(1 for e in entities if e.entity_id in PUBLISHED_ENTITY_IDS)
     print(
-        f"wrote {len(entities)} discovery payloads ({required} required, "
-        f"{len(entities) - required} shim) to {out_dir}"
+        f"wrote {len(entities)} discovery payloads ({published} published by "
+        f"sonosd, {shim} shim, {len(entities) - published - shim} design-only) "
+        f"to {out_dir}"
     )
     print(f"last file: {written[-1]}")
     return 0

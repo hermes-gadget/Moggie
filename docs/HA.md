@@ -421,11 +421,40 @@ entity — a user sees a working-looking switch and gets silence.
 | `update` | OTA is not wired into the daemon |
 | `identify`, power-cycle button | no safe path implemented |
 
-### Still to reconcile
+### The contract, and what is actually published (#14)
 
-`tools/ha/payloads/` and `tools/ha/gen_discovery.py` still generate the
-target-contract documents (one topic per entity). Until they are aligned, the
-rig validates a contract the daemon does not speak. Tracked in #14.
+`tools/ha/gen_discovery.py` used to describe 16 entities while `sonosd`
+published 8, and nothing said which was which. The lists are now explicit:
+
+| List | Count | Meaning |
+|---|---|---|
+| `PUBLISHED_ENTITY_IDS` | 7 | published by `sonosd`, asserted by `tests/mqtt/run.sh` against a real broker |
+| `UNSUPPORTED_ENTITY_IDS` | 6 | designed, with the blocker recorded |
+| `SHIM_ENTITY_IDS` | 2 | universal-player helpers; superseded by `dlna_dmr`, off by default |
+| `media_player.moggie_play5` | 1 | superseded by the native `dlna_dmr` entity (#13) |
+
+```
+$ python3 tools/ha/gen_discovery.py --out /tmp/payloads-check
+wrote 16 discovery payloads (7 published by sonosd, 2 shim, 7 design-only)
+```
+
+The six blocked entities are blocked by capability, not by effort:
+
+| Entity | Blocker |
+|---|---|
+| `switch.moggie_led` | no GPIO/LED path in the daemon |
+| `sensor.moggie_temperature` | no sensor read path |
+| `sensor.moggie_buffer` | no PCM stream to measure |
+| `button.moggie_identify` | no safe path implemented |
+| `button.moggie_reboot` | no safe path implemented |
+| `update.moggie_firmware` | OTA is not wired into the daemon |
+
+`test_every_documented_entity_is_accounted_for` now fails if any documented
+entity is neither published, blocked, nor explained as superseded, so the two
+halves cannot drift apart again.
+
+Note that `number.moggie_volume` is **published**, not a shim helper: the daemon
+emits it in its own right, so it survives `--no-media-player-shim`.
 
 ## The `media_player`: dlna_dmr, and what it actually required
 
