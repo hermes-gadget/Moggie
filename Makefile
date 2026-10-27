@@ -1,4 +1,4 @@
-.PHONY: all check toolchain sources kernel rootfs ota ota-test ha-payloads ha-test ha-rig mqtt-lib mqtt-test emulated-test compat-probe clean
+.PHONY: all check toolchain sources kernel rootfs ota ota-test ha-payloads ha-test ha-rig mqtt-lib mqtt-test emulated-test compat-probe boot-test clean
 
 SHELL := /bin/bash
 OUT   := out
@@ -56,6 +56,10 @@ emulated-test:
 # on the device's 2.6.35 kernel — run it on hardware day before anything else.
 compat-probe:
 	@./tests/compat/run.sh
+
+# The boot chooser's slot-selection logic, under its simulation mode.
+boot-test:
+	@./tests/boot/run.sh
 
 clean:
 	rm -rf $(OUT)

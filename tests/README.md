@@ -5,11 +5,39 @@
 - `mqtt/` — sonosd against a **real** Mosquitto broker (see below).
 - `emulated/` — the PowerPC binaries running under qemu-user (see below).
 - `compat/` — the runtime probe that decides whether a libc works on 2.6.35.
+- `boot/` — boot chooser slot selection, under its simulation mode.
 - `../firmware/sonosd/tests/` — sonosd unit tests (arbiter, volume, jsonlite, config).
 
 Run with `make ota-test`, `make ha-test`, `make mqtt-test`,
-`make emulated-test` and `make compat-probe`, and `make test` in
-`firmware/sonosd`.
+`make emulated-test`, `make compat-probe` and `make boot-test`, and `make test`
+in `firmware/sonosd`.
+
+## boot/ — which slot does the initramfs choose?
+
+`firmware/bootchooser/init` is PID 1 in the initramfs; it decides which half of
+mtd3 to `switch_root` into. It has a simulation mode for exactly this, and until
+now nothing exercised it. 17 checks:
+
+| case | expected |
+|---|---|
+| healthy slot | boots it |
+| no `bootslot` | defaults to `a` |
+| hash mismatch | falls back to the other slot |
+| wrong squashfs magic | falls back |
+| missing slot image | falls back |
+| failure limit reached | slot skipped |
+| both slots corrupt | recovery (exit 3) |
+| `boot_ok` for the running slot | commits, clears failures, consumes the flag |
+| `boot_ok` for the *other* slot | ignored, not consumed |
+| boot attempt | charged before handover, so a hang counts |
+| failover | `bootslot` moves so userspace knows who it is |
+| `slot_status=bad` | skipped even with a valid image |
+| shell portability | passes under `dash` and `busybox sh` |
+
+`busybox sh` matters: that is what runs on the device.
+
+This covers **selection only**. Mounting a real squashfs, `switch_root`, and NAND
+behaviour all need the speaker.
 
 ## compat/ — can this libc actually run on the device?
 
