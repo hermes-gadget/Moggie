@@ -1,0 +1,65 @@
+# Moggie Home Assistant development rig.
+#
+#   cd tools/ha
+#   docker compose up -d
+#   ./sync-config.sh                 # copies ha-config/ into the HA volume
+#   python3 publish.py --host 127.0.0.1 --port 18830 --seed-state --verify
+#   open http://localhost:18123
+#
+# Host ports are deliberately non-default (18830/18123) so the rig cannot
+# collide with a real MQTT broker or Home Assistant on 1883/8123.
+#
+# Home Assistant's /config is a named volume, not a bind mount: with
+# userns-remapped Docker (userns-remap=default) a container cannot write to files
+# owned by the invoking user, and the rig has to work either way. The repo copy in
+# ./ha-config is the source of truth; ./sync-config.sh pushes it in and restarts
+# Home Assistant. If your Docker runs without userns remapping and you would
+# rather edit the live config in place, replace `ha-config:/config` with
+# `./ha-config:/config`.
+#
+# Stop with `docker compose down` — the volume survives, so onboarding does not
+# have to be repeated.
+
+name: moggie-ha-rig
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: moggie-ha-mosquitto
+    restart: "no"
+    ports:
+      - "${MOGGIE_MQTT_PORT:-18830}:1883"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
+    healthcheck:
+      test: ["CMD-SHELL", "mosquitto_sub -h 127.0.0.1 -t '$$SYS/broker/uptime' -C 1 -W 3 >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: moggie-ha
+    restart: "no"
+    depends_on:
+      mosquitto:
+        condition: service_healthy
+    ports:
+      - "${MOGGIE_HA_PORT:-18123}:8123"
+    environment:
+      TZ: "${TZ:-Europe/London}"
+    volumes:
+      - ha-config:/config
+      - /etc/localtime:/etc/localtime:ro
+    stop_grace_period: 30s
+
+volumes:
+  ha-config:
+    name: moggie-ha-config
+  mosquitto-data:
+    name: moggie-ha-mosquitto-data
+  mosquitto-log:
+    name: moggie-ha-mosquitto-log

@@ -1,0 +1,34 @@
+# Home Assistant configuration for the Moggie development rig.
+#
+# This file is mounted at /config/configuration.yaml by tools/ha/compose.yaml.
+# Home Assistant writes its state next to it (.storage/, home-assistant_v2.db,
+# home-assistant.log); those paths are git-ignored.
+#
+# One manual step remains, because Home Assistant no longer accepts broker
+# settings in YAML: add the MQTT integration once via the UI (or the config-entry
+# websocket flow) using
+#
+#     broker: mosquitto     port: 1883     username/password: (empty)
+#     discovery: true       discovery prefix: homeassistant
+#
+# See docs/HA.md for the full walkthrough and the long-lived token steps.
+
+default_config:
+
+homeassistant:
+  name: Moggie
+  unit_system: metric
+  time_zone: Europe/London
+  # tools/ha/ha/packages is mounted read-only here.
+  packages: !include_dir_named packages
+
+logger:
+  default: warning
+  logs:
+    homeassistant.components.mqtt: info
+    homeassistant.components.mqtt.discovery: debug
+
+# The rig runs for minutes, not months: keep the database from growing.
+recorder:
+  purge_keep_days: 1
+  commit_interval: 30

@@ -1,0 +1,39 @@
+{
+  "topic": "homeassistant/select/moggie_play5/source/config",
+  "qos": 1,
+  "retain": true,
+  "payload": {
+    "name": "Source",
+    "unique_id": "moggie_play5_select_source",
+    "default_entity_id": "select.moggie_source",
+    "icon": "mdi:import",
+    "availability_topic": "moggie/play5/availability",
+    "payload_available": "online",
+    "payload_not_available": "offline",
+    "device": {
+      "identifiers": [
+        "moggie_play5"
+      ],
+      "name": "Moggie",
+      "manufacturer": "Sonos",
+      "model": "Play:5 (Gen 1)",
+      "sw_version": "0.1.0",
+      "hw_version": "Play:5 Gen 1",
+      "suggested_area": "Living Room"
+    },
+    "origin": {
+      "name": "Moggie",
+      "sw_version": "0.1.0",
+      "support_url": "https://github.com/hermes-gadget/Moggie"
+    },
+    "state_topic": "moggie/play5/player",
+    "value_template": "{{ value_json.source }}",
+    "command_topic": "moggie/play5/player/source/set",
+    "options": [
+      "AirPlay",
+      "Spotify",
+      "DLNA",
+      "Snapcast"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "topic": "homeassistant/update/moggie_play5/firmware/config",
+  "qos": 1,
+  "retain": true,
+  "payload": {
+    "name": "Firmware",
+    "unique_id": "moggie_play5_update_firmware",
+    "default_entity_id": "update.moggie_firmware",
+    "icon": "mdi:package-up",
+    "availability_topic": "moggie/play5/availability",
+    "payload_available": "online",
+    "payload_not_available": "offline",
+    "device": {
+      "identifiers": [
+        "moggie_play5"
+      ],
+      "name": "Moggie",
+      "manufacturer": "Sonos",
+      "model": "Play:5 (Gen 1)",
+      "sw_version": "0.1.0",
+      "hw_version": "Play:5 Gen 1",
+      "suggested_area": "Living Room"
+    },
+    "origin": {
+      "name": "Moggie",
+      "sw_version": "0.1.0",
+      "support_url": "https://github.com/hermes-gadget/Moggie"
+    },
+    "device_class": "firmware",
+    "state_topic": "moggie/play5/update",
+    "command_topic": "moggie/play5/update/install",
+    "payload_install": "install",
+    "title": "Moggie firmware",
+    "release_summary": "Signed OTA image for the Play:5 (Gen 1)."
+  }
+}

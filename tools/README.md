@@ -8,7 +8,7 @@ install.
 | `mkmanifest.py` | generate a signing key, build and sign an OTA manifest |
 | `verify.py` | verify a manifest (+ image) against a public key |
 | `otamanifest.py` | the shared format: canonical bytes, signing, verification |
-| `ha/` | Home Assistant discovery payload generator *(to come)* |
+| `ha/` | Home Assistant discovery: payload generator, publisher, docker rig ([docs/HA.md](../docs/HA.md)) |
 | `installer/` | the network loader (kept out of this repo for now) |
 
 ## Signing

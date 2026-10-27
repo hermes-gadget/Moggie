@@ -1,0 +1,37 @@
+{
+  "topic": "homeassistant/number/moggie_play5/balance/config",
+  "qos": 1,
+  "retain": true,
+  "payload": {
+    "name": "Balance",
+    "unique_id": "moggie_play5_number_balance",
+    "default_entity_id": "number.moggie_balance",
+    "entity_category": "config",
+    "icon": "mdi:balance",
+    "availability_topic": "moggie/play5/availability",
+    "payload_available": "online",
+    "payload_not_available": "offline",
+    "device": {
+      "identifiers": [
+        "moggie_play5"
+      ],
+      "name": "Moggie",
+      "manufacturer": "Sonos",
+      "model": "Play:5 (Gen 1)",
+      "sw_version": "0.1.0",
+      "hw_version": "Play:5 Gen 1",
+      "suggested_area": "Living Room"
+    },
+    "origin": {
+      "name": "Moggie",
+      "sw_version": "0.1.0",
+      "support_url": "https://github.com/hermes-gadget/Moggie"
+    },
+    "state_topic": "moggie/play5/eq/balance",
+    "command_topic": "moggie/play5/eq/balance/set",
+    "min": -10,
+    "max": 10,
+    "step": 1,
+    "mode": "slider"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "topic": "homeassistant/number/moggie_play5/volume/config",
+  "qos": 1,
+  "retain": true,
+  "payload": {
+    "name": "Volume",
+    "unique_id": "moggie_play5_number_volume",
+    "default_entity_id": "number.moggie_volume",
+    "icon": "mdi:volume-high",
+    "availability_topic": "moggie/play5/availability",
+    "payload_available": "online",
+    "payload_not_available": "offline",
+    "device": {
+      "identifiers": [
+        "moggie_play5"
+      ],
+      "name": "Moggie",
+      "manufacturer": "Sonos",
+      "model": "Play:5 (Gen 1)",
+      "sw_version": "0.1.0",
+      "hw_version": "Play:5 Gen 1",
+      "suggested_area": "Living Room"
+    },
+    "origin": {
+      "name": "Moggie",
+      "sw_version": "0.1.0",
+      "support_url": "https://github.com/hermes-gadget/Moggie"
+    },
+    "state_topic": "moggie/play5/player",
+    "value_template": "{{ value_json.volume_level }}",
+    "command_topic": "moggie/play5/player/volume/set",
+    "min": 0,
+    "max": 1,
+    "step": 0.01,
+    "mode": "slider"
+  }
+}

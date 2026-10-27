@@ -1,0 +1,76 @@
+# A real media_player for Moggie, on top of the MQTT entities.
+#
+# Home Assistant's MQTT integration has no media_player platform: the component
+# list in homeassistant/components/mqtt/const.py (SUPPORTED_COMPONENTS) does not
+# include "media_player", and there is no MQTT media player documentation page.
+# The discovery document the generator emits for
+# `homeassistant/media_player/moggie_play5/speaker/config` is therefore inert on
+# a stock install — it is retained for other MQTT discovery consumers.
+#
+# This package gives Home Assistant the same entity by wrapping the MQTT-backed
+# entities in a universal media player. Every command still travels over MQTT on
+# the topics documented in docs/HA.md, so the speaker remains the single source
+# of truth:
+#
+#   state        <- sensor.moggie_playback_state   (moggie/play5/player JSON)
+#   volume_level <- number.moggie_volume           (same JSON)
+#   source       <- select.moggie_source           (same JSON)
+#   commands     -> moggie/play5/player/command, /volume/set, /source/set
+#
+# Nothing here touches HA internals; delete the file and the individual entities
+# keep working.
+
+media_player:
+  - platform: universal
+    # Slugged to give the entity id media_player.moggie_play5.
+    name: Moggie Play5
+    unique_id: moggie_play5_media_player
+    device_class: speaker
+    commands:
+      turn_on:
+        action: mqtt.publish
+        data:
+          topic: moggie/play5/player/command
+          payload: turn_on
+          qos: 1
+      turn_off:
+        action: mqtt.publish
+        data:
+          topic: moggie/play5/player/command
+          payload: turn_off
+          qos: 1
+      media_play:
+        action: mqtt.publish
+        data:
+          topic: moggie/play5/player/command
+          payload: play
+          qos: 1
+      media_pause:
+        action: mqtt.publish
+        data:
+          topic: moggie/play5/player/command
+          payload: pause
+          qos: 1
+      media_stop:
+        action: mqtt.publish
+        data:
+          topic: moggie/play5/player/command
+          payload: stop
+          qos: 1
+      volume_set:
+        action: number.set_value
+        target:
+          entity_id: number.moggie_volume
+        data:
+          value: "{{ volume_level }}"
+      select_source:
+        action: select.select_option
+        target:
+          entity_id: select.moggie_source
+        data:
+          option: "{{ source }}"
+    attributes:
+      state: sensor.moggie_playback_state
+      volume_level: number.moggie_volume
+      source: select.moggie_source
+      source_list: select.moggie_source|options

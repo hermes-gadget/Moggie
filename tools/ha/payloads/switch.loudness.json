@@ -1,0 +1,37 @@
+{
+  "topic": "homeassistant/switch/moggie_play5/loudness/config",
+  "qos": 1,
+  "retain": true,
+  "payload": {
+    "name": "Loudness",
+    "unique_id": "moggie_play5_switch_loudness",
+    "default_entity_id": "switch.moggie_loudness",
+    "entity_category": "config",
+    "icon": "mdi:surround-sound",
+    "availability_topic": "moggie/play5/availability",
+    "payload_available": "online",
+    "payload_not_available": "offline",
+    "device": {
+      "identifiers": [
+        "moggie_play5"
+      ],
+      "name": "Moggie",
+      "manufacturer": "Sonos",
+      "model": "Play:5 (Gen 1)",
+      "sw_version": "0.1.0",
+      "hw_version": "Play:5 Gen 1",
+      "suggested_area": "Living Room"
+    },
+    "origin": {
+      "name": "Moggie",
+      "sw_version": "0.1.0",
+      "support_url": "https://github.com/hermes-gadget/Moggie"
+    },
+    "state_topic": "moggie/play5/loudness",
+    "command_topic": "moggie/play5/loudness/set",
+    "payload_on": "ON",
+    "payload_off": "OFF",
+    "state_on": "ON",
+    "state_off": "OFF"
+  }
+}
