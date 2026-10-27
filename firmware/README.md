@@ -9,7 +9,8 @@ On-device software.
 | `sonosd/` | hardware daemon: `/dev/dsp`, `/dev/audioctl`, GPIO, arbiter, MQTT |
 | `dlna/` | minimal UPnP renderer |
 
-`sonosd/` and `dlna/` are still to come. See `ROADMAP.md`.
+`sonosd`, `updater/` and `bootchooser/` build and are tested; `dlna/` is still to
+come. See `ROADMAP.md`.
 
 The updater and the boot chooser are the two halves of the update path and are
 tested together by `tests/ota/run.sh` — every case is a way an update can fail.
