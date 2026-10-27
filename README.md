@@ -1,6 +1,10 @@
 # Moggie
 
-> **Designed in California. Perfected in Teesside.**
+![Moggie — a scruffy cat sitting on a Play:5, lit in neon](assets/moggie-hero.png)
+
+**Giving old speakers nine lives.**
+
+> Designed in California. Purrfected in Teesside.
 
 Open firmware for the Sonos Play:5 (Gen 1) — and, in time, the rest of the Fenway family.
 
@@ -61,7 +65,7 @@ audio sources, and speaks MQTT. Split the 16 MB rootfs partition into two 8 MB A
 and boot through a small initramfs chooser that verifies the slot before mounting it.
 Every endpoint daemon runs on the device; a server is a bonus, never a dependency.
 
-Full detail: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+Full detail: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). Brand and voice: [`docs/branding.md`](docs/branding.md).
 
 ## Build
 
