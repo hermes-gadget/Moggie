@@ -102,6 +102,11 @@ write_slot() { # mtd3-file a|b source-image
 mk_env() { # dir -> fresh state dir + 16 MiB stand-in for mtd3
     mkdir -p "$1/state" "$1/keys" "$1/img"
     printf 'a\n' > "$1/state/bootslot"
+    # The chooser records what it actually booted; the updater refuses to write
+    # anything without it. A fixture that sets only bootslot is now modelling a
+    # machine that never booted through the chooser, which is exactly the state
+    # the updater must refuse.
+    printf 'a' > "$1/state/running_slot"
     truncate -s "$FLASH_BYTES" "$1/mtd3.img"
 }
 
@@ -684,6 +689,33 @@ case_install_boot_commit() {
 
 # 20. The chooser must behave the same under every shell it may meet on the
 #     device: dash now, busybox ash in the initramfs.
+# The updater used to read `bootslot` as "the slot that is running". bootslot
+# actually means "boot this one next" and is rewritten at commit time, so after
+# installing B -- before any reboot -- a second invocation believed it was
+# running B and targeted A, which was still the live rootfs.
+case_second_update_before_reboot() {
+    set -e
+    local d=$WORK/reboot
+    mk_env "$d"; mk_key "$d"
+    local old; old=$(mk_image "$d" old)
+    local new; new=$(mk_image "$d" new 131072)
+    sign "$d" "$new" 2.0.0 "$d/manifest.json"
+    write_slot "$d/mtd3.img" a "$old"
+
+    run_test_updater "$d" --manifest "$d/manifest.json" --image "$new"
+    assert_eq 0 "$RC" "first install succeeds"
+    assert_eq "b" "$(cat "$d/state/bootslot")" "bootslot now points at b"
+    assert_eq "a" "$(cat "$d/state/running_slot")" "but a is still the running slot"
+
+    dd if="$d/mtd3.img" bs=4096 count=2048 status=none of="$d/slot_a.before"
+    run_test_updater "$d" --manifest "$d/manifest.json" --image "$new"
+    dd if="$d/mtd3.img" bs=4096 count=2048 status=none of="$d/slot_a.after"
+
+    if cmp -s "$d/slot_a.before" "$d/slot_a.after"; then same=yes; else same=no; fi
+    assert_eq "yes" "$same" "the running slot is byte-identical after a second update"
+    assert_eq "a" "$(cat "$d/state/running_slot")" "running slot still a"
+}
+
 case_chooser_shells() {
     set -e
     local d=$WORK/shells

@@ -216,6 +216,12 @@ boot_slot() { # a|b -> does not return on success
         write_state bootslot "$_slot"
     fi
 
+    # Record what we are actually booting. The updater must never infer the
+    # running slot from bootslot, which names the *next* boot and is rewritten
+    # whenever an update commits. Written here, before switch_root (and before
+    # the simulation branch, so the tests model what a real boot leaves behind).
+    write_state running_slot "$_slot" || msg "warning: cannot record running slot"
+
     if [ "$SIM" = "1" ]; then
         printf '%s\n' "$_slot" > "$SLOT_DIR/booted" 2>/dev/null
         if [ -n "${MOGGIE_SIM_BOOT_HOOK:-}" ]; then

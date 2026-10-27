@@ -48,6 +48,11 @@
 #define DEFAULT_DEVICE "/dev/mtd3"
 #define DEFAULT_STATE_DIR "/jffs"
 #define STATE_BOOTSLOT "bootslot"
+/* Which slot the chooser actually booted. Distinct from `bootslot`, which means
+ * "boot this one next" and is rewritten at commit time -- so reading bootslot
+ * as the running slot lets a second update target the slot that is still
+ * running. The chooser writes this file immediately before switch_root. */
+#define STATE_RUNNING_SLOT "running_slot"
 #define STATE_BOOT_OK "boot_ok"
 #define SQUASHFS_MAGIC "hsqs"
 
@@ -496,11 +501,18 @@ int main(int argc, char **argv)
     }
 
     /* --- slots --- */
-    if (state_read(state_dir, STATE_BOOTSLOT, cur_slot_buf, sizeof cur_slot_buf) != 0
+    /* Fail closed. `bootslot` is NOT usable here: it names the slot to boot
+     * next and is rewritten during commit, so after installing B (or after a
+     * failed reboot) it says "b" while "a" is still running -- and an "auto"
+     * update would then overwrite the running slot. The chooser records the
+     * truth in running_slot. If that is missing we cannot tell which slot is
+     * live, so we write nothing at all rather than risk the running rootfs. */
+    if (state_read(state_dir, STATE_RUNNING_SLOT, cur_slot_buf, sizeof cur_slot_buf) != 0
         || cur_slot_buf[1] != '\0'
         || (cur_slot_buf[0] != 'a' && cur_slot_buf[0] != 'b')) {
-        logmsg("moggie-updater: %s/%s does not name a slot; refusing to guess "
-               "which slot is running", state_dir, STATE_BOOTSLOT);
+        logmsg("moggie-updater: %s/%s missing or invalid; cannot tell which slot "
+               "is running. %s records the next boot, not the current one. "
+               "Refusing to write.", state_dir, STATE_RUNNING_SLOT, STATE_BOOTSLOT);
         close(imgfd);
         return EX_STATE;
     }
