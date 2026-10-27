@@ -77,7 +77,7 @@ static void build_rcs_lastchange(struct dlna_renderer *r, struct sbuf *b)
     sb_puts(b, "<InstanceID val=\"0\">");
     sb_printf(b, "<Volume channel=\"Master\" val=\"%d\"/>", pb.volume);
     sb_printf(b, "<Mute channel=\"Master\" val=\"%d\"/>", pb.mute ? 1 : 0);
-    sb_printf(b, "<VolumeDB channel=\"Master\" val=\"%d\"/>", db * 256);
+    sb_printf(b, "<VolumeDB channel=\"Master\" val=\"%d\"/>", db);
     sb_puts(b, "</InstanceID></Event>");
 }
 
