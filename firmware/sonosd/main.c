@@ -149,23 +149,56 @@ static void handle_command(const char *topic, const char *payload, void *user)
     log_info("mqtt cmd: %s", payload);
     v = dsp_volume_state();
 
+    /* Every key in the payload is applied, not just the first. A payload such
+     * as {"mute":true,"volume":30} used to apply mute and silently drop the
+     * rest, which is worse than refusing it outright. */
+    int applied = 0;
+    int tone_changed = 0;
+    int bass = v ? v->bass : 0;
+    int treble = v ? v->treble : 0;
+    int balance = v ? v->balance : 0;
+
     if (json_get_int(payload, "volume", &val) == 1) {
         (void)dsp_set_volume(val, 1);
-    } else if (json_get_int(payload, "volume_delta", &val) == 1) {
+        applied = 1;
+    }
+    if (json_get_int(payload, "volume_delta", &val) == 1) {
         (void)dsp_adjust_volume(val, 1);
-    } else if (json_get_bool(payload, "mute", &val) == 1) {
+        applied = 1;
+    }
+    if (json_get_int(payload, "bass", &val) == 1) {
+        bass = val;
+        tone_changed = 1;
+        applied = 1;
+    }
+    if (json_get_int(payload, "treble", &val) == 1) {
+        treble = val;
+        tone_changed = 1;
+        applied = 1;
+    }
+    if (json_get_int(payload, "balance", &val) == 1) {
+        balance = val;
+        tone_changed = 1;
+        applied = 1;
+    }
+    /* Applied as one update: three separate calls would have the later keys
+     * write pre-change values back over the earlier ones. */
+    if (tone_changed)
+        (void)dsp_set_tone(bass, treble, balance);
+    if (json_get_bool(payload, "mute", &val) == 1) {
         (void)dsp_set_mute(val);
-    } else if (json_get_int(payload, "bass", &val) == 1) {
-        (void)dsp_set_tone(val, v->treble, v->balance);
-    } else if (json_get_int(payload, "treble", &val) == 1) {
-        (void)dsp_set_tone(v->bass, val, v->balance);
-    } else if (json_get_int(payload, "balance", &val) == 1) {
-        (void)dsp_set_tone(v->bass, v->treble, val);
-    } else if (json_get_bool(payload, "loudness", &val) == 1) {
+        applied = 1;
+    }
+    if (json_get_bool(payload, "loudness", &val) == 1) {
         (void)dsp_set_loudness(val);
-    } else if (json_get_bool(payload, "night_mode", &val) == 1) {
+        applied = 1;
+    }
+    if (json_get_bool(payload, "night_mode", &val) == 1) {
         (void)dsp_set_night_mode(val);
-    } else if (json_get_str(payload, "cmd", cmd, sizeof(cmd)) == 1) {
+        applied = 1;
+    }
+    if (json_get_str(payload, "cmd", cmd, sizeof(cmd)) == 1) {
+        applied = 1;
         if (strcmp(cmd, "volume_up") == 0)
             (void)dsp_adjust_volume(cfg ? cfg->volume_step : 2, 1);
         else if (strcmp(cmd, "volume_down") == 0)
@@ -176,9 +209,9 @@ static void handle_command(const char *topic, const char *payload, void *user)
             ;   /* publish_state() below is the answer */
         else
             log_warn("unknown cmd '%s'", cmd);
-    } else {
-        log_warn("unparseable command payload: %s", payload);
     }
+    if (!applied)
+        log_warn("unparseable command payload: %s", payload);
 
     publish_state();
 }
