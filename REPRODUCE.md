@@ -40,14 +40,30 @@ Both land in `dl/` and extract into `src/`.
 make kernel
 ```
 
-Produces `out/vmlinux`, `out/audiodev.ko`, and appends their SHA-256s to
-`out/artifacts.sha256`.
+Produces `out/vmlinux.bin`, `out/audiodev.ko` and `out/artifacts.sha256`.
 
-The stock kernel config is recovered from the shipped kernel image with
-`extract-ikconfig`. Two options must be present for the flash layout to work:
+The config comes from **`arch/powerpc/configs/fenway_op_defconfig`**, which Sonos ships
+in the GPL drop. It is not recoverable from the shipped kernel image — `CONFIG_IKCONFIG`
+is off, so there is no embedded config to extract.
 
-- `CONFIG_MTD_CMDLINE_PARTS`
-- `CONFIG_SQUASHFS`
+The build script applies three changes to that defconfig:
+
+| Option | Why |
+|---|---|
+| `CONFIG_CC_OPTIMIZE_FOR_SIZE=y` | the kernel partition is 2 MB; a `-O2` build does not fit |
+| `CONFIG_SQUASHFS=y` | absent from the stock config; needed for the A/B rootfs |
+| `CONFIG_BLK_DEV_INITRD=y` | absent entirely; needed for the boot chooser |
+
+It also has to coax a 2011 kernel into building under GCC 15 — see the comments at the
+top of `scripts/build-kernel.sh`. Those are not optional; remove one and the build fails.
+
+Expected result on the current tree:
+
+```
+vmlinux.bin   4,204,896 B
+gzip payload  1,703,280 B   (81% of the 2 MB kernel partition)
+audiodev.ko     120,720 B
+```
 
 ## 5. Root filesystem
 

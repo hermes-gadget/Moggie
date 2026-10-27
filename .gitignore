@@ -2,6 +2,7 @@
 out/
 build/
 dl/
+src/
 
 # toolchain
 toolchain/
