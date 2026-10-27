@@ -65,3 +65,10 @@ audio          stock DSP graph mapped; capture tool self-tests 4/4
 4. **The stock DSP is a configuration graph, not fixed coefficients.** `anacapad`
    runs an IIR block engine and the firmware serves that graph at `GET /getDSP`,
    so hardware day can capture the real crossover/EQ instead of guessing (#17).
+5. **Our toolchain's libc needs a newer kernel than the speaker runs.** Stock
+   firmware ships glibc 2.23; the pinned toolchain ships glibc 2.44 with
+   `Minimum supported kernel: 3.2.0`, against a 2.6.35 device kernel. The kernel
+   build is unaffected (no libc), but every userspace binary is suspect. Measured:
+   `sonosd` imports nothing newer than 2.6.35; `libmosquitto` adds `getrandom`
+   (3.17+) with a documented `/dev/urandom` fallback. Narrowed, not cleared —
+   see `docs/TOOLCHAIN.md` and #22.
