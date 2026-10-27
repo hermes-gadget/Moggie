@@ -1,0 +1,127 @@
+# firmware/sonosd/Makefile
+#
+#   make                 host build, real backends  -> ./sonosd
+#   make mock            SONOSD_MOCK=1 build        -> ./sonosd_mock
+#   make test            unit tests + mosquitto backend syntax check
+#   make check-mosquitto syntax-check the libmosquitto backend against a stub
+#   make clean           remove build/ and the two binaries
+#
+# Cross build for the Play:5 (PowerPC MPC8247, e300c3):
+#   make CROSS_COMPILE=powerpc-e300c3-linux-gnu- CFLAGS="-Os -g"
+#
+# libmosquitto is optional. It is detected with pkg-config; without it the
+# daemon is built with the in-RAM mock MQTT backend and says so at startup.
+
+SHELL := /bin/sh
+
+PKG_CONFIG    ?= pkg-config
+
+# Cross compiling is opt-in on the command line:
+#   make CROSS_COMPILE=powerpc-e300c3-linux-gnu-
+# An ambient CROSS_COMPILE in the environment is ignored on purpose: this box
+# exports one globally, and silently producing a PowerPC binary when the caller
+# asked for `make mock && ./sonosd_mock --selftest` is a bad time.
+ifeq ($(origin CROSS_COMPILE),command line)
+TOOLCHAIN_PREFIX := $(CROSS_COMPILE)
+else
+TOOLCHAIN_PREFIX :=
+endif
+
+ifeq ($(origin CC),command line)
+# honour an explicit compiler
+else
+CC := $(TOOLCHAIN_PREFIX)gcc
+endif
+STRIP ?= $(TOOLCHAIN_PREFIX)strip
+
+CFLAGS ?= -O2 -g
+CFLAGS += -std=c99 -Wall -Wextra -Wshadow -Wstrict-prototypes -Wmissing-prototypes \
+          -Wpointer-arith -Wno-unused-parameter
+CPPFLAGS += -I.
+
+BUILD    := build
+OBJ      := $(BUILD)/obj
+OBJ_MOCK := $(BUILD)/mock
+TEST_DIR := $(BUILD)/test
+
+# ---- libmosquitto probe -------------------------------------------------
+HAVE_MOSQ := $(shell command -v $(PKG_CONFIG) >/dev/null 2>&1 && \
+                     $(PKG_CONFIG) --exists libmosquitto 2>/dev/null && echo 1 || echo 0)
+
+ifeq ($(HAVE_MOSQ),1)
+MOSQ_CFLAGS := $(shell $(PKG_CONFIG) --cflags libmosquitto)
+MOSQ_LIBS   := $(shell $(PKG_CONFIG) --libs libmosquitto)
+CPPFLAGS    += -DSONOSD_HAVE_MOSQUITTO=1 $(MOSQ_CFLAGS)
+else
+MOSQ_CFLAGS :=
+MOSQ_LIBS   :=
+CPPFLAGS    += -DSONOSD_HAVE_MOSQUITTO=0
+endif
+
+LDLIBS += $(MOSQ_LIBS) -pthread
+
+# ---- sources ------------------------------------------------------------
+DAEMON_SRC := main.c log.c config.c volume.c arbiter.c dsp.c dsp_linux.c \
+              mockdev.c mqtt.c mqtt_mock.c jsonlite.c selftest.c
+
+ifeq ($(HAVE_MOSQ),1)
+DAEMON_SRC += mqtt_mosquitto.c
+endif
+
+TEST_SRC     := tests/test_main.c tests/test_arbiter.c tests/test_volume.c \
+                tests/test_jsonlite.c tests/test_config.c
+TEST_SUPPORT := log.c config.c volume.c arbiter.c jsonlite.c
+
+OBJS      := $(DAEMON_SRC:%.c=$(OBJ)/%.o)
+OBJS_MOCK := $(DAEMON_SRC:%.c=$(OBJ_MOCK)/%.o)
+
+DIRS := $(OBJ) $(OBJ_MOCK) $(TEST_DIR)
+
+.PHONY: all mock test clean check-mosquitto
+.DELETE_ON_ERROR:
+
+all: sonosd
+
+# ---- objects ------------------------------------------------------------
+$(DIRS):
+	@mkdir -p $@
+
+$(OBJ)/%.o: %.c | $(OBJ)
+	@echo "  CC     $<"
+	@$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+$(OBJ_MOCK)/%.o: %.c | $(OBJ_MOCK)
+	@echo "  CC     $< (mock)"
+	@$(CC) $(CPPFLAGS) -DSONOSD_MOCK=1 $(CFLAGS) -c $< -o $@
+
+# ---- binaries ----------------------------------------------------------
+sonosd: $(OBJS)
+	@echo "  LD     $@"
+	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
+	@echo "  NOTE   compiler $(CC); mqtt: $(if $(filter 1,$(HAVE_MOSQ)),libmosquitto,mock)"
+
+sonosd_mock: $(OBJS_MOCK)
+	@echo "  LD     $@"
+	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS_MOCK) $(LDLIBS)
+	@echo "  NOTE   SONOSD_MOCK=1: no device node and no broker will be opened"
+
+mock: sonosd_mock
+
+# ---- tests -------------------------------------------------------------
+$(BUILD)/sonosd_tests: $(TEST_SRC) $(TEST_SUPPORT) tests/test_harness.h tests/tests.h | $(TEST_DIR)
+	@echo "  CC     $@"
+	@$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(TEST_SRC) $(TEST_SUPPORT) -pthread
+
+# The real backend cannot be built without the library, but it must not rot.
+check-mosquitto:
+	@echo "  CHECK  mqtt_mosquitto.c against tests/stubs/mosquitto.h"
+	@$(CC) -I. -Itests/stubs -DSONOSD_HAVE_MOSQUITTO=1 $(MOSQ_CFLAGS) $(CFLAGS) \
+		-fsyntax-only mqtt_mosquitto.c
+	@echo "  OK     libmosquitto backend compiles"
+
+test: $(BUILD)/sonosd_tests check-mosquitto
+	@echo
+	@./$(BUILD)/sonosd_tests
+
+clean:
+	rm -rf $(BUILD) sonosd sonosd_mock

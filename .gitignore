@@ -2,6 +2,7 @@
 out/
 build/
 dl/
+src/
 
 # toolchain
 toolchain/
@@ -22,6 +23,10 @@ System.map
 *.cramfs
 *.ubi
 *.bin
+
+# python
+__pycache__/
+*.pyc
 
 # editor / OS
 .DS_Store

@@ -1,0 +1,5 @@
+# Build output
+build/
+sonosd
+sonosd_mock
+*.lock
