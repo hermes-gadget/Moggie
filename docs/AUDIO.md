@@ -108,3 +108,101 @@ page. That is a two-minute check with a real unit.
 - Whether the DSP graph differs between 16.6, 34.16 and 57.10. The binaries grow by
   1.6 MB across those releases, so something changed, but not necessarily the audio.
 - Anything about acoustic output. No measurement exists.
+
+## Amplifier control and protection
+
+The stock firmware does not just send audio to an amplifier — it runs a state
+machine around it. Strings recovered from `anacapad` (57.10) name the inputs:
+
+```
+manageAmpState_notifyPreemptiveTurnOn
+manageAmpState_notifyPlaying
+manageAmpState_notifyPlayingUnmuteableSource_p
+manageAmpState_notifyPlayingUnmuteableSource_np
+manageAmpState_notifyVolume
+manageAmpState_notifyHeadphoneMode
+manageAmpState_notifyOutputFixed
+```
+
+Read together, that describes:
+
+- **Pre-emptive turn-on** — the amp is woken before audio is expected, so the
+  first moments of a track are not clipped while it settles.
+- **Unmuteable sources** — some inputs (`_p` / `_np`, presumably pauseable and
+  not-pauseable) cannot be paused, so pause becomes mute. The binary says so:
+  `executing un-mute instead of pause`.
+- **Fixed vs variable output** — the amp is bypassed or held at a fixed level
+  when the speaker is used as a line-out.
+- **Headphone mode** — a separate output path.
+
+### Supply rails
+
+Three states appear: `AMP_OFF`, `AMP_LO_RAIL`, `AMP_HI_RAIL`, alongside
+`AmpOffTimerSec` and `ampTimer`.
+
+This is a rail-switching amplifier: it runs on a low supply rail at modest
+output and switches to a high rail for peaks. That is done for efficiency and
+heat, not for volume. **Moggie currently has no rail control at all**, and a
+reimplementation that ignores it will run hotter and waste power even if it
+sounds correct.
+
+The off timer also matters: the amp is not left powered indefinitely.
+
+### Fault handling
+
+```
+failed to mute amps (%d)
+failed to unmute amps (%d)
+failed to unmute amps to clear fault (%d)
+AMP_FAULT_STATUS
+AMP_FAULT_WARN_STATUS
+AMP_CURRENT_FAULT_STATUS
+AMP_CURRENT_WARN_STATUS
+```
+
+The recovery action for an amplifier fault is to cycle the mute state — the
+firmware literally unmutes the amps to clear a fault, and logs when that fails.
+That is a real behaviour with real risk: a naive implementation that retries
+unmuting into a persistent fault can turn a recoverable over-current event into
+a damaged driver.
+
+### Thermal
+
+```
+HalfPowerOverTemp
+HalfPower Over Temp Pri
+HalfPower Over Temp Sec
+AUDIO_FAULT_TEMPERATURE_STATUS
+AUDIO_WARN_TEMPERATURE_STATUS
+CPU_FAULT_TEMPERATURE_STATUS
+CPU_WARN_TEMPERATURE_STATUS
+CPU2_FAULT_TEMPERATURE_STATUS
+CPU2_WARN_TEMPERATURE_STATUS
+```
+
+The speaker **halves output power when over temperature**, with what appear to
+be primary and secondary stages, and it tracks warning and fault thresholds
+separately for the audio section and two CPU domains.
+
+So the thermal model is: warn → halve power → fault. Not a single cutoff.
+
+### What this means for Moggie
+
+1. Rail switching must be implemented, not stubbed. Without it the amp runs on
+   one rail and the thermal derating path never behaves like stock.
+2. The off timer must exist, or the speaker idles hot.
+3. Fault recovery must not be blind unmute-retry. The stock code logs failures
+   rather than looping, and that is the safer pattern.
+4. Thermal derating to half power is a graded response. Muting on over-temp is
+   not equivalent and would be audibly wrong.
+
+None of this is implemented today. It is also the part of the system where a
+mistake costs hardware rather than credibility, so it should be written against
+the captured `getDSP` graph and tested conservatively.
+
+### Still unknown
+
+- The actual temperature thresholds and the rail-switch hysteresis. These live in
+  the binary's data, not its strings.
+- Whether `Pri`/`Sec` mean two channels or two stages. The strings do not say.
+- The default `AmpOffTimerSec` value.
