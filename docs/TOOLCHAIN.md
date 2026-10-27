@@ -67,3 +67,36 @@ Finding it from the firmware dump costs nothing.
    risk the size budget for no gain.
 
 Tracked in #21.
+
+## Measured exposure
+
+Checked the dynamic imports of the binaries we actually ship (`objdump -T`).
+
+`sonosd` imports only long-established POSIX symbols — `open`, `close`, `access`,
+`fcntl`, `ioctl`, `nanosleep`, `gettimeofday`, `localtime_r`, `fopen`, `fprintf`,
+`getenv`, `openlog`, `syslog`, `signal`, `strtol`, string routines, and
+`__libc_start_main`. Nothing newer than 2.6.35.
+
+`libmosquitto.so.1` adds the network and thread surface — `getaddrinfo`, `connect`,
+`pthread_*` — and exactly one import newer than the target kernel:
+
+```
+getrandom        (Linux 3.17+)
+```
+
+glibc implements `getrandom()` with a fallback to `/dev/urandom` when the syscall
+returns `ENOSYS`, so that path should degrade rather than fail. That is glibc's
+behaviour, not something we control or have tested.
+
+### Where that leaves the risk
+
+| Component | Exposure |
+|---|---|
+| `sonosd` alone | low — no post-2.6.35 imports |
+| `sonosd` + libmosquitto | low, with one `getrandom` fallback on the MQTT path |
+| glibc runtime itself | **unknown** — startup, TLS and locale are configured for 3.2+ and cannot be audited at the symbol level |
+| the rootfs Buildroot produces | unknown until it is built with the same check applied |
+
+So this is a *narrowed* risk, not a cleared one. The libc's declared floor is
+still 3.2.0. Issue #22 covers producing a toolchain that removes the question
+rather than reasoning about it.
