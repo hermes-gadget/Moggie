@@ -12,9 +12,9 @@ the vendor firmware dump and Sonos's GPL source drop.
 | 0 — Repo | **done** | builds from clean, pinned toolchain by hash |
 | 1 — Kernel + `audiodev` | **done** | `make kernel` → vmlinux + module, size-gated |
 | 2 — Rootfs | **partial** | minimal rootfs measured at 5.87 MiB; Buildroot not wired up |
-| 3 — `sonosd` | **partial** | daemon + arbiter + mock backend; no real audio path yet |
-| 4 — Endpoints | **not started** | shairport-sync / cspot / DLNA |
-| 5 — Home Assistant | **done** | 16 entities, live HA rig verified |
+| 3 — `sonosd` | **partial** | real MQTT backend verified against a broker; no audio path yet |
+| 4 — Endpoints | **in progress** | DLNA renderer being built (#13) |
+| 5 — Home Assistant | **partial** | 7 entities verified on a real broker; `media_player` blocked on #13 |
 | 6 — OTA | **done** | 23/23 negative tests pass |
 | 7 — Hardware | **blocked** | needs UART and the speaker |
 | 8 — Installer | **not started** | depends on a root path |
@@ -26,11 +26,14 @@ the vendor firmware dump and Sonos's GPL source drop.
 kernel         vmlinux.bin   4,204,896 B
                gzip payload  1,703,280 B  = 81% of the 2 MB kernel partition
 audiodev.ko                     120,720 B  modinfo matches stock
-sonosd         263 unit checks + 108 selftest checks, all pass
-               cross-compiles: ELF 32-bit MSB PowerPC, 81,656 B
+sonosd         272 unit checks + 108 selftest checks, all pass
+               cross-compiles: ELF 32-bit MSB PowerPC, links libmosquitto.so.1
+MQTT           20/20 integration checks against a real Mosquitto broker
+               (availability, retained discovery, multi-key commands, clamping)
 OTA            23/23 negative cases pass, no MTD device opened
-HA             16 entities, 28 retained topics verified on a live rig
+HA             7 entities published and verified; 16 was the design target
 rootfs         minimal set 6,152,200 B = 5.87 MiB uncompressed
+audio          stock DSP graph mapped; capture tool self-tests 4/4
 ```
 
 ## Known gaps
@@ -44,14 +47,21 @@ rootfs         minimal set 6,152,200 B = 5.87 MiB uncompressed
   `dash` and busybox `ash`, but not by a real kernel.
 - **Kernel builds are not byte-reproducible.** No `KBUILD_BUILD_TIMESTAMP`; two
   builds hash differently.
-- **`sonosd` MQTT is the mock backend.** The libmosquitto backend compiles but has
-  not been run against a broker.
+- **`sonosd` MQTT is now real**, but `mqtt_mosquitto.c` still publishes a
+  `media_player` document HA ignores, and no reconnect/backoff test exists.
+- **The stock DSP graph is mapped but not implemented.** `sonosd` has no biquad
+  engine and its volume is linear, while the original is dB with a clamp.
 - **No endpoint daemons exist yet** — no AirPlay, Spotify or DLNA.
 
-## Two findings that changed the design
+## Findings that changed the design
 
 1. **The stock kernel has no initramfs support.** `CONFIG_BLK_DEV_INITRD` is unset,
    so the boot chooser only works after our rebuild enables it.
 2. **The 7.5 MB budget is the compressed image size**, not the uncompressed rootfs.
    5.87 MiB uncompressed compresses to roughly 2 MiB, leaving far more room for
    endpoint daemons than originally assumed.
+3. **HA has no MQTT `media_player`.** Verified against the shipped 2026.10.4 image.
+   The player entity has to come from `dlna_dmr` over SSDP instead (#13).
+4. **The stock DSP is a configuration graph, not fixed coefficients.** `anacapad`
+   runs an IIR block engine and the firmware serves that graph at `GET /getDSP`,
+   so hardware day can capture the real crossover/EQ instead of guessing (#17).
