@@ -14,7 +14,7 @@ the vendor firmware dump and Sonos's GPL source drop.
 | 2 — Rootfs | **partial** | minimal rootfs measured at 5.87 MiB; Buildroot not wired up |
 | 3 — `sonosd` | **partial** | real MQTT backend verified against a broker; no audio path yet |
 | 4 — Endpoints | **in progress** | DLNA renderer builds, 296 protocol checks; no audio backend |
-| 5 — Home Assistant | **partial** | 7 entities verified on a real broker; `media_player` needs `dlna_dmr` (#13) |
+| 5 — Home Assistant | **partial** | `media_player` is a **native dlna_dmr entity**, verified end to end (#13); 7 MQTT entities verified on a real broker; contract reconciliation is #14 |
 | 6 — OTA | **done** | 23/23 negative tests pass |
 | 7 — Hardware | **blocked** | needs UART and the speaker |
 | 8 — Installer | **not started** | depends on a root path |
@@ -35,7 +35,7 @@ boot chooser   17/17 slot-selection checks, under dash and busybox sh
 compat probe   15/15 on the target ABI, static and dynamic
 emulation      6/6; `sonosd --selftest` 108 checks under qemu-ppc
 HA             7 entities published and verified; 16 was the design target
-dlna           296/296 protocol checks; ELF 32-bit MSB PowerPC, 132,668 B stripped
+dlna           312/312 protocol checks; 13/13 HA entity checks against a live instance
 rootfs         3,069,851 B raw / 3,145,728 B padded = 3.00 MiB; 4,718,592 B spare
                reproducible: two clean builds, byte-identical; every ELF tagged ABI 2.6.35
 audio          stock DSP graph mapped; capture tool self-tests 4/4
@@ -69,8 +69,13 @@ audio          stock DSP graph mapped; capture tool self-tests 4/4
 2. **The 7.5 MB budget is the compressed image size**, not the uncompressed rootfs.
    5.87 MiB uncompressed compresses to roughly 2 MiB, leaving far more room for
    endpoint daemons than originally assumed.
-3. **HA has no MQTT `media_player`.** Verified against the shipped 2026.10.4 image.
-   The player entity has to come from `dlna_dmr` over SSDP instead (#13).
+3. **HA has no MQTT `media_player`** (verified against the shipped 2026.10.4 image),
+   so the player comes from `dlna_dmr` instead. That is now working: #13 is closed,
+   `media_player.moggie_play_5` is a native entity, and volume/play/pause/stop were
+   driven from Home Assistant into the renderer and read back from the device
+   (`tools/ha/verify_dlna_entity.sh`, 13/13). Finding the renderer's
+   RenderingControl SCPD had no `Volume` state variable took a real HA: 306
+   protocol checks passed with that defect present.
 4. **The stock DSP is a configuration graph, not fixed coefficients.** `anacapad`
    runs an IIR block engine and the firmware serves that graph at `GET /getDSP`,
    so hardware day can capture the real crossover/EQ instead of guessing (#17).
