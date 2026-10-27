@@ -23,6 +23,13 @@ static void renderer_mark(struct dlna_renderer *r, int svc)
     r->dirty |= 1u << (unsigned)svc;
 }
 
+/* Re-arm a service whose LastChange could not be built, so the next tick
+ * retries it instead of the transition being lost forever. */
+void renderer_mark_dirty(struct dlna_renderer *r, int svc)
+{
+    renderer_mark(r, svc);
+}
+
 void renderer_shutdown(struct dlna_renderer *r)
 {
     if (!r)
@@ -32,6 +39,31 @@ void renderer_shutdown(struct dlna_renderer *r)
     if (r->arb && r->owned && r->arb->release)
         r->arb->release(r->arb->ctx);
     r->owned = 0;
+}
+
+/* Worst-case length of s in the LastChange document.
+ *
+ * The value is escaped *twice* on its way out: once when the AVTransport
+ * property set is built, and again when that document is embedded in the GENA
+ * body. So a single '&' reaches the wire as "&amp;amp;" -- nine bytes, not
+ * five. Estimating five is what let a 500-byte URI of '&' pass this check and
+ * then fail to build, which is the bug this guard exists to prevent. */
+static size_t escaped_len_double(const char *s)
+{
+    size_t n = 0;
+
+    if (!s)
+        return 0;
+    for (; *s; s++) {
+        switch (*s) {
+        case '&': case '<': case '>': case '"': case '\'':
+            n += 9;         /* first escape -> 5 bytes, one '&' escapes again */
+            break;
+        default:
+            n += 1;
+        }
+    }
+    return n;
 }
 
 int renderer_set_uri(struct dlna_renderer *r, const char *uri,
@@ -47,6 +79,16 @@ int renderer_set_uri(struct dlna_renderer *r, const char *uri,
     if (n >= sizeof(r->uri))
         return RENDERER_ERR_ARG;
     if (metadata && strlen(metadata) >= sizeof(r->metadata))
+        return RENDERER_ERR_ARG;
+
+    /* The URI and metadata are published XML-escaped inside a fixed 4 KiB
+     * LastChange document. Both are under their own caps and still do not fit
+     * together once escaped (a 511-byte URI of '&' alone expands to 2555).
+     * Accepting it would answer 200 and then fail to build the event, so the
+     * control point would never be told what it just set. Refuse it here.
+     * The 512-byte reserve covers the rest of the property set. */
+    if (escaped_len_double(uri) + escaped_len_double(metadata) + 512
+        >= DLNA_GENA_OUT_BUF)
         return RENDERER_ERR_ARG;
 
     /* SetAVTransportURI replaces whatever is playing. */

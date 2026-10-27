@@ -546,8 +546,17 @@ void gena_flush(struct gena *g)
         if ((mask & (1u << (unsigned)svc)) == 0)
             continue;
         blen = build_property_set(g, svc, body, sizeof(body));
-        if (blen <= 0)
+        if (blen <= 0) {
+            /* take_dirty() already cleared the bit, so simply skipping would
+             * drop this transition permanently -- a control point would be
+             * told nothing and polling would be the only way to catch up.
+             * Put the bit back so the next tick retries, and say so loudly:
+             * renderer_set_uri() rejects anything that cannot fit, so reaching
+             * here means an escape path nobody anticipated. */
+            renderer_mark_dirty(g->r, svc);
+            log_error("event: LastChange for service %d did not fit; retrying", svc);
             continue;
+        }
         for (i = 0; i < DLNA_GENA_MAX_SUBS; i++) {
             if (g->subs[i].used && g->subs[i].service == svc)
                 (void)queue_event(g, &g->subs[i], body, (size_t)blen,
