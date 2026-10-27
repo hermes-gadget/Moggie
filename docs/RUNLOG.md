@@ -78,10 +78,10 @@ audiodev.ko              120,720 B
 sonosd (PPC, +mosquitto) 308,816 B   links libmosquitto.so.1
 sonosd (PPC, no mqtt)     81,656 B
 compat-probe (static)  1,117,920 B
-rootfs (squashfs)      3,041,095 B   = 3,145,728 B padded, 60% under budget
+rootfs (squashfs)      3,069,851 B   = 3,145,728 B padded, 60% under budget
 ```
 
-Compressed firmware size: **3,041,095 B** raw, **3,145,728 B** padded to the
+Compressed firmware size: **3,069,851 B** raw, **3,145,728 B** padded to the
 128 KiB eraseblock — 4,718,592 B (60%) under the 7,864,320 B budget. Two clean
 builds produced byte-identical images.
 
