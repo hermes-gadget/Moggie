@@ -24,6 +24,10 @@ System.map
 *.ubi
 *.bin
 
+# python
+__pycache__/
+*.pyc
+
 # editor / OS
 .DS_Store
 *.swp

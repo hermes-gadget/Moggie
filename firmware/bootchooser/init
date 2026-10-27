@@ -1,0 +1,344 @@
+#!/bin/sh
+# Moggie boot chooser — initramfs PID 1 (busybox sh).
+#
+# The bootloader is never touched: it always loads this initramfs (mtd2), and
+# *this* script decides which half of mtd3 to switch_root into.  That keeps the
+# only unbrick path (U-Boot) out of the update story entirely.
+#
+# Flow
+#   1. mount /proc /sys /dev and mtd1 (jffs2) at $STATE_DIR
+#   2. if /jffs/boot_ok names the slot we are about to boot, the previous boot
+#      of that slot succeeded: clear its failure counter and consume the flag
+#   3. candidates are bootslot first, then the other slot
+#   4. a candidate is usable if: its status file is "ok" (or absent), its
+#      squashfs magic is right, and its stored SHA-256 matches its bytes
+#   5. before switch_root, bump that slot's failure counter and sync — if the
+#      system hangs or panics, the next boot knows
+#   6. if a slot has failed $FAIL_LIMIT times, skip it and try the other
+#   7. if neither slot boots, offer a recovery shell on UART (and telnet)
+#
+# Userspace (sonosd) writes /jffs/boot_ok within 60 s of a good boot.  That is
+# what turns "it booted" into "it works": no boot_ok, no commit, and after two
+# failed attempts the chooser falls back to the other slot.
+#
+# Simulation (for the x86 test suite; never set on a device):
+#   MOGGIE_SIM=1 MOGGIE_SLOT_DIR=DIR MOGGIE_STATE_DIR=DIR [MOGGIE_SIM_BOOT_HOOK=CMD]
+#   exits 0 when a slot was chosen, 3 when it fell through to recovery.
+
+PROG=moggie-boot
+
+STATE_DIR=${MOGGIE_STATE_DIR:-/jffs}
+FAIL_LIMIT=${MOGGIE_FAIL_LIMIT:-2}
+HASH_CHECK=${MOGGIE_HASH_CHECK:-1}
+SIM=${MOGGIE_SIM:-0}
+SLOT_DIR=${MOGGIE_SLOT_DIR:-}
+ROOT_MNT=${MOGGIE_ROOT_MNT:-/mnt/root}
+BOOT_OK_TIMEOUT=60
+
+msg() { echo "$PROG: $*"; }
+
+# --- state helpers ----------------------------------------------------------
+
+state_path() { echo "$STATE_DIR/$1"; }
+
+read_state() { # name -> value on stdout (empty if missing)
+    cat "$(state_path "$1")" 2>/dev/null | tr -d '\r\n'
+}
+
+write_state() { # name value
+    _tmp="$(state_path "$1").tmp"
+    printf '%s' "$2" > "$_tmp" 2>/dev/null || return 1
+    mv "$_tmp" "$(state_path "$1")" 2>/dev/null || return 1
+    sync
+    return 0
+}
+
+# --- slot plumbing ----------------------------------------------------------
+
+# Resolve "rootfs_a"/"rootfs_b" through /proc/mtd: the kernel splits mtd3 with
+# CONFIG_MTD_CMDLINE_PARTS, so the names come from the cmdline the bootloader
+# passes, not from anything we can assume at compile time.
+mtd_block_for() { # partition name -> /dev/mtdblockN
+    _want=$1
+    [ -r /proc/mtd ] || return 1
+    while read -r _line; do
+        set -- $_line                     # mtd3: 01000000 00020000 "rootfs_a"
+        _dev=${1%:}
+        _name=$4
+        _name=${_name#\"}
+        _name=${_name%\"}
+        if [ "$_name" = "$_want" ]; then
+            echo "/dev/${_dev%mtd}mtdblock${_dev#mtd}"
+            return 0
+        fi
+    done < /proc/mtd
+    return 1
+}
+
+slot_dev() { # a|b -> device path
+    if [ "$SIM" = "1" ]; then
+        echo "$SLOT_DIR/slot_$1.img"
+        return 0
+    fi
+    mtd_block_for "rootfs_$1"
+}
+
+slot_bytes() { echo 8388608; }
+
+slot_magic_ok() { # dev
+    _m=$(dd if="$1" bs=1 count=4 2>/dev/null)
+    [ "$_m" = "hsqs" ]
+}
+
+slot_digest() { # dev size -> hex sha256 of the first `size` bytes
+    _dev=$1
+    _size=$2
+    _blocks=$(( (_size + 65535) / 65536 ))
+    dd if="$_dev" bs=65536 count="$_blocks" 2>/dev/null \
+        | head -c "$_size" \
+        | sha256sum \
+        | cut -d' ' -f1
+}
+
+slot_status_ok() { # a|b
+    _st=$(read_state "slot_status.$1")
+    [ -z "$_st" ] && return 0          # absent = stock/installer layout
+    [ "$_st" = "ok" ]
+}
+
+slot_integrity() { # a|b -> 0 ok, 1 bad; sets REASON
+    _slot=$1
+    _dev=$(slot_dev "$_slot")
+    if [ -z "$_dev" ]; then
+        REASON="no rootfs_$_slot partition"
+        return 1
+    fi
+    if [ ! -e "$_dev" ]; then
+        REASON="$_dev does not exist"
+        return 1
+    fi
+    if ! slot_status_ok "$_slot"; then
+        REASON="slot status is '$(read_state "slot_status.$_slot")'"
+        return 1
+    fi
+    if ! slot_magic_ok "$_dev"; then
+        REASON="no squashfs magic"
+        return 1
+    fi
+    if [ "$HASH_CHECK" = "1" ]; then
+        _want_hash=$(read_state "slot_sha256.$_slot")
+        _size=$(read_state "slot_size.$_slot")
+        if [ -n "$_want_hash" ]; then
+            case "$_size" in
+            ''|*[!0-9]*)
+                REASON="slot_size.$_slot is missing or not a number"
+                return 1
+                ;;
+            esac
+            if [ "$_size" -le 0 ] || [ "$_size" -gt "$(slot_bytes)" ]; then
+                REASON="slot_size.$_slot $_size is outside the slot"
+                return 1
+            fi
+            _got=$(slot_digest "$_dev" "$_size")
+            if [ "$_got" != "$_want_hash" ]; then
+                REASON="slot image hash $_got does not match $_want_hash"
+                return 1
+            fi
+        fi
+    fi
+    REASON=""
+    return 0
+}
+
+get_fail() { # a|b
+    _n=$(read_state "bootfail.$1")
+    case "$_n" in
+    ''|*[!0-9]*) _n=0 ;;
+    esac
+    echo "$_n"
+}
+
+mark_bad() { # a|b reason
+    msg "slot $1 unusable: $2"
+    write_state "slot_status.$1" "bad"
+    write_state "bootfail.$1" "$FAIL_LIMIT"
+}
+
+# --- boot physics -----------------------------------------------------------
+
+mount_pseudo() {
+    mount -t proc proc /proc 2>/dev/null
+    mount -t sysfs sysfs /sys 2>/dev/null
+    mount -t devtmpfs dev /dev 2>/dev/null || mdev -s 2>/dev/null
+    mkdir -p "$ROOT_MNT" 2>/dev/null
+}
+
+mount_state() {
+    if [ "$SIM" = "1" ]; then
+        mkdir -p "$STATE_DIR" 2>/dev/null
+        return 0
+    fi
+    mkdir -p "$STATE_DIR" 2>/dev/null
+    _jffs=$(mtd_block_for jffs2)
+    [ -n "$_jffs" ] || _jffs=/dev/mtdblock1
+    mount -t jffs2 "$_jffs" "$STATE_DIR" 2>/dev/null
+    # An already-mounted /jffs (initramfs baked it in) is fine too.
+    [ -f "$STATE_DIR/bootslot" ] || [ -d "$STATE_DIR" ]
+}
+
+# If userspace wrote boot_ok for the slot we are about to boot, the previous
+# boot of that slot worked: clear its failure count and give this boot a fresh
+# budget instead of charging it as another attempt.
+commit_if_ok() { # slot
+    CONFIRMED=0
+    _ok=$(read_state boot_ok)
+    if [ -n "$_ok" ] && [ "$_ok" = "$1" ]; then
+        msg "slot $1 committed by boot_ok; clearing its failure count"
+        write_state "bootfail.$1" "0"
+        write_state "slot_status.$1" "ok"
+        # Consume the flag (truncate, never unlink: /jffs is precious).
+        : > "$(state_path boot_ok)" 2>/dev/null
+        sync
+        CONFIRMED=1
+    fi
+}
+
+boot_slot() { # a|b -> does not return on success
+    _slot=$1
+    _dev=$(slot_dev "$_slot")
+
+    msg "booting slot $_slot from $_dev"
+
+    # If we are falling back, the running slot changes: userspace reads
+    # bootslot to know who it is before it writes boot_ok.
+    if [ "$_slot" != "$CUR_SLOT" ]; then
+        msg "bootslot moves from $CUR_SLOT to $_slot"
+        write_state bootslot "$_slot"
+    fi
+
+    if [ "$SIM" = "1" ]; then
+        printf '%s\n' "$_slot" > "$SLOT_DIR/booted" 2>/dev/null
+        if [ -n "${MOGGIE_SIM_BOOT_HOOK:-}" ]; then
+            # shellcheck disable=SC2086
+            sh -c "$MOGGIE_SIM_BOOT_HOOK" "$PROG" "$_slot"
+        fi
+        exit 0
+    fi
+
+    if ! mount -t squashfs -o ro "$_dev" "$ROOT_MNT" 2>/dev/null; then
+        msg "mount of $_dev failed"
+        return 1
+    fi
+    if [ ! -x "$ROOT_MNT/sbin/init" ] && [ ! -x "$ROOT_MNT/init" ]; then
+        msg "slot $_slot has no /sbin/init or /init"
+        umount "$ROOT_MNT" 2>/dev/null
+        return 1
+    fi
+
+    # Hand the pseudo-filesystems over to the real root.
+    for _d in proc sys dev; do
+        [ -d "$ROOT_MNT/$_d" ] && mount --move "/$_d" "$ROOT_MNT/$_d" 2>/dev/null
+    done
+
+    _init=/sbin/init
+    [ -x "$ROOT_MNT/sbin/init" ] || _init=/init
+    exec switch_root "$ROOT_MNT" "$_init"
+    # switch_root only returns on failure
+    msg "switch_root failed"
+    return 1
+}
+
+recovery() {
+    echo
+    msg "=========================================================="
+    msg " both rootfs slots failed; starting recovery"
+    msg "----------------------------------------------------------"
+    msg " bootslot      : $(read_state bootslot)"
+    msg " slot a status : $(read_state slot_status.a) (failures $(get_fail a))"
+    msg " slot b status : $(read_state slot_status.b) (failures $(get_fail b))"
+    msg " versions      : a=$(read_state slot_version.a) b=$(read_state slot_version.b)"
+    msg "=========================================================="
+    msg " The speaker still has a working bootloader and this"
+    msg " initramfs.  Re-flash a slot with `moggie-updater`, or use"
+    msg " the UART shell below."
+    echo
+    if [ "$SIM" = "1" ]; then
+        exit 3
+    fi
+    if [ -n "${MOGGIE_RECOVERY_CMD:-}" ]; then
+        sh -c "$MOGGIE_RECOVERY_CMD"
+        exit 3
+    fi
+    # Network shell if the image has one, then the console.
+    if command -v telnetd >/dev/null 2>&1; then
+        telnetd -l /bin/sh 2>/dev/null && msg "telnet shell on port 23"
+    fi
+    exec /bin/sh
+}
+
+# --- main -------------------------------------------------------------------
+
+main() {
+    if [ "$SIM" != "1" ]; then
+        mount_pseudo
+    fi
+    mount_state
+
+    if [ ! -d "$STATE_DIR" ]; then
+        msg "state directory $STATE_DIR is unavailable"
+        recovery
+    fi
+
+    # No bootslot on a fresh install: slot a is the factory default.
+    cur=$(read_state bootslot)
+    case "$cur" in
+    a|b) ;;
+    *)
+        msg "no valid bootslot ('$cur'); defaulting to a"
+        cur=a
+        write_state bootslot a
+        ;;
+    esac
+    case "$cur" in
+    a) other=b ;;
+    *) other=a ;;
+    esac
+    CUR_SLOT=$cur
+
+    msg "bootslot=$cur (failures $(get_fail "$cur")), other=$other (failures $(get_fail "$other"))"
+
+    for slot in "$cur" "$other"; do
+        if slot_integrity "$slot"; then
+            commit_if_ok "$slot"
+            fails=$(get_fail "$slot")
+            if [ "$fails" -ge "$FAIL_LIMIT" ]; then
+                msg "slot $slot has $fails failed boots (limit $FAIL_LIMIT); skipping"
+                write_state "slot_status.$slot" "bad"
+                continue
+            fi
+            if [ "$CONFIRMED" = "1" ]; then
+                fails=0
+                msg "slot $slot attempt 1 of $FAIL_LIMIT (fresh budget)"
+            else
+                # Count the attempt *before* handing over: a hang here is a
+                # failure that the next boot has to know about.
+                fails=$((fails + 1))
+                write_state "bootfail.$slot" "$fails"
+                msg "slot $slot attempt $fails of $FAIL_LIMIT"
+            fi
+            if boot_slot "$slot"; then
+                exit 0
+            fi
+            # Mount/switch_root failed after the bump: the count stands.
+            write_state "slot_status.$slot" "bad"
+            msg "slot $slot failed to boot; trying the other slot"
+        else
+            mark_bad "$slot" "$REASON"
+            msg "slot $slot not bootable; trying the other slot"
+        fi
+    done
+
+    recovery
+}
+
+main "$@"

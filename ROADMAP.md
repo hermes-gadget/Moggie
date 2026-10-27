@@ -39,11 +39,16 @@ Status legend: `done` · `in progress` · `blocked on hardware` · `planned`
 - [ ] Docker test rig (mosquitto + HA)
 - [ ] Announcements and ducking
 
-## Phase 6 — OTA — `planned`
-- [ ] Manifest format + signer
-- [ ] Updater with streaming NAND writes
-- [ ] Boot chooser initramfs
-- [ ] Negative tests: corrupt, truncated, bad signature, power cut
+## Phase 6 — OTA — `in progress`
+- [x] Manifest format + signer — `tools/mkmanifest.py`, `tools/verify.py`
+- [x] Updater with streaming writes — `firmware/updater/` (regular-file backend
+      tested on x86; `nandwrite`/`nanddump` backend compiles but is untested
+      until Phase 7)
+- [x] Boot chooser initramfs — `firmware/bootchooser/init` (simulation tested;
+      real mount + `switch_root` untested until hardware)
+- [x] Negative tests: corrupt, truncated, bad signature, power cut —
+      `tests/ota/run.sh`, 23 cases, no MTD device touched
+- [ ] Flash the OTA path for real, on hardware ← **blocked on hardware**
 
 ## Phase 7 — Hardware session — `blocked on hardware`
 - [ ] UART capture and U-Boot capability probe
