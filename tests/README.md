@@ -4,10 +4,53 @@
 - `ha/` — MQTT discovery payload validation. Stdlib only, pytest-compatible.
 - `mqtt/` — sonosd against a **real** Mosquitto broker (see below).
 - `emulated/` — the PowerPC binaries running under qemu-user (see below).
+- `compat/` — the runtime probe that decides whether a libc works on 2.6.35.
 - `../firmware/sonosd/tests/` — sonosd unit tests (arbiter, volume, jsonlite, config).
 
-Run with `make ota-test`, `make ha-test`, `make mqtt-test` and
-`make emulated-test`, and `make test` in `firmware/sonosd`.
+Run with `make ota-test`, `make ha-test`, `make mqtt-test`,
+`make emulated-test` and `make compat-probe`, and `make test` in
+`firmware/sonosd`.
+
+## compat/ — can this libc actually run on the device?
+
+Compiling and linking proves nothing about the kernel the binary will meet. The
+compat probe exercises what Moggie depends on and reports each result:
+
+| area | what it does |
+|---|---|
+| heap | malloc/free 1 MiB |
+| filesystem | open/write/lseek/read/stat/rename/unlink |
+| threads | 4 threads, mutex-protected counter must reach 4000 |
+| sockets | loopback socket/bind/listen/connect/accept/send/recv |
+| timing | `clock_gettime(CLOCK_MONOTONIC)` + `nanosleep(50ms)` |
+| entropy | `getrandom()` and `/dev/urandom` |
+| memory | anonymous `mmap` |
+| signals | `sigaction` + `raise` |
+
+Built twice: **static**, which runs in a bare rootfs with no dynamic loader, and
+**dynamic**, which loads the real `ld.so.1` and `libc.so.6` that would ship.
+
+```sh
+make compat-probe
+```
+
+```
+  ok   static build
+  ok   static binary is 32-bit MSB
+  ok   static probe under qemu (15 passed, 0 failed)
+  ok   dynamic build
+  ok   dynamic probe under qemu (15 passed, 0 failed)
+  info libc:   GNU C Library (Buildroot) stable release version 2.44.
+  info floor:  Minimum supported kernel: 3.2.0
+5 passed, 0 failed
+```
+
+`getrandom()` is Linux 3.17+. On the current libc it is reported as a note
+rather than a pass when it falls back, because on a 2.6.35 device that is the
+expected path.
+
+The same binary is the first thing to run on hardware day. A pass under qemu
+only proves it works on the host kernel.
 
 ## emulated/ — does it actually run on the target?
 
