@@ -2,6 +2,24 @@
 # Everything here is verified by hash before use. If a hash doesn't match, the
 # build stops — no "close enough".
 
+# ---------------------------------------------------------------------------
+# Default toolchain: built, not downloaded.
+#
+# glibc 2.23 configured with --enable-kernel=2.6.35, so its libc declares
+# "OS: Linux, ABI: 2.6.35" and its headers are linux-2.6.35. That is what the
+# device runs; the Bootlin toolchain below is kept as a fallback and builds a
+# rootfs that cannot work on 2.6.35.
+#
+# crosstool-NG builds it from toolchain-2.6.35.ctng.config -- see
+# docs/TOOLCHAIN-2.6.35.md. It is not redistributable from a URL, so the lock
+# records how to recognise a correct one rather than a hash to fetch.
+#
+# Override the location with MOGGIE_TOOLCHAIN_DIR.
+TOOLCHAIN26_PATH=${MOGGIE_TOOLCHAIN26:-$HOME/Moggie-tc/toolchain/powerpc-buildroot-linux-gnu}
+TOOLCHAIN26_GCC=5.5.0
+TOOLCHAIN26_GLIBC=2.23
+TOOLCHAIN26_ABI_TAG=2.6.35
+
 TOOLCHAIN_URL=https://toolchains.bootlin.com/downloads/releases/toolchains/powerpc-e300c3/tarballs/powerpc-e300c3--glibc--stable-2026.08-1.tar.xz
 TOOLCHAIN_SHA256=623c15594a4be26c63a2090a0b3ce9efcf15809c9b9a8bfb95773240c70d8403
 TOOLCHAIN_DIR=powerpc-e300c3--glibc--stable-2026.08-1

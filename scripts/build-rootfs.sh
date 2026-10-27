@@ -82,12 +82,45 @@ ensure_buildroot() {
         tar -xf "$BR_TARBALL" -C "$REPO/dl"
     fi
     [ -f "$BR_SRC/Makefile" ] || die "extracted tree looks wrong: $BR_SRC"
+    patch_kernel_headers_check
+}
+
+# Buildroot offers a "2.6.x" external-toolchain header option but cannot use it:
+# BR2_TOOLCHAIN_EXTERNAL_HEADERS_REALLY_OLD selects no
+# BR2_TOOLCHAIN_HEADERS_AT_LEAST, so helpers.mk passes an empty version and the
+# script emits KERNEL_VERSION(,0,0) -- which does not compile. The toolchain
+# genuinely has linux-2.6.35 headers, so the empty value should mean 2.6.
+#
+# This is the smallest repair that fixes Buildroot's own advertised option. It
+# changes nothing unless the version is empty, and it refuses to run twice.
+patch_kernel_headers_check() {
+    local f="$BR_SRC/support/scripts/check-kernel-headers.sh"
+    local before after
+
+    [ -f "$f" ] || die "no check-kernel-headers.sh in $BR_SRC"
+
+    if grep -q 'HDR_VER="${3:-2.6}.0.0"' "$f"; then
+        return 0
+    fi
+
+    grep -q 'HDR_VER="${3}.0.0"' "$f" \
+        || die "check-kernel-headers.sh is not the expected version; refusing to patch"
+
+    before=$(sha256sum "$f" | awk '{print $1}')
+    sed -i 's|HDR_VER="${3}\.0\.0"|HDR_VER="${3:-2.6}.0.0"|' "$f"
+    after=$(sha256sum "$f" | awk '{print $1}')
+
+    grep -q 'HDR_VER="${3:-2.6}.0.0"' "$f" \
+        || die "failed to patch check-kernel-headers.sh"
+
+    say "patched check-kernel-headers.sh for the 2.6.x headers option"
+    say "  $before -> $after"
 }
 
 # ---------------------------------------------------------------------------
 # 2. Toolchain: already-pinned Bootlin external toolchain, never built here
 # ---------------------------------------------------------------------------
-TC_DIR="${MOGGIE_TOOLCHAIN_DIR:-$REPO/toolchain/$TOOLCHAIN_DIR}"
+TC_DIR="${MOGGIE_TOOLCHAIN_DIR:-${TOOLCHAIN26_PATH:-$REPO/toolchain/$TOOLCHAIN_DIR}}"
 TC_GCC="$TC_DIR/bin/${TOOLCHAIN_PREFIX}-gcc"
 
 ensure_toolchain() {
@@ -97,10 +130,20 @@ ensure_toolchain() {
         ./scripts/fetch-toolchain.sh || die "toolchain fetch failed"
     fi
     [ -x "$TC_GCC" ] || die "no cross gcc at $TC_GCC"
-    local ver
+    local ver sysroot abi
     ver=$("$TC_GCC" -dumpversion)
-    say "toolchain $TOOLCHAIN_DIR (gcc $ver)"
-    "$TC_GCC" -print-sysroot
+    sysroot=$("$TC_GCC" -print-sysroot)
+    say "toolchain $TC_DIR (gcc $ver)"
+
+    # The whole point of this toolchain is its kernel floor. Read it out of the
+    # libc's .note.ABI-tag instead of trusting the path it came from.
+    abi=$("${CROSS_READELF:-readelf}" -n "$sysroot/lib/libc.so.6" 2>/dev/null \
+          | sed -n 's/.*ABI: \([0-9.]*\).*/\1/p' | head -1)
+    say "libc kernel floor: ${abi:-unknown} (target kernel $TARGET_KERNEL)"
+    [ -n "$abi" ] || die "could not read the ABI tag from $sysroot/lib/libc.so.6"
+    [ "$abi" = "${TOOLCHAIN26_ABI_TAG:-2.6.35}" ] \
+        || say "WARNING: libc floor $abi is not ${TOOLCHAIN26_ABI_TAG:-2.6.35}; \
+this image will not run on the target kernel" 
 }
 
 # ---------------------------------------------------------------------------

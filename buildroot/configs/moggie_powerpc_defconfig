@@ -22,26 +22,27 @@ BR2_TOOLCHAIN_EXTERNAL_PREINSTALLED=y
 # the defconfig does not encode one developer's checkout layout.
 BR2_TOOLCHAIN_EXTERNAL_PATH=""
 BR2_TOOLCHAIN_EXTERNAL_CUSTOM_PREFIX="powerpc-buildroot-linux-gnu"
-BR2_TOOLCHAIN_EXTERNAL_GCC_15=y
-# The toolchain physically ships 5.10 headers (Bootlin 2026.08-1) and the
-# target kernel is 2.6.35. Buildroot's check-kernel-headers.sh is strict for
-# any series that is not the newest, so declaring 2.6.x or 3.0 fails with
-# "expected 3.0.x, got 5.10.x"; 2.6.x is not even expressible (it selects no
-# BR2_TOOLCHAIN_HEADERS_AT_LEAST, and the script then builds KERNEL_VERSION()
-# from an empty string). 5.10 is therefore the only value that builds, and it
-# is the truthful description of the toolchain -- NOT of the target. See
-# buildroot.lock ("Known incompatibility") and buildroot/MANIFEST.md.
-BR2_TOOLCHAIN_EXTERNAL_HEADERS_5_10=y
+BR2_TOOLCHAIN_EXTERNAL_GCC_5=y
+# The toolchain is crosstool-NG glibc 2.23 built against linux-2.6.35 headers,
+# so 2.6.x is now the truthful answer rather than a fudge. Buildroot offers
+# "2.6.x" but its check-kernel-headers.sh cannot consume it: the option selects
+# no BR2_TOOLCHAIN_HEADERS_AT_LEAST, so the script is handed an empty version
+# and fails to compile KERNEL_VERSION(,0,0). scripts/build-rootfs.sh repairs
+# that one expression (${3:-2.6}) after extraction; see toolchain.lock.
+BR2_TOOLCHAIN_EXTERNAL_HEADERS_REALLY_OLD=y
 BR2_TOOLCHAIN_EXTERNAL_CUSTOM_GLIBC=y
-# glibc 2.44 has no Sun RPC; leaving this on fails check_glibc_rpc_feature.
-# BR2_TOOLCHAIN_EXTERNAL_INET_RPC is not set
+# glibc 2.23 still ships Sun RPC, so Buildroot's check insists the option be
+# on (with glibc 2.44 it insisted the opposite). Nothing in the rootfs uses
+# RPC; enabling it keeps the external-toolchain check honest about the libc.
+BR2_TOOLCHAIN_EXTERNAL_INET_RPC=y
 # Buildroot's external-toolchain check is an exact match: if the toolchain
 # can compile C++/OpenMP (this one can), the option must be selected or the
 # build stops with "not selected but is available". Nothing in the rootfs
 # uses either; the cost is libstdc++/libgomp on the target (see MANIFEST).
 BR2_TOOLCHAIN_EXTERNAL_CXX=y
 # BR2_TOOLCHAIN_EXTERNAL_FORTRAN is not set
-BR2_TOOLCHAIN_EXTERNAL_OPENMP=y
+# This toolchain is built with --disable-libgomp, so OpenMP must not be claimed.
+# BR2_TOOLCHAIN_EXTERNAL_OPENMP is not set
 # BR2_TOOLCHAIN_EXTERNAL_DLANG is not set
 BR2_TOOLCHAIN_EXTERNAL_HAS_SSP=y
 BR2_TOOLCHAIN_EXTERNAL_HAS_SSP_STRONG=y
