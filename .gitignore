@@ -36,3 +36,6 @@ __pycache__/
 # python
 __pycache__/
 *.pyc
+
+# Local tool state, not source
+.tokensave/
