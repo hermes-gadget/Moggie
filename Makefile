@@ -1,4 +1,4 @@
-.PHONY: all check toolchain sources kernel rootfs ota-test clean
+.PHONY: all check toolchain sources kernel rootfs ota ota-test clean
 
 SHELL := /bin/bash
 OUT   := out
@@ -20,8 +20,13 @@ kernel:
 rootfs:
 	@./scripts/build-rootfs.sh
 
-ota-test:
+# The OTA toolchain builds on the host and needs no cross compiler.
+ota:
+	@$(MAKE) -C firmware/updater
+
+ota-test: ota
 	@./tests/ota/run.sh
 
 clean:
 	rm -rf $(OUT)
+	@$(MAKE) -C firmware/updater clean
