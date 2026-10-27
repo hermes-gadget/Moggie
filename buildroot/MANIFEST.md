@@ -7,21 +7,23 @@ by `scripts/build-rootfs.sh`; sizes and hashes in `out/rootfs.sizes.txt`.
   (the 2.6.35 kernel has `CONFIG_SQUASHFS` with zlib only — no XZ/LZMA
   decoder — and `CONFIG_SQUASHFS_XATTRS` off).
 - Target: `powerpc-buildroot-linux-gnu`, big endian, e300c3, hard float,
-  glibc 2.44.
+  glibc 2.23 built with `--enable-kernel=2.6.35`, so the libc's own ABI tag is
+  `Linux, ABI: 2.6.35` — the kernel the device actually runs.
 
 ## Build inputs
 
 | Input | Version | Pinned by | Verified |
 |---|---|---|---|
 | Buildroot | 2026.02.3 | `buildroot.lock` (`BUILDROOT_SHA256`) | SHA-256 checked before every build |
-| Bootlin toolchain | `powerpc-e300c3--glibc--stable-2026.08-1` | `toolchain.lock` (`TOOLCHAIN_SHA256`) | SHA-256 checked by `scripts/fetch-toolchain.sh` |
-| gcc | 15.3.0 | toolchain | `-dumpversion` asserted |
-| binutils | 2.45.1 | toolchain | — |
-| glibc | 2.44 | toolchain | — |
+| Toolchain | crosstool-NG 1.26.0, `powerpc-buildroot-linux-gnu` | `toolchain.lock` (`TOOLCHAIN26_PATH`) | libc ABI tag read and asserted at build time |
+| gcc | 5.5.0 | toolchain | `-dumpversion` asserted |
+| binutils | 2.27 | toolchain | — |
+| glibc | 2.23, `--enable-kernel=2.6.35` | `toolchain-2.6.35.ctng.config` | `.note.ABI-tag` = 2.6.35 |
 | SOURCE_DATE_EPOCH | 1700000000 | `buildroot.lock` | exported to the build |
 
 No internal toolchain is built: the defconfig uses
-`BR2_TOOLCHAIN_EXTERNAL_CUSTOM` against the pre-installed Bootlin tree.
+`BR2_TOOLCHAIN_EXTERNAL_CUSTOM` against the crosstool-NG tree in
+`toolchain.lock` (`TOOLCHAIN26_PATH`), built from `toolchain-2.6.35.ctng.config`.
 
 ## Target packages
 
@@ -39,12 +41,14 @@ No internal toolchain is built: the defconfig uses
 
 | Library | Version | License | Why |
 |---|---|---|---|
-| `libc.so.6`, `ld.so.1`, `libm`, `libresolv`, `libcrypt` | glibc 2.44 | LGPL-2.1+ | C library |
-| `libstdc++.so.6.0.34` | gcc 15.3.0 | GPL-3.0-with-GCC-exception | **Nothing links it.** Buildroot's external-toolchain check requires C++ to be enabled whenever the toolchain has a C++ compiler; `BR2_TOOLCHAIN_EXTERNAL_CXX` therefore copies libstdc++ (~2.9 MB raw, ~0.8 MB compressed) |
-| `libgomp.so.1.0.0` | gcc 15.3.0 | GPL-3.0-with-GCC-exception | Same reason: the toolchain has OpenMP, so Buildroot insists it be selected |
+| `libc-2.23.so`, `ld-2.23.so`, `libm`, `libresolv`, `libnsl`, `libpthread`, `libcrypt` | glibc 2.23 | LGPL-2.1+ | C library, built `--enable-kernel=2.6.35` |
+| `libstdc++.so.6.0.21` | gcc 5.5.0 | GPL-3.0-with-GCC-exception | **Nothing links it.** Buildroot's external-toolchain check requires C++ to be enabled whenever the toolchain has a C++ compiler; `BR2_TOOLCHAIN_EXTERNAL_CXX` therefore copies libstdc++ (~1.7 MB raw) |
 | `libgcc_s.so.1` | gcc 15.3.0 | GPL-3.0-with-GCC-exception | Unwinder, used by glibc |
 
-Removing libstdc++/libgomp would save roughly 1 MB compressed. They are kept
+`libgomp` is no longer present: this toolchain is built `--disable-libgomp`, so
+`BR2_TOOLCHAIN_EXTERNAL_OPENMP` is unset and Buildroot does not copy it.
+
+Removing libstdc++ would save roughly 0.6 MB compressed. It is kept
 because deleting them behind Buildroot's back makes a future C++/OpenMP
 package fail at runtime instead of build time. If the size budget ever gets
 tight, removing them in `post-build.sh` is the first lever.
@@ -71,12 +75,13 @@ tight, removing them in `post-build.sh` is the first lever.
 
 ## ABI notes
 
-**long double is 128-bit, not 64-bit.** The Bootlin e300c3 toolchain is
-configured `--with-cpu-32=e300c3` with the default `-mabi=ibmlongdouble`:
-`__LDBL_MANT_DIG__` is 106 and `__SIZEOF_LONG_DOUBLE__` is 16, i.e. IBM
-double-double, not the 64-bit long double that a `-mlong-double-64` build
-would produce. There is no Buildroot option for an external toolchain's long
-double format; it is baked into the compiler.
+**long double is 128-bit (IBM double-double), and the ELF attribute now matches
+the stock firmware.** The crosstool-NG toolchain uses the default
+`-mabi=ibmlongdouble`: `__LDBL_MANT_DIG__` is 106 and `__SIZEOF_LONG_DOUBLE__`
+is 16. Its binaries carry `Tag_GNU_Power_ABI_FP: hard float, unspecified long
+double`, which is exactly what Sonos shipped — the Bootlin toolchain emitted
+`128-bit IBM long double` here instead. There is no Buildroot option for an
+external toolchain's long double format; it is baked into the compiler.
 
 Why it does not break this firmware: nothing here passes `long double` across
 a binary boundary. The kernel ABI in `firmware/sonosd/audioctl_abi.h` uses
@@ -85,24 +90,32 @@ a binary boundary. The kernel ABI in `firmware/sonosd/audioctl_abi.h` uses
 against pre-built vendor binaries that exchange `long double` with us — we do
 not. `printf("%Lf")`, `strtold()` etc. are self-consistent within this rootfs.
 
-## Kernel compatibility risk — the image is NOT hardware-ready
+## Kernel compatibility — resolved in the image, unproven on the device
 
-This is the single most important caveat in this file, and it is not a size
-problem.
+The image was previously built against a libc with a 3.2.0 floor and was not
+hardware-ready. It now contains glibc 2.23 built `--enable-kernel=2.6.35`, every
+ELF carries `ABI: 2.6.35`, and the syscall scan below — which found 63 offenders
+— now finds none. What remains unproven is the boot itself: no emulator on the
+build host models a 2.6.35 kernel, so these are static guarantees, not a run.
 
 **The toolchain's glibc targets a much newer kernel than the device runs.**
 
 | Fact | Value | Evidence |
 |---|---|---|
-| C library | glibc 2.44 | `strings libc.so.6` → "GNU C Library (Buildroot) stable release version 2.44" |
+| C library | glibc 2.23 | `strings libc.so.6` → "GNU C Library (crosstool-NG 1.26.0) stable release version 2.23" |
 | Minimum kernel declared by that libc | **3.2.0** | `readelf -n libc.so.6` → `.note.ABI-tag: OS: Linux, ABI: 3.2.0` |
 | Kernel headers the toolchain ships | 5.10 | `LINUX_VERSION_CODE 330495` in the sysroot's `linux/version.h` |
 | Kernel on the device | **2.6.35** | Sonos GPL drop (`src/linux-2.6.35`) |
 
+**Resolved.** This section records the state of the image as it was built with
+the Bootlin toolchain; it is kept because the analysis below is what justified
+building a replacement. The shipped image now uses the glibc 2.23 toolchain and
+the scan that follows returns **zero** offending syscalls.
+
 glibc 2.34 and later dropped support for kernels older than 3.2. The Bootlin
 2026.08 toolchain was built with `BR2_PACKAGE_GLIBC_KERNEL_COMPAT=y`, which in
 Buildroot means *no* `--enable-kernel=` override, so the libc's built-in floor
-(3.2.0) is what ships. The device kernel is 2.6.35 — older than the floor by
+(3.2.0) is what shipped. The device kernel is 2.6.35 — older than the floor by
 the whole 2.6→3.2 span.
 
 Buildroot cannot even be told the truth here: its external-toolchain header
@@ -117,8 +130,9 @@ describes the toolchain, not the target.
 
 The 2.6.35 PowerPC table (`arch/powerpc/include/asm/unistd.h`) ends at
 `__NR_rt_tgsigqueueinfo` = **322**. Scanning every ELF in the image for
-`li r0,<nr>; sc` pairs (script: `out/syscall-scan.py`) finds **63 distinct
-syscall numbers above 322**, with these concrete, named sites in
+`li r0,<nr>; sc` pairs (script: `out/syscall-scan.py`) found **63 distinct
+syscall numbers above 322** in the glibc 2.44 image. **The same script on the
+glibc 2.23 image finds 0.** with these concrete, named sites in
 `lib/libc.so.6`:
 
 | Syscall | nr | Added in | Found in |
