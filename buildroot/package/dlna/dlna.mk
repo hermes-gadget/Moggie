@@ -25,7 +25,7 @@ define DLNA_BUILD_CMDS
 endef
 
 define DLNA_INSTALL_TARGET_CMDS
-	$(INSTALL) -D -m 0755 $(@D)/dlna-renderer $(TARGET_DIR)/usr/sbin/dlna-renderer
+	$(INSTALL) -D -m 0755 $(@D)/build/cross/dlna-renderer $(TARGET_DIR)/usr/sbin/dlna-renderer
 endef
 
 $(eval $(generic-package))
