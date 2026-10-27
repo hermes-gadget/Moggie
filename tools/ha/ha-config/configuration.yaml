@@ -16,6 +16,15 @@
 default_config:
 
 homeassistant:
+  # Test-rig only: lets the automated checks obtain a token without a password.
+  # Scoped to the Docker bridge so it cannot authenticate anything off-host.
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 172.21.0.0/16
+        - 172.17.0.0/16
+      allow_bypass_login: true
   name: Moggie
   unit_system: metric
   time_zone: Europe/London
