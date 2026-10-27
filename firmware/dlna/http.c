@@ -459,6 +459,18 @@ static int read_request(struct http_server *s, struct http_conn *c,
                     return 1;
                 }
                 c->parsed = 1;
+                /* Bound the declared length *before* adding it to body_start.
+                 * content_length comes from an unchecked strtoul(), and this
+                 * addition is size_t: a length near SIZE_MAX wraps to a small
+                 * value, sails past the 413 test below, and satisfies
+                 * `req_len >= body_total`, so the request is dispatched with a
+                 * truncated or empty body. Rejecting on the raw value closes
+                 * both the wraparound and the oversized-body case. */
+                if (c->request.content_length > DLNA_REQ_MAX) {
+                    resp_text(c, 413, "request body too large");
+                    c->deadline_ms = now + HTTP_SEND_TIMEOUT_MS;
+                    return 1;
+                }
                 c->body_total = c->body_start + c->request.content_length;
                 log_debug("http: request %s %s content-length=%zu body_total=%zu",
                           c->request.method, c->request.path,

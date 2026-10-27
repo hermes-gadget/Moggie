@@ -788,6 +788,23 @@ def test_http_edges(suite, client, port):
                 "oversized Content-Length is 413",
                 big[:200].decode("latin-1", "replace"))
 
+    # A length near SIZE_MAX used to wrap the size_t body_total addition to a
+    # small value, which then passed the 413 check and satisfied
+    # `req_len >= body_total`, dispatching the request with a truncated body.
+    # The bound must be applied to the raw length, before the add.
+    wrap = raw(b"GET /description.xml HTTP/1.1\r\nHost: x\r\n"
+               b"Content-Length: 18446744073709551615\r\n\r\n")
+    suite.check(wrap.startswith(b"HTTP/1.1 413"),
+                "Content-Length that would wrap size_t is 413",
+                wrap[:200].decode("latin-1", "replace"))
+
+    # Just past the limit on the other side: parses fine, still too large.
+    edge = raw(b"GET /description.xml HTTP/1.1\r\nHost: x\r\n"
+               b"Content-Length: 8193\r\n\r\n")
+    suite.check(edge.startswith(b"HTTP/1.1 413"),
+                "Content-Length one byte over DLNA_REQ_MAX (8192) is 413",
+                edge[:200].decode("latin-1", "replace"))
+
 
 def test_connection_manager(suite, renderer, client):
     resp = renderer.soap("ConnectionManager", "GetProtocolInfo")
