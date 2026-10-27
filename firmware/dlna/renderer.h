@@ -53,4 +53,7 @@ const char *renderer_metadata(const struct dlna_renderer *r);
 int  renderer_has_uri(const struct dlna_renderer *r);
 unsigned renderer_take_dirty(struct dlna_renderer *r);
 
+/* Re-arm a service so its LastChange is retried on the next tick. */
+void renderer_mark_dirty(struct dlna_renderer *r, int svc);
+
 #endif /* MOGGIE_DLNA_RENDERER_H */

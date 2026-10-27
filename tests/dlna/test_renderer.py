@@ -871,6 +871,24 @@ def test_avtransport(suite, renderer):
     suite.check(b"SetAVTransportURIResponse" in resp.body,
                 "SetAVTransportURI response element")
 
+    # The URI and metadata are published XML-escaped inside a fixed 4 KiB
+    # LastChange document. A URI that fits its own 511-byte cap can still
+    # expand past the document (every '&' becomes '&amp;'), and the old code
+    # answered 200 and then silently failed to build the event -- so the
+    # control point was never told what it had just set. It must be refused.
+    explode = "&" * 500
+    resp = renderer.soap("AVTransport", "SetAVTransportURI",
+                         arg("InstanceID", 0) + arg("CurrentURI", explode) +
+                         arg("CurrentURIMetaData", DIDL))
+    suite.check(resp.status != 200,
+                "SetAVTransportURI that would overflow LastChange is refused",
+                "status=%d" % resp.status)
+
+    # The good URI must still work afterwards, i.e. the refusal left no state.
+    resp = renderer.soap("AVTransport", "GetMediaInfo", arg("InstanceID", 0))
+    suite.eq("CurrentURI unchanged after refusal",
+             renderer.value(resp, "CurrentURI"), TEST_URI)
+
     resp = renderer.soap("AVTransport", "GetMediaInfo", arg("InstanceID", 0))
     suite.eq("NrTracks after URI", renderer.value(resp, "NrTracks"), "1")
     suite.eq("CurrentURI round-trip", renderer.value(resp, "CurrentURI"),
