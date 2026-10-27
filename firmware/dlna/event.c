@@ -8,7 +8,6 @@
 #include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <netdb.h>
 #include <netinet/in.h>
 #include <poll.h>
 #include <stdio.h>
@@ -327,8 +326,6 @@ static int parse_callback(const char *hdr, struct sockaddr_in *addr,
     char *colon;
     char *portstr = NULL;
     int port = 80;
-    struct addrinfo hints;
-    struct addrinfo *res = NULL;
 
     if (header_value(hdr, tmp, sizeof(tmp)) != 0)
         return -1;
@@ -379,13 +376,17 @@ static int parse_callback(const char *hdr, struct sockaddr_in *addr,
     addr->sin_family = AF_INET;
     addr->sin_port = htons((unsigned short)port);
     if (inet_pton(AF_INET, host, &addr->sin_addr) != 1) {
-        memset(&hints, 0, sizeof(hints));
-        hints.ai_family = AF_INET;
-        hints.ai_socktype = SOCK_STREAM;
-        if (getaddrinfo(host, NULL, &hints, &res) != 0 || !res)
-            return -1;
-        addr->sin_addr = ((struct sockaddr_in *)res->ai_addr)->sin_addr;
-        freeaddrinfo(res);
+        /* Do NOT resolve the hostname here. This runs inside the single poll
+         * loop that also serves SSDP and the control endpoint, and on the
+         * device every lookup goes to the router with no local cache. Any
+         * unauthenticated LAN peer could subscribe with a CALLBACK naming a
+         * hostname and stall the whole renderer for the DNS timeout.
+         *
+         * Controllers send a literal IPv4 address, so requiring one costs
+         * nothing real and removes the stall entirely. A hostname is refused
+         * with 412 rather than resolved. */
+        log_warn("event: CALLBACK host '%s' is not a literal IPv4 address", host);
+        return -1;
     }
 
     snprintf(display, displaysz, "%s:%d%s", host, port, path);
