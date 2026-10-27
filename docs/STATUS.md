@@ -36,7 +36,7 @@ compat probe   15/15 on the target ABI, static and dynamic
 emulation      6/6; `sonosd --selftest` 108 checks under qemu-ppc
 HA             7 entities published and verified; 16 was the design target
 dlna           296/296 protocol checks; ELF 32-bit MSB PowerPC, 132,668 B stripped
-rootfs         3,041,095 B raw / 3,145,728 B padded = 3.00 MiB; 4,718,592 B spare
+rootfs         3,069,851 B raw / 3,145,728 B padded = 3.00 MiB; 4,718,592 B spare
                reproducible: two clean builds, byte-identical; every ELF tagged ABI 2.6.35
 audio          stock DSP graph mapped; capture tool self-tests 4/4
 ```
