@@ -59,6 +59,10 @@ void config_defaults(struct config *c)
     c->initial_volume = 20;
     c->volume_step = 2;
 
+    /* The chooser reads boot_ok from here. An empty value disables the commit,
+     * which is what a dev build wants. */
+    copy_str(c->state_dir, sizeof(c->state_dir), "/jffs");
+
     c->log_level = 2;
     c->use_syslog = 0;
     c->led_enabled = 1;
@@ -161,6 +165,11 @@ int config_set(struct config *c, const char *key, const char *value)
         if (value[0] == '\0' || strlen(value) >= sizeof(c->arbiter_lock))
             return -2;
         copy_str(c->arbiter_lock, sizeof(c->arbiter_lock), value);
+    } else if (strcmp(key, "state_dir") == 0) {
+        /* Empty is legal: it disables the boot_ok commit for dev builds. */
+        if (strlen(value) >= sizeof(c->state_dir))
+            return -2;
+        copy_str(c->state_dir, sizeof(c->state_dir), value);
     } else if (strcmp(key, "initial_volume") == 0) {
         if (parse_int(value, &v) != 0 || v < 0 || v > 100)
             return -2;

@@ -65,6 +65,7 @@ int main(void)
     suite_volume();
     suite_jsonlite();
     suite_config();
+    suite_bootstate();
 
     return t_summary();
 }

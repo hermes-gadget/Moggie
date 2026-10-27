@@ -62,15 +62,15 @@ LDLIBS += $(MOSQ_LIBS) -pthread
 
 # ---- sources ------------------------------------------------------------
 DAEMON_SRC := main.c log.c config.c volume.c arbiter.c dsp.c dsp_linux.c \
-              mockdev.c mqtt.c mqtt_mock.c jsonlite.c selftest.c
+              mockdev.c mqtt.c mqtt_mock.c jsonlite.c bootstate.c selftest.c
 
 ifeq ($(HAVE_MOSQ),1)
 DAEMON_SRC += mqtt_mosquitto.c
 endif
 
 TEST_SRC     := tests/test_main.c tests/test_arbiter.c tests/test_volume.c \
-                tests/test_jsonlite.c tests/test_config.c
-TEST_SUPPORT := log.c config.c volume.c arbiter.c jsonlite.c
+                tests/test_jsonlite.c tests/test_config.c tests/test_bootstate.c
+TEST_SUPPORT := log.c config.c volume.c arbiter.c jsonlite.c bootstate.c
 
 OBJS      := $(DAEMON_SRC:%.c=$(OBJ)/%.o)
 OBJS_MOCK := $(DAEMON_SRC:%.c=$(OBJ_MOCK)/%.o)

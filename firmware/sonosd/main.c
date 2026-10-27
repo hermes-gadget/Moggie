@@ -12,6 +12,7 @@
 #define _POSIX_C_SOURCE 200809L
 
 #include "arbiter.h"
+#include "bootstate.h"
 #include "config.h"
 #include "dsp.h"
 #include "jsonlite.h"
@@ -362,6 +363,21 @@ int main(int argc, char **argv)
 
     log_info("sonosd %s ready: id=%s backend=%s mock_mqtt=%d",
              SONOSD_VERSION, cfg.device_id, dsp_backend_name(), mqtt_is_mock());
+
+    /* Tell the initramfs chooser this boot worked. Without this the chooser
+     * charges every boot as a failure and rolls back after two — on a speaker
+     * that is behaving perfectly. */
+    {
+        char slot[8];
+        int rc = boot_ok_commit(cfg.state_dir, slot, sizeof(slot));
+        if (rc == BOOT_OK_OK)
+            log_info("boot_ok: committed slot %s", slot);
+        else if (rc == BOOT_OK_NO_SLOT || rc == BOOT_OK_NO_STATE)
+            log_info("boot_ok: not committing (%s) — expected off-device",
+                     boot_ok_strerror(rc));
+        else
+            log_warn("boot_ok: not committing (%s)", boot_ok_strerror(rc));
+    }
 
     if (once)
         goto done;
