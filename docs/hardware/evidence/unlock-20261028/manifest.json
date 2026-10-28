@@ -124,6 +124,31 @@
       }
     ]
   },
+  "B": {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/bin/busybox",
+    "size": 434232,
+    "sha256": "105fc7b5a86c88c03a01490726fe68c641f8435c5a1e19975828011f4634ca95",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 268435456,
+        "p_filesz": 432472,
+        "p_memsz": 432472,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 432472,
+        "p_vaddr": 268933464,
+        "p_filesz": 349,
+        "p_memsz": 12764,
+        "p_flags": 7
+      }
+    ]
+  },
   "tool": {
     "objdump": "/home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump",
     "version": "GNU objdump (GNU Binutils) 2.45.1"

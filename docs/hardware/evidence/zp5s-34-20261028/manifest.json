@@ -142,5 +142,10 @@
     "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/conf/anacapa.conf",
     "size": 1947,
     "sha256": "7aaa768f81011f97dea1114385b7afd6342562efa568b40aa382ff890938a1c6"
+  },
+  "opt/bin/anacapactl": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapactl",
+    "size": 1988,
+    "sha256": "027c3335c56b41079e117d0ed30eced7e11ac054c395ab558dee0c5996a8a390"
   }
 }

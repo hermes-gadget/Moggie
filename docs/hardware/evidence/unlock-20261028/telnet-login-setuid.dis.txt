@@ -1,0 +1,37 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x100058ac --stop-address=0x1000591c /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/bin/busybox
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/bin/busybox:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+100058ac <.text+0x1d20>:
+100058ac [file 0x000058ac]:	94 21 ff f0 	stwu    r1,-16(r1)
+100058b0 [file 0x000058b0]:	7c 08 02 a6 	mflr    r0
+100058b4 [file 0x000058b4]:	90 01 00 14 	stw     r0,20(r1)
+100058b8 [file 0x000058b8]:	48 07 46 61 	bl      10079f18 <setgid@plt>
+100058bc [file 0x000058bc]:	2f 83 00 00 	cmpwi   cr7,r3,0
+100058c0 [file 0x000058c0]:	41 9e 00 14 	beq     cr7,100058d4 <_IO_stdin_used@@Base-0x561a4>
+100058c4 [file 0x000058c4]:	3c 60 10 06 	lis     r3,4102
+100058c8 [file 0x000058c8]:	38 63 17 95 	addi    r3,r3,6037
+100058cc [file 0x000058cc]:	4c c6 31 82 	crclr   4*cr1+eq
+100058d0 [file 0x000058d0]:	4b ff ef 99 	bl      10004868 <_IO_stdin_used@@Base-0x57210>
+100058d4 [file 0x000058d4]:	80 01 00 14 	lwz     r0,20(r1)
+100058d8 [file 0x000058d8]:	38 21 00 10 	addi    r1,r1,16
+100058dc [file 0x000058dc]:	7c 08 03 a6 	mtlr    r0
+100058e0 [file 0x000058e0]:	4e 80 00 20 	blr
+100058e4 [file 0x000058e4]:	94 21 ff f0 	stwu    r1,-16(r1)
+100058e8 [file 0x000058e8]:	7c 08 02 a6 	mflr    r0
+100058ec [file 0x000058ec]:	90 01 00 14 	stw     r0,20(r1)
+100058f0 [file 0x000058f0]:	48 07 49 f1 	bl      1007a2e0 <setuid@plt>
+100058f4 [file 0x000058f4]:	2f 83 00 00 	cmpwi   cr7,r3,0
+100058f8 [file 0x000058f8]:	41 9e 00 14 	beq     cr7,1000590c <_IO_stdin_used@@Base-0x5616c>
+100058fc [file 0x000058fc]:	3c 60 10 06 	lis     r3,4102
+10005900 [file 0x00005900]:	38 63 17 9c 	addi    r3,r3,6044
+10005904 [file 0x00005904]:	4c c6 31 82 	crclr   4*cr1+eq
+10005908 [file 0x00005908]:	4b ff ef 61 	bl      10004868 <_IO_stdin_used@@Base-0x57210>
+1000590c [file 0x0000590c]:	80 01 00 14 	lwz     r0,20(r1)
+10005910 [file 0x00005910]:	38 21 00 10 	addi    r1,r1,16
+10005914 [file 0x00005914]:	7c 08 03 a6 	mtlr    r0
+10005918 [file 0x00005918]:	4e 80 00 20 	blr

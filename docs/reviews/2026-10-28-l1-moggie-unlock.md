@@ -1,18 +1,33 @@
 # L1 Moggie unlock: offline handoff
 
-2026-10-28. **BLOCKED for exact ZP5S behavior; sibling-build evidence delivered.** The report's scope and target-package inventory explain the blocker ([UNLOCK-CODE-PATH.md:3](../hardware/UNLOCK-CODE-PATH.md), [target-package.json:2–17](../hardware/evidence/unlock-20261028/target-package.json)). Required input is already-captured matching ZP5S userspace, including `anacapad`, its libraries, init/service scripts and extraction/model provenance. This is not a request for device access or credentials. No physical verification is authorized by this handoff.
+2026-10-28. **Versioned offline traces delivered; exact installed ZP5S 57.10 applicability remains BLOCKED.** [UNLOCK-CODE-PATH.md](../hardware/UNLOCK-CODE-PATH.md) now covers the captured 34.16 `-1-16` userspace separately from 57.10 Fenway. The older package was successfully extracted using host tools; its model-family association is the explicit capture-based hypothesis in the prior recon, not a hardware observation (report Z0). This materially narrows the earlier artifact gap, but neither image proves the installed 57.10 `-1-16` implementation.
 
-## Changed and why
+The input needed to close that remaining gap is **already-captured matching ZP5S 57.10 `-1-16` userspace plus extraction/model provenance**. A decoded 57.23 image could support a version comparison but would still be a different version. No device access or credentials are requested or authorized by this handoff.
 
-- Added [UNLOCK-CODE-PATH.md](../hardware/UNLOCK-CODE-PATH.md): exact handler addresses/file offsets, network predicates, signed-input construction, side effects, persistence/reversal limits, independent root authentication, entry-point matrix and negative-results register. Claims refer to source bytes or stock script lines.
-- Added a [bounded evidence packet](../hardware/evidence/unlock-20261028/manifest.json) with source hashes, complete exact-route table, selected constants/relocations, five version inventories, package magic-search result and 50 annotated disassembly excerpts. These preserve enough evidence to review the conclusions without copying entire firmware images or credential files.
-- Added [stock_unlock_evidence.py](../../tools/stock_unlock_evidence.py) to reproduce the packet and [check_stock_unlock_evidence.py](../../tools/check_stock_unlock_evidence.py) to check original byte provenance, VA/file mapping, source hashes, document offsets/links and deterministic regeneration. The checker explicitly does not certify RE semantics or hardware behavior.
+## Changes and evidence
 
-The main corrections are the TLS-context route predicate versus the mistaken directory-mode `0x4000` theory (report N1–N5), a zero reboot outflag on the normal success path (U5), a fixed script with output descriptors rather than submitted code as an argument (U4), conditional DevMode persistence and its default `/jffs/debug/devmode.bin` path (D3), and TestEnv's signed bit 7 plus resolved `syssettings.xml` transaction (T1–T3). Each section contains the binary offsets that support that correction. The root-authentication section also distinguishes password-method behavior from a separate conditional `none` path (R1).
+- Added the report's Z0–Z8 trace: UPD record provenance, exact 24-byte route table, SSL-listener predicate, wildcard IPv4 bind, challenge/hash/signature path, fixed inetd command, temporary unlock state, DevMode persistence/delete/startup, TestEnv's resolved XML transaction, and independent BusyBox login policy. Every section gives binary file offsets or numbered stock-file references.
+- Retained the independent Fenway N/U/M/D/T/R trace and added its telnet login implementation alongside Dropbear authentication. This keeps differences in startup, manufacturing mode, route flags, CSRF parsing and property indices visible instead of transferring them between builds.
+- Preserved two generated evidence packets: [Fenway manifest](../hardware/evidence/unlock-20261028/manifest.json) and [34.16 manifest](../hardware/evidence/zp5s-34-20261028/manifest.json). They contain hashes, mappings, routes, constants, selected relocations, annotated instructions and numbered non-credential text. Firmware binaries remain outside git in captured storage or ignored build output.
+- Added [zp5s_unlock_evidence.py](../../tools/zp5s_unlock_evidence.py), retained [stock_unlock_evidence.py](../../tools/stock_unlock_evidence.py), and generalized [check_stock_unlock_evidence.py](../../tools/check_stock_unlock_evidence.py) for both packets. The checker validates source hashes, instruction bytes, VA/file mappings, explicit document offsets, links and deterministic regeneration. It does not certify RE semantics or behavior on hardware.
+
+The consequential findings, with their evidence locations, are:
+
+| Finding | Report evidence |
+|---|---|
+| 34.16 `-1-16` is extractable offline; a blanket encrypted/unextractable claim was wrong | Z0; package record `0xadd3f`, payload `0xadd4f`; host filesystem inspection |
+| Normal approval attempts inetd/telnet in Z34 versus run_sshd.sh in A57 | Z4 / U4; Z file `0x262194`, A file `0x2a02b0`; corresponding stock scripts |
+| Located unlock flags test SSL/TLS, and reviewed listeners use wildcard binds | Z2 / N1–N2; shared-peer and Host qualifications remain explicit |
+| Prior `0x4000` loopback proof was a stat-directory check | N4; A file `0x427f6c` |
+| Ordinary normal-unlock success does not force a reboot in either reviewed implementation | Z4 / U5; full worker/wrapper dataflow |
+| Z34 manufacturing/development aliases exit the nonzero parsed POST branch with 500; A57 manufacturing mode writes MDP | Z5 / M1; Z file `0x261cf8`, A file `0x2a03dc` |
+| DevMode stores validated binary statements; signed bit 0 controls persistence at default `/jffs/debug/devmode.bin` | Z6 / D2–D3; each build's own verifier/writer/root mapping |
+| TestEnv uses signed bit 7, with property index 49 in Z34 and 40 in A57; default persistence is `/jffs/settings/syssettings.xml` | Z7 / T1–T3; resolved virtual calls and transactions |
+| HTTP approval is distinct from root login; empty-field and preauthentication branches prevent a universal “password always required” claim | Z8 / R1–R2; no actual account data inspected |
 
 ## Branch and commits
 
-The local `main` and cached `origin/main` were both `3ff0a53814e6f7ba33cf4c8e8b56a9202d3af5db`; no symbolic `origin/HEAD` existed. Branch `burn/moggie-unlock-20261028` was cut from that local default-branch baseline, without fetching. Repository evidence is reproducible with:
+The work is on `burn/moggie-unlock-20261028`, cut from local `main` at `3ff0a53814e6f7ba33cf4c8e8b56a9202d3af5db`; cached `origin/main` matched. There was no symbolic `origin/HEAD`, and no fetch was performed. Recheck with:
 
 ```sh
 git merge-base burn/moggie-unlock-20261028 main
@@ -20,49 +35,44 @@ git log --oneline main..burn/moggie-unlock-20261028
 git status --short --branch
 ```
 
-First commit: `0d0a2e5` (`docs(unlock): preserve binary evidence to correct misleading recon paths`). Commit `3775ffd` retains the completed handler/policy/storage report and generated evidence. The final commit adds the general peer-filter limit, byte checker, verification receipt and this handoff. Nothing was pushed or published. The repository's shared exclude rules ignore `docs/hardware/`, so only the requested new evidence paths were explicitly force-added; shared excludes were not edited.
+The commits explain why each evidence/report addition was needed. Initial evidence is in `0d0a2e5`, the Fenway trace in `3775ffd`, its initial byte audit in `055b46f`, and the recovered `-1-16` packet in `0de5e2d`; subsequent commits retain the version-specific conclusions and final verification. Nothing was pushed or published. Shared git exclude rules ignore `docs/hardware/`, so only the requested artifact paths were explicitly force-added; the shared excludes were not changed.
 
 ## Verification executed
 
-Run from `/home/ben/Moggie-wt/sonosd`:
+From `/home/ben/Moggie-wt/sonosd`, both generators were run into their committed evidence directories and independently regenerated into ignored build output. Exact source/objdump commands are in the report and [34.16 reproduction note](../hardware/evidence/ZP5S-34-20261028.md). Each disassembly excerpt also records its exact command.
+
+The final integrity checks were:
 
 ```sh
-python3 tools/stock_unlock_evidence.py \
-  --rootfs /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140 \
-  --objdump /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump \
-  --target-package /home/ben/sonos-bench-analysis/zp5s/57.23-74170-1-16.upd \
-  --out docs/hardware/evidence/unlock-20261028
-
-python3 tools/stock_unlock_evidence.py \
-  --rootfs /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140 \
-  --objdump /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump \
-  --target-package /home/ben/sonos-bench-analysis/zp5s/57.23-74170-1-16.upd \
-  --out build/unlock-analysis/reproduced
-
 python3 tools/check_stock_unlock_evidence.py \
   --evidence docs/hardware/evidence/unlock-20261028 \
   --compare build/unlock-analysis/reproduced \
   --document docs/hardware/UNLOCK-CODE-PATH.md
-
+python3 tools/check_stock_unlock_evidence.py \
+  --evidence docs/hardware/evidence/zp5s-34-20261028 \
+  --compare build/unlock-analysis/zp5s-34-reproduced \
+  --document docs/hardware/UNLOCK-CODE-PATH.md
 git diff --check
 git diff --cached --check
 ```
 
-Result lines are retained in [validation.txt](../hardware/evidence/unlock-validation-20261028.txt). The byte audit is an evidence-integrity check; semantic conclusions were manually traced through call sites and the saved excerpts. No repository runtime tests were needed for these documentation/host-analysis additions, and no speaker program was executed.
+Actual result lines, counts and report SHA-256 are retained in [validation receipt](../hardware/evidence/unlock-validation-20261028.txt). These are evidence-integrity checks. Semantic conclusions were manually traced through the preserved control flow. No speaker program or target emulation was run, and repository runtime tests were not applicable to these documentation/host-analysis additions.
 
-## Deliberately left out
+## Deliberate exclusions and limits
 
-No device/network-to-speaker access, credential submission/cracking, flash/GPIO action, target execution/emulation, service restart, deployment or live configuration modification was performed. No account database, runtime key material, private-key recovery, valid unlock response, arbitrary-program upload procedure or firmware-install procedure is delivered. Prior recon's stronger model/key/reboot assertions were not silently promoted into new facts; uncertainties are explicit in the report.
+No device or network-to-speaker access, credential submission/cracking, flash/GPIO action, target program/script execution, service restart, deployment or live configuration modification occurred. Captures were opened read-only; extraction and generated files were written only inside this worktree. No account database or runtime key bytes were inspected. No valid unlock response, private-key recovery, arbitrary-program upload recipe or persistent firmware-install procedure is delivered.
 
-No complete ZP5S userspace was extracted in this session. The UPD signature scan does not prove encryption or impossibility of offline extraction. The full TLS trust/client-certificate policy, manufacturing envelope's nested verifier/HAL physical commit semantics, DevMode callback-selected trust chain, SSH public-key authorization chain, telnet login implementation and all downstream configuration consumers are unclosed. They are not represented as tested or absent.
+The 57.23 `-1-16` UPD has a parsed outer container, but its flags-4 inner envelope remains undecoded (report applicability section; current-package.json). A magic-search miss, high entropy or a filename is not a proof that device access is required for extraction. Matching installed 57.10 userspace is still absent from the reviewed evidence.
 
-TokenSave context lookup was attempted before direct code analysis and did not return; `.tokensave/tokensave.db` is absent in this worktree. Existing host PPC objdump plus pyelftools provided the bounded fallback. The old SuperH capture was inventoried with its actual ELF endianness and was not disassembled as PPC.
+Open static questions include Z34's complete shared peer/Host/TLS trust policy; initialization of the normal unlock runtime key slot; DevMode's callback-selected trust chain; A57 manufacturing's nested verifier/HAL commit semantics; Dropbear's complete public-key chain; and downstream consumers of changed debug/settings properties. Runtime account/TTY contents, process identity, service health, actual persistence and physical rollback were deliberately not exercised. Each scope limit is kept beside its corresponding report claim.
+
+TokenSave context lookup was attempted before direct code analysis and did not return; `.tokensave/tokensave.db` is absent in this worktree. Existing host PPC objdump, pyelftools and unsquashfs supplied the bounded fallback. The SuperH capture was identified using its real ELF machine/endianness and was not disassembled as PPC (report version inventory).
 
 ## Ranked follow-ups
 
-1. **Close model applicability first:** provide already-captured matching ZP5S userspace and provenance, or a documented format-aware offline extraction path for already-captured target packages. Repeat the report's entry, policy, crypto and storage traces against those exact hashes. No conclusion here authorizes a live test.
-2. **Complete static trust-chain provenance:** trace initialization of the normal unlock key buffer, DevMode verifier callbacks, and manufacturing `ZZ0160`; classify source/format without disclosing key or credential material. Relevant starting offsets are report U3, D2 and M1.
-3. **Complete secondary effects offline:** follow TestEnv's property consumers, DevMode callbacks, root option initialization and public-key/telnet policy. Preserve the difference between property indices and signed bitmap indices (T1/R1).
-4. **Only after matching evidence, propose a separately authorized verification:** an operation-specific plan with expected observations, persistence boundaries and reversal prerequisites. Any action requiring the physical device is outside this lane and must stop at that separate authorization boundary (brief lines 29–40).
+1. **Close installed-build applicability:** supply already-captured matching ZP5S 57.10 `-1-16` userspace/provenance. Repeat handler, policy, crypto and storage traces against those exact hashes. Preserve the distinction between the extracted older family image, Fenway's same-number version, and actual installed code.
+2. **Finish shared network policy and trust provenance offline:** follow Z34 accepted-peer/Host/TLS policy and both builds' key-slot/DevMode verifier initialization. Classify source/format without reading account records or disclosing key material.
+3. **Finish indirect/persistent effects:** trace A57 manufacturing `ZZ0160` and HAL behavior, DevMode/TestEnv consumers, and Dropbear public-key/option initialization from captured code. Do not represent a configuration write as successful firmware installation or service health.
+4. **Physical work requires a separate task:** any future operation requiring a speaker, credentials, flashing or GPIO lies outside this lane. Stop at that boundary; this handoff authorizes no such operation (brief's task envelope/hard limits).
 
-The proof hashes accompanying delivery establish the exact written artifacts, not success at unlocking a ZP5S.
+The proof hash identifies the delivered report; it does not claim that a speaker was unlocked or that the installed-build gap is closed.

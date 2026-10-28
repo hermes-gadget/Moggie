@@ -95,7 +95,7 @@ def main():
     targets = {
         'A': 'opt/bin/anacapad', 'C': 'lib/libsonoscrypto.so.1',
         'U': 'lib/libsonosutils.so.1', 'D': 'usr/bin/dropbear',
-        'F': 'lib/libflash.so.1',
+        'F': 'lib/libflash.so.1', 'B': 'bin/busybox',
     }
     images = {name: Image(root / path) for name, path in targets.items()}
     manifest = {name: image.manifest() for name, image in images.items()}
@@ -171,6 +171,15 @@ def main():
         ('ssh-account-loader', 'D', 0x9738, 0x9848),
         ('ssh-account-policy', 'D', 0x12f4c, 0x133e8),
         ('ssh-password', 'D', 0x133ec, 0x1358c),
+        ('telnet-default-login', 'B', 0x10011f84, 0x10012010),
+        ('telnet-login-exec', 'B', 0x10011c80, 0x10011eb8),
+        ('busybox-applet-dispatch', 'B', 0x10003d60, 0x10004008),
+        ('telnet-login-policy', 'B', 0x10006a58, 0x10006f48),
+        ('telnet-password', 'B', 0x1004df98, 0x1004e098),
+        ('telnet-password-hasher', 'B', 0x100570cc, 0x10057568),
+        ('telnet-login-identity', 'B', 0x1004d71c, 0x1004d7a8),
+        ('telnet-login-setuid', 'B', 0x100058ac, 0x1000591c),
+        ('telnet-login-shell', 'B', 0x100583bc, 0x100584dc),
     )
     for label, key, start, end in ranges:
         (out / f'{label}.dis.txt').write_text(
@@ -201,6 +210,8 @@ def main():
               0x1046d8f4, 0x1045b0e8, 0x1051d298, 0x1045b390),
         'U': (0x87b8,),
         'D': (0x2add9, 0x2ae4f, 0x2aef0, 0x2afb0, 0x2b3c6),
+        'B': (0x1005e280, 0x1005e3a9, 0x10063c39, 0x10061990,
+              0x100619bf, 0x10068dde),
     }
     strings = {key: [{'va': hex(va), 'file': hex(images[key].offset(va)),
                       'value': images[key].string(va)} for va in vas]
@@ -214,6 +225,19 @@ def main():
         {'va': hex(va), 'file': hex(a.offset(va)), 'words': a.words(va, n)}
         for va, n in ((0x104b7250, 22), (0x104b7294, 4))]
     (out / 'constants.json').write_text(json.dumps(strings, indent=2) + '\n')
+    b = images['B']
+    applets = []
+    name_start = b.data.index(b'[\0[[\0')
+    for name in ('login', 'telnetd'):
+        off = b.data.index(name.encode() + b'\0', name_start)
+        index = b.data[name_start:off].count(b'\0')
+        slot = 0x1005ba90 + 4 * index
+        applets.append(dict(name=name, name_file=hex(off), index=index,
+                            function_slot_file=hex(b.offset(slot)),
+                            function_va=b.words(slot, 1)[0]))
+    (out / 'busybox-applets.json').write_text(json.dumps(dict(
+        names_file=hex(name_start), function_table_file='0x5ba90', applets=applets),
+        indent=2) + '\n')
 
     relocations = []
     selected = {'A': {0x1057200c}, 'U': {0x190b0},

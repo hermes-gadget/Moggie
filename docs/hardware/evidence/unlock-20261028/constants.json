@@ -135,6 +135,38 @@
       "value": "/jffs/persist/ssh/dropbear_ecdsa_host_key"
     }
   ],
+  "B": [
+    {
+      "va": "0x1005e280",
+      "file": "0x5e280",
+      "value": "login"
+    },
+    {
+      "va": "0x1005e3a9",
+      "file": "0x5e3a9",
+      "value": "telnetd"
+    },
+    {
+      "va": "0x10063c39",
+      "file": "0x63c39",
+      "value": "/bin/login"
+    },
+    {
+      "va": "0x10061990",
+      "file": "0x61990",
+      "value": "/etc/securetty"
+    },
+    {
+      "va": "0x100619bf",
+      "file": "0x619bf",
+      "value": "/etc/nologin"
+    },
+    {
+      "va": "0x10068dde",
+      "file": "0x68dde",
+      "value": "Password: "
+    }
+  ],
   "A_float32": [
     {
       "va": "0x104979c0",

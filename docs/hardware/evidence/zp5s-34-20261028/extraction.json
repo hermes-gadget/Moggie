@@ -70,6 +70,12 @@
       "-cat",
       "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
       "opt/conf/anacapa.conf"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "opt/bin/anacapactl"
     ]
   ],
   "boundary": "Fixed allowlist: no account database, target execution, socket or device access."

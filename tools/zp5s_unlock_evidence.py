@@ -72,7 +72,8 @@ def main():
         'ZU': 'lib/libsonosutils.so.1', 'ZB': 'bin/busybox',
     }
     texts = ('etc/Configure', 'etc/inittab', 'etc/runanacapa',
-             'etc/init.d/inetd', 'etc/inetd.conf', 'opt/conf/anacapa.conf')
+             'etc/init.d/inetd', 'etc/inetd.conf', 'opt/conf/anacapa.conf',
+             'opt/bin/anacapactl')
     commands = []
     for rel in (*files.values(), *texts):
         cmd = ['unsquashfs', '-cat', str(section), rel]
@@ -120,6 +121,7 @@ def main():
         ('manufacturing-read', 'Z', 0x102cbc70, 0x102cbdb4),
         ('unlock-key-slot', 'Z', 0x1025d9f4, 0x1025da80),
         ('hash', 'ZC', 0x5368, 0x55e0),
+        ('serialization', 'ZU', 0x1b8c, 0x1de8),
         ('rsa', 'ZC', 0x5f60, 0x6b3c),
         ('rng', 'ZC', 0x7408, 0x7468),
         ('http-module-root', 'Z', 0x102e363c, 0x102e3680),
@@ -134,6 +136,7 @@ def main():
         ('accepted-connection', 'Z', 0x102e16e4, 0x102e1758),
         ('ssl-port-enabled', 'Z', 0x102e10fc, 0x102e111c),
         ('devmode', 'Z', 0x10262204, 0x10262f38),
+        ('devmode-startup', 'Z', 0x1023bab8, 0x1023bb44),
         ('devmode-verifier', 'ZC', 0x8e24, 0x901c),
         ('debug-properties', 'Z', 0x1024cdf0, 0x1024da40),
         ('testenv-entry', 'Z', 0x101c8924, 0x101c8984),
@@ -141,6 +144,10 @@ def main():
         ('config-defaults', 'Z', 0x101c8984, 0x101c8a44),
         ('config-override', 'Z', 0x100060bc, 0x10006114),
         ('settings-wiring', 'Z', 0x10050f30, 0x10050fc8),
+        ('settings-wiring-boot', 'Z', 0x100516b8, 0x10051764),
+        ('settings-wrapper-constructor', 'Z', 0x100513b4, 0x100513f0),
+        ('settings-global', 'Z', 0x10007078, 0x100070a4),
+        ('settings-getter', 'Z', 0x10058ba4, 0x10058bb0),
         ('settings-forward', 'Z', 0x1014c2b0, 0x1014c2f4),
         ('settings-app-constructor', 'Z', 0x101d0a54, 0x101d0b00),
         ('settings-constructor', 'Z', 0x101d04d0, 0x101d0540),
@@ -152,7 +159,7 @@ def main():
         ('telnet-login', 'ZB', 0x1001d884, 0x1001db48),
         ('login', 'ZB', 0x10021cb4, 0x100222d0),
         ('login-password', 'ZB', 0x1003557c, 0x10035628),
-        ('login-identity', 'ZB', 0x10034c50, 0x10034d14),
+        ('login-identity', 'ZB', 0x10034c38, 0x10034cec),
         ('login-shell', 'ZB', 0x10039070, 0x100391a0),
     )
     for label, key, start, end in ranges:
@@ -178,6 +185,7 @@ def main():
         0x1035aaa0, 0x1035aaac, 0x1035aac4, 0x10358204, 0x10313ec4,
         0x103474d0, 0x103474d8, 0x10348344, 0x10319d54, 0x1031f330,
         0x1033e408, 0x10385de0),
+        'ZU': (0x2428,),
         'ZB': (0x1003ba28, 0x1003bb10, 0x1003b9f4, 0x10045758,
                0x1004631c, 0x10046350, 0x10048164)}
     constants = {key: [dict(va=hex(va), file=hex(images[key].offset(va)),
@@ -188,9 +196,20 @@ def main():
         for va in (0x10336f60, 0x1035a9e8)]
     constants['vtables'] = [dict(image=key, va=hex(va), file=hex(images[key].offset(va)),
         words=images[key].words(va, count)) for key, va, count in
-        [('Z', 0x103480d0, 22), ('ZB', 0x1003bd70, 3),
+        [('Z', 0x103480d0, 22), ('Z', 0x1031db34, 1), ('ZB', 0x1003bd70, 3),
          ('ZB', 0x1003bdc4, 3), ('ZB', 0x1003bf2c, 3), ('ZB', 0x100590e8, 2)]]
     (out / 'constants.json').write_text(json.dumps(constants, indent=2) + '\n')
+    relocations = []
+    for section in images['ZU'].elf.iter_sections():
+        if section['sh_type'] != 'SHT_RELA':
+            continue
+        for index, reloc in enumerate(section.iter_relocations()):
+            if reloc['r_offset'] == 0x12454:
+                relocations.append(dict(image='ZU', section=section.name,
+                    entry_file=hex(section['sh_offset'] + index * section['sh_entsize']),
+                    target_va=hex(reloc['r_offset']), target_file=hex(images['ZU'].offset(reloc['r_offset'])),
+                    type=reloc['r_info_type'], addend=hex(reloc['r_addend'])))
+    (out / 'relocations.json').write_text(json.dumps(relocations, indent=2) + '\n')
     print(f'EVIDENCE: 2 UPD containers; {len(images)} ELF manifests; '
           f'{len(texts)} numbered text sources; {len(ranges)} disassembly ranges; {len(routes)} exact route rows')
 

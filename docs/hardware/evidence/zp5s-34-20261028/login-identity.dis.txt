@@ -1,4 +1,4 @@
-$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10034c50 --stop-address=0x10034d14 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/bin/busybox
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10034c38 --stop-address=0x10034cec /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/bin/busybox
 # Each instruction: VA [file offset] bytes mnemonic
 
 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/bin/busybox:     file format elf32-powerpc
@@ -6,7 +6,13 @@ $ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/po
 
 Disassembly of section .text:
 
-10034c50 <pivot_root@@Base-0x492c>:
+10034c38 <pivot_root@@Base-0x4944>:
+10034c38 [file 0x00034c38]:	7c 08 02 a6 	mflr    r0
+10034c3c [file 0x00034c3c]:	94 21 ff f0 	stwu    r1,-16(r1)
+10034c40 [file 0x00034c40]:	93 e1 00 0c 	stw     r31,12(r1)
+10034c44 [file 0x00034c44]:	7c 7f 1b 78 	mr      r31,r3
+10034c48 [file 0x00034c48]:	90 01 00 14 	stw     r0,20(r1)
+10034c4c [file 0x00034c4c]:	80 83 00 0c 	lwz     r4,12(r3)
 10034c50 [file 0x00034c50]:	80 63 00 00 	lwz     r3,0(r3)
 10034c54 [file 0x00034c54]:	48 02 4f 8d 	bl      10059be0 <initgroups@plt>
 10034c58 [file 0x00034c58]:	3d 20 10 04 	lis     r9,4100
@@ -46,13 +52,3 @@ Disassembly of section .text:
 10034ce0 [file 0x00034ce0]:	38 21 00 10 	addi    r1,r1,16
 10034ce4 [file 0x00034ce4]:	7c 08 03 a6 	mtlr    r0
 10034ce8 [file 0x00034ce8]:	4e 80 00 20 	blr
-10034cec [file 0x00034cec]:	7c 08 02 a6 	mflr    r0
-10034cf0 [file 0x00034cf0]:	94 21 ff f0 	stwu    r1,-16(r1)
-10034cf4 [file 0x00034cf4]:	38 80 00 0a 	li      r4,10
-10034cf8 [file 0x00034cf8]:	90 01 00 14 	stw     r0,20(r1)
-10034cfc [file 0x00034cfc]:	48 00 2b 4d 	bl      10037848 <pivot_root@@Base-0x1d34>
-10034d00 [file 0x00034d00]:	2c 03 00 00 	cmpwi   r3,0
-10034d04 [file 0x00034d04]:	41 82 00 0c 	beq     10034d10 <pivot_root@@Base-0x486c>
-10034d08 [file 0x00034d08]:	38 00 00 00 	li      r0,0
-10034d0c [file 0x00034d0c]:	98 03 00 00 	stb     r0,0(r3)
-10034d10 [file 0x00034d10]:	80 01 00 14 	lwz     r0,20(r1)

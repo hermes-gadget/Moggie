@@ -1,0 +1,44 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10011f84 --stop-address=0x10012010 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/bin/busybox
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/bin/busybox:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10011f84 <.text+0xe3f8>:
+10011f84 [file 0x00011f84]:	94 21 fe 80 	stwu    r1,-384(r1)
+10011f88 [file 0x00011f88]:	39 20 00 00 	li      r9,0
+10011f8c [file 0x00011f8c]:	7c 83 23 78 	mr      r3,r4
+10011f90 [file 0x00011f90]:	bd c1 01 38 	stmw    r14,312(r1)
+10011f94 [file 0x00011f94]:	3f c0 10 08 	lis     r30,4104
+10011f98 [file 0x00011f98]:	91 21 01 14 	stw     r9,276(r1)
+10011f9c [file 0x00011f9c]:	3d 20 10 06 	lis     r9,4102
+10011fa0 [file 0x00011fa0]:	3b be ab 30 	addi    r29,r30,-21712
+10011fa4 [file 0x00011fa4]:	39 29 3c 39 	addi    r9,r9,15417
+10011fa8 [file 0x00011fa8]:	3d 40 10 08 	lis     r10,4104
+10011fac [file 0x00011fac]:	91 3d 00 04 	stw     r9,4(r29)
+10011fb0 [file 0x00011fb0]:	3d 20 10 06 	lis     r9,4102
+10011fb4 [file 0x00011fb4]:	39 29 3c 44 	addi    r9,r9,15428
+10011fb8 [file 0x00011fb8]:	91 3d 00 08 	stw     r9,8(r29)
+10011fbc [file 0x00011fbc]:	3d 20 10 06 	lis     r9,4102
+10011fc0 [file 0x00011fc0]:	39 29 3c 53 	addi    r9,r9,15443
+10011fc4 [file 0x00011fc4]:	3c 80 10 06 	lis     r4,4102
+10011fc8 [file 0x00011fc8]:	7d 80 00 26 	mfcr    r12
+10011fcc [file 0x00011fcc]:	7c 08 02 a6 	mflr    r0
+10011fd0 [file 0x00011fd0]:	91 2a 9a e0 	stw     r9,-25888(r10)
+10011fd4 [file 0x00011fd4]:	39 01 01 14 	addi    r8,r1,276
+10011fd8 [file 0x00011fd8]:	90 01 01 84 	stw     r0,388(r1)
+10011fdc [file 0x00011fdc]:	39 21 01 18 	addi    r9,r1,280
+10011fe0 [file 0x00011fe0]:	91 81 01 34 	stw     r12,308(r1)
+10011fe4 [file 0x00011fe4]:	38 e1 01 10 	addi    r7,r1,272
+10011fe8 [file 0x00011fe8]:	38 dd 00 04 	addi    r6,r29,4
+10011fec [file 0x00011fec]:	38 bd 00 08 	addi    r5,r29,8
+10011ff0 [file 0x00011ff0]:	38 84 3c 63 	addi    r4,r4,15459
+10011ff4 [file 0x00011ff4]:	4c c6 31 82 	crclr   4*cr1+eq
+10011ff8 [file 0x00011ff8]:	48 03 dd 41 	bl      1004fd38 <_IO_stdin_used@@Base-0xbd40>
+10011ffc [file 0x00011ffc]:	70 68 00 48 	andi.   r8,r3,72
+10012000 [file 0x00012000]:	7c 7f 1b 78 	mr      r31,r3
+10012004 [file 0x00012004]:	54 7c 07 38 	rlwinm  r28,r3,0,28,28
+10012008 [file 0x00012008]:	40 82 00 0c 	bne     10012014 <_IO_stdin_used@@Base-0x49a64>
+1001200c [file 0x0001200c]:	38 60 00 00 	li      r3,0
