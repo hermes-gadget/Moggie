@@ -13,6 +13,13 @@ BYTES: 62 excerpts; 8656 instructions match original bytes and LOAD mappings
 METADATA: 6 relocations; 79 routes; 47 constants; 0 CLI option rows match source
 DOCUMENT: 138 explicit source-offset citations in file-backed LOAD bytes; all local links resolve
 LIMIT: byte/offset/link checks do not establish semantic or hardware correctness
+$ python3 tools/check_stock_unlock_evidence.py --evidence docs/hardware/evidence/zp5s-5723-20261028 --compare build/unlock-analysis/zp5s-5723-reproduced --document docs/hardware/UNLOCK-CODE-PATH.md
+REPRODUCIBLE: 18 evidence files byte-identical
+PROVENANCE: 10 source records match original size and SHA-256
+BYTES: 7 excerpts; 1720 instructions match original bytes and LOAD mappings
+METADATA: 0 relocations; 83 routes; 9 constants; 0 CLI option rows match source
+DOCUMENT: 11 explicit source-offset citations in file-backed LOAD bytes; all local links resolve
+LIMIT: byte/offset/link checks do not establish semantic or hardware correctness
 $ python3 tools/test_stock_unlock_evidence.py --evidence docs/hardware/evidence/unlock-20261028 --document docs/hardware/UNLOCK-CODE-PATH.md
 REJECTED: relocation symbol
 REJECTED: relocation addend
@@ -51,4 +58,4 @@ $ git rev-parse main origin/main
 WORKTREE: /home/ben/Moggie-wt/sonosd
 TOKEN_GRAPH: .tokensave/tokensave.db exists=False
 SOURCE SCOPE: captured firmware only; no target execution or hardware verification
-REPORT_SHA256: 36ac9b65354b3f7d18bdf6f1c118ca599ca02d2f4a7af7305ef5b19a9f865a04  docs/hardware/UNLOCK-CODE-PATH.md
+REPORT_SHA256: 0b767bcabd6c6b2e15aef3c9bcc3497db878514fb7018177eda615292e08320b  docs/hardware/UNLOCK-CODE-PATH.md

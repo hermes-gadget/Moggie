@@ -1,0 +1,101 @@
+# Source: /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/etc/Configure
+# Numbered display; hash covers original bytes.
+   1: #!/bin/sh
+   2:
+   3: mount -t proc proc proc
+   4:
+   5: /sbin/ifconfig lo 127.0.0.1 up
+   6:
+   7: mount -t ramfs ramfs /ramdisk
+   8: mkdir -m 777 /ramdisk/var
+   9: mkdir -m 777 /ramdisk/var/run
+  10: mkdir -m 777 /ramdisk/var/log
+  11: mkdir -m 777 /ramdisk/tmp
+  12: mkdir -m 777 /ramdisk/tmp/pub
+  13: mkdir -m 777 /ramdisk/optlog
+  14: mkdir -m 777 /ramdisk/smb
+  15:
+  16: if [ -f /bin/repartition.sh ]; then
+  17:   sh /bin/repartition.sh
+  18: fi
+  19:
+  20: mount -t jffs2 -o noatime /dev/nandjffs /jffs
+  21: if [ $? -ne 0 ]
+  22: then
+  23:     if [ -f /bin/formatjffs ]; then
+  24:         echo "Reformat jffs" >> /opt/log/repartition.log
+  25:         /bin/formatjffs
+  26:         mount -t jffs2 -o noatime /dev/nandjffs /jffs
+  27:     fi
+  28: fi
+  29:
+  30: /etc/init.d/Srandom
+  31:
+  32: /sbin/insmod /modules/chk_driver.o
+  33: /sbin/insmod /modules/audiodev.o
+  34:
+  35: /wifi/netstartd --resetcheckonly
+  36:
+  37: mkdir -p /jffs/app/run
+  38: mkdir -p /jffs/app/log
+  39: mkdir -p /jffs/app/debug
+  40: mkdir -p /jffs/app/settings
+  41: mkdir -p /jffs/sys/run
+  42: mkdir -p /jffs/sys/log
+  43: mkdir -p /jffs/sys/debug
+  44: mkdir -p /jffs/sys/settings
+  45: mkdir -p /jffs/net/run
+  46: mkdir -p /jffs/net/log
+  47: mkdir -p /jffs/net/debug
+  48: mkdir -p /jffs/net/settings
+  49: mkdir -p /jffs/persist
+  50:
+  51: /bin/mdputil -B
+  52:
+  53: HOSTNAME=Sonos-`/bin/mdputil | /usr/sbin/keyval ^SERIAL | /usr/bin/cut -c 1-12`
+  54: /bin/hostname $HOSTNAME
+  55:
+  56: if [ -f /jffs/Configure ]; then
+  57:   echo "Running custom Configure..."
+  58:   exec /jffs/Configure
+  59: fi
+  60:
+  61: echo 262143 > /proc/sys/net/core/rmem_max
+  62: echo 0 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+  63:
+  64: echo 32768 36863 > /proc/sys/net/ipv4/ip_local_port_range
+  65:
+  66: wifiType=N
+  67:
+  68: /sbin/insmod /wifi/$wifiType/ath_hal.o
+  69: /sbin/insmod /wifi/$wifiType/ath_driver.o
+  70:
+  71: if [ -e /wifi/bridge-ppc.o ]; then
+  72:     /sbin/insmod /wifi/bridge-ppc.o
+  73: fi
+  74:
+  75: /usr/sbin/setmac
+  76:
+  77: touch /var/run/waitforip
+  78:
+  79: if [ -f /etc/unlocked_build_flag -o -e /jffs/system/Configure.dev ]; then
+  80:     /etc/scripts/run_sshd.sh
+  81:
+  82:     ln -s /opt/htdocs_locked /tmp/htdocs_locked
+  83:
+  84:     touch /tmp/device_unlocked_flag
+  85: fi
+  86:
+  87: if [ -f /jffs/system/Configure.dev ]; then
+  88:     sh /jffs/system/Configure.dev
+  89: fi
+  90:
+  91: if [ -s /jffs/hosts ]; then
+  92:     touch /jffs/hosts
+  93: else
+  94:     cp /etc/hosts.orig /jffs/hosts
+  95: fi
+  96:
+  97: /etc/init.d/Krandom
+  98:
+  99: echo "Configure script complete."

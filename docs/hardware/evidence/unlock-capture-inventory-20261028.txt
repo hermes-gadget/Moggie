@@ -17,3 +17,11 @@ $ rg --files /home/ben/sonos-bench-analysis /home/ben/Moggie/dl -g '*.tar*' -g '
 /home/ben/Moggie/dl/mosquitto-2.0.20.tar.gz
 SCOPE: Only the listed roots and filename filters were searched.
 LIMIT: This does not establish absence elsewhere or impossibility of offline extraction.
+
+Expanded prior-review capture roots:
+$ rg --files /home/ben/.review-notes/moggie-zero-pound-2026-10-28 /home/ben/.review-notes/moggie-recon-2026-10-28 -g '*anacapad*' -g '*57.10*' -g '*.upd' -g '*rootfs.bin' -g '!**/emuroot/**' -g '!**/eldkroot/**'
+/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/audit/upd/rootfs34_116/opt/bin/anacapad
+/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/rootfs16/opt/bin/anacapad
+/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin
+/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/pkg.upd
+LIMIT: Archive association and model/version applicability remain qualified in report W0.

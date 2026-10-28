@@ -46,7 +46,7 @@ def check_metadata(packet, images):
                     'relocation symbol')
 
     routes = json.loads((packet / 'routes.json').read_text())
-    source = images['A'] if 'A' in images else images['Z']
+    source = images[routes.get('image', 'A' if 'A' in images else 'Z')]
     previous = None
     for row in [routes['module_root'], routes['module'], *routes['routes']]:
         va = int(row['va'], 16)

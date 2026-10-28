@@ -1,0 +1,3 @@
+# Source: /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/etc/arch
+# Numbered display; hash covers original bytes.
+   1: ppc
