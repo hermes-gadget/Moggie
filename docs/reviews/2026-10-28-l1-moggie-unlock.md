@@ -88,6 +88,8 @@ The final audit used the current committed branch, source manifests, generated e
 
 ## Ranked follow-ups
 
+Continuation checkpoint: the ordered queue's first item remains unavailable from the recorded captures. Item 2 now has the Z2a accepted-address, connection, request-target and TLS configuration traces, with seven reproducible excerpts. They narrow the network-policy question; complete Host/interface policy and verifier initialization remain queued. The request-target syntax parser must not be mislabeled as the later Fenway Host authorization helper.
+
 1. **Close installed-build applicability:** supply already-captured matching ZP5S 57.10 `-1-16` userspace/provenance. Repeat handler, policy, crypto and storage traces against those exact hashes. Preserve the distinction between the extracted older family image, Fenway's same-number version, and actual installed code.
 2. **Finish shared network policy and trust provenance offline:** follow Z34 accepted-peer/Host/TLS policy and both builds' key-slot/DevMode verifier initialization. Classify source/format without reading account records or disclosing key material.
 3. **Finish indirect/persistent effects:** trace A57 manufacturing `ZZ0160` and HAL behavior, DevMode/TestEnv consumers, and Dropbear public-key/option initialization from captured code. Do not represent a configuration write as successful firmware installation or service health.
