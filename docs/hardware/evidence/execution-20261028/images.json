@@ -1,4 +1,22 @@
 {
+  "anacapa": {
+    "checked_disassembly_rows": 496,
+    "loads": [
+      {
+        "offset": 0,
+        "size": 4042504,
+        "va": 268435456
+      },
+      {
+        "offset": 4042752,
+        "size": 43452,
+        "va": 272543744
+      }
+    ],
+    "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad",
+    "sha256": "9db3247f232fa7e2dd1a42561782d38b95c6c4905029f16b22293471d6f23870",
+    "size": 4101056
+  },
   "crypto": {
     "checked_disassembly_rows": 1438,
     "loads": [
@@ -16,6 +34,21 @@
     "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1",
     "sha256": "03653fc9205ff23ad583506684f93387c444ac2b726a01bfa1ff18b6d7594c6c",
     "size": 51628
+  },
+  "driver": {
+    "checked_disassembly_rows": 166,
+    "format": "relocatable",
+    "load_section": ".text",
+    "loads": [
+      {
+        "offset": 52,
+        "size": 664,
+        "va": 0
+      }
+    ],
+    "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/modules/chk_driver.o",
+    "sha256": "7170378a0a2e3a3df8b64af2905c99a981e59e3cd9523656c1fd9fa5e757ce76",
+    "size": 3104
   },
   "kernel": {
     "checked_disassembly_rows": 2467,

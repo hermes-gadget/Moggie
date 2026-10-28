@@ -1,0 +1,37 @@
+[
+  {
+    "file": "0x313e08",
+    "source": "anacapa",
+    "value": "/dev/chk"
+  },
+  {
+    "file": "0x31623c",
+    "source": "anacapa",
+    "value": "RDM watchdog handler triggering reset"
+  },
+  {
+    "file": "0x31eab4",
+    "source": "anacapa",
+    "value": "RDM watchdog triggering reset"
+  },
+  {
+    "file": "0x38ac40",
+    "source": "anacapa",
+    "value": "%s/watchdog.log"
+  },
+  {
+    "file": "0x38ac5c",
+    "source": "anacapa",
+    "value": "%s/watchdog.dmesg"
+  },
+  {
+    "file": "0x38ac70",
+    "source": "anacapa",
+    "value": "/sbin/reboot"
+  },
+  {
+    "file": "0x38ac1c",
+    "source": "anacapa",
+    "value": "WATCHDOG: %s unresponsive! (UTC %s)"
+  }
+]

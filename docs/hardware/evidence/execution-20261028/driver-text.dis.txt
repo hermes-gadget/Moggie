@@ -1,0 +1,233 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -dr -j .text --start-address=0x0 --stop-address=0x298 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/modules/chk_driver.o
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/modules/chk_driver.o:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00000000 <chk_open>:
+   0:	38 60 00 00 	li      r3,0  # file 0x34
+   4:	4e 80 00 20 	blr  # file 0x38
+
+00000008 <chk_release>:
+   8:	38 60 00 00 	li      r3,0  # file 0x3c
+   c:	4e 80 00 20 	blr  # file 0x40
+
+00000010 <chk_ioctl>:
+  10:	7c 08 02 a6 	mflr    r0  # file 0x44
+  14:	94 21 ff e0 	stwu    r1,-32(r1)  # file 0x48
+  18:	bf a1 00 14 	stmw    r29,20(r1)  # file 0x4c
+  1c:	90 01 00 24 	stw     r0,36(r1)  # file 0x50
+  20:	54 a0 06 3e 	clrlwi  r0,r5,24  # file 0x54
+  24:	2f 80 00 01 	cmpwi   cr7,r0,1  # file 0x58
+  28:	7c c4 33 78 	mr      r4,r6  # file 0x5c
+  2c:	54 a5 84 fe 	rlwinm  r5,r5,16,19,31  # file 0x60
+  30:	41 9e 00 88 	beq     cr7,b8 <chk_ioctl+0xa8>  # file 0x64
+  34:	2f 80 00 02 	cmpwi   cr7,r0,2  # file 0x68
+  38:	41 9e 00 28 	beq     cr7,60 <chk_ioctl+0x50>  # file 0x6c
+  3c:	3c 60 00 00 	lis     r3,0  # file 0x70
+			3e: R_PPC_ADDR16_HA	.rodata.str1.4
+  40:	38 63 00 00 	addi    r3,r3,0  # file 0x74
+			42: R_PPC_ADDR16_LO	.rodata.str1.4
+  44:	48 00 00 01 	bl      44 <chk_ioctl+0x34>  # file 0x78
+			44: R_PPC_REL24	printk
+  48:	38 60 00 00 	li      r3,0  # file 0x7c
+  4c:	80 01 00 24 	lwz     r0,36(r1)  # file 0x80
+  50:	bb a1 00 14 	lmw     r29,20(r1)  # file 0x84
+  54:	38 21 00 20 	addi    r1,r1,32  # file 0x88
+  58:	7c 08 03 a6 	mtlr    r0  # file 0x8c
+  5c:	4e 80 00 20 	blr  # file 0x90
+  60:	80 02 02 78 	lwz     r0,632(r2)  # file 0x94
+  64:	39 21 00 08 	addi    r9,r1,8  # file 0x98
+  68:	2f 80 00 00 	cmpwi   cr7,r0,0  # file 0x9c
+  6c:	41 9e 00 c4 	beq     cr7,130 <chk_ioctl+0x120>  # file 0xa0
+  70:	3c 00 80 00 	lis     r0,-32768  # file 0xa4
+  74:	7f 85 00 40 	cmplw   cr7,r5,r0  # file 0xa8
+  78:	40 9d 00 ac 	ble     cr7,124 <chk_ioctl+0x114>  # file 0xac
+  7c:	2f 84 00 00 	cmpwi   cr7,r4,0  # file 0xb0
+  80:	7c a3 2b 78 	mr      r3,r5  # file 0xb4
+  84:	41 9c 00 1c 	blt     cr7,a0 <chk_ioctl+0x90>  # file 0xb8
+  88:	7f a4 2a 14 	add     r29,r4,r5  # file 0xbc
+  8c:	3f bd 80 00 	addis   r29,r29,-32768  # file 0xc0
+  90:	7d 23 4b 78 	mr      r3,r9  # file 0xc4
+  94:	7c bd 28 50 	subf    r5,r29,r5  # file 0xc8
+  98:	48 00 00 01 	bl      98 <chk_ioctl+0x88>  # file 0xcc
+			98: R_PPC_REL24	__copy_tofrom_user
+  9c:	7c 63 ea 14 	add     r3,r3,r29  # file 0xd0
+  a0:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0xd4
+  a4:	40 9e 00 b4 	bne     cr7,158 <chk_ioctl+0x148>  # file 0xd8
+  a8:	80 01 00 08 	lwz     r0,8(r1)  # file 0xdc
+  ac:	3d 20 00 00 	lis     r9,0  # file 0xe0
+			ae: R_PPC_ADDR16_HA	sysword
+  b0:	90 09 00 00 	stw     r0,0(r9)  # file 0xe4
+			b2: R_PPC_ADDR16_LO	sysword
+  b4:	4b ff ff 94 	b       48 <chk_ioctl+0x38>  # file 0xe8
+  b8:	80 02 02 78 	lwz     r0,632(r2)  # file 0xec
+  bc:	3d 20 00 00 	lis     r9,0  # file 0xf0
+			be: R_PPC_ADDR16_HA	sysword
+  c0:	2f 80 00 00 	cmpwi   cr7,r0,0  # file 0xf4
+  c4:	80 09 00 00 	lwz     r0,0(r9)  # file 0xf8
+			c6: R_PPC_ADDR16_LO	sysword
+  c8:	39 21 00 08 	addi    r9,r1,8  # file 0xfc
+  cc:	90 01 00 08 	stw     r0,8(r1)  # file 0x100
+  d0:	41 9e 00 78 	beq     cr7,148 <chk_ioctl+0x138>  # file 0x104
+  d4:	3c 00 80 00 	lis     r0,-32768  # file 0x108
+  d8:	7f 85 00 40 	cmplw   cr7,r5,r0  # file 0x10c
+  dc:	40 9d 00 60 	ble     cr7,13c <chk_ioctl+0x12c>  # file 0x110
+  e0:	2f 84 00 00 	cmpwi   cr7,r4,0  # file 0x114
+  e4:	7c a3 2b 78 	mr      r3,r5  # file 0x118
+  e8:	41 9c 00 20 	blt     cr7,108 <chk_ioctl+0xf8>  # file 0x11c
+  ec:	7f a4 2a 14 	add     r29,r4,r5  # file 0x120
+  f0:	3f bd 80 00 	addis   r29,r29,-32768  # file 0x124
+  f4:	7c 83 23 78 	mr      r3,r4  # file 0x128
+  f8:	7c bd 28 50 	subf    r5,r29,r5  # file 0x12c
+  fc:	7d 24 4b 78 	mr      r4,r9  # file 0x130
+ 100:	48 00 00 01 	bl      100 <chk_ioctl+0xf0>  # file 0x134
+			100: R_PPC_REL24	__copy_tofrom_user
+ 104:	7c 63 ea 14 	add     r3,r3,r29  # file 0x138
+ 108:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x13c
+ 10c:	41 9e ff 3c 	beq     cr7,48 <chk_ioctl+0x38>  # file 0x140
+ 110:	3c 60 00 00 	lis     r3,0  # file 0x144
+			112: R_PPC_ADDR16_HA	.rodata.str1.4+0x1c
+ 114:	38 63 00 1c 	addi    r3,r3,28  # file 0x148
+			116: R_PPC_ADDR16_LO	.rodata.str1.4+0x1c
+ 118:	48 00 00 01 	bl      118 <chk_ioctl+0x108>  # file 0x14c
+			118: R_PPC_REL24	printk
+ 11c:	38 60 ff f2 	li      r3,-14  # file 0x150
+ 120:	4b ff ff 2c 	b       4c <chk_ioctl+0x3c>  # file 0x154
+ 124:	7c 05 00 50 	subf    r0,r5,r0  # file 0x158
+ 128:	7f 86 00 40 	cmplw   cr7,r6,r0  # file 0x15c
+ 12c:	41 bd ff 50 	bgt     cr7,7c <chk_ioctl+0x6c>  # file 0x160
+ 130:	7d 23 4b 78 	mr      r3,r9  # file 0x164
+ 134:	48 00 00 01 	bl      134 <chk_ioctl+0x124>  # file 0x168
+			134: R_PPC_REL24	__copy_tofrom_user
+ 138:	4b ff ff 68 	b       a0 <chk_ioctl+0x90>  # file 0x16c
+ 13c:	7c 05 00 50 	subf    r0,r5,r0  # file 0x170
+ 140:	7f 86 00 40 	cmplw   cr7,r6,r0  # file 0x174
+ 144:	41 bd ff 9c 	bgt     cr7,e0 <chk_ioctl+0xd0>  # file 0x178
+ 148:	7c 83 23 78 	mr      r3,r4  # file 0x17c
+ 14c:	7d 24 4b 78 	mr      r4,r9  # file 0x180
+ 150:	48 00 00 01 	bl      150 <chk_ioctl+0x140>  # file 0x184
+			150: R_PPC_REL24	__copy_tofrom_user
+ 154:	4b ff ff b4 	b       108 <chk_ioctl+0xf8>  # file 0x188
+ 158:	3c 60 00 00 	lis     r3,0  # file 0x18c
+			15a: R_PPC_ADDR16_HA	.rodata.str1.4+0x34
+ 15c:	38 63 00 34 	addi    r3,r3,52  # file 0x190
+			15e: R_PPC_ADDR16_LO	.rodata.str1.4+0x34
+ 160:	48 00 00 01 	bl      160 <chk_ioctl+0x150>  # file 0x194
+			160: R_PPC_REL24	printk
+ 164:	38 60 ff f2 	li      r3,-14  # file 0x198
+ 168:	4b ff fe e4 	b       4c <chk_ioctl+0x3c>  # file 0x19c
+
+0000016c <init_module>:
+ 16c:	94 21 ff e0 	stwu    r1,-32(r1)  # file 0x1a0
+ 170:	7c 08 02 a6 	mflr    r0  # file 0x1a4
+ 174:	bf a1 00 14 	stmw    r29,20(r1)  # file 0x1a8
+ 178:	3f e0 00 00 	lis     r31,0  # file 0x1ac
+			17a: R_PPC_ADDR16_HA	.rodata.str1.4+0x50
+ 17c:	90 01 00 24 	stw     r0,36(r1)  # file 0x1b0
+ 180:	3f a0 00 00 	lis     r29,0  # file 0x1b4
+			182: R_PPC_ADDR16_HA	chk_fops
+ 184:	38 bd 00 00 	addi    r5,r29,0  # file 0x1b8
+			186: R_PPC_ADDR16_LO	chk_fops
+ 188:	38 9f 00 50 	addi    r4,r31,80  # file 0x1bc
+			18a: R_PPC_ADDR16_LO	.rodata.str1.4+0x50
+ 18c:	38 60 00 f3 	li      r3,243  # file 0x1c0
+ 190:	48 00 00 01 	bl      190 <init_module+0x24>  # file 0x1c4
+			190: R_PPC_REL24	devfs_register_chrdev
+ 194:	39 3d 00 00 	addi    r9,r29,0  # file 0x1c8
+			196: R_PPC_ADDR16_LO	chk_fops
+ 198:	7c 7d 1b 79 	mr.     r29,r3  # file 0x1cc
+ 19c:	38 a0 00 00 	li      r5,0  # file 0x1d0
+ 1a0:	38 c0 00 f3 	li      r6,243  # file 0x1d4
+ 1a4:	38 e0 00 00 	li      r7,0  # file 0x1d8
+ 1a8:	39 00 21 b6 	li      r8,8630  # file 0x1dc
+ 1ac:	39 40 00 00 	li      r10,0  # file 0x1e0
+ 1b0:	38 9f 00 50 	addi    r4,r31,80  # file 0x1e4
+			1b2: R_PPC_ADDR16_LO	.rodata.str1.4+0x50
+ 1b4:	38 60 00 00 	li      r3,0  # file 0x1e8
+ 1b8:	41 80 00 4c 	blt     204 <init_module+0x98>  # file 0x1ec
+ 1bc:	48 00 00 01 	bl      1bc <init_module+0x50>  # file 0x1f0
+			1bc: R_PPC_REL24	devfs_register
+ 1c0:	3d 20 00 00 	lis     r9,0  # file 0x1f4
+			1c2: R_PPC_ADDR16_HA	chk_devfs_handle
+ 1c4:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x1f8
+ 1c8:	7c 60 1b 78 	mr      r0,r3  # file 0x1fc
+ 1cc:	3c 60 00 00 	lis     r3,0  # file 0x200
+			1ce: R_PPC_ADDR16_HA	.rodata.str1.4+0x54
+ 1d0:	90 09 00 00 	stw     r0,0(r9)  # file 0x204
+			1d2: R_PPC_ADDR16_LO	chk_devfs_handle
+ 1d4:	38 63 00 54 	addi    r3,r3,84  # file 0x208
+			1d6: R_PPC_ADDR16_LO	.rodata.str1.4+0x54
+ 1d8:	38 80 00 f3 	li      r4,243  # file 0x20c
+ 1dc:	41 9e 00 3c 	beq     cr7,218 <init_module+0xac>  # file 0x210
+ 1e0:	3c 60 00 00 	lis     r3,0  # file 0x214
+			1e2: R_PPC_ADDR16_HA	.rodata.str1.4+0x7c
+ 1e4:	38 63 00 7c 	addi    r3,r3,124  # file 0x218
+			1e6: R_PPC_ADDR16_LO	.rodata.str1.4+0x7c
+ 1e8:	48 00 00 01 	bl      1e8 <init_module+0x7c>  # file 0x21c
+			1e8: R_PPC_REL24	printk
+ 1ec:	7f a3 eb 78 	mr      r3,r29  # file 0x220
+ 1f0:	80 01 00 24 	lwz     r0,36(r1)  # file 0x224
+ 1f4:	bb a1 00 14 	lmw     r29,20(r1)  # file 0x228
+ 1f8:	38 21 00 20 	addi    r1,r1,32  # file 0x22c
+ 1fc:	7c 08 03 a6 	mtlr    r0  # file 0x230
+ 200:	4e 80 00 20 	blr  # file 0x234
+ 204:	3c 60 00 00 	lis     r3,0  # file 0x238
+			206: R_PPC_ADDR16_HA	.rodata.str1.4+0x98
+ 208:	7f a4 eb 78 	mr      r4,r29  # file 0x23c
+ 20c:	38 63 00 98 	addi    r3,r3,152  # file 0x240
+			20e: R_PPC_ADDR16_LO	.rodata.str1.4+0x98
+ 210:	48 00 00 01 	bl      210 <init_module+0xa4>  # file 0x244
+			210: R_PPC_REL24	printk
+ 214:	4b ff ff d8 	b       1ec <init_module+0x80>  # file 0x248
+ 218:	48 00 00 01 	bl      218 <init_module+0xac>  # file 0x24c
+			218: R_PPC_REL24	printk
+ 21c:	38 9f 00 50 	addi    r4,r31,80  # file 0x250
+			21e: R_PPC_ADDR16_LO	.rodata.str1.4+0x50
+ 220:	38 60 00 f3 	li      r3,243  # file 0x254
+ 224:	48 00 00 01 	bl      224 <init_module+0xb8>  # file 0x258
+			224: R_PPC_REL24	devfs_unregister_chrdev
+ 228:	38 60 ff f2 	li      r3,-14  # file 0x25c
+ 22c:	4b ff ff c4 	b       1f0 <init_module+0x84>  # file 0x260
+
+00000230 <cleanup_module>:
+ 230:	7c 08 02 a6 	mflr    r0  # file 0x264
+ 234:	94 21 ff f0 	stwu    r1,-16(r1)  # file 0x268
+ 238:	3d 20 00 00 	lis     r9,0  # file 0x26c
+			23a: R_PPC_ADDR16_HA	chk_devfs_handle
+ 23c:	90 01 00 14 	stw     r0,20(r1)  # file 0x270
+ 240:	80 69 00 00 	lwz     r3,0(r9)  # file 0x274
+			242: R_PPC_ADDR16_LO	chk_devfs_handle
+ 244:	48 00 00 01 	bl      244 <cleanup_module+0x14>  # file 0x278
+			244: R_PPC_REL24	devfs_unregister
+ 248:	3c 80 00 00 	lis     r4,0  # file 0x27c
+			24a: R_PPC_ADDR16_HA	.rodata.str1.4+0x50
+ 24c:	38 84 00 50 	addi    r4,r4,80  # file 0x280
+			24e: R_PPC_ADDR16_LO	.rodata.str1.4+0x50
+ 250:	38 60 00 f3 	li      r3,243  # file 0x284
+ 254:	48 00 00 01 	bl      254 <cleanup_module+0x24>  # file 0x288
+			254: R_PPC_REL24	devfs_unregister_chrdev
+ 258:	7c 64 1b 79 	mr.     r4,r3  # file 0x28c
+ 25c:	3c 60 00 00 	lis     r3,0  # file 0x290
+			25e: R_PPC_ADDR16_HA	.rodata.str1.4+0xc8
+ 260:	38 63 00 c8 	addi    r3,r3,200  # file 0x294
+			262: R_PPC_ADDR16_LO	.rodata.str1.4+0xc8
+ 264:	41 80 00 20 	blt     284 <cleanup_module+0x54>  # file 0x298
+ 268:	3c 60 00 00 	lis     r3,0  # file 0x29c
+			26a: R_PPC_ADDR16_HA	.rodata.str1.4+0xf4
+ 26c:	38 63 00 f4 	addi    r3,r3,244  # file 0x2a0
+			26e: R_PPC_ADDR16_LO	.rodata.str1.4+0xf4
+ 270:	48 00 00 01 	bl      270 <cleanup_module+0x40>  # file 0x2a4
+			270: R_PPC_REL24	printk
+ 274:	80 01 00 14 	lwz     r0,20(r1)  # file 0x2a8
+ 278:	38 21 00 10 	addi    r1,r1,16  # file 0x2ac
+ 27c:	7c 08 03 a6 	mtlr    r0  # file 0x2b0
+ 280:	4e 80 00 20 	blr  # file 0x2b4
+ 284:	48 00 00 01 	bl      284 <cleanup_module+0x54>  # file 0x2b8
+			284: R_PPC_REL24	printk
+ 288:	80 01 00 14 	lwz     r0,20(r1)  # file 0x2bc
+ 28c:	38 21 00 10 	addi    r1,r1,16  # file 0x2c0
+ 290:	7c 08 03 a6 	mtlr    r0  # file 0x2c4
+ 294:	4e 80 00 20 	blr  # file 0x2c8

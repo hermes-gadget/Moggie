@@ -70,8 +70,56 @@ The rootfs image is SquashFS, but [fstab](evidence/execution-20261028/etc-fstab.
 line 5 names `/dev/mapper/crroot` with type auto. Actual root-device selection,
 root encryption, mount options, aliases into other media and `/dev/nandjffs`
 physical backing remain unverified. It would be wrong to resolve that conflict
-using the other family's compiled cmdline. No complete watchdog/feeder or
-reset-policy trace has yet been established in the kernel/daemons/driver.
+using the other family's compiled cmdline. The bounded supervision paths below
+do not yet establish complete watchdog/feeder or reset ownership.
+
+## Older application supervision and reset paths
+
+`A@offset` is a file offset in the additionally recovered older `opt/bin/anacapad`,
+SHA-256 `9db3247f232fa7e2dd1a42561782d38b95c6c4905029f16b22293471d6f23870`.
+Its text VA is `0x10000000 + offset`; images.json records its ELF mapping.
+No application or driver was executed.
+
+The captured `modules/chk_driver.o` is a relocatable ELF, not a ready-linked
+executable. Its [complete text](evidence/execution-20261028/driver-text.dis.txt)
+and [relocation records](evidence/execution-20261028/driver-relocations.json)
+show character-device registration (major 243), trivial open/release, and
+ioctl low-byte 1/2 read/write of the four-byte common RAM symbol `sysword`.
+The preserved module has no timer, hardware watchdog feed or reset operation.
+Relocation annotations identify external calls; an unresolved `bl` to the same
+section offset must not be mistaken for recursion or a final linked target.
+The application's [startup check](evidence/execution-20261028/anacapa-chk-startup.dis.txt)
+reads `/dev/chk` with ioctl `0x4004f301` and compares the result with `0x1996`
+(`A@0x5c68–0x5cec`). That establishes a RAM-word consumer, not an owner-code hook
+or a complete account of which process writes the word.
+
+The application also contains a distinct
+[supervision loop](evidence/execution-20261028/anacapa-watchdog-supervision.dis.txt).
+It samples registered callbacks on an approximately ten-second cadence and
+passes a failing callback's result to the action routine
+(`A@0x2e4258–0x2e434c`). The
+[action routine](evidence/execution-20261028/anacapa-watchdog-action.dis.txt)
+formats `WATCHDOG: ... unresponsive!`, opens `%s/watchdog.log` and
+`%s/watchdog.dmesg` for creation/truncation, copies diagnostic data, and calls
+fsync (`A@0x2e3e18–0x2e3f20`). Its prefix is caller-supplied in the
+[setup](evidence/execution-20261028/anacapa-watchdog-setup.dis.txt)
+(`A@0x2e4858`); its backing media cannot be inferred from the format alone.
+Action `-2` raises signal 9; action `-3` syncs and invokes `/sbin/reboot`
+through system (`A@0x2e3f24–0x2e3fc0`).
+The [saved literals](evidence/execution-20261028/supervision-literals.json)
+and all excerpts are independently checked against the recovered source bytes.
+
+Two other captured paths explicitly log RDM watchdog reset messages, then call
+the same reset helper:
+[handler](evidence/execution-20261028/anacapa-rdm-reset-handler.dis.txt)
+`A@0xb07c–0xb09c` and
+[deadline branch](evidence/execution-20261028/anacapa-rdm-watchdog.dis.txt)
+`A@0x56c5c–0x56c9c`. The
+[helper](evidence/execution-20261028/anacapa-reboot.dis.txt)
+syncs, sleeps and calls reboot with `0x01234567` (`A@0x1c6524–0x1c6544`).
+These are concrete application reset requests. Registered client coverage,
+all triggers, any separate hardware watchdog and successful-boot/rollback
+coupling remain unknown; a `watchdog` string alone cannot establish them.
 
 ## Updater verification and installation boundaries
 

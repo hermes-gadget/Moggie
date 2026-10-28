@@ -33,7 +33,8 @@ TEXTS = (
     'bin/repartition.sh',
 )
 BINARIES = ('bin/upgrade', 'lib/libflash.so.1', 'lib/libsonoscrypto.so.1',
-            'bin/busybox', 'bin/formatjffs')
+            'bin/busybox', 'bin/formatjffs', 'modules/chk_driver.o',
+            'opt/bin/anacapad')
 
 
 def digest(data):
@@ -71,18 +72,37 @@ def write_json(path, value):
 
 def elf_evidence(path, objdump, ranges, out, label):
     data = path.read_bytes()
+    extra = {}
     with path.open('rb') as stream:
         elf = ELFFile(stream)
         if elf['e_machine'] != 'EM_PPC' or elf.elfclass != 32 or elf.little_endian:
             raise ValueError('expected PPC32 big-endian ELF')
-        loads = [dict(va=s['p_vaddr'], offset=s['p_offset'], size=s['p_filesz'])
-                 for s in elf.iter_segments() if s['p_type'] == 'PT_LOAD']
-    count = disassembly_evidence(path, objdump, ranges, loads, out, label)
+        if elf['e_type'] == 'ET_REL':
+            section = elf.get_section_by_name('.text')
+            loads = [dict(va=section['sh_addr'], offset=section['sh_offset'], size=section['sh_size'])]
+            extra = dict(format='relocatable', load_section='.text')
+            relocations = []
+            for section in elf.iter_sections():
+                if section['sh_type'] != 'SHT_RELA':
+                    continue
+                symbols = elf.get_section(section['sh_link'])
+                for relocation in section.iter_relocations():
+                    symbol = symbols.get_symbol(relocation['r_info_sym'])
+                    relocations.append(dict(section=section.name, offset=hex(relocation['r_offset']),
+                        type=relocation['r_info_type'], addend=relocation['r_addend'],
+                        symbol=symbol.name, symbol_section=symbol['st_shndx'],
+                        symbol_value=hex(symbol['st_value']), symbol_size=symbol['st_size']))
+            write_json(out / f'{label}-relocations.json', relocations)
+        else:
+            loads = [dict(va=s['p_vaddr'], offset=s['p_offset'], size=s['p_filesz'])
+                     for s in elf.iter_segments() if s['p_type'] == 'PT_LOAD']
+    count = disassembly_evidence(path, objdump, ranges, loads, out, label,
+                                section=extra.get('load_section'))
     return dict(path=str(path), sha256=digest(data), size=len(data),
-                loads=loads, checked_disassembly_rows=count)
+                loads=loads, checked_disassembly_rows=count, **extra)
 
 
-def disassembly_evidence(path, objdump, ranges, loads, out, label, raw_base=None):
+def disassembly_evidence(path, objdump, ranges, loads, out, label, raw_base=None, section=None):
     data = path.read_bytes()
     def offset(va):
         for segment in loads:
@@ -93,6 +113,8 @@ def disassembly_evidence(path, objdump, ranges, loads, out, label, raw_base=None
     for name, start, end in ranges:
         options = ['-d'] if raw_base is None else [
             '-D', '-b', 'binary', '-m', 'powerpc:common', '-EB', f'--adjust-vma={raw_base:#x}']
+        if section is not None:
+            options = ['-dr', '-j', section]
         command = [str(objdump), *options, f'--start-address={start:#x}',
                    f'--stop-address={end:#x}', str(path)]
         lines = run(command).decode().splitlines()
@@ -519,6 +541,26 @@ def main():
         ('rsa-decrypt', 0x5ac4, 0x5c18),
     ), out, 'crypto')
     images['kernel'] = raw_kernel_evidence(cache / 'kernel.decompressed', args.objdump, out)
+    images['driver'] = elf_evidence(cache / 'rootfs/modules/chk_driver.o', args.objdump,
+        (('text', 0, 0x298),), out, 'driver')
+    images['anacapa'] = elf_evidence(cache / 'rootfs/opt/bin/anacapad', args.objdump, (
+        ('chk-startup', 0x10005c68, 0x10005d7c),
+        ('rdm-reset-handler', 0x1000b06c, 0x1000b0d0),
+        ('rdm-watchdog', 0x10056c5c, 0x10056ca4),
+        ('reboot', 0x101c6510, 0x101c655c),
+        ('watchdog-log-copy', 0x102e3bcc, 0x102e3cb0),
+        ('watchdog-action', 0x102e3d64, 0x102e3fe4),
+        ('watchdog-supervision', 0x102e4258, 0x102e4360),
+        ('watchdog-setup', 0x102e4808, 0x102e4950),
+    ), out, 'anacapa')
+    literals = []
+    app = (cache / 'rootfs/opt/bin/anacapad').read_bytes()
+    for needle in (b'/dev/chk', b'RDM watchdog handler triggering reset',
+                   b'RDM watchdog triggering reset', b'%s/watchdog.log',
+                   b'%s/watchdog.dmesg', b'/sbin/reboot', b'WATCHDOG: %s unresponsive! (UTC %s)'):
+        position = app.index(needle + b'\0')
+        literals.append(dict(source='anacapa', file=hex(position), value=needle.decode()))
+    write_json(out / 'supervision-literals.json', literals)
     write_json(out / 'images.json', images)
     anchor = public_anchor(cache / 'rootfs/lib/libsonoscrypto.so.1')
     write_json(out / 'legacy-public-anchor.json', anchor)

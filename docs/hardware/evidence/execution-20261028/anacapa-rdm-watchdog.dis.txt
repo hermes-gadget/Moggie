@@ -1,0 +1,27 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10056c5c --stop-address=0x10056ca4 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10056c5c <strlcpy@@Base-0x13aaa0>:
+10056c5c:	38 60 00 00 	li      r3,0  # file 0x56c5c
+10056c60:	48 39 f6 a9 	bl      103f6308 <time@plt>  # file 0x56c60
+10056c64:	80 1f 6a 44 	lwz     r0,27204(r31)  # file 0x56c64
+10056c68:	7f 80 18 00 	cmpw    cr7,r0,r3  # file 0x56c68
+10056c6c:	40 bc fe 28 	bge     cr7,10056a94 <_init@@Base+0x51008>  # file 0x56c6c
+10056c70:	80 df 6a 48 	lwz     r6,27208(r31)  # file 0x56c70
+10056c74:	2f 86 00 00 	cmpwi   cr7,r6,0  # file 0x56c74
+10056c78:	40 9e 01 e8 	bne     cr7,10056e60 <_init@@Base+0x513d4>  # file 0x56c78
+10056c7c:	3c 60 10 31 	lis     r3,4145  # file 0x56c7c
+10056c80:	3c a0 10 32 	lis     r5,4146  # file 0x56c80
+10056c84:	38 63 53 04 	addi    r3,r3,21252  # file 0x56c84
+10056c88:	38 a5 ea b4 	addi    r5,r5,-5452  # file 0x56c88
+10056c8c:	38 80 00 00 	li      r4,0  # file 0x56c8c
+10056c90:	48 28 f6 4d 	bl      102e62dc <modff@@Base+0x1b338>  # file 0x56c90
+10056c94:	48 16 f7 79 	bl      101c640c <strlcpy@@Base+0x34d10>  # file 0x56c94
+10056c98:	38 60 00 01 	li      r3,1  # file 0x56c98
+10056c9c:	48 16 f8 75 	bl      101c6510 <strlcpy@@Base+0x34e14>  # file 0x56c9c
+10056ca0:	4b ff fd f4 	b       10056a94 <_init@@Base+0x51008>  # file 0x56ca0

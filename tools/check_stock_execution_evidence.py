@@ -114,8 +114,24 @@ def main():
         else:
             with path.open('rb') as stream:
                 elf = ELFFile(stream)
-                loads = [(s['p_vaddr'], s['p_offset'], s['p_filesz'])
-                         for s in elf.iter_segments() if s['p_type'] == 'PT_LOAD']
+                if entry.get('format') == 'relocatable':
+                    assert elf['e_type'] == 'ET_REL'
+                    section = elf.get_section_by_name(entry['load_section'])
+                    loads = [(section['sh_addr'], section['sh_offset'], section['sh_size'])]
+                    expected = []
+                    for section in elf.iter_sections():
+                        if section['sh_type'] == 'SHT_RELA':
+                            symbols = elf.get_section(section['sh_link'])
+                            for relocation in section.iter_relocations():
+                                symbol = symbols.get_symbol(relocation['r_info_sym'])
+                                expected.append(dict(section=section.name, offset=hex(relocation['r_offset']),
+                                    type=relocation['r_info_type'], addend=relocation['r_addend'],
+                                    symbol=symbol.name, symbol_section=symbol['st_shndx'],
+                                    symbol_value=hex(symbol['st_value']), symbol_size=symbol['st_size']))
+                    assert read(label + '-relocations.json') == expected
+                else:
+                    loads = [(s['p_vaddr'], s['p_offset'], s['p_filesz'])
+                             for s in elf.iter_segments() if s['p_type'] == 'PT_LOAD']
         count = 0
         for excerpt in sorted(root.glob(label + '-*.dis.txt')):
             for line in excerpt.read_text().splitlines():
@@ -130,6 +146,10 @@ def main():
                 count += 1
         assert count == entry['checked_disassembly_rows'] and count > 0
         rows += count
+    for literal in read('supervision-literals.json'):
+        data = sources[literal['source']]
+        start = int(literal['file'], 16)
+        assert data[start:data.index(b'\0', start)].decode() == literal['value']
     for record in read('record-handlers.json'):
         offset = int(record['file'], 16)
         assert tuple(int(word, 16) for word in record['words']) == struct.unpack_from(
@@ -187,8 +207,8 @@ def main():
         assert (args.document.parent / target).is_file(), target
         links += 1
     offsets = 0
-    for label, value in re.findall(r'\b([UCK])@(?:`)?(0x[0-9a-f]+)', document):
-        key = {'U': 'upgrade', 'C': 'crypto', 'K': 'kernel'}[label]
+    for label, value in re.findall(r'\b([UCKA])@(?:`)?(0x[0-9a-f]+)', document):
+        key = {'U': 'upgrade', 'C': 'crypto', 'K': 'kernel', 'A': 'anacapa'}[label]
         assert int(value, 16) < len(sources[key])
         offsets += 1
     compared = 0

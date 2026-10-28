@@ -20,7 +20,9 @@
     "lib/libflash.so.1",
     "lib/libsonoscrypto.so.1",
     "bin/busybox",
-    "bin/formatjffs"
+    "bin/formatjffs",
+    "modules/chk_driver.o",
+    "opt/bin/anacapad"
   ],
   "boundary": "Host unsquashfs only; no account data, devices or target execution.",
   "files": {
@@ -76,9 +78,17 @@
       "sha256": "03653fc9205ff23ad583506684f93387c444ac2b726a01bfa1ff18b6d7594c6c",
       "size": 51628
     },
+    "modules/chk_driver.o": {
+      "sha256": "7170378a0a2e3a3df8b64af2905c99a981e59e3cd9523656c1fd9fa5e757ce76",
+      "size": 3104
+    },
     "opt/bin/anacapactl": {
       "sha256": "027c3335c56b41079e117d0ed30eced7e11ac054c395ab558dee0c5996a8a390",
       "size": 1988
+    },
+    "opt/bin/anacapad": {
+      "sha256": "9db3247f232fa7e2dd1a42561782d38b95c6c4905029f16b22293471d6f23870",
+      "size": 4101056
     }
   },
   "kernel_record": {

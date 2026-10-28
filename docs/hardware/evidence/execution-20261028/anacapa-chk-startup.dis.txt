@@ -1,0 +1,78 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10005c68 --stop-address=0x10005d7c /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10005c68 <strlcpy@@Base-0x18ba94>:
+10005c68:	94 21 ff e0 	stwu    r1,-32(r1)  # file 0x5c68
+10005c6c:	7c 08 02 a6 	mflr    r0  # file 0x5c6c
+10005c70:	3c 60 10 31 	lis     r3,4145  # file 0x5c70
+10005c74:	93 c1 00 18 	stw     r30,24(r1)  # file 0x5c74
+10005c78:	38 80 00 02 	li      r4,2  # file 0x5c78
+10005c7c:	93 e1 00 1c 	stw     r31,28(r1)  # file 0x5c7c
+10005c80:	38 63 3e 08 	addi    r3,r3,15880  # file 0x5c80
+10005c84:	90 01 00 24 	stw     r0,36(r1)  # file 0x5c84
+10005c88:	3b c0 00 00 	li      r30,0  # file 0x5c88
+10005c8c:	93 c1 00 08 	stw     r30,8(r1)  # file 0x5c8c
+10005c90:	48 3f 09 b9 	bl      103f6648 <open@plt>  # file 0x5c90
+10005c94:	7c 7f 1b 79 	mr.     r31,r3  # file 0x5c94
+10005c98:	3c 80 40 04 	lis     r4,16388  # file 0x5c98
+10005c9c:	60 84 f3 01 	ori     r4,r4,62209  # file 0x5c9c
+10005ca0:	38 a1 00 08 	addi    r5,r1,8  # file 0x5ca0
+10005ca4:	41 80 00 1c 	blt     10005cc0 <_init@@Base+0x234>  # file 0x5ca4
+10005ca8:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x5ca8
+10005cac:	48 3f 0a 3d 	bl      103f66e8 <ioctl@plt>  # file 0x5cac
+10005cb0:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x5cb0
+10005cb4:	7f e3 fb 78 	mr      r3,r31  # file 0x5cb4
+10005cb8:	41 9e 00 24 	beq     cr7,10005cdc <_init@@Base+0x250>  # file 0x5cb8
+10005cbc:	48 3f 02 a5 	bl      103f5f60 <close@plt>  # file 0x5cbc
+10005cc0:	80 01 00 24 	lwz     r0,36(r1)  # file 0x5cc0
+10005cc4:	7f c3 f3 78 	mr      r3,r30  # file 0x5cc4
+10005cc8:	83 e1 00 1c 	lwz     r31,28(r1)  # file 0x5cc8
+10005ccc:	83 c1 00 18 	lwz     r30,24(r1)  # file 0x5ccc
+10005cd0:	7c 08 03 a6 	mtlr    r0  # file 0x5cd0
+10005cd4:	38 21 00 20 	addi    r1,r1,32  # file 0x5cd4
+10005cd8:	4e 80 00 20 	blr  # file 0x5cd8
+10005cdc:	80 01 00 08 	lwz     r0,8(r1)  # file 0x5cdc
+10005ce0:	2f 80 19 96 	cmpwi   cr7,r0,6550  # file 0x5ce0
+10005ce4:	40 9e ff d8 	bne     cr7,10005cbc <_init@@Base+0x230>  # file 0x5ce4
+10005ce8:	3b c0 00 01 	li      r30,1  # file 0x5ce8
+10005cec:	4b ff ff d0 	b       10005cbc <_init@@Base+0x230>  # file 0x5cec
+10005cf0:	7c 08 02 a6 	mflr    r0  # file 0x5cf0
+10005cf4:	3c 60 10 31 	lis     r3,4145  # file 0x5cf4
+10005cf8:	94 21 ff f0 	stwu    r1,-16(r1)  # file 0x5cf8
+10005cfc:	38 80 00 02 	li      r4,2  # file 0x5cfc
+10005d00:	38 63 3e 14 	addi    r3,r3,15892  # file 0x5d00
+10005d04:	93 e1 00 0c 	stw     r31,12(r1)  # file 0x5d04
+10005d08:	90 01 00 14 	stw     r0,20(r1)  # file 0x5d08
+10005d0c:	48 3f 09 3d 	bl      103f6648 <open@plt>  # file 0x5d0c
+10005d10:	7c 7f 1b 79 	mr.     r31,r3  # file 0x5d10
+10005d14:	3c 80 80 0c 	lis     r4,-32756  # file 0x5d14
+10005d18:	3c a0 10 31 	lis     r5,4145  # file 0x5d18
+10005d1c:	60 84 fc 9b 	ori     r4,r4,64667  # file 0x5d1c
+10005d20:	38 a5 3e 44 	addi    r5,r5,15940  # file 0x5d20
+10005d24:	41 80 00 14 	blt     10005d38 <_init@@Base+0x2ac>  # file 0x5d24
+10005d28:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x5d28
+10005d2c:	48 3f 09 bd 	bl      103f66e8 <ioctl@plt>  # file 0x5d2c
+10005d30:	7f e3 fb 78 	mr      r3,r31  # file 0x5d30
+10005d34:	48 3f 02 2d 	bl      103f5f60 <close@plt>  # file 0x5d34
+10005d38:	80 01 00 14 	lwz     r0,20(r1)  # file 0x5d38
+10005d3c:	83 e1 00 0c 	lwz     r31,12(r1)  # file 0x5d3c
+10005d40:	38 21 00 10 	addi    r1,r1,16  # file 0x5d40
+10005d44:	7c 08 03 a6 	mtlr    r0  # file 0x5d44
+10005d48:	4e 80 00 20 	blr  # file 0x5d48
+10005d4c:	7c 08 02 a6 	mflr    r0  # file 0x5d4c
+10005d50:	94 21 ff f0 	stwu    r1,-16(r1)  # file 0x5d50
+10005d54:	90 01 00 14 	stw     r0,20(r1)  # file 0x5d54
+10005d58:	4b ff ff 11 	bl      10005c68 <_init@@Base+0x1dc>  # file 0x5d58
+10005d5c:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x5d5c
+10005d60:	41 9e 00 14 	beq     cr7,10005d74 <_init@@Base+0x2e8>  # file 0x5d60
+10005d64:	80 01 00 14 	lwz     r0,20(r1)  # file 0x5d64
+10005d68:	38 21 00 10 	addi    r1,r1,16  # file 0x5d68
+10005d6c:	7c 08 03 a6 	mtlr    r0  # file 0x5d6c
+10005d70:	4e 80 00 20 	blr  # file 0x5d70
+10005d74:	4b ff ff 7d 	bl      10005cf0 <_init@@Base+0x264>  # file 0x5d74
+10005d78:	48 00 00 00 	b       10005d78 <_init@@Base+0x2ec>  # file 0x5d78

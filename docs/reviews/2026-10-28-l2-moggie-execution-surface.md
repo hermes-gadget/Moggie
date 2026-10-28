@@ -25,6 +25,7 @@ Committed increments (all pushed before the final handoff update):
 | `d4d4791` | Published evidence/audit checkpoint |
 | `e0f7481` | Matching older OOB writer, kernel consumer and raw-image checks |
 | `56540e9` | Board NAND setup, table replacement and Linux section choice |
+| `73ddff9` | Matching kernel payload readback and partition RAM controls |
 
 Draft PR: [#63](https://github.com/hermes-gadget/Moggie/pull/63), based on main.
 The final handoff update follows these commits on the same branch. Nothing was
@@ -39,7 +40,8 @@ Firmware binaries remain only in ignored `build/stock-execution/34.16/`.
 ## Consequential findings
 
 - Older `34.16-37101-1-16` is extractable big-endian SquashFS 3.0. Fourteen
-  allowlisted non-credential files were recovered; seven requested paths are
+  initially allowlisted non-credential files were recovered; two additional
+  application/driver binaries now bring the checked total to sixteen. Seven paths are
   absent, including libflash.so.1. The package provenance is attribution, not a
   measured physical model identification (report evidence/applicability section).
 - Its kernel decompresses to Linux **2.4.22-rincon**. The separate raw vmlinux
@@ -129,6 +131,16 @@ RAM, 0x21 frees that cache and 0x22 updates in-memory offset/size. The root
 partition snapshot request precedes root programming. These mechanisms do not
 authenticate payloads or make table/OOB/data writes atomic.
 
+## Application watchdog/reset increment
+
+Additional allowlisted recovery of anacapad and chk_driver.o gives concrete
+older supervision code. The chk driver is a relocatable module exposing a
+four-byte RAM word, with no feeder/reset operation in its preserved text.
+Anacapad has periodic callback supervision, diagnostic-file writes and explicit
+signal-9/reboot actions, plus separate RDM watchdog branches into a sync/reboot
+helper. Complete clients, triggers, log-prefix backing and any hardware
+watchdog remain open. Module relocation records and bytes are checked too.
+
 ## Verification executed so far
 
 The report's generation and independent-check commands were executed with
@@ -145,11 +157,11 @@ certify complete RE semantics, current-device applicability or hardware behavior
 Draft PR: https://github.com/hermes-gadget/Moggie/pull/63 (OPEN, draft;
 no CI checks reported at the last inspection). No merge was performed.
 
-Final receipt: 20 UPD records, 14 extracted hashes, 7,440 source-matching
-disassembly rows; 62 document links and 66 cited offset starts checked; all 87
+Final receipt: 20 UPD records, 16 extracted hashes, 8,102 source-matching
+disassembly rows; 62 document links and 66 cited offset starts checked; all 98
 regenerated files identical. Older legacy signature validates the exact prefix
 and rejects alteration. Latest report SHA-256:
-`dc5f4b3ac2948a17909aa7262bfb1756a07e9481162076689dae088ff51b3f6d`.
+`54a4c602d7d21e6888843de01bf279aa6019f783c41ad27b63dd2d994880e125`.
 
 ## Requirement audit
 
