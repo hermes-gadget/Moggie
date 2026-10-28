@@ -1,5 +1,14 @@
 # Audio behaviour of the original Play:5 Gen 1
 
+**Safety update (2026-10-28):** use
+[Audio/DSP safety invariants](hardware/AUDIO-SAFETY-INVARIANTS.md) before planning
+custom amplifier output. The [stock evidence ledger](hardware/evidence/2026-10-28-stock-audio.md)
+distinguishes ZP5S `-1-16` code paths from the Fenway sibling examined below.
+In particular, rail labels, half-power names and fault-clear diagnostics in strings
+do not prove ZP5S GPIO wiring, derating values or safe recovery ordering. The prior
+recon records `/getDSP` returning HTTP 500; it is not a guaranteed coefficient
+capture route (see the invariants' H4 source citation).
+
 Everything here comes from the firmware dumps in `~/sonos-bench/sonos-fenway/` and the
 GPL audio driver. **Nothing has been measured acoustically** — there is no physical
 speaker in this loop. Treat this as a map of the original signal path, not a guarantee
