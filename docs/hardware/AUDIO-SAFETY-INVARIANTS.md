@@ -28,10 +28,9 @@ marked **MUST**; they must not be mistaken for recovered stock behavior.
 | Warnings / faults | Userspace distinguishes warning and fault masks and latches a hardware fault state. One warning path logs a 75% clamp while setting an internal level to 73. | E08. Those values do not establish a safe dB curve, thermal threshold, or half-power coefficient. |
 | Fault recovery | ZPS5 chip `SRC_UNLOCK` (`0x2a & 0x80`) triggers full chip initialization and restores current mute state. UV14 latching/mute and clearing a latch on unmute also exist in other model branches. | E09–E10. ZPS5 has a distinct IRQ path; Wembley UV14/36 V fault handling must not be assumed to protect ZPS5. |
 
-The older `docs/AUDIO.md:147–217` conclusions about low/high rail switching,
-half-power derating and fault-clear retries are based largely on Fenway strings.
-`F57` contains those names, but this does **not** establish their electrical or
-algorithmic meaning on ZP5S (E11). Its diagnostics are at file offsets `0x4763e0`,
+The Fenway sibling strings include low/high rail, half-power and fault-clear
+names, but do **not** establish their electrical or algorithmic meaning on ZP5S
+(E11). `docs/AUDIO.md:146–194` now records those limits. Its diagnostics are at file offsets `0x4763e0`,
 `0x4765b0`, `0x47664c`; half-power labels at `0x4b09a4`, `0x4b0a0c`; rail names at
 `0x4b3e84`, `0x4b3e90`, `0x4b3e9c`. No exact ZP5S low/high-rail threshold,
 hysteresis, temperature derating coefficient or amplifier-fault retry count is
@@ -115,7 +114,7 @@ userspace owner stops responding (requirements 5, 13 and 15).
    word format, crossover/high-pass, limiter/excursion protection and calibration
    data with known provenance. Unknown, missing or failed configuration MUST keep
    mute asserted. Tone/filter ioctl acceptance cannot stand in for this graph.
-   Basis: `docs/AUDIO.md:33–64,104–117` identifies filter/limiter surfaces but lacks
+   Basis: `docs/AUDIO.md:33–64,103–117` identifies filter/limiter surfaces but lacks
    coefficients; `firmware/sonosd/dsp_linux.c:196–236` cannot read filters and marks
    payload layout assumed. This requirement is conservative engineering policy;
    the full ZP5S graph was not recovered in this lane.
