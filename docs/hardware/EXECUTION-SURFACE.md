@@ -198,12 +198,12 @@ No stock `boot_ok` producer/consumer or health rollback rule is established here
 `K@offset` is a file offset in the decompressed **older** kernel, SHA-256
 `c0a562fa670d1f620c249c8e5857388a575d85fa4fe3f5ce587720719509bf51`.
 The [raw-kernel map](evidence/execution-20261028/kernel-map.json) recovers the
-consistent `0xc0000000` link-label base from three export function/name pairs,
+consistent `0xc0000000` link-label base from six export function/name pairs,
 including `default_mtd_readv` at pair file `0x15ca48`. This is not an ELF header
 or observation of a live load address. Each saved raw disassembly row is
 checked against file bytes, separately from the ELF mappings.
 
-**The actual partition-table writer is separate from `U@0x8f10`.** The
+**The table-based installation path programs partitions through `U@0x85c8`.** The
 [destination commit sequence](evidence/execution-20261028/upgrade-commit-sequence.dis.txt)
 `U@0x9d20–0x9d34,0x9d78–0x9d8c` passes `generation + 1` to VA `0x100085c8`.
 The [partition writer](evidence/execution-20261028/upgrade-slot-program.dis.txt)
@@ -244,15 +244,70 @@ MTD callback at object offset `0x124` (`K@0xb7870–0xb7890`). The
 scan path. Its [OOB primitive](evidence/execution-20261028/kernel-nand-oob-program.dis.txt)
 issues command `0x80`, writes the bytes, issues `0x10`, waits/checks status, then
 issues `0x50` and invokes the verification callback (`K@0xbb368–0xbb47c`).
-This proves a generic captured OOB verification path; exact device/partition
-callback binding and every error/retry path remain to be closed.
+The captured [board initialization](evidence/execution-20261028/kernel-board-nand-init.dis.txt)
+stores its allocated MTD object at VA `0xc017259c`, installs chip command/ready
+callbacks and calls exported `nand_scan` (`K@0x16c1fc–0x16c27c`). On success it
+registers that object with `add_mtd_device`, runs partition discovery, then
+calls `add_mtd_partitions` (`K@0x16c288–0x16c2ec`). The partition checker loads
+the same global object. This binds the generic OOB setup to this captured board
+path; it does not measure the speaker's current MTD aliases or close every
+partition wrapper, data-page verification and error/retry path.
 
 **Commit-order limit:** the partition writer issues the OOB-write ioctl at
 `U@0x8774` before the associated 512-byte payload write at `U@0x887c`.
 The end marker is selected before that ioctl. This source order is insufficient
 to claim an atomic payload-plus-marker commit or power-cut-safe installation.
-Full callback binding, data-page verification, table replacement ordering and
-bootloader validation remain open. No flash operation was executed.
+Data-page verification, complete error/retry behavior and bootloader validation
+remain open. No flash operation was executed.
+
+**Partition-table replacement precedes partition programming in the changing-table
+branch.** The expanded [commit sequence](evidence/execution-20261028/upgrade-commit-sequence.dis.txt)
+compares old/new table fields at `U@0x9bf0–0x9c08` through the
+[table comparison helper](evidence/execution-20261028/upgrade-partition-table-compare.dis.txt).
+A difference reaches `U@0x9c64–0x9c9c`, which calls the
+[table writer](evidence/execution-20261028/upgrade-partition-table-write.dis.txt).
+That helper opens `/dev/mtd/0`, maps logical good block 1 through the
+[block mapper](evidence/execution-20261028/upgrade-logical-block-map.dis.txt),
+erases 16 KiB, seeks and writes 512 table bytes (`U@0x8acc–0x8b44`).
+The immediate caller does not test the helper's return value before branching
+on its earlier partition-presence conditions (`U@0x9c9c–0x9ca8`). This local
+observation does not prove all downstream error handling.
+
+It then applies vendor ioctl `0x80084d22` to destination partition descriptors
+and calls the [range invalidator](evidence/execution-20261028/upgrade-range-invalidate.dis.txt)
+at `U@0x9cf4`, before the component writer calls at
+`U@0x9eec,0x9f90,0x9d34,0x9d8c`. For good blocks, that invalidator erases 16 KiB
+and submits an OOB prefix `85 19 03 20 08 00 00 00` at bytes 8–15
+(`U@0x8ce8–0x8d28,0x8e60–0x8eb4`); the earlier partition checker rejects its
+magic. Existing bad blocks are skipped. The equal-table branch skips that
+table-replacement/invalidation sequence. These ordered calls establish a
+non-atomic source sequence, not a complete power-cut outcome model; exact
+on-device tables and bootloader consumers remain unknown.
+
+## Older kernel boot-section choice
+
+The matching [partition discovery](evidence/execution-20261028/kernel-partition-discovery.dis.txt)
+reads a 512-byte table with magic `0x653503e4` from logical good block 1 and
+uses table flags to choose direct or bad-block-adjusted ranges
+(`K@0xc0564–0xc06b0`). With no valid table magic, its legacy branch checks
+blocks 16 through 63 and publishes that generation (`K@0xc06b4–0xc06f4`).
+These are code paths and default ranges, not the speaker's measured layout.
+
+With a valid table, the [section-choice routine](evidence/execution-20261028/kernel-boot-section-choice.dis.txt)
+groups entries at type `0x40` boundaries and checks component types `0x10–0x12`
+through the partition checker. A failing component or inconsistent generation
+invalidates that group (`K@0xc070c–0xc07dc`). At `K@0xc07f0–0xc0868`, it chooses
+section 1 only if its generation is greater than section 0's; otherwise it
+chooses section 0 if that generation is positive. Thus a valid tie selects
+section 0 in this kernel path. If neither is good, it reaches the `No good boot
+section` failure. There is no generation-wrap adjustment in this comparison.
+The stores publish VA `0xc0172598` (section) and `0xc0172594` (generation),
+matching the `bootsection`/`bootgeneration` sysctl table entries at
+`K@0x14db70,0x14db9c`.
+
+This is Linux-side selection of partitions after kernel entry. It does not
+establish which kernel U-Boot loads, U-Boot tie/wrap/fallback rules, a successful
+userspace-health acknowledgement, or an attempt-counter rollback policy.
 
 ## Later encrypted envelope: completed host-only framing experiment
 
@@ -344,10 +399,11 @@ risk, not measured success probabilities.
 | Exclude as stock proof | Moggie chooser/updater | Custom source with persistent metadata and image writes | Already requires replacement-firmware execution |
 
 **Single safest next supervised experiment:** host-only completion of the
-older updater's inline OOB/partition-table commit ordering and its kernel
-ioctl consumers, using the preserved writer and original captured bytes.
+older updater's remaining data-write verification and vendor partition-ioctl
+callbacks, using the preserved writer and original captured bytes.
 Expected result: a source-bound sequence of validity/generation transitions,
-or a precise missing-kernel-code boundary. The legacy prefix signature and
+or a precise missing-kernel-code boundary. Table replacement order, board NAND
+setup and Linux-side section comparison are now evidenced. The legacy prefix signature and
 normal sequential phase gate are now evidenced; asynchronous paths remain open. The later-envelope framing experiment above is
 complete within its stated bounds; decoding remains open. Do not execute any
 package program, script or device operation to close a gap. No live experiment

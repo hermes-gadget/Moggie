@@ -117,7 +117,10 @@ def raw_kernel_evidence(path, objdump, out):
     anchors, bases = [], set()
     for pair_offset, name in ((0x15ca48, 'default_mtd_readv'),
                               (0x15ca50, 'default_mtd_writev'),
-                              (0x15ca70, 'get_mtd_device')):
+                              (0x15ca70, 'get_mtd_device'),
+                              (0x15ca80, 'add_mtd_device'),
+                              (0x15cab8, 'add_mtd_partitions'),
+                              (0x15cb18, 'nand_scan')):
         function_va, name_va = struct.unpack_from('>II', data, pair_offset)
         name_offset = data.index(name.encode() + b'\0')
         base = name_va - name_offset
@@ -138,8 +141,20 @@ def raw_kernel_evidence(path, objdump, out):
         ('nand-callbacks', base + 0xbe490, base + 0xbe530),
         ('nand-oob-program', base + 0xbb268, base + 0xbb4a0),
         ('rincon-partition', base + 0xc0178, base + 0xc036c),
+        ('board-nand-init', base + 0x16c1d4, base + 0x16c308),
+        ('partition-discovery', base + 0xc036c, base + 0xc06f8),
+        ('boot-section-choice', base + 0xc06f8, base + 0xc0998),
     ), loads, out, 'kernel', raw_base=base)
-    write_json(out / 'kernel-map.json', dict(base=hex(base), anchors=anchors,
+    sysctls = []
+    for entry_file, name in ((0x14db70, 'bootsection'), (0x14db9c, 'bootgeneration')):
+        number, name_va, value_va, size, mode = struct.unpack_from('>5I', data, entry_file)
+        name_file = name_va - base
+        if data[name_file:data.index(b'\0', name_file)].decode() != name:
+            raise ValueError('unexpected boot sysctl name')
+        sysctls.append(dict(entry_file=hex(entry_file), number=number,
+            name=name, name_va=hex(name_va), name_file=hex(name_file),
+            value_va=hex(value_va), size=size, mode=oct(mode)))
+    write_json(out / 'kernel-map.json', dict(base=hex(base), anchors=anchors, sysctls=sysctls,
         boundary='Consistent link labels recovered from raw export pointers; no ELF headers or live load address asserted.'))
     return dict(path=str(path), sha256=digest(data), size=len(data), loads=loads,
                 format='raw', checked_disassembly_rows=rows)
@@ -472,7 +487,11 @@ def main():
         ('validate-install', 0x10007c68, 0x10007d38),
         ('slot-destination', 0x10009878, 0x10009a28),
         ('slot-program', 0x100085c8, 0x10008aa4),
-        ('commit-sequence', 0x10009ca8, 0x10009db8),
+        ('logical-block-map', 0x10008178, 0x100081e0),
+        ('partition-table-write', 0x10008aa4, 0x10008ba4),
+        ('partition-table-compare', 0x10009634, 0x100096fc),
+        ('range-invalidate', 0x10008c88, 0x10008f10),
+        ('commit-sequence', 0x10009bec, 0x1000a048),
         ('nand-writer', 0x10008f10, 0x10009530),
     ), out, 'upgrade')
     images['crypto'] = elf_evidence(cache / 'rootfs/lib/libsonoscrypto.so.1', args.objdump, (

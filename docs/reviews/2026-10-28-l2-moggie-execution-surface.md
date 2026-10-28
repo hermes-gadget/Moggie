@@ -22,6 +22,8 @@ Committed increments (all pushed before the final handoff update):
 | `adf46de` | Encrypted-header gate and distinct envelope public anchors |
 | `a85a26f` | Host-verified legacy signed range and direct-call inventory |
 | `aa01191` | Normal sequential phase gate and bounded NAND-writer evidence |
+| `d4d4791` | Published evidence/audit checkpoint |
+| `e0f7481` | Matching older OOB writer, kernel consumer and raw-image checks |
 
 Draft PR: [#63](https://github.com/hermes-gadget/Moggie/pull/63), based on main.
 The final handoff update follows these commits on the same branch. Nothing was
@@ -96,12 +98,26 @@ generation bytes 10–11 are low-byte first. The matching captured 2.4 kernel
 partition checker consumes exactly those fields and has a final-marker path;
 this directly invalidates transfer of the Fenway OOB offsets/endianness.
 
-Raw-kernel link labels are supported by three export-table pointer pairs.
+Raw-kernel link labels are supported by six export-table pointer pairs.
 MTD OOB ioctl dispatch is traced through the generic NAND callback and its
-status/readback-verification sequence. Exact board/partition binding remains
-open. OOB metadata is submitted before the associated data page; atomic commit,
-table replacement and U-Boot rules remain unproved. See the new report section
+status/readback-verification sequence. The captured board initialization now
+binds the NAND scan and partition checker to the same global MTD object.
+OOB metadata is submitted before the associated data page; atomic commit and
+U-Boot rules remain unproved. See the new report section
 and kernel/partition-program evidence, all checked against original file bytes.
+
+## Table replacement and Linux section-choice increment
+
+The changing-table branch erases/writes the table at logical good block 1
+before destination invalidation and component programming. Its immediate
+caller does not test the table helper's return value. This is a bounded local
+control-flow finding; downstream handling and power-cut outcomes remain open.
+
+The matching kernel checks component generations by section and chooses section
+1 only when its generation is strictly greater than section 0's; a positive
+tie selects section 0. Its stores match the captured bootsection/bootgeneration
+sysctl table. This is Linux partition selection after kernel entry, not proof
+of U-Boot selection, wrap handling or successful userspace-health rollback.
 
 ## Verification executed so far
 
@@ -119,11 +135,11 @@ certify complete RE semantics, current-device applicability or hardware behavior
 Draft PR: https://github.com/hermes-gadget/Moggie/pull/63 (OPEN, draft;
 no CI checks reported at the last inspection). No merge was performed.
 
-Final receipt: 20 UPD records, 14 extracted hashes, 5,062 source-matching
-disassembly rows; 62 document links and 66 cited offset starts checked; all 68
+Final receipt: 20 UPD records, 14 extracted hashes, 6,047 source-matching
+disassembly rows; 62 document links and 66 cited offset starts checked; all 75
 regenerated files identical. Older legacy signature validates the exact prefix
 and rejects alteration. Latest report SHA-256:
-`1cf56c587ae8b19824bf227e5e29a4d8a3ccd559b72c9abb6d684aa1e8573ff4`.
+`adfde11ac06a554c66e2f1fe10e773ea73612f547673569e3085902178d45793`.
 
 ## Requirement audit
 
@@ -139,9 +155,9 @@ and rejects alteration. Latest report SHA-256:
 
 ## Ordered remaining queue
 
-1. Finish exact board/partition callback binding and partition-table replacement
-   ordering, now that the matching generic MTD/OOB path and kernel partition
-   metadata checker are recovered. Preserve the normal sequential gate;
+1. Finish data-write verification, vendor partition-ioctl callbacks and remaining
+   partition-wrapper binding, now that board NAND setup, table replacement
+   order and Linux section comparison are recovered. Preserve the normal sequential gate;
    asynchronous/virtual variants and complete state writers remain unclosed.
 2. Trace watchdog/reset ownership and remaining kernel boot-selection logic from
    existing captures. Keep unknown physical layout and U-Boot semantics explicit.

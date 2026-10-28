@@ -18,7 +18,7 @@
     "size": 51628
   },
   "kernel": {
-    "checked_disassembly_rows": 673,
+    "checked_disassembly_rows": 1145,
     "format": "raw",
     "loads": [
       {
@@ -32,7 +32,7 @@
     "size": 1511544
   },
   "upgrade": {
-    "checked_disassembly_rows": 2951,
+    "checked_disassembly_rows": 3464,
     "loads": [
       {
         "offset": 0,

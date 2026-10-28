@@ -20,8 +20,51 @@
       "name_file": "0x145724",
       "name_va": "0xc0145724",
       "pair_file": "0x15ca70"
+    },
+    {
+      "function_va": "0xc00b4d20",
+      "name": "add_mtd_device",
+      "name_file": "0x145744",
+      "name_va": "0xc0145744",
+      "pair_file": "0x15ca80"
+    },
+    {
+      "function_va": "0xc00b6570",
+      "name": "add_mtd_partitions",
+      "name_file": "0x1457f0",
+      "name_va": "0xc01457f0",
+      "pair_file": "0x15cab8"
+    },
+    {
+      "function_va": "0xc00bdb88",
+      "name": "nand_scan",
+      "name_file": "0x145910",
+      "name_va": "0xc0145910",
+      "pair_file": "0x15cb18"
     }
   ],
   "base": "0xc0000000",
-  "boundary": "Consistent link labels recovered from raw export pointers; no ELF headers or live load address asserted."
+  "boundary": "Consistent link labels recovered from raw export pointers; no ELF headers or live load address asserted.",
+  "sysctls": [
+    {
+      "entry_file": "0x14db70",
+      "mode": "0o444",
+      "name": "bootsection",
+      "name_file": "0x1290f0",
+      "name_va": "0xc01290f0",
+      "number": 55,
+      "size": 4,
+      "value_va": "0xc0172598"
+    },
+    {
+      "entry_file": "0x14db9c",
+      "mode": "0o444",
+      "name": "bootgeneration",
+      "name_file": "0x1290fc",
+      "name_va": "0xc01290fc",
+      "number": 56,
+      "size": 4,
+      "value_va": "0xc0172594"
+    }
+  ]
 }

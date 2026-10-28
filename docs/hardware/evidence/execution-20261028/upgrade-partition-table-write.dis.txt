@@ -1,0 +1,73 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10008aa4 --stop-address=0x10008ba4 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10008aa4 <__frame_state_for@@Base-0xc984>:
+10008aa4:	94 21 ff e0 	stwu    r1,-32(r1)  # file 0x8aa4
+10008aa8:	7c 08 02 a6 	mflr    r0  # file 0x8aa8
+10008aac:	93 a1 00 14 	stw     r29,20(r1)  # file 0x8aac
+10008ab0:	7c 7d 1b 78 	mr      r29,r3  # file 0x8ab0
+10008ab4:	3c 60 10 02 	lis     r3,4098  # file 0x8ab4
+10008ab8:	93 e1 00 1c 	stw     r31,28(r1)  # file 0x8ab8
+10008abc:	38 63 a4 dc 	addi    r3,r3,-23332  # file 0x8abc
+10008ac0:	90 01 00 24 	stw     r0,36(r1)  # file 0x8ac0
+10008ac4:	38 80 00 02 	li      r4,2  # file 0x8ac4
+10008ac8:	93 c1 00 18 	stw     r30,24(r1)  # file 0x8ac8
+10008acc:	48 02 56 2d 	bl      1002e0f8 <open@plt>  # file 0x8acc
+10008ad0:	38 00 ff ff 	li      r0,-1  # file 0x8ad0
+10008ad4:	7c 7f 1b 79 	mr.     r31,r3  # file 0x8ad4
+10008ad8:	38 60 00 01 	li      r3,1  # file 0x8ad8
+10008adc:	41 80 00 80 	blt     10008b5c <_init@@Base+0x6008>  # file 0x8adc
+10008ae0:	4b ff f6 99 	bl      10008178 <_init@@Base+0x5624>  # file 0x8ae0
+10008ae4:	3d 20 10 03 	lis     r9,4099  # file 0x8ae4
+10008ae8:	80 09 c7 7c 	lwz     r0,-14468(r9)  # file 0x8ae8
+10008aec:	3c 80 80 08 	lis     r4,-32760  # file 0x8aec
+10008af0:	60 84 4d 02 	ori     r4,r4,19714  # file 0x8af0
+10008af4:	7c 7e 00 30 	slw     r30,r3,r0  # file 0x8af4
+10008af8:	38 a1 00 08 	addi    r5,r1,8  # file 0x8af8
+10008afc:	93 c1 00 08 	stw     r30,8(r1)  # file 0x8afc
+10008b00:	38 00 40 00 	li      r0,16384  # file 0x8b00
+10008b04:	7f e3 fb 78 	mr      r3,r31  # file 0x8b04
+10008b08:	90 01 00 0c 	stw     r0,12(r1)  # file 0x8b08
+10008b0c:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x8b0c
+10008b10:	48 02 56 09 	bl      1002e118 <ioctl@plt>  # file 0x8b10
+10008b14:	7f c4 f3 78 	mr      r4,r30  # file 0x8b14
+10008b18:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x8b18
+10008b1c:	38 a0 00 00 	li      r5,0  # file 0x8b1c
+10008b20:	7f e3 fb 78 	mr      r3,r31  # file 0x8b20
+10008b24:	40 9e 00 58 	bne     cr7,10008b7c <_init@@Base+0x6028>  # file 0x8b24
+10008b28:	48 02 55 a1 	bl      1002e0c8 <lseek@plt>  # file 0x8b28
+10008b2c:	7f a4 eb 78 	mr      r4,r29  # file 0x8b2c
+10008b30:	7f 83 f0 00 	cmpw    cr7,r3,r30  # file 0x8b30
+10008b34:	38 a0 02 00 	li      r5,512  # file 0x8b34
+10008b38:	7f e3 fb 78 	mr      r3,r31  # file 0x8b38
+10008b3c:	40 9e 00 40 	bne     cr7,10008b7c <_init@@Base+0x6028>  # file 0x8b3c
+10008b40:	48 02 53 61 	bl      1002dea0 <write@plt>  # file 0x8b40
+10008b44:	2f 83 02 00 	cmpwi   cr7,r3,512  # file 0x8b44
+10008b48:	7f e3 fb 78 	mr      r3,r31  # file 0x8b48
+10008b4c:	40 9e 00 30 	bne     cr7,10008b7c <_init@@Base+0x6028>  # file 0x8b4c
+10008b50:	7f e3 fb 78 	mr      r3,r31  # file 0x8b50
+10008b54:	48 02 53 6d 	bl      1002dec0 <close@plt>  # file 0x8b54
+10008b58:	38 00 00 00 	li      r0,0  # file 0x8b58
+10008b5c:	7c 03 03 78 	mr      r3,r0  # file 0x8b5c
+10008b60:	80 01 00 24 	lwz     r0,36(r1)  # file 0x8b60
+10008b64:	83 a1 00 14 	lwz     r29,20(r1)  # file 0x8b64
+10008b68:	83 c1 00 18 	lwz     r30,24(r1)  # file 0x8b68
+10008b6c:	7c 08 03 a6 	mtlr    r0  # file 0x8b6c
+10008b70:	83 e1 00 1c 	lwz     r31,28(r1)  # file 0x8b70
+10008b74:	38 21 00 20 	addi    r1,r1,32  # file 0x8b74
+10008b78:	4e 80 00 20 	blr  # file 0x8b78
+10008b7c:	48 02 53 45 	bl      1002dec0 <close@plt>  # file 0x8b7c
+10008b80:	38 00 ff ff 	li      r0,-1  # file 0x8b80
+10008b84:	7c 03 03 78 	mr      r3,r0  # file 0x8b84
+10008b88:	80 01 00 24 	lwz     r0,36(r1)  # file 0x8b88
+10008b8c:	83 a1 00 14 	lwz     r29,20(r1)  # file 0x8b8c
+10008b90:	83 c1 00 18 	lwz     r30,24(r1)  # file 0x8b90
+10008b94:	7c 08 03 a6 	mtlr    r0  # file 0x8b94
+10008b98:	83 e1 00 1c 	lwz     r31,28(r1)  # file 0x8b98
+10008b9c:	38 21 00 20 	addi    r1,r1,32  # file 0x8b9c
+10008ba0:	4e 80 00 20 	blr  # file 0x8ba0

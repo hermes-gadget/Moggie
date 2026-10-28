@@ -1,0 +1,59 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10009634 --stop-address=0x100096fc /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10009634 <__frame_state_for@@Base-0xbdf4>:
+10009634:	21 23 00 00 	subfic  r9,r3,0  # file 0x9634
+10009638:	7c 09 19 14 	adde    r0,r9,r3  # file 0x9638
+1000963c:	21 64 00 00 	subfic  r11,r4,0  # file 0x963c
+10009640:	7d 2b 21 14 	adde    r9,r11,r4  # file 0x9640
+10009644:	7c 0b 4b 79 	or.     r11,r0,r9  # file 0x9644
+10009648:	39 60 00 01 	li      r11,1  # file 0x9648
+1000964c:	40 82 00 1c 	bne     10009668 <_init@@Base+0x6b14>  # file 0x964c
+10009650:	81 23 00 00 	lwz     r9,0(r3)  # file 0x9650
+10009654:	3c 00 65 35 	lis     r0,25909  # file 0x9654
+10009658:	60 00 03 e4 	ori     r0,r0,996  # file 0x9658
+1000965c:	7f 89 00 00 	cmpw    cr7,r9,r0  # file 0x965c
+10009660:	41 9e 00 10 	beq     cr7,10009670 <_init@@Base+0x6b1c>  # file 0x9660
+10009664:	39 60 00 01 	li      r11,1  # file 0x9664
+10009668:	7d 63 5b 78 	mr      r3,r11  # file 0x9668
+1000966c:	4e 80 00 20 	blr  # file 0x966c
+10009670:	80 04 00 00 	lwz     r0,0(r4)  # file 0x9670
+10009674:	7f 80 48 00 	cmpw    cr7,r0,r9  # file 0x9674
+10009678:	40 9e ff ec 	bne     cr7,10009664 <_init@@Base+0x6b10>  # file 0x9678
+1000967c:	81 23 00 04 	lwz     r9,4(r3)  # file 0x967c
+10009680:	39 60 00 01 	li      r11,1  # file 0x9680
+10009684:	80 04 00 04 	lwz     r0,4(r4)  # file 0x9684
+10009688:	7f 89 00 00 	cmpw    cr7,r9,r0  # file 0x9688
+1000968c:	40 9e ff dc 	bne     cr7,10009668 <_init@@Base+0x6b14>  # file 0x968c
+10009690:	38 e0 00 00 	li      r7,0  # file 0x9690
+10009694:	39 00 00 00 	li      r8,0  # file 0x9694
+10009698:	7d 68 1a 14 	add     r11,r8,r3  # file 0x9698
+1000969c:	7d 48 22 14 	add     r10,r8,r4  # file 0x969c
+100096a0:	80 0b 00 08 	lwz     r0,8(r11)  # file 0x96a0
+100096a4:	81 2a 00 08 	lwz     r9,8(r10)  # file 0x96a4
+100096a8:	38 e7 00 01 	addi    r7,r7,1  # file 0x96a8
+100096ac:	2c 07 00 09 	cmpwi   r7,9  # file 0x96ac
+100096b0:	7f 80 48 00 	cmpw    cr7,r0,r9  # file 0x96b0
+100096b4:	2c 80 00 40 	cmpwi   cr1,r0,64  # file 0x96b4
+100096b8:	2f 00 00 00 	cmpwi   cr6,r0,0  # file 0x96b8
+100096bc:	39 08 00 0c 	addi    r8,r8,12  # file 0x96bc
+100096c0:	40 be ff a4 	bne     cr7,10009664 <_init@@Base+0x6b10>  # file 0x96c0
+100096c4:	41 9a 00 2c 	beq     cr6,100096f0 <_init@@Base+0x6b9c>  # file 0x96c4
+100096c8:	41 86 00 24 	beq     cr1,100096ec <_init@@Base+0x6b98>  # file 0x96c8
+100096cc:	80 0b 00 0c 	lwz     r0,12(r11)  # file 0x96cc
+100096d0:	81 2a 00 0c 	lwz     r9,12(r10)  # file 0x96d0
+100096d4:	7f 80 48 00 	cmpw    cr7,r0,r9  # file 0x96d4
+100096d8:	40 be ff 8c 	bne     cr7,10009664 <_init@@Base+0x6b10>  # file 0x96d8
+100096dc:	80 0b 00 10 	lwz     r0,16(r11)  # file 0x96dc
+100096e0:	81 2a 00 10 	lwz     r9,16(r10)  # file 0x96e0
+100096e4:	7f 80 48 00 	cmpw    cr7,r0,r9  # file 0x96e4
+100096e8:	40 be ff 7c 	bne     cr7,10009664 <_init@@Base+0x6b10>  # file 0x96e8
+100096ec:	40 81 ff ac 	ble     10009698 <_init@@Base+0x6b44>  # file 0x96ec
+100096f0:	39 60 00 00 	li      r11,0  # file 0x96f0
+100096f4:	7d 63 5b 78 	mr      r3,r11  # file 0x96f4
+100096f8:	4e 80 00 20 	blr  # file 0x96f8

@@ -103,6 +103,13 @@ def main():
                 assert data[name_offset:data.index(b'\0', name_offset)].decode() == anchor['name']
                 assert pair[1] - name_offset == base
                 assert base <= pair[0] < base + len(data)
+            for sysctl in mapping['sysctls']:
+                fields = struct.unpack_from('>5I', data, int(sysctl['entry_file'], 16))
+                assert fields == (sysctl['number'], int(sysctl['name_va'], 16),
+                    int(sysctl['value_va'], 16), sysctl['size'], int(sysctl['mode'], 8))
+                name_offset = int(sysctl['name_file'], 16)
+                assert data[name_offset:data.index(b'\0', name_offset)].decode() == sysctl['name']
+                assert fields[1] - name_offset == base
             loads = [(base, 0, len(data))]
         else:
             with path.open('rb') as stream:
