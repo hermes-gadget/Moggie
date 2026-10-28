@@ -39,6 +39,31 @@
       }
     ]
   },
+  "WB": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/bin/busybox",
+    "size": 288488,
+    "sha256": "989ec0daad0778a8d66e6c8ddbac4dc25bfdf73a40c5ea5ebd01d6ded28749b2",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 268435456,
+        "p_filesz": 284948,
+        "p_memsz": 284948,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 286720,
+        "p_vaddr": 268787712,
+        "p_filesz": 384,
+        "p_memsz": 12184,
+        "p_flags": 7
+      }
+    ]
+  },
   "etc/Configure": {
     "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/etc/Configure",
     "size": 2067,

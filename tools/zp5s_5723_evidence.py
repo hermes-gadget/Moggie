@@ -44,7 +44,7 @@ def main():
             p.error('unexpected captured input: ' + str(path))
     out.mkdir(parents=True, exist_ok=True)
     cache.mkdir(parents=True, exist_ok=True)
-    files = ('opt/bin/anacapad', 'etc/Configure', 'etc/inittab',
+    files = ('opt/bin/anacapad', 'bin/busybox', 'etc/Configure', 'etc/inittab',
              'etc/runanacapa', 'etc/arch', 'opt/conf/anacapa.conf',
              'etc/scripts/run_sshd.sh')
     commands, comparisons = [], []
@@ -68,6 +68,8 @@ def main():
             if im.manifest()['sha256'] != 'bea55150c43eaadeec72b03a9494c32d96ec8f0b4406b1b84e3f30ff652e04ba':
                 p.error('unexpected anacapad')
             manifest['W'] = im.manifest()
+        elif rel == 'bin/busybox':
+            manifest['WB'] = Image(dest).manifest()
         else:
             manifest[rel] = record(dest)
             (out / (rel.replace('/', '-') + '.txt')).write_text(
@@ -93,6 +95,10 @@ def main():
         [str(a.objdump), '--version'], check=True, capture_output=True,
         text=True).stdout.splitlines()[0])
     (out / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    cmd = ['unsquashfs', '-ll', str(component), 'usr/sbin/telnetd', 'bin/login']
+    listing = subprocess.run(cmd, check=True, capture_output=True, text=True)
+    (out / 'filesystem.txt').write_text('$ ' + ' '.join(cmd) + '\n'
+                                         + listing.stdout + listing.stderr)
     rows = []
     for va in range(0x1053cd0c, 0x1053d604 + 28, 28):
         words = im.words(va, 7)

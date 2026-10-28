@@ -10,6 +10,12 @@
       "unsquashfs",
       "-cat",
       "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin",
+      "bin/busybox"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin",
       "etc/Configure"
     ],
     [
@@ -48,6 +54,12 @@
       "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/rootfs16/opt/bin/anacapad",
       "size": 5483684,
       "sha256": "bea55150c43eaadeec72b03a9494c32d96ec8f0b4406b1b84e3f30ff652e04ba",
+      "byte_identical": true
+    },
+    {
+      "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/rootfs16/bin/busybox",
+      "size": 288488,
+      "sha256": "989ec0daad0778a8d66e6c8ddbac4dc25bfdf73a40c5ea5ebd01d6ded28749b2",
       "byte_identical": true
     },
     {

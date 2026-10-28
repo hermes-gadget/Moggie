@@ -1,0 +1,8 @@
+$ unsquashfs -ll /home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin usr/sbin/telnetd bin/login
+drwxrwxr-x root/root               223 2026-02-17 21:07 squashfs-root
+drwxr-xr-x root/root               417 2026-02-17 21:07 squashfs-root/bin
+lrwxrwxrwx root/root                 7 2026-02-17 21:07 squashfs-root/bin/login -> busybox
+drwxr-xr-x root/root                29 2026-02-17 21:07 squashfs-root/usr
+drwxr-xr-x root/root                73 2026-02-17 21:07 squashfs-root/usr/sbin
+lrwxrwxrwx root/root                17 2026-02-17 21:07 squashfs-root/usr/sbin/telnetd -> ../../bin/busybox
+Reading a different endian SQUASHFS filesystem on /home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin

@@ -14,8 +14,8 @@ METADATA: 6 relocations; 79 routes; 50 constants; 0 CLI option rows match source
 DOCUMENT: 147 explicit source-offset citations in file-backed LOAD bytes; all local links resolve
 LIMIT: byte/offset/link checks do not establish semantic or hardware correctness
 $ python3 tools/check_stock_unlock_evidence.py --evidence docs/hardware/evidence/zp5s-5723-20261028 --compare build/unlock-analysis/zp5s-5723-reproduced --document docs/hardware/UNLOCK-CODE-PATH.md
-REPRODUCIBLE: 18 evidence files byte-identical
-PROVENANCE: 10 source records match original size and SHA-256
+REPRODUCIBLE: 19 evidence files byte-identical
+PROVENANCE: 11 source records match original size and SHA-256
 BYTES: 7 excerpts; 1720 instructions match original bytes and LOAD mappings
 METADATA: 0 relocations; 83 routes; 9 constants; 0 CLI option rows match source
 DOCUMENT: 11 explicit source-offset citations in file-backed LOAD bytes; all local links resolve
@@ -58,4 +58,4 @@ $ git rev-parse main origin/main
 WORKTREE: /home/ben/Moggie-wt/sonosd
 TOKEN_GRAPH: .tokensave/tokensave.db exists=False
 SOURCE SCOPE: captured firmware only; no target execution or hardware verification
-REPORT_SHA256: ac0ab744e37be12eac646cd548b55c56e78167bc5d05c40a7861db99ac7da953  docs/hardware/UNLOCK-CODE-PATH.md
+REPORT_SHA256: 174ba07f4c0570c008f4dc0b60dba6bf409ff0559a23c4ee16dc7600c8968ebf  docs/hardware/UNLOCK-CODE-PATH.md
