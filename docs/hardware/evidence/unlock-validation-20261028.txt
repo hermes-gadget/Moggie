@@ -23,4 +23,4 @@ $ git rev-parse main origin/main
 WORKTREE: /home/ben/Moggie-wt/sonosd
 TOKEN_GRAPH: .tokensave/tokensave.db exists=False
 SOURCE SCOPE: captured firmware only; no target execution or hardware verification
-REPORT_SHA256: 18c7c884991a65561cc942dda0fa15f9509f593727fdbc063080a51e87325e85  docs/hardware/UNLOCK-CODE-PATH.md
+REPORT_SHA256: fbf134852a007df9a27d0cac391cfa14b4e02bfada20f9400e8a0fa9b9f83a96  docs/hardware/UNLOCK-CODE-PATH.md

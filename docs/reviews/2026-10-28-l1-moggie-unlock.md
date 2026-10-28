@@ -68,6 +68,24 @@ Open static questions include Z34's complete shared peer/Host/TLS trust policy; 
 
 TokenSave context lookup was attempted before direct code analysis and did not return; `.tokensave/tokensave.db` is absent in this worktree. Existing host PPC objdump, pyelftools and unsquashfs supplied the bounded fallback. The SuperH capture was identified using its real ELF machine/endianness and was not disassembled as PPC (report version inventory).
 
+## Completion audit against the brief
+
+The final audit used the current committed branch, source manifests, generated excerpts, report and fresh [bounded capture inventory](../hardware/evidence/unlock-capture-inventory-20261028.txt). This audit preserves the full installed-target objective; the recovered older version remains version-specific evidence.
+
+| Requirement | Authoritative evidence | Audit result |
+|---|---|---|
+| Actual handlers, binary/function/file offsets and exact commands | Report Z1 and handler-discovery section; both complete route tables and registration/dispatch excerpts | Proven for the named captured hashes; installed 57.10 `-1-16` mapping missing |
+| Versions, socket/interface preconditions, signed bytes and root checks | Report Z0/Z2/Z3/Z8, applicability table, N1–N5, U2–U3 and R1–R2 | Hash/input/login traces proven within their stated bounds; target model/version binding and Z34's complete shared network policy remain unproven |
+| Side effects, persistence and reversibility | Report Z4–Z7, U4–U5, M1, D3 and T3; numbered stock scripts and resolved writers | Static effects/reversal limits documented for captured builds; actual installed-target behavior unverified |
+| Execute versus persistent firmware install | Report execute-versus-install section and complete normal-mode workers/scripts | Bounded source distinction proven; no installation or device operation performed |
+| Eight-column entry-point matrix | Report entry-point matrix | Present with all requested columns and build-specific applicability/confidence |
+| Negative-results register | Report negative-results register; fresh inventory lines 2–14 | Present; records model/version, format, network, reboot, startup, storage and tooling dead ends |
+| Required branch from default main and reviewable WHY commits | `git merge-base`, current branch/status and `git log main..HEAD` | Correct baseline/branch and committed artifacts; no push/PR required by this brief |
+| Report, ranked handoff, factual citations, proof SHA-256 | Current files, validation receipt, byte/offset/link checks and manual control-flow review | Deliverables present and checked; integrity checks do not prove the missing target bytes |
+| Offline boundaries | Executed host-tool commands recorded in generators/excerpts; task envelope | No target execution, hardware/contact, credentials, flashing, GPIO, deployment or live-config write |
+
+**Completion is not established.** Matching installed-build evidence is missing from the recorded inventory. Further analysis of 34.16 or Fenway can refine those versions but cannot establish the absent 57.10 `-1-16` instructions. The required next input is the path and provenance of an already-captured matching userspace/package; a physical-device step remains outside this task.
+
 ## Ranked follow-ups
 
 1. **Close installed-build applicability:** supply already-captured matching ZP5S 57.10 `-1-16` userspace/provenance. Repeat handler, policy, crypto and storage traces against those exact hashes. Preserve the distinction between the extracted older family image, Fenway's same-number version, and actual installed code.

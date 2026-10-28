@@ -1,0 +1,19 @@
+Bounded captured-file inventory, 2026-10-28. Metadata only; no target execution.
+$ rg --files /home/ben/sonos-bench-analysis /home/ben/Moggie/dl -g '*anacapad*' -g '*57.10*' -g '*.upd' -g '!**/emuroot/**'
+/home/ben/sonos-bench-analysis/zp5s/57.23-74170-1-16.upd
+/home/ben/Moggie/dl/stock-firmware/57.23-74170-1-16.upd
+/home/ben/Moggie/dl/stock-firmware/34.16-37101-1-16.upd
+$ rg --files /home/ben/sonos-bench/sonos-fenway/firmware -g '*anacapad*' -g '*.upd' -g '!**/emuroot/**'
+/home/ben/sonos-bench/sonos-fenway/firmware/upd/57.10-25140-1-8.upd
+/home/ben/sonos-bench/sonos-fenway/firmware/upd/34.16-37101-1-8.upd
+/home/ben/sonos-bench/sonos-fenway/firmware/upd/67.1-25031-1-8.upd
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/18.0-50150/opt/bin/anacapad
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/34.16-37101/opt/bin/anacapad
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/16.6-00002-diag/opt/bin/anacapad
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/28.1-83040/opt/bin/anacapad
+$ rg --files /home/ben/sonos-bench-analysis /home/ben/Moggie/dl -g '*.tar*' -g '*.zip' -g '*.img' -g '*.cramfs' -g '*.squashfs' -g '*.rootfs' -g '!**/emuroot/**'
+/home/ben/Moggie/dl/powerpc-e300c3--glibc--stable-2026.08-1.tar.xz
+/home/ben/Moggie/dl/mosquitto-2.0.20.tar.gz
+SCOPE: Only the listed roots and filename filters were searched.
+LIMIT: This does not establish absence elsewhere or impossibility of offline extraction.
