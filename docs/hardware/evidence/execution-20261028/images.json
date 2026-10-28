@@ -1,0 +1,38 @@
+{
+  "crypto": {
+    "checked_disassembly_rows": 953,
+    "loads": [
+      {
+        "offset": 0,
+        "size": 46961,
+        "va": 0
+      },
+      {
+        "offset": 49152,
+        "size": 512,
+        "va": 114688
+      }
+    ],
+    "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1",
+    "sha256": "03653fc9205ff23ad583506684f93387c444ac2b726a01bfa1ff18b6d7594c6c",
+    "size": 51628
+  },
+  "upgrade": {
+    "checked_disassembly_rows": 1381,
+    "loads": [
+      {
+        "offset": 0,
+        "size": 116480,
+        "va": 268435456
+      },
+      {
+        "offset": 116480,
+        "size": 5800,
+        "va": 268617472
+      }
+    ],
+    "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade",
+    "sha256": "d17809f33003856d66f5406e080081ca8f0e3954a8d5536bb8f541010b8cce1a",
+    "size": 124384
+  }
+}

@@ -1,0 +1,25 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x6b60 --stop-address=0x6ba0 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00006b60 <ZZ0096@@Base>:
+    6b60:	94 21 ff f0 	stwu    r1,-16(r1)  # file 0x6b60
+    6b64:	7c 08 02 a6 	mflr    r0  # file 0x6b64
+    6b68:	42 9f 00 05 	bcl     20,4*cr7+so,6b6c <ZZ0096@@Base+0xc>  # file 0x6b68
+    6b6c:	93 c1 00 08 	stw     r30,8(r1)  # file 0x6b6c
+    6b70:	7f c8 02 a6 	mflr    r30  # file 0x6b70
+    6b74:	90 01 00 14 	stw     r0,20(r1)  # file 0x6b74
+    6b78:	38 80 00 a2 	li      r4,162  # file 0x6b78
+    6b7c:	80 1e ff f0 	lwz     r0,-16(r30)  # file 0x6b7c
+    6b80:	7f c0 f2 14 	add     r30,r0,r30  # file 0x6b80
+    6b84:	80 7e 80 00 	lwz     r3,-32768(r30)  # file 0x6b84
+    6b88:	48 01 5a 4d 	bl      1c5d4 <ZZ0101@plt>  # file 0x6b88
+    6b8c:	80 01 00 14 	lwz     r0,20(r1)  # file 0x6b8c
+    6b90:	83 c1 00 08 	lwz     r30,8(r1)  # file 0x6b90
+    6b94:	38 21 00 10 	addi    r1,r1,16  # file 0x6b94
+    6b98:	7c 08 03 a6 	mtlr    r0  # file 0x6b98
+    6b9c:	4e 80 00 20 	blr  # file 0x6b9c

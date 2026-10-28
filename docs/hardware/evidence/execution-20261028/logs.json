@@ -1,0 +1,17 @@
+{
+  "boot-to-linux.log": {
+    "path": "/home/ben/sonos-bench-analysis/logs/boot-to-linux.log",
+    "sha256": "952b139f17655adc55263b9fcd313f50dcbc5b8226477b6bfac9f66e7f126c3f",
+    "size": 1175
+  },
+  "uboot-prompt-2.log": {
+    "path": "/home/ben/sonos-bench-analysis/logs/uboot-prompt-2.log",
+    "sha256": "476a243577794c116f262a0b60e562715fdd3d8aaa648be9ec14ec1736bd471f",
+    "size": 773
+  },
+  "uboot-test-suite.log": {
+    "path": "/home/ben/sonos-bench-analysis/logs/uboot-test-suite.log",
+    "sha256": "a27974425d2e02c8e401abe59d9d6a1793967e5c6a91776ac575ec951b72f48d",
+    "size": 655
+  }
+}

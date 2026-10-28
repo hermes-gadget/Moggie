@@ -1,150 +1,93 @@
-# L2 execution surface — continuation checkpoint
+# L2 execution surface — continuation handoff, 2026-10-28
 
-Stock analysis is in progress. The previous access gate is superseded by the
-user's instruction to continue the named read-only queue. Host-only extraction
-has parsed both pinned `-1-16` packages and recovered 14 allowlisted files from
-34.16, with 7 explicitly absent paths. No credentials or target programs were
-read/executed; firmware binaries remain in ignored `build/stock-execution/`.
+**Versioned stock findings delivered; installed-build analysis remains incomplete.**
+The original access-only stop has been superseded by read-only analysis of the
+brief-named captures and their referenced older package. This does not authorize
+device access, flash/bootloader writes, power cycles, service/live-config changes,
+credentials, target execution or new sessions/agents.
 
-First coherent increment: `tools/stock_execution_evidence.py`, generated
-`docs/hardware/evidence/execution-20261028/`, and the report's current checkpoint.
-Run the generator using the command in its forthcoming reproduction section;
-actual result: `PASS: 2 pinned UPDs parsed to exact EOF; 14 allowlisted files extracted; 7 absent`.
+## Branch and increments
 
-Ordered remaining queue:
-1. Trace each available captured updater's actual verification calls and flash
-   path, keeping 34.16 `-1-16` and 57.10 Fenway distinct.
-2. Inspect the older kernel and captured boot logs; reconcile the prior map,
-   especially family attribution, writable hooks and unsupported rollback claims.
-3. Replace the historical report with versioned findings, explicit CONFIDENCE
-   and UNKNOWN-OFFLINE, route ranking and safest next experiment.
-4. Regenerate evidence, verify bytes/citations, commit, push this branch and open
-   a PR; update this handoff with exact proof hashes and remaining evidence gaps.
+Worktree `/home/ben/Moggie-wt/ota`; branch
+`burn/moggie-execution-surface-20261028`, based on default/main
+`3ff0a53814e6f7ba33cf4c8e8b56a9202d3af5db`.
+Initial custom-source report commits: `b75e217`, `54d3832`.
+Stock-init increment: `49218b6`, already pushed. Subsequent commits preserve the
+stock updater/kernel evidence and replace the obsolete access-gated report.
 
-No hardware access, flash/bootloader writes, power cycles, service/config changes
-or target execution are authorized. Missing exact installed-build evidence must
-remain unknown; it is not a reason to repeat device probes.
+Primary deliverable: [EXECUTION-SURFACE.md](../hardware/EXECUTION-SURFACE.md).
+Reproduction tool: [stock_execution_evidence.py](../../tools/stock_execution_evidence.py).
+Evidence packet: [execution-20261028](../hardware/evidence/execution-20261028/packages.json).
+Firmware binaries remain only in ignored `build/stock-execution/34.16/`.
 
----
+## Consequential findings
 
-## Initial handoff (historical)
+- Older `34.16-37101-1-16` is extractable big-endian SquashFS 3.0. Fourteen
+  allowlisted non-credential files were recovered; seven requested paths are
+  absent, including libflash.so.1. The package provenance is attribution, not a
+  measured physical model identification (report evidence/applicability section).
+- Its kernel decompresses to Linux **2.4.22-rincon**. The separate raw vmlinux
+  capture is Linux **2.6.35** with an MPC8315/eLBC FDT; those are not interchangeable
+  target proofs (kernels.json and captured-device-tree.json).
+- Init's repartition/format/entropy writes precede `/jffs/Configure`, so that
+  persistent hook does not establish zero-write execution (numbered Configure,
+  repartition.sh and Srandom).
+- The old updater has separate legacy and envelope verification handlers.
+  The legacy path uses RSA PKCS#1 v1.5/MD5 and a 1024-bit public key located at
+  crypto file offset `0xb2c4`; the envelope caller supplies a SHA-256 digest and
+  callback-based verification. Envelope trust provenance and complete byte
+  coverage remain open (report updater section with file offsets).
+- Extended `boot-to-linux.log` directly records S0 KP=1 G51, S1 KP=4 G50 and
+  handoff `0x00400000`; the first-log-only recon had called them second-hand.
+  One captured selection does not establish wrap/tie/fallback or boot acceptance.
+- Captured 57.23 `-1-16` type-3/4/6 inner envelopes remain undecoded. Exact
+  installed 57.10 `-1-16` code is not supplied by the reviewed artifacts.
 
-# L2 Moggie execution surface handoff — 2026-10-28
+## Verification executed so far
 
-**Verdict: BLOCKED; stock analysis incomplete.** The report is a verified partial
-result, not a claim that the brief or active goal is complete.
+The report's reproduction command was run with existing host tools; no packages
+were installed and no target software executed. Current result:
 
-## What changed and why
+```text
+PASS: 2 pinned UPDs parsed to exact EOF; 14 allowlisted files extracted; 7 absent
+PASS: 2334 disassembly rows match ELF file bytes
+```
 
-Added `docs/hardware/EXECUTION-SURFACE.md`, including explicit `CONFIDENCE` and
-`UNKNOWN-OFFLINE` sections. It reconstructs the repository's custom init/update
-flow with source line citations and identifies persistent writes that disqualify
-that flow as a zero-write bootstrap. It separately records the unverified stock
-questions, a provisional route-priority table, a host-only next experiment, and
-the still-blocked prior-map comparison. The purpose is to prevent Moggie's
-proposed A/B design from being reported as captured stock firmware behavior.
-
-The relevant distinction is explicit in `docs/ARCHITECTURE.md:5–20`; actual custom
-state writes are in `firmware/bootchooser/init:48–53,192–223,298–339` and custom
-installation writes in `firmware/updater/updater.c:569–659`. The repository
-signature chain is in `firmware/updater/manifest.c:360–401` and
-`firmware/updater/rsa.c:131–183`; the checked-in public key is labeled a
-placeholder at `firmware/updater/pubkey_dev.h:1–13`.
-
-## Branch and evidence
-
-- Worktree: `/home/ben/Moggie-wt/ota`.
-- Branch: `burn/moggie-execution-surface-20261028`, created from `origin/main` at
-  `3ff0a53814e6f7ba33cf4c8e8b56a9202d3af5db` after the original checkout was
-  observed clean. `git ls-remote --symref origin HEAD` returned
-  `ref: refs/heads/main HEAD` and that same commit. This was Git metadata only;
-  no remote firmware or technical source was fetched.
-- Report commit: `b75e217`, “docs(hardware): separate custom boot behavior from
-  unverified stock routes”. This handoff is a separate reviewable commit.
-- Evidence analyzed: repository source at the pinned baseline, with exact paths
-  and line ranges in the report. The worktree image/log filename-size inventory
-  and its search exclusions are recorded in the report's evidence inventory.
-- The named external recon/capture directories were not inspected. No stock
-  image provenance, binary offsets, signature chain or live device result is
-  claimed.
+The generator checks source package hashes, framing bounds, gzip EOF, ELF
+identity/mappings and every saved disassembly row's bytes. These are integrity
+checks, not signature validation, complete RE review or hardware tests.
+`git diff --check` passed for the report/tool edits. Final independent packet
+checks, deterministic regeneration, report hash, push and PR are the next
+publication steps; do not mistake this checkpoint for their result.
 
 ## Requirement audit
 
-| Brief requirement | Authoritative evidence obtained | Status |
+| Brief requirement | Evidence now obtained | Remaining limit |
 |---|---|---|
-| Stock init, services, watchdog, mounts and writable media | Custom source only; stock rootfs/captures outside permitted file-analysis scope | BLOCKED |
-| Every stock verification point, primitive/key, slot layout, flags, `boot_ok`, rollback | Custom updater/chooser traced; stock binaries/captures not inspected | BLOCKED |
-| Prove or mark unknown for NFS/TFTP/recovery/debug/maintenance boot | Every named family is explicitly UNKNOWN; no stock execution route is proved | Unknowns recorded; substantive investigation BLOCKED |
-| Rank execution routes and name safest supervised experiment | Provisional evidence-work ranking; proposed host-only extraction of an existing capture | Partial; ranking needs stock evidence |
-| Reconcile `BOOT-AND-MTD-MAP.md` and invalidate assumptions | Repository interpretation pitfalls cited; prior map not read | BLOCKED |
-| Named branch from default | Local branch created from the default-branch commit above | Done |
-| Report and handoff with explicit confidence/unknowns and hashes | Both requested paths created; checks and report hash below | Done for partial result |
-| No device access, flash writes, bootloader changes or power cycling | Only host repository reads, documentation edits and Git operations performed | Observed throughout this analysis |
+| Init, services, watchdog, mounts, writable media | Older-family init/services, aliases and explicit persistent writes | Matching installed build, actual mounts/media and full watchdog trace missing |
+| Every updater verification point/key, slots, boot flags/boot_ok/rollback | Two older handler entries, primitive/key metadata, local validation/install and destination arithmetic | Complete authenticated ranges/callers, envelope trust and physical commit/rollback unproved |
+| NFS/TFTP/recovery/debug/maintenance zero-write boot | Each named route classified; old NFS literal preserved as a lead | No reachable zero-write route established; support/reachability kept unknown |
+| Ranked routes and single safest experiment | Report table and pinned later-envelope host-only experiment | Ranking is provisional; no device experiment approved |
+| Reconcile prior map | Five reports read; explicit correction table | Physical target map still unknown |
+| Report CONFIDENCE/UNKNOWN-OFFLINE + handoff/hash | Report and current handoff present | Fresh final integrity receipt/hash and PR pending at this checkpoint |
+| Commit + push + PR | Initial and first stock commits pushed | Final commit/push/PR pending |
 
-## Verification actually executed
+## Ordered remaining queue
 
-`git diff --cached --check` returned exit 0 before the report commit. A Python
-check resolved 37 explicit repository path/line-range citations within file
-bounds, required both named sections, and required the blocked status. Result:
+1. Finish publication verification: independent source/packet byte checks,
+   deterministic regeneration, document links/offsets, fresh report hash; commit,
+   push and open a draft PR that explicitly preserves the incomplete status.
+2. Trace the already-captured later `-1-16` flags-4 envelope parser/key selection,
+   without extracting private material or executing target code. Decoding 57.23
+   would support a version comparison, not installed-57.10 applicability.
+3. Finish older updater authenticated-byte coverage, complete caller inventory,
+   envelope trust callbacks and inline flash/OOB commit ordering.
+4. Trace watchdog/reset ownership and remaining kernel boot-selection logic from
+   existing captures. Keep unknown physical layout and U-Boot semantics explicit.
+5. To close installed-build claims, obtain the path/provenance of an
+   already-captured exact matching 57.10 `-1-16` image. Do not repeat device probes
+   or substitute Fenway/34.16 evidence for absent target bytes.
 
-```text
-PASS: 37 repository source citations resolve within file bounds; required sections present; stock status BLOCKED
-```
-
-That check verifies citation locations and required sections, not the stock
-claims, semantic correctness of every citation, or completeness of the brief.
-Relevant source passages were also read directly. No runtime/build/device tests
-were run; documentation checks cannot validate stock boot or update behavior.
-The new documentation paths require explicit `git add -f` under this checkout's
-ignore rules; only the two requested documents are added.
-
-Report integrity check executed:
-
-```text
-8d417d1fe3e9b85db746c4873b7dc5ae8e1171740c73b47c3753cdb724900ec8  docs/hardware/EXECUTION-SURFACE.md
-```
-
-## Deliberately left out
-
-No live device access, packet/request probing, UART interaction, power cycling,
-flash operations, bootloader/configuration changes, target executable execution,
-new capture acquisition, service changes, firmware download or speculative
-exploit. Existing hardware-day instructions were read as source material only;
-their flash and recovery steps were not executed. No unrelated files, live
-Hermes configuration, or private-key contents were modified/read for analysis.
-No push or PR was performed; the brief does not require a PR for this lane.
-
-## Exact blocker and ranked follow-ups
-
-The brief at
-`/home/ben/.review-notes/2026-10-28-sol-burn/L2-moggie-execution-surface.md:8–9`
-names inputs outside the worktree, while its binding lines 30 and 33 permit
-file analysis inside the worktree and require BLOCKED for a needed action
-outside the envelope. The pending request is **read-only access to exactly**:
-
-1. `/home/ben/.hermes/plans/2026-10-28-moggie-recon-output/`
-2. `/home/ben/sonos-bench-analysis/`
-3. `/home/ben/sonos-bench/logs/`
-
-All existing prohibitions remain in force. An unanswered request is not consent.
-
-Once that scope is explicitly resolved, the remaining work is, in order:
-
-1. Inspect the five named recon reports; locate and hash the actual captured
-   rootfs/kernel/log inputs. Establish capture provenance and completeness.
-2. Extract the stock rootfs on the host without executing its programs. Trace
-   PID 1, supervision, watchdog and actual mount/persistence evidence. This is
-   the single proposed next supervised experiment, not an executed result.
-3. Trace all stock updater verification call sites and authenticated byte
-   ranges, extract the public trust anchor with offsets, and establish boot
-   selection/fallback rules. Mark anything unsupported UNKNOWN-OFFLINE.
-4. Reconcile the captured MTD map with every repository/prior-recon assumption;
-   revise the execution-route ranking and determine whether any later device
-   experiment can satisfy zero persistent writes.
-5. Re-run documentation/citation checks, commit the resulting evidence, and
-   report fresh SHA-256 hashes. Do not declare completion without stock evidence.
-
-The deadline remains wind-down 06:15 UTC and hard stop 06:45 UTC on 2026-10-28
-(brief line 32). Work stopped at the scope gate rather than waiting until that
-deadline. This is the first blocked goal turn; the goal remains active pending
-the required scope/evidence resolution.
+No source/runtime test suite is applicable to unchanged firmware behavior.
+Nothing was merged, deployed, restarted or written on the speaker. No claim of
+full brief/goal completion is made while the audit above remains incomplete.

@@ -1,0 +1,23 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x8b10 --stop-address=0x8b48 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00008b10 <ZZ0124@@Base>:
+    8b10:	7c 08 02 a6 	mflr    r0  # file 0x8b10
+    8b14:	94 21 ff e0 	stwu    r1,-32(r1)  # file 0x8b14
+    8b18:	81 61 00 2c 	lwz     r11,44(r1)  # file 0x8b18
+    8b1c:	90 01 00 24 	stw     r0,36(r1)  # file 0x8b1c
+    8b20:	80 01 00 28 	lwz     r0,40(r1)  # file 0x8b20
+    8b24:	91 61 00 0c 	stw     r11,12(r1)  # file 0x8b24
+    8b28:	90 01 00 08 	stw     r0,8(r1)  # file 0x8b28
+    8b2c:	38 00 00 00 	li      r0,0  # file 0x8b2c
+    8b30:	90 01 00 10 	stw     r0,16(r1)  # file 0x8b30
+    8b34:	48 01 3a b9 	bl      1c5ec <ZZ0125@plt>  # file 0x8b34
+    8b38:	80 01 00 24 	lwz     r0,36(r1)  # file 0x8b38
+    8b3c:	38 21 00 20 	addi    r1,r1,32  # file 0x8b3c
+    8b40:	7c 08 03 a6 	mtlr    r0  # file 0x8b40
+    8b44:	4e 80 00 20 	blr  # file 0x8b44

@@ -1,0 +1,13 @@
+{
+  "anchor_va": "0x6b6c",
+  "bits": 1024,
+  "delta": "0x1d544",
+  "der_file": "0xb2c4",
+  "der_size": 162,
+  "der_va": "0xb2c4",
+  "exponent": 65537,
+  "got_slot_va": "0x1c0b0",
+  "loader_va": "0x6b60",
+  "scope": "Legacy UPD signature key only; envelope trust selection remains separate.",
+  "sha256": "50ff475d72eeadbaef22fe0b83eb7dd1c566cbeed22e648aa9c7c09577949e15"
+}

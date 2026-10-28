@@ -1,0 +1,61 @@
+{
+  "gzip_offset": "0x5779",
+  "literals": [
+    {
+      "offset": "0x5000",
+      "source": "older-wrapper",
+      "value": "root=/dev/nfs rw ip=on"
+    },
+    {
+      "offset": "0x125e68",
+      "source": "older-decompressed",
+      "value": "Linux version 2.4.22-rincon- (build@LIN-77) (gcc version 3.4.4) #1 Tue Jan 10 15:55:02 EST 2017\n"
+    },
+    {
+      "offset": "0x1290f0",
+      "source": "older-decompressed",
+      "value": "bootsection"
+    },
+    {
+      "offset": "0x1290fc",
+      "source": "older-decompressed",
+      "value": "bootgeneration"
+    },
+    {
+      "offset": "0x12ce7b",
+      "source": "older-decompressed",
+      "value": "squashfs: version 3.0 (2006/03/15) Phillip Lougher\n"
+    },
+    {
+      "offset": "0x210120",
+      "source": "captured-vmlinux",
+      "value": "Linux version 2.6.35-dirty (secbuild@lin-243) (gcc version 5.2.0 (crosstool-NG crosstool-ng-1.22.0 - allen.antony@sonos.com) ) #1 Fri Jan 14 11:36:40 EST 2022\n"
+    },
+    {
+      "offset": "0x254dd4",
+      "source": "captured-vmlinux",
+      "value": "fsl,mpc8315erdb"
+    },
+    {
+      "offset": "0x2bb973",
+      "source": "captured-vmlinux",
+      "value": "mtdparts="
+    }
+  ],
+  "sha256": "c0a562fa670d1f620c249c8e5857388a575d85fa4fe3f5ce587720719509bf51",
+  "size": 1511544,
+  "sources": {
+    "captured-vmlinux": {
+      "sha256": "1c4c3d8eb73dc8aa53628505de429bb062e11349836dfc9eca3ed0c95aa808bc",
+      "size": 3078644
+    },
+    "older-decompressed": {
+      "sha256": "c0a562fa670d1f620c249c8e5857388a575d85fa4fe3f5ce587720719509bf51",
+      "size": 1511544
+    },
+    "older-wrapper": {
+      "sha256": "d86680f7b4059475541890ed2d1d1cd3013f53d83d9bb17cd76b86e3299729cb",
+      "size": 708608
+    }
+  }
+}

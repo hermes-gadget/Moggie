@@ -1,0 +1,27 @@
+# Display escapes non-ASCII; original bytes hashed in logs.json
+   1:
+   2:
+   3: U-Boot 1.1.1(1-16-4-zp5s-0.5), Build: zp5s-0.5
+   4:
+   5: MPC8272 Reset Status: External Soft, External Hard
+   6:
+   7: MPC8272 Clock Configuration
+   8:  - Bus-to-Core Mult 3x, VCO Div 4, 60x Bus Freq  16-50 , Core Freq  50-150
+   9:  - dfbrg 1, corecnf 0x10, busdf 3, cpmdf 1, plldf 0, pllmf 3
+  10:  - vco_out  400000000, scc_clk  100000000, brg_clk   25000000
+  11:  - cpu_clk  300000000, cpm_clk  200000000, bus_clk  100000000
+  12:  - pci_clk   33333333
+  13:
+  14: CPU:   MPC8272 (HiP7 Rev 14, Mask unknown [immr=0x0d10,k=0x00e1]) at 300 MHz
+  15: Board: Sonos ZP5S
+  16: DRAM:  32 MB
+  17: IMMR: f0000000
+  18: DRAM tests running ... done
+  19: Using default environment
+  20:
+  21: In:    serial
+  22: Out:   serial
+  23: Err:   serial
+  24: Net:   FCC1 ETHERNET, FCC2 ETHERNET
+  25: Hit any key to stop autoboot:  0  0
+  26: =>

@@ -1,0 +1,47 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x100055d0 --stop-address=0x10005668 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+100055d0 <__frame_state_for@@Base-0xfe58>:
+100055d0:	7c 08 02 a6 	mflr    r0  # file 0x55d0
+100055d4:	94 21 ff e0 	stwu    r1,-32(r1)  # file 0x55d4
+100055d8:	3d 20 10 03 	lis     r9,4099  # file 0x55d8
+100055dc:	93 41 00 08 	stw     r26,8(r1)  # file 0x55dc
+100055e0:	3d 60 10 03 	lis     r11,4099  # file 0x55e0
+100055e4:	93 61 00 0c 	stw     r27,12(r1)  # file 0x55e4
+100055e8:	93 81 00 10 	stw     r28,16(r1)  # file 0x55e8
+100055ec:	3b 49 e3 a0 	addi    r26,r9,-7264  # file 0x55ec
+100055f0:	93 a1 00 14 	stw     r29,20(r1)  # file 0x55f0
+100055f4:	7c 7c 1b 78 	mr      r28,r3  # file 0x55f4
+100055f8:	93 c1 00 18 	stw     r30,24(r1)  # file 0x55f8
+100055fc:	7c 9d 23 78 	mr      r29,r4  # file 0x55fc
+10005600:	93 e1 00 1c 	stw     r31,28(r1)  # file 0x5600
+10005604:	3b 6b e3 a4 	addi    r27,r11,-7260  # file 0x5604
+10005608:	90 01 00 24 	stw     r0,36(r1)  # file 0x5608
+1000560c:	3b e0 00 00 	li      r31,0  # file 0x560c
+10005610:	3b c0 00 01 	li      r30,1  # file 0x5610
+10005614:	7c 1f d0 2e 	lwzx    r0,r31,r26  # file 0x5614
+10005618:	7c 7f da 14 	add     r3,r31,r27  # file 0x5618
+1000561c:	7f 84 e3 78 	mr      r4,r28  # file 0x561c
+10005620:	2f 80 00 00 	cmpwi   cr7,r0,0  # file 0x5620
+10005624:	3b ff 00 74 	addi    r31,r31,116  # file 0x5624
+10005628:	7f a5 eb 78 	mr      r5,r29  # file 0x5628
+1000562c:	40 9e 00 34 	bne     cr7,10005660 <_init@@Base+0x2b0c>  # file 0x562c
+10005630:	37 de ff ff 	addic.  r30,r30,-1  # file 0x5630
+10005634:	40 a0 ff e0 	bge     10005614 <_init@@Base+0x2ac0>  # file 0x5634
+10005638:	80 01 00 24 	lwz     r0,36(r1)  # file 0x5638
+1000563c:	83 41 00 08 	lwz     r26,8(r1)  # file 0x563c
+10005640:	83 61 00 0c 	lwz     r27,12(r1)  # file 0x5640
+10005644:	7c 08 03 a6 	mtlr    r0  # file 0x5644
+10005648:	83 81 00 10 	lwz     r28,16(r1)  # file 0x5648
+1000564c:	83 a1 00 14 	lwz     r29,20(r1)  # file 0x564c
+10005650:	83 c1 00 18 	lwz     r30,24(r1)  # file 0x5650
+10005654:	83 e1 00 1c 	lwz     r31,28(r1)  # file 0x5654
+10005658:	38 21 00 20 	addi    r1,r1,32  # file 0x5658
+1000565c:	4e 80 00 20 	blr  # file 0x565c
+10005660:	48 02 8b 41 	bl      1002e1a0 <ZZ0064@plt>  # file 0x5660
+10005664:	4b ff ff cc 	b       10005630 <_init@@Base+0x2adc>  # file 0x5664

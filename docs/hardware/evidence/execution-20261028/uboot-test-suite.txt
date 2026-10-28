@@ -1,0 +1,16 @@
+# Display escapes non-ASCII; original bytes hashed in logs.json
+   1: test
+   2:
+   3: 01: NOR Checksum Test ---------------------------------------------------- PASSED
+   4: 02: NAND Id Test --------------------------------------------------------- PASSED
+   5: 03: Mem Stuck Bit Test --------------------------------------------------- PASSED
+   6: 04: Mem Walking Bit Test ------------------------------------------------- PASSED
+   7: 05: Mem Cell Test -------------------------------------------------------- PASSED
+   8: 06: Mem Rand Cell Test --------------------------------------------------- PASSED
+   9: 07: FCC1 Ethernet Lpbk Test ---------------------------------------------- FAILED
+  10: Never received all frames
+  11: Sent:     21
+  12: Received: 0
+  13: FAILED
+  14:
+  15: =>

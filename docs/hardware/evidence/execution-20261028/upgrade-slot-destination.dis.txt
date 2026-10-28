@@ -1,0 +1,117 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10009878 --stop-address=0x10009a28 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10009878 <__frame_state_for@@Base-0xbbb0>:
+10009878:	7c 08 02 a6 	mflr    r0  # file 0x9878
+1000987c:	94 21 fd 60 	stwu    r1,-672(r1)  # file 0x987c
+10009880:	7d 80 00 26 	mfcr    r12  # file 0x9880
+10009884:	2f 03 00 01 	cmpwi   cr6,r3,1  # file 0x9884
+10009888:	90 01 02 a4 	stw     r0,676(r1)  # file 0x9888
+1000988c:	3c 00 65 35 	lis     r0,25909  # file 0x988c
+10009890:	93 e1 02 9c 	stw     r31,668(r1)  # file 0x9890
+10009894:	60 00 03 e4 	ori     r0,r0,996  # file 0x9894
+10009898:	83 e5 00 04 	lwz     r31,4(r5)  # file 0x9898
+1000989c:	93 a1 02 94 	stw     r29,660(r1)  # file 0x989c
+100098a0:	54 7d 10 3a 	slwi    r29,r3,2  # file 0x98a0
+100098a4:	93 61 02 8c 	stw     r27,652(r1)  # file 0x98a4
+100098a8:	3b 61 00 50 	addi    r27,r1,80  # file 0x98a8
+100098ac:	91 81 02 54 	stw     r12,596(r1)  # file 0x98ac
+100098b0:	81 7f 00 04 	lwz     r11,4(r31)  # file 0x98b0
+100098b4:	7d 9d 28 2e 	lwzx    r12,r29,r5  # file 0x98b4
+100098b8:	91 c1 02 58 	stw     r14,600(r1)  # file 0x98b8
+100098bc:	7d 4e 53 78 	mr      r14,r10  # file 0x98bc
+100098c0:	91 e1 02 5c 	stw     r15,604(r1)  # file 0x98c0
+100098c4:	7d 2f 4b 78 	mr      r15,r9  # file 0x98c4
+100098c8:	92 01 02 60 	stw     r16,608(r1)  # file 0x98c8
+100098cc:	7d 10 43 78 	mr      r16,r8  # file 0x98cc
+100098d0:	92 21 02 64 	stw     r17,612(r1)  # file 0x98d0
+100098d4:	7c f1 3b 78 	mr      r17,r7  # file 0x98d4
+100098d8:	92 41 02 68 	stw     r18,616(r1)  # file 0x98d8
+100098dc:	7f 67 db 78 	mr      r7,r27  # file 0x98dc
+100098e0:	92 81 02 70 	stw     r20,624(r1)  # file 0x98e0
+100098e4:	7c d2 33 78 	mr      r18,r6  # file 0x98e4
+100098e8:	92 a1 02 74 	stw     r21,628(r1)  # file 0x98e8
+100098ec:	3a 80 ff ff 	li      r20,-1  # file 0x98ec
+100098f0:	92 e1 02 7c 	stw     r23,636(r1)  # file 0x98f0
+100098f4:	7c 95 23 78 	mr      r21,r4  # file 0x98f4
+100098f8:	93 01 02 80 	stw     r24,640(r1)  # file 0x98f8
+100098fc:	3a e0 ff ff 	li      r23,-1  # file 0x98fc
+10009900:	93 21 02 84 	stw     r25,644(r1)  # file 0x9900
+10009904:	3b 00 ff ff 	li      r24,-1  # file 0x9904
+10009908:	93 81 02 90 	stw     r28,656(r1)  # file 0x9908
+1000990c:	3b 20 ff ff 	li      r25,-1  # file 0x990c
+10009910:	93 c1 02 98 	stw     r30,664(r1)  # file 0x9910
+10009914:	3b 80 00 00 	li      r28,0  # file 0x9914
+10009918:	7c be 2b 78 	mr      r30,r5  # file 0x9918
+1000991c:	92 61 02 6c 	stw     r19,620(r1)  # file 0x991c
+10009920:	38 c0 00 00 	li      r6,0  # file 0x9920
+10009924:	92 c1 02 78 	stw     r22,632(r1)  # file 0x9924
+10009928:	38 a0 00 00 	li      r5,0  # file 0x9928
+1000992c:	93 41 02 88 	stw     r26,648(r1)  # file 0x992c
+10009930:	91 61 00 54 	stw     r11,84(r1)  # file 0x9930
+10009934:	90 01 00 50 	stw     r0,80(r1)  # file 0x9934
+10009938:	48 00 00 54 	b       1000998c <_init@@Base+0x6e38>  # file 0x9938
+1000993c:	2f 89 00 11 	cmpwi   cr7,r9,17  # file 0x993c
+10009940:	41 9e 04 78 	beq     cr7,10009db8 <_init@@Base+0x7264>  # file 0x9940
+10009944:	2f 89 00 12 	cmpwi   cr7,r9,18  # file 0x9944
+10009948:	41 9e 04 78 	beq     cr7,10009dc0 <_init@@Base+0x726c>  # file 0x9948
+1000994c:	2f 89 00 03 	cmpwi   cr7,r9,3  # file 0x994c
+10009950:	41 9e 04 78 	beq     cr7,10009dc8 <_init@@Base+0x7274>  # file 0x9950
+10009954:	38 c6 00 01 	addi    r6,r6,1  # file 0x9954
+10009958:	7d 3d f0 2e 	lwzx    r9,r29,r30  # file 0x9958
+1000995c:	2f 86 00 09 	cmpwi   cr7,r6,9  # file 0x995c
+10009960:	7d 25 4a 14 	add     r9,r5,r9  # file 0x9960
+10009964:	81 49 00 10 	lwz     r10,16(r9)  # file 0x9964
+10009968:	3b 9c 00 01 	addi    r28,r28,1  # file 0x9968
+1000996c:	80 09 00 08 	lwz     r0,8(r9)  # file 0x996c
+10009970:	38 a5 00 0c 	addi    r5,r5,12  # file 0x9970
+10009974:	81 69 00 0c 	lwz     r11,12(r9)  # file 0x9974
+10009978:	90 07 00 08 	stw     r0,8(r7)  # file 0x9978
+1000997c:	91 67 00 0c 	stw     r11,12(r7)  # file 0x997c
+10009980:	91 47 00 10 	stw     r10,16(r7)  # file 0x9980
+10009984:	38 e7 00 0c 	addi    r7,r7,12  # file 0x9984
+10009988:	41 9d 00 6c 	bgt     cr7,100099f4 <_init@@Base+0x6ea0>  # file 0x9988
+1000998c:	7d 25 62 14 	add     r9,r5,r12  # file 0x998c
+10009990:	80 09 00 08 	lwz     r0,8(r9)  # file 0x9990
+10009994:	2f 80 00 00 	cmpwi   cr7,r0,0  # file 0x9994
+10009998:	41 9e 04 54 	beq     cr7,10009dec <_init@@Base+0x7298>  # file 0x9998
+1000999c:	2f 80 00 40 	cmpwi   cr7,r0,64  # file 0x999c
+100099a0:	41 9e 04 b4 	beq     cr7,10009e54 <_init@@Base+0x7300>  # file 0x99a0
+100099a4:	40 ba ff b0 	bne     cr6,10009954 <_init@@Base+0x6e00>  # file 0x99a4
+100099a8:	7d 25 fa 14 	add     r9,r5,r31  # file 0x99a8
+100099ac:	81 29 00 08 	lwz     r9,8(r9)  # file 0x99ac
+100099b0:	2f 89 00 10 	cmpwi   cr7,r9,16  # file 0x99b0
+100099b4:	40 9e ff 88 	bne     cr7,1000993c <_init@@Base+0x6de8>  # file 0x99b4
+100099b8:	38 c6 00 01 	addi    r6,r6,1  # file 0x99b8
+100099bc:	7d 3d f0 2e 	lwzx    r9,r29,r30  # file 0x99bc
+100099c0:	2f 86 00 09 	cmpwi   cr7,r6,9  # file 0x99c0
+100099c4:	7d 25 4a 14 	add     r9,r5,r9  # file 0x99c4
+100099c8:	81 49 00 10 	lwz     r10,16(r9)  # file 0x99c8
+100099cc:	7f 99 e3 78 	mr      r25,r28  # file 0x99cc
+100099d0:	80 09 00 08 	lwz     r0,8(r9)  # file 0x99d0
+100099d4:	3b 9c 00 01 	addi    r28,r28,1  # file 0x99d4
+100099d8:	81 69 00 0c 	lwz     r11,12(r9)  # file 0x99d8
+100099dc:	38 a5 00 0c 	addi    r5,r5,12  # file 0x99dc
+100099e0:	90 07 00 08 	stw     r0,8(r7)  # file 0x99e0
+100099e4:	91 67 00 0c 	stw     r11,12(r7)  # file 0x99e4
+100099e8:	91 47 00 10 	stw     r10,16(r7)  # file 0x99e8
+100099ec:	38 e7 00 0c 	addi    r7,r7,12  # file 0x99ec
+100099f0:	40 9d ff 9c 	ble     cr7,1000998c <_init@@Base+0x6e38>  # file 0x99f0
+100099f4:	1c bc 00 0c 	mulli   r5,r28,12  # file 0x99f4
+100099f8:	20 83 00 01 	subfic  r4,r3,1  # file 0x99f8
+100099fc:	7d 25 d8 2e 	lwzx    r9,r5,r27  # file 0x99fc
+10009a00:	7d 65 da 14 	add     r11,r5,r27  # file 0x9a00
+10009a04:	54 80 10 3a 	slwi    r0,r4,2  # file 0x9a04
+10009a08:	81 4b 00 04 	lwz     r10,4(r11)  # file 0x9a08
+10009a0c:	7c fe 00 2e 	lwzx    r7,r30,r0  # file 0x9a0c
+10009a10:	38 00 00 40 	li      r0,64  # file 0x9a10
+10009a14:	7d 29 52 14 	add     r9,r9,r10  # file 0x9a14
+10009a18:	90 0b 00 08 	stw     r0,8(r11)  # file 0x9a18
+10009a1c:	91 2b 00 0c 	stw     r9,12(r11)  # file 0x9a1c
+10009a20:	7f 96 e3 78 	mr      r22,r28  # file 0x9a20
+10009a24:	38 c0 00 00 	li      r6,0  # file 0x9a24
