@@ -1,15 +1,15 @@
 Offline evidence verification receipt, 2026-10-28
 $ python3 tools/check_stock_unlock_evidence.py --evidence docs/hardware/evidence/unlock-20261028 --compare build/unlock-analysis/reproduced --document docs/hardware/UNLOCK-CODE-PATH.md
-REPRODUCIBLE: 74 evidence files byte-identical
+REPRODUCIBLE: 77 evidence files byte-identical
 PROVENANCE: 17 source records match original size and SHA-256
-BYTES: 62 excerpts; 10229 instructions match original bytes and LOAD mappings
-DOCUMENT: 151 explicit source-offset citations in file-backed LOAD bytes; all local links resolve
+BYTES: 65 excerpts; 10442 instructions match original bytes and LOAD mappings
+DOCUMENT: 155 explicit source-offset citations in file-backed LOAD bytes; all local links resolve
 LIMIT: byte/offset/link checks do not establish semantic or hardware correctness
 $ python3 tools/check_stock_unlock_evidence.py --evidence docs/hardware/evidence/zp5s-34-20261028 --compare build/unlock-analysis/zp5s-34-reproduced --document docs/hardware/UNLOCK-CODE-PATH.md
-REPRODUCIBLE: 71 evidence files byte-identical
+REPRODUCIBLE: 76 evidence files byte-identical
 PROVENANCE: 14 source records match original size and SHA-256
-BYTES: 56 excerpts; 7748 instructions match original bytes and LOAD mappings
-DOCUMENT: 124 explicit source-offset citations in file-backed LOAD bytes; all local links resolve
+BYTES: 61 excerpts; 8168 instructions match original bytes and LOAD mappings
+DOCUMENT: 128 explicit source-offset citations in file-backed LOAD bytes; all local links resolve
 LIMIT: byte/offset/link checks do not establish semantic or hardware correctness
 $ git diff --check
 PASS (exit 0; no whitespace errors)
@@ -23,4 +23,4 @@ $ git rev-parse main origin/main
 WORKTREE: /home/ben/Moggie-wt/sonosd
 TOKEN_GRAPH: .tokensave/tokensave.db exists=False
 SOURCE SCOPE: captured firmware only; no target execution or hardware verification
-REPORT_SHA256: bd426c6fc5312c85c2acff490b8cdbc6151c96ea82e426d5a5d5d2ddd9741d83  docs/hardware/UNLOCK-CODE-PATH.md
+REPORT_SHA256: bdc82685fc03d0a67ba640c7046d79d57f31c70a4ad5c1b3a5e7f00034d5b7c5  docs/hardware/UNLOCK-CODE-PATH.md

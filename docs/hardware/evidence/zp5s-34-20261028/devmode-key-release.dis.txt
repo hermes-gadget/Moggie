@@ -1,0 +1,17 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x59ac --stop-address=0x59cc /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/lib/libsonoscrypto.so.1
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/lib/libsonoscrypto.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+000059ac <ZZ0078@@Base>:
+    59ac [file 0x000059ac]:	7c 08 02 a6 	mflr    r0
+    59b0 [file 0x000059b0]:	94 21 ff f0 	stwu    r1,-16(r1)
+    59b4 [file 0x000059b4]:	90 01 00 14 	stw     r0,20(r1)
+    59b8 [file 0x000059b8]:	48 01 6d 4d 	bl      1c704 <ZZ0077@plt>
+    59bc [file 0x000059bc]:	80 01 00 14 	lwz     r0,20(r1)
+    59c0 [file 0x000059c0]:	38 21 00 10 	addi    r1,r1,16
+    59c4 [file 0x000059c4]:	7c 08 03 a6 	mtlr    r0
+    59c8 [file 0x000059c8]:	4e 80 00 20 	blr

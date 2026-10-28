@@ -169,6 +169,9 @@ def main():
         ('config-defaults', 'A', 0x10006c10, 0x100075bc),
         ('config-overrides', 'A', 0x100093d0, 0x100094bc),
         ('devmode-verifier', 'C', 0xa050, 0xa634),
+        ('devmode-envelope-verify', 'C', 0x9dac, 0xa050),
+        ('devmode-hash-callback', 'C', 0x53e8, 0x5494),
+        ('devmode-key-release', 'C', 0x5734, 0x5738),
         ('mfg-envelope', 'C', 0xc170, 0xc2f8),
         ('jffs-root-setter', 'U', 0x3c40, 0x3ca4),
         ('ssh-account-loader', 'D', 0x9738, 0x9848),
@@ -245,6 +248,7 @@ def main():
 
     relocations = []
     selected = {'A': {0x1057200c}, 'U': {0x190b0},
+                'C': {0x1cfb0, 0x1cfb4, 0x1cfb8, 0x1cfbc, 0x1cfc0},
                 'D': {0x3f9bc, 0x3f9c8, 0x3f9e4, 0x3fa08}}
     for key, offsets in selected.items():
         image = images[key]

@@ -20,6 +20,56 @@
     "addend": "0x87b8"
   },
   {
+    "image": "C",
+    "section": ".rela.dyn",
+    "entry_file": "0x2f38",
+    "target_va": "0x1cfb0",
+    "target_file": "0xcfb0",
+    "type": 22,
+    "symbol": "",
+    "addend": "0xccf8"
+  },
+  {
+    "image": "C",
+    "section": ".rela.dyn",
+    "entry_file": "0x2f44",
+    "target_va": "0x1cfb8",
+    "target_file": "0xcfb8",
+    "type": 22,
+    "symbol": "",
+    "addend": "0xa390"
+  },
+  {
+    "image": "C",
+    "section": ".rela.dyn",
+    "entry_file": "0x3148",
+    "target_va": "0x1cfb4",
+    "target_file": "0xcfb4",
+    "type": 1,
+    "symbol": "ZZ0078",
+    "addend": "0x0"
+  },
+  {
+    "image": "C",
+    "section": ".rela.dyn",
+    "entry_file": "0x3154",
+    "target_va": "0x1cfbc",
+    "target_file": "0xcfbc",
+    "type": 1,
+    "symbol": "ZZ0110",
+    "addend": "0x0"
+  },
+  {
+    "image": "C",
+    "section": ".rela.dyn",
+    "entry_file": "0x3160",
+    "target_va": "0x1cfc0",
+    "target_file": "0xcfc0",
+    "type": 1,
+    "symbol": "ZZ0063",
+    "addend": "0x0"
+  },
+  {
     "image": "D",
     "section": ".rela.dyn",
     "entry_file": "0x31dc",

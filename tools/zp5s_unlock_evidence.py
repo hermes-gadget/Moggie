@@ -148,6 +148,11 @@ def main():
         ('devmode', 'Z', 0x10262204, 0x10262f38),
         ('devmode-startup', 'Z', 0x1023bab8, 0x1023bb44),
         ('devmode-verifier', 'ZC', 0x8e24, 0x901c),
+        ('devmode-trust', 'ZC', 0x8b48, 0x8e20),
+        ('devmode-envelope-verify', 'ZC', 0x8870, 0x8b10),
+        ('devmode-hash-callback', 'ZC', 0x5698, 0x5770),
+        ('devmode-signature-callback', 'ZC', 0x6b3c, 0x6b5c),
+        ('devmode-key-release', 'ZC', 0x59ac, 0x59cc),
         ('debug-properties', 'Z', 0x1024cdf0, 0x1024da40),
         ('testenv-entry', 'Z', 0x101c8924, 0x101c8984),
         ('testenv', 'Z', 0x10259254, 0x10259834),
@@ -211,15 +216,22 @@ def main():
          ('ZB', 0x1003bdc4, 3), ('ZB', 0x1003bf2c, 3), ('ZB', 0x100590e8, 2)]]
     (out / 'constants.json').write_text(json.dumps(constants, indent=2) + '\n')
     relocations = []
-    for section in images['ZU'].elf.iter_sections():
-        if section['sh_type'] != 'SHT_RELA':
-            continue
-        for index, reloc in enumerate(section.iter_relocations()):
-            if reloc['r_offset'] == 0x12454:
-                relocations.append(dict(image='ZU', section=section.name,
-                    entry_file=hex(section['sh_offset'] + index * section['sh_entsize']),
-                    target_va=hex(reloc['r_offset']), target_file=hex(images['ZU'].offset(reloc['r_offset'])),
-                    type=reloc['r_info_type'], addend=hex(reloc['r_addend'])))
+    selected = {'ZU': {0x12454},
+                'ZC': {0x1c0ec, 0x1c0f0, 0x1c0f4, 0x1c0f8, 0x1c0fc}}
+    for key, offsets in selected.items():
+        im = images[key]
+        for section in im.elf.iter_sections():
+            if section['sh_type'] != 'SHT_RELA':
+                continue
+            symbols = im.elf.get_section(section['sh_link'])
+            for index, reloc in enumerate(section.iter_relocations()):
+                if reloc['r_offset'] in offsets:
+                    relocations.append(dict(image=key, section=section.name,
+                        entry_file=hex(section['sh_offset'] + index * section['sh_entsize']),
+                        target_va=hex(reloc['r_offset']), target_file=hex(im.offset(reloc['r_offset'])),
+                        type=reloc['r_info_type'],
+                        symbol=symbols.get_symbol(reloc['r_info_sym']).name,
+                        addend=hex(reloc['r_addend'])))
     (out / 'relocations.json').write_text(json.dumps(relocations, indent=2) + '\n')
     print(f'EVIDENCE: 2 UPD containers; {len(images)} ELF manifests; '
           f'{len(texts)} numbered text sources; {len(ranges)} disassembly ranges; {len(routes)} exact route rows')
