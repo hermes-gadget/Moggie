@@ -170,7 +170,7 @@ def main():
         ('config-overrides', 'A', 0x100093d0, 0x100094bc),
         ('devmode-verifier', 'C', 0xa050, 0xa634),
         ('devmode-envelope-verify', 'C', 0x9dac, 0xa050),
-        ('devmode-hash-callback', 'C', 0x53e8, 0x5494),
+        ('devmode-hash-callback', 'C', 0x5360, 0x5494),
         ('devmode-key-release', 'C', 0x5734, 0x5738),
         ('mfg-envelope', 'C', 0xc170, 0xc2f8),
         ('mfg-nested-envelope', 'C', 0xc028, 0xc170),

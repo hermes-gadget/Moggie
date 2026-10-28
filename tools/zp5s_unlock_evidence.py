@@ -151,7 +151,7 @@ def main():
         ('devmode-verifier', 'ZC', 0x8e24, 0x901c),
         ('devmode-trust', 'ZC', 0x8b48, 0x8e20),
         ('devmode-envelope-verify', 'ZC', 0x8870, 0x8b10),
-        ('devmode-hash-callback', 'ZC', 0x5698, 0x5770),
+        ('devmode-hash-callback', 'ZC', 0x55e0, 0x5770),
         ('devmode-signature-callback', 'ZC', 0x6b3c, 0x6b5c),
         ('devmode-key-release', 'ZC', 0x59ac, 0x59cc),
         ('debug-properties', 'Z', 0x1024cdf0, 0x1024da40),
