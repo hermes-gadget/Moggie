@@ -12,8 +12,9 @@ Worktree `/home/ben/Moggie-wt/ota`; branch
 `burn/moggie-execution-surface-20261028`, based on default/main
 `3ff0a53814e6f7ba33cf4c8e8b56a9202d3af5db`.
 Initial custom-source report commits: `b75e217`, `54d3832`.
-Stock-init increment: `49218b6`, already pushed. Subsequent commits preserve the
-stock updater/kernel evidence and replace the obsolete access-gated report.
+Stock-init increment: `49218b6`, already pushed. Stock updater/kernel evidence
+and replacement of the obsolete access-gated report: `8458e4e`. The next commit
+adds independent evidence checks and their receipt.
 
 Primary deliverable: [EXECUTION-SURFACE.md](../hardware/EXECUTION-SURFACE.md).
 Reproduction tool: [stock_execution_evidence.py](../../tools/stock_execution_evidence.py).
@@ -56,9 +57,14 @@ PASS: 2334 disassembly rows match ELF file bytes
 The generator checks source package hashes, framing bounds, gzip EOF, ELF
 identity/mappings and every saved disassembly row's bytes. These are integrity
 checks, not signature validation, complete RE review or hardware tests.
-`git diff --check` passed for the report/tool edits. Final independent packet
-checks, deterministic regeneration, report hash, push and PR are the next
-publication steps; do not mistake this checkpoint for their result.
+`git diff --check` passed for the report/tool edits. Independent verification and deterministic regeneration passed; see the
+[validation receipt](../hardware/evidence/execution-validation-20261028.txt).
+Actual results: 2 source packages, 20 records, 14 extracted hashes, 2,334
+disassembly rows, 37 document links and 20 cited offset starts checked; all 42
+regenerated files identical. Five malformed framing cases and a deliberately
+modified disassembly byte were rejected. Report SHA-256:
+`53b31aeeed27509645b500d333c30356a4799eea26c3c13b5d7c36f4568440de`.
+Push and draft PR remain the next publication step at this checkpoint.
 
 ## Requirement audit
 
@@ -69,14 +75,13 @@ publication steps; do not mistake this checkpoint for their result.
 | NFS/TFTP/recovery/debug/maintenance zero-write boot | Each named route classified; old NFS literal preserved as a lead | No reachable zero-write route established; support/reachability kept unknown |
 | Ranked routes and single safest experiment | Report table and pinned later-envelope host-only experiment | Ranking is provisional; no device experiment approved |
 | Reconcile prior map | Five reports read; explicit correction table | Physical target map still unknown |
-| Report CONFIDENCE/UNKNOWN-OFFLINE + handoff/hash | Report and current handoff present | Fresh final integrity receipt/hash and PR pending at this checkpoint |
+| Report CONFIDENCE/UNKNOWN-OFFLINE + handoff/hash | Report, handoff, independently checked packet and validation receipt/hash present | Evidence-integrity checks do not close substantive analysis gaps |
 | Commit + push + PR | Initial and first stock commits pushed | Final commit/push/PR pending |
 
 ## Ordered remaining queue
 
-1. Finish publication verification: independent source/packet byte checks,
-   deterministic regeneration, document links/offsets, fresh report hash; commit,
-   push and open a draft PR that explicitly preserves the incomplete status.
+1. Push the verification increment and open a draft PR that explicitly preserves
+   incomplete status; record its URL/current SHA in this handoff.
 2. Trace the already-captured later `-1-16` flags-4 envelope parser/key selection,
    without extracting private material or executing target code. Decoding 57.23
    would support a version comparison, not installed-57.10 applicability.

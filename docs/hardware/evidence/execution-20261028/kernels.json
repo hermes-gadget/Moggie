@@ -46,14 +46,17 @@
   "size": 1511544,
   "sources": {
     "captured-vmlinux": {
+      "path": "/home/ben/sonos-bench-analysis/vmlinux.raw",
       "sha256": "1c4c3d8eb73dc8aa53628505de429bb062e11349836dfc9eca3ed0c95aa808bc",
       "size": 3078644
     },
     "older-decompressed": {
+      "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed",
       "sha256": "c0a562fa670d1f620c249c8e5857388a575d85fa4fe3f5ce587720719509bf51",
       "size": 1511544
     },
     "older-wrapper": {
+      "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.section",
       "sha256": "d86680f7b4059475541890ed2d1d1cd3013f53d83d9bb17cd76b86e3299729cb",
       "size": 708608
     }

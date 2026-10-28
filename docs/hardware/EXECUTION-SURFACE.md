@@ -193,11 +193,10 @@ risk, not measured success probabilities.
 
 | Rank | Route | Evidence / present verdict | Next proof required |
 |---|---|---|---|
-| 1 | Offline recovery of the already-captured later `-1-16` image | Outer framing and flags-4 payloads located; inner envelope undecoded | Trace the captured envelope parser/key selection without executing payloads or handling private material; compare exact matching installed bytes if available |
-| 2 | Existing runtime volatile hook/service | RAM-backed aliases exist in the old image; no reachable arbitrary-program loader established | Matching build, actual callable hook, privileges, volatile backing and all associated writes |
-| 3 | NFS-root boot | Old kernel wrapper contains `root=/dev/nfs rw ip=on` at `0x5000` | Literal is only a lead; active cmdline use, compiled client support and an exposed selection mechanism remain unknown |
-| 4 | Recovery/maintenance RAM image | Boot sections and updater interfaces exist; no RAM-only loader proved | Recovery entry, signature policy, watchdog and absence of repair/state writes |
-| 5 | TFTP/network boot | Brief supplies only version/echo/test as exposed commands; no loader proved | Captured bootloader implementation and reachable command/automatic mode; no hidden-command or network probing authorized |
+| 1 | Existing runtime volatile hook/service | RAM-backed aliases exist in the old image; no reachable arbitrary-program loader established | Matching build, actual callable hook, privileges, volatile backing and all associated writes |
+| 2 | NFS-root boot | Old kernel wrapper contains `root=/dev/nfs rw ip=on` at `0x5000` | Literal is only a lead; active cmdline use, compiled client support and an exposed selection mechanism remain unknown |
+| 3 | Recovery/maintenance RAM image | Boot sections and updater interfaces exist; no RAM-only loader proved | Recovery entry, signature policy, watchdog and absence of repair/state writes |
+| 4 | TFTP/network boot | Brief supplies only version/echo/test as exposed commands; no loader proved | Captured bootloader implementation and reachable command/automatic mode; no hidden-command or network probing authorized |
 | Exclude as zero-write | `/jffs/Configure`, Configure.dev and official update/install | Persistent hooks, earlier writes and flash/update effects above | These may matter to eventual installation; they do not satisfy this task's zero-write condition |
 | Exclude as stock proof | Moggie chooser/updater | Custom source with persistent metadata and image writes | Already requires replacement-firmware execution |
 
@@ -252,6 +251,19 @@ python3 tools/stock_execution_evidence.py \
   --capture-dir /home/ben/sonos-bench-analysis
 ```
 
+To check the saved packet independently:
+
+```sh
+python3 tools/check_stock_execution_evidence.py \
+  --evidence docs/hardware/evidence/execution-20261028 \
+  --cache build/stock-execution/34.16 \
+  --document docs/hardware/EXECUTION-SURFACE.md
+```
+
+For deterministic comparison, rerun the generator with the same cache and
+`--out build/stock-execution/reproduced`, then add
+`--compare build/stock-execution/reproduced` to the checker. The saved
+[validation receipt](evidence/execution-validation-20261028.txt) records results.
 Evidence-integrity checks verify source bytes, deterministic output and cited
 locations. They cannot prove RE semantics, full signature-chain coverage or
 anything on the speaker. Current results and remaining queue are in the

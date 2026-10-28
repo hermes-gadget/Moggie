@@ -259,7 +259,11 @@ def main():
         ('captured-vmlinux', (args.capture_dir / 'vmlinux.raw').read_bytes(),
          (b'Linux version ', b'fsl,mpc8315erdb', b'mtdparts=')),
     ):
-        kernel_evidence.setdefault('sources', {})[source] = dict(size=len(data), sha256=digest(data))
+        source_path = {'older-wrapper': cache / 'kernel.section',
+                       'older-decompressed': cache / 'kernel.decompressed',
+                       'captured-vmlinux': args.capture_dir / 'vmlinux.raw'}[source]
+        kernel_evidence.setdefault('sources', {})[source] = dict(
+            path=str(source_path), size=len(data), sha256=digest(data))
         for needle in needles:
             pos = data.find(needle)
             if pos < 0:
