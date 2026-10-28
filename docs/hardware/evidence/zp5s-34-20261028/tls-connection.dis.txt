@@ -1,0 +1,86 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x102e2fd8 --stop-address=0x102e310c /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+102e2fd8 <modff@@Base+0x18034>:
+102e2fd8 [file 0x002e2fd8]:	94 21 ff d0 	stwu    r1,-48(r1)
+102e2fdc [file 0x002e2fdc]:	7c 08 02 a6 	mflr    r0
+102e2fe0 [file 0x002e2fe0]:	93 c1 00 28 	stw     r30,40(r1)
+102e2fe4 [file 0x002e2fe4]:	7c 7e 1b 78 	mr      r30,r3
+102e2fe8 [file 0x002e2fe8]:	93 e1 00 2c 	stw     r31,44(r1)
+102e2fec [file 0x002e2fec]:	38 61 00 08 	addi    r3,r1,8
+102e2ff0 [file 0x002e2ff0]:	7c 9f 23 78 	mr      r31,r4
+102e2ff4 [file 0x002e2ff4]:	93 61 00 1c 	stw     r27,28(r1)
+102e2ff8 [file 0x002e2ff8]:	93 81 00 20 	stw     r28,32(r1)
+102e2ffc [file 0x002e2ffc]:	7c bb 2b 78 	mr      r27,r5
+102e3000 [file 0x002e3000]:	90 01 00 34 	stw     r0,52(r1)
+102e3004 [file 0x002e3004]:	3b 81 00 08 	addi    r28,r1,8
+102e3008 [file 0x002e3008]:	93 a1 00 24 	stw     r29,36(r1)
+102e300c [file 0x002e300c]:	4b ff ff b5 	bl      102e2fc0 <modff@@Base+0x1801c>
+102e3010 [file 0x002e3010]:	38 60 00 b8 	li      r3,184
+102e3014 [file 0x002e3014]:	48 11 31 5d 	bl      103f6170 <malloc@plt>
+102e3018 [file 0x002e3018]:	2f 83 00 00 	cmpwi   cr7,r3,0
+102e301c [file 0x002e301c]:	90 61 00 0c 	stw     r3,12(r1)
+102e3020 [file 0x002e3020]:	41 9e 00 90 	beq     cr7,102e30b0 <modff@@Base+0x1810c>
+102e3024 [file 0x002e3024]:	48 11 31 1d 	bl      103f6140 <mbedtls_ssl_init@plt>
+102e3028 [file 0x002e3028]:	7f e3 fb 78 	mr      r3,r31
+102e302c [file 0x002e302c]:	4b ff 38 49 	bl      102d6874 <modff@@Base+0xb8d0>
+102e3030 [file 0x002e3030]:	80 1f 00 58 	lwz     r0,88(r31)
+102e3034 [file 0x002e3034]:	7f e3 fb 78 	mr      r3,r31
+102e3038 [file 0x002e3038]:	2f 80 00 00 	cmpwi   cr7,r0,0
+102e303c [file 0x002e303c]:	7c 04 03 78 	mr      r4,r0
+102e3040 [file 0x002e3040]:	41 9e 00 6c 	beq     cr7,102e30ac <modff@@Base+0x18108>
+102e3044 [file 0x002e3044]:	80 61 00 0c 	lwz     r3,12(r1)
+102e3048 [file 0x002e3048]:	48 11 2f 01 	bl      103f5f48 <mbedtls_ssl_setup@plt>
+102e304c [file 0x002e304c]:	7c 7d 1b 78 	mr      r29,r3
+102e3050 [file 0x002e3050]:	7f e3 fb 78 	mr      r3,r31
+102e3054 [file 0x002e3054]:	4b ff 38 41 	bl      102d6894 <modff@@Base+0xb8f0>
+102e3058 [file 0x002e3058]:	2f 9d 00 00 	cmpwi   cr7,r29,0
+102e305c [file 0x002e305c]:	3c 60 10 39 	lis     r3,4153
+102e3060 [file 0x002e3060]:	3c a0 10 39 	lis     r5,4153
+102e3064 [file 0x002e3064]:	38 63 aa 88 	addi    r3,r3,-21880
+102e3068 [file 0x002e3068]:	38 a5 aa bc 	addi    r5,r5,-21828
+102e306c [file 0x002e306c]:	7c dd 00 d0 	neg     r6,r29
+102e3070 [file 0x002e3070]:	38 80 00 00 	li      r4,0
+102e3074 [file 0x002e3074]:	40 9e 00 8c 	bne     cr7,102e3100 <modff@@Base+0x1815c>
+102e3078 [file 0x002e3078]:	93 61 00 08 	stw     r27,8(r1)
+102e307c [file 0x002e307c]:	c8 01 00 08 	lfd     f0,8(r1)
+102e3080 [file 0x002e3080]:	7f c3 f3 78 	mr      r3,r30
+102e3084 [file 0x002e3084]:	80 01 00 34 	lwz     r0,52(r1)
+102e3088 [file 0x002e3088]:	d8 1e 00 00 	stfd    f0,0(r30)
+102e308c [file 0x002e308c]:	83 61 00 1c 	lwz     r27,28(r1)
+102e3090 [file 0x002e3090]:	7c 08 03 a6 	mtlr    r0
+102e3094 [file 0x002e3094]:	83 81 00 20 	lwz     r28,32(r1)
+102e3098 [file 0x002e3098]:	83 a1 00 24 	lwz     r29,36(r1)
+102e309c [file 0x002e309c]:	83 c1 00 28 	lwz     r30,40(r1)
+102e30a0 [file 0x002e30a0]:	83 e1 00 2c 	lwz     r31,44(r1)
+102e30a4 [file 0x002e30a4]:	38 21 00 30 	addi    r1,r1,48
+102e30a8 [file 0x002e30a8]:	4e 80 00 20 	blr
+102e30ac [file 0x002e30ac]:	4b ff 37 e9 	bl      102d6894 <modff@@Base+0xb8f0>
+102e30b0 [file 0x002e30b0]:	80 7c 00 04 	lwz     r3,4(r28)
+102e30b4 [file 0x002e30b4]:	2f 83 00 00 	cmpwi   cr7,r3,0
+102e30b8 [file 0x002e30b8]:	41 9e ff c4 	beq     cr7,102e307c <modff@@Base+0x180d8>
+102e30bc [file 0x002e30bc]:	48 11 2e c5 	bl      103f5f80 <mbedtls_ssl_free@plt>
+102e30c0 [file 0x002e30c0]:	80 7c 00 04 	lwz     r3,4(r28)
+102e30c4 [file 0x002e30c4]:	48 11 36 15 	bl      103f66d8 <free@plt>
+102e30c8 [file 0x002e30c8]:	38 00 00 00 	li      r0,0
+102e30cc [file 0x002e30cc]:	90 1c 00 04 	stw     r0,4(r28)
+102e30d0 [file 0x002e30d0]:	7f c3 f3 78 	mr      r3,r30
+102e30d4 [file 0x002e30d4]:	c8 01 00 08 	lfd     f0,8(r1)
+102e30d8 [file 0x002e30d8]:	80 01 00 34 	lwz     r0,52(r1)
+102e30dc [file 0x002e30dc]:	d8 1e 00 00 	stfd    f0,0(r30)
+102e30e0 [file 0x002e30e0]:	83 61 00 1c 	lwz     r27,28(r1)
+102e30e4 [file 0x002e30e4]:	7c 08 03 a6 	mtlr    r0
+102e30e8 [file 0x002e30e8]:	83 81 00 20 	lwz     r28,32(r1)
+102e30ec [file 0x002e30ec]:	83 a1 00 24 	lwz     r29,36(r1)
+102e30f0 [file 0x002e30f0]:	83 c1 00 28 	lwz     r30,40(r1)
+102e30f4 [file 0x002e30f4]:	83 e1 00 2c 	lwz     r31,44(r1)
+102e30f8 [file 0x002e30f8]:	38 21 00 30 	addi    r1,r1,48
+102e30fc [file 0x002e30fc]:	4e 80 00 20 	blr
+102e3100 [file 0x002e3100]:	4c c6 31 82 	crclr   4*cr1+eq
+102e3104 [file 0x002e3104]:	48 00 31 d9 	bl      102e62dc <modff@@Base+0x1b338>
+102e3108 [file 0x002e3108]:	4b ff ff a8 	b       102e30b0 <modff@@Base+0x1810c>

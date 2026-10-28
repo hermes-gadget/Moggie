@@ -1,0 +1,157 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x102e2d70 --stop-address=0x102e2fc0 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+102e2d70 <modff@@Base+0x17dcc>:
+102e2d70 [file 0x002e2d70]:	94 21 ff e0 	stwu    r1,-32(r1)
+102e2d74 [file 0x002e2d74]:	7c 08 02 a6 	mflr    r0
+102e2d78 [file 0x002e2d78]:	93 a1 00 14 	stw     r29,20(r1)
+102e2d7c [file 0x002e2d7c]:	7c 9d 23 78 	mr      r29,r4
+102e2d80 [file 0x002e2d80]:	93 e1 00 1c 	stw     r31,28(r1)
+102e2d84 [file 0x002e2d84]:	7c 7f 1b 78 	mr      r31,r3
+102e2d88 [file 0x002e2d88]:	93 81 00 10 	stw     r28,16(r1)
+102e2d8c [file 0x002e2d8c]:	93 c1 00 18 	stw     r30,24(r1)
+102e2d90 [file 0x002e2d90]:	90 01 00 24 	stw     r0,36(r1)
+102e2d94 [file 0x002e2d94]:	4b ff 3a e1 	bl      102d6874 <modff@@Base+0xb8d0>
+102e2d98 [file 0x002e2d98]:	2f 9d 00 00 	cmpwi   cr7,r29,0
+102e2d9c [file 0x002e2d9c]:	3b a0 00 00 	li      r29,0
+102e2da0 [file 0x002e2da0]:	40 9e 00 10 	bne     cr7,102e2db0 <modff@@Base+0x17e0c>
+102e2da4 [file 0x002e2da4]:	80 1f 00 58 	lwz     r0,88(r31)
+102e2da8 [file 0x002e2da8]:	2f 80 00 00 	cmpwi   cr7,r0,0
+102e2dac [file 0x002e2dac]:	40 9e 01 18 	bne     cr7,102e2ec4 <modff@@Base+0x17f20>
+102e2db0 [file 0x002e2db0]:	38 60 00 60 	li      r3,96
+102e2db4 [file 0x002e2db4]:	48 11 33 bd 	bl      103f6170 <malloc@plt>
+102e2db8 [file 0x002e2db8]:	2f 83 00 00 	cmpwi   cr7,r3,0
+102e2dbc [file 0x002e2dbc]:	90 7f 00 58 	stw     r3,88(r31)
+102e2dc0 [file 0x002e2dc0]:	41 9e 01 30 	beq     cr7,102e2ef0 <modff@@Base+0x17f4c>
+102e2dc4 [file 0x002e2dc4]:	48 11 32 75 	bl      103f6038 <mbedtls_ssl_config_init@plt>
+102e2dc8 [file 0x002e2dc8]:	80 7f 00 58 	lwz     r3,88(r31)
+102e2dcc [file 0x002e2dcc]:	38 80 00 01 	li      r4,1
+102e2dd0 [file 0x002e2dd0]:	38 a0 00 00 	li      r5,0
+102e2dd4 [file 0x002e2dd4]:	38 c0 00 00 	li      r6,0
+102e2dd8 [file 0x002e2dd8]:	48 11 39 c9 	bl      103f67a0 <mbedtls_ssl_config_defaults@plt>
+102e2ddc [file 0x002e2ddc]:	2f 83 00 00 	cmpwi   cr7,r3,0
+102e2de0 [file 0x002e2de0]:	40 9e 01 10 	bne     cr7,102e2ef0 <modff@@Base+0x17f4c>
+102e2de4 [file 0x002e2de4]:	80 7f 00 58 	lwz     r3,88(r31)
+102e2de8 [file 0x002e2de8]:	38 80 00 00 	li      r4,0
+102e2dec [file 0x002e2dec]:	48 11 39 15 	bl      103f6700 <mbedtls_ssl_conf_authmode@plt>
+102e2df0 [file 0x002e2df0]:	80 7f 00 58 	lwz     r3,88(r31)
+102e2df4 [file 0x002e2df4]:	38 80 00 03 	li      r4,3
+102e2df8 [file 0x002e2df8]:	38 a0 00 03 	li      r5,3
+102e2dfc [file 0x002e2dfc]:	48 11 32 45 	bl      103f6040 <mbedtls_ssl_conf_max_version@plt>
+102e2e00 [file 0x002e2e00]:	80 7f 00 58 	lwz     r3,88(r31)
+102e2e04 [file 0x002e2e04]:	38 80 00 03 	li      r4,3
+102e2e08 [file 0x002e2e08]:	38 a0 00 01 	li      r5,1
+102e2e0c [file 0x002e2e0c]:	48 11 2f c5 	bl      103f5dd0 <mbedtls_ssl_conf_min_version@plt>
+102e2e10 [file 0x002e2e10]:	38 60 01 38 	li      r3,312
+102e2e14 [file 0x002e2e14]:	48 11 33 5d 	bl      103f6170 <malloc@plt>
+102e2e18 [file 0x002e2e18]:	2f 83 00 00 	cmpwi   cr7,r3,0
+102e2e1c [file 0x002e2e1c]:	90 7f 00 5c 	stw     r3,92(r31)
+102e2e20 [file 0x002e2e20]:	41 9e 00 d0 	beq     cr7,102e2ef0 <modff@@Base+0x17f4c>
+102e2e24 [file 0x002e2e24]:	48 11 38 95 	bl      103f66b8 <mbedtls_x509_crt_init@plt>
+102e2e28 [file 0x002e2e28]:	38 60 00 08 	li      r3,8
+102e2e2c [file 0x002e2e2c]:	48 11 33 45 	bl      103f6170 <malloc@plt>
+102e2e30 [file 0x002e2e30]:	2f 83 00 00 	cmpwi   cr7,r3,0
+102e2e34 [file 0x002e2e34]:	90 7f 00 60 	stw     r3,96(r31)
+102e2e38 [file 0x002e2e38]:	41 9e 00 b8 	beq     cr7,102e2ef0 <modff@@Base+0x17f4c>
+102e2e3c [file 0x002e2e3c]:	48 11 39 fd 	bl      103f6838 <mbedtls_pk_init@plt>
+102e2e40 [file 0x002e2e40]:	80 7f 00 58 	lwz     r3,88(r31)
+102e2e44 [file 0x002e2e44]:	48 11 31 a5 	bl      103f5fe8 <ZZ0111@plt>
+102e2e48 [file 0x002e2e48]:	38 00 00 01 	li      r0,1
+102e2e4c [file 0x002e2e4c]:	2f 80 00 00 	cmpwi   cr7,r0,0
+102e2e50 [file 0x002e2e50]:	7c 1d 03 78 	mr      r29,r0
+102e2e54 [file 0x002e2e54]:	41 9e 00 70 	beq     cr7,102e2ec4 <modff@@Base+0x17f20>
+102e2e58 [file 0x002e2e58]:	80 1f 00 48 	lwz     r0,72(r31)
+102e2e5c [file 0x002e2e5c]:	3b a0 00 00 	li      r29,0
+102e2e60 [file 0x002e2e60]:	2f 80 00 00 	cmpwi   cr7,r0,0
+102e2e64 [file 0x002e2e64]:	40 9e 00 9c 	bne     cr7,102e2f00 <modff@@Base+0x17f5c>
+102e2e68 [file 0x002e2e68]:	80 1f 00 4c 	lwz     r0,76(r31)
+102e2e6c [file 0x002e2e6c]:	2f 80 00 00 	cmpwi   cr7,r0,0
+102e2e70 [file 0x002e2e70]:	40 9e 00 ac 	bne     cr7,102e2f1c <modff@@Base+0x17f78>
+102e2e74 [file 0x002e2e74]:	2f 9d 00 00 	cmpwi   cr7,r29,0
+102e2e78 [file 0x002e2e78]:	41 be 00 4c 	beq     cr7,102e2ec4 <modff@@Base+0x17f20>
+102e2e7c [file 0x002e2e7c]:	81 3f 00 5c 	lwz     r9,92(r31)
+102e2e80 [file 0x002e2e80]:	3b c0 00 00 	li      r30,0
+102e2e84 [file 0x002e2e84]:	81 7f 00 60 	lwz     r11,96(r31)
+102e2e88 [file 0x002e2e88]:	3b 80 00 00 	li      r28,0
+102e2e8c [file 0x002e2e8c]:	80 69 00 c0 	lwz     r3,192(r9)
+102e2e90 [file 0x002e2e90]:	80 8b 00 04 	lwz     r4,4(r11)
+102e2e94 [file 0x002e2e94]:	48 11 34 55 	bl      103f62e8 <mbedtls_rsa_check_pub_priv@plt>
+102e2e98 [file 0x002e2e98]:	7c 66 1b 79 	mr.     r6,r3
+102e2e9c [file 0x002e2e9c]:	7f a0 00 26 	mfcr    r29
+102e2ea0 [file 0x002e2ea0]:	40 82 00 dc 	bne     102e2f7c <modff@@Base+0x17fd8>
+102e2ea4 [file 0x002e2ea4]:	57 bd 20 3e 	rotlwi  r29,r29,4
+102e2ea8 [file 0x002e2ea8]:	7f a0 11 20 	mtcrf   1,r29
+102e2eac [file 0x002e2eac]:	57 bd e0 3e 	rotlwi  r29,r29,28
+102e2eb0 [file 0x002e2eb0]:	2c 1e 00 00 	cmpwi   r30,0
+102e2eb4 [file 0x002e2eb4]:	4f de f0 42 	crnot   4*cr7+eq,4*cr7+eq
+102e2eb8 [file 0x002e2eb8]:	40 9e 00 e8 	bne     cr7,102e2fa0 <modff@@Base+0x17ffc>
+102e2ebc [file 0x002e2ebc]:	7f 9d e3 78 	mr      r29,r28
+102e2ec0 [file 0x002e2ec0]:	40 82 00 98 	bne     102e2f58 <modff@@Base+0x17fb4>
+102e2ec4 [file 0x002e2ec4]:	7f e3 fb 78 	mr      r3,r31
+102e2ec8 [file 0x002e2ec8]:	4b ff 39 cd 	bl      102d6894 <modff@@Base+0xb8f0>
+102e2ecc [file 0x002e2ecc]:	80 01 00 24 	lwz     r0,36(r1)
+102e2ed0 [file 0x002e2ed0]:	7f a3 eb 78 	mr      r3,r29
+102e2ed4 [file 0x002e2ed4]:	83 81 00 10 	lwz     r28,16(r1)
+102e2ed8 [file 0x002e2ed8]:	83 a1 00 14 	lwz     r29,20(r1)
+102e2edc [file 0x002e2edc]:	7c 08 03 a6 	mtlr    r0
+102e2ee0 [file 0x002e2ee0]:	83 c1 00 18 	lwz     r30,24(r1)
+102e2ee4 [file 0x002e2ee4]:	83 e1 00 1c 	lwz     r31,28(r1)
+102e2ee8 [file 0x002e2ee8]:	38 21 00 20 	addi    r1,r1,32
+102e2eec [file 0x002e2eec]:	4e 80 00 20 	blr
+102e2ef0 [file 0x002e2ef0]:	7f e3 fb 78 	mr      r3,r31
+102e2ef4 [file 0x002e2ef4]:	4b ff fd 85 	bl      102e2c78 <modff@@Base+0x17cd4>
+102e2ef8 [file 0x002e2ef8]:	38 00 00 00 	li      r0,0
+102e2efc [file 0x002e2efc]:	4b ff ff 50 	b       102e2e4c <modff@@Base+0x17ea8>
+102e2f00 [file 0x002e2f00]:	7f e3 fb 78 	mr      r3,r31
+102e2f04 [file 0x002e2f04]:	7c 08 03 a6 	mtlr    r0
+102e2f08 [file 0x002e2f08]:	4e 80 00 21 	blrl
+102e2f0c [file 0x002e2f0c]:	2f 83 00 00 	cmpwi   cr7,r3,0
+102e2f10 [file 0x002e2f10]:	41 be ff 58 	beq     cr7,102e2e68 <modff@@Base+0x17ec4>
+102e2f14 [file 0x002e2f14]:	3b a0 00 01 	li      r29,1
+102e2f18 [file 0x002e2f18]:	4b ff ff 5c 	b       102e2e74 <modff@@Base+0x17ed0>
+102e2f1c [file 0x002e2f1c]:	7f e3 fb 78 	mr      r3,r31
+102e2f20 [file 0x002e2f20]:	7c 08 03 a6 	mtlr    r0
+102e2f24 [file 0x002e2f24]:	4e 80 00 21 	blrl
+102e2f28 [file 0x002e2f28]:	2f 83 00 00 	cmpwi   cr7,r3,0
+102e2f2c [file 0x002e2f2c]:	41 be ff 48 	beq     cr7,102e2e74 <modff@@Base+0x17ed0>
+102e2f30 [file 0x002e2f30]:	80 1f 00 50 	lwz     r0,80(r31)
+102e2f34 [file 0x002e2f34]:	2f 80 00 00 	cmpwi   cr7,r0,0
+102e2f38 [file 0x002e2f38]:	41 9e ff 3c 	beq     cr7,102e2e74 <modff@@Base+0x17ed0>
+102e2f3c [file 0x002e2f3c]:	7f e3 fb 78 	mr      r3,r31
+102e2f40 [file 0x002e2f40]:	7c 08 03 a6 	mtlr    r0
+102e2f44 [file 0x002e2f44]:	4e 80 00 21 	blrl
+102e2f48 [file 0x002e2f48]:	2f 83 00 00 	cmpwi   cr7,r3,0
+102e2f4c [file 0x002e2f4c]:	41 be ff 28 	beq     cr7,102e2e74 <modff@@Base+0x17ed0>
+102e2f50 [file 0x002e2f50]:	3b a0 00 01 	li      r29,1
+102e2f54 [file 0x002e2f54]:	4b ff ff 20 	b       102e2e74 <modff@@Base+0x17ed0>
+102e2f58 [file 0x002e2f58]:	3c 60 10 39 	lis     r3,4153
+102e2f5c [file 0x002e2f5c]:	3c a0 10 39 	lis     r5,4153
+102e2f60 [file 0x002e2f60]:	38 63 aa 88 	addi    r3,r3,-21880
+102e2f64 [file 0x002e2f64]:	38 a5 aa 94 	addi    r5,r5,-21868
+102e2f68 [file 0x002e2f68]:	7c de 00 d0 	neg     r6,r30
+102e2f6c [file 0x002e2f6c]:	38 80 00 00 	li      r4,0
+102e2f70 [file 0x002e2f70]:	4c c6 31 82 	crclr   4*cr1+eq
+102e2f74 [file 0x002e2f74]:	48 00 33 69 	bl      102e62dc <modff@@Base+0x1b338>
+102e2f78 [file 0x002e2f78]:	4b ff ff 4c 	b       102e2ec4 <modff@@Base+0x17f20>
+102e2f7c [file 0x002e2f7c]:	3c 60 10 39 	lis     r3,4153
+102e2f80 [file 0x002e2f80]:	3c a0 10 39 	lis     r5,4153
+102e2f84 [file 0x002e2f84]:	38 63 aa 88 	addi    r3,r3,-21880
+102e2f88 [file 0x002e2f88]:	38 a5 aa a8 	addi    r5,r5,-21848
+102e2f8c [file 0x002e2f8c]:	7c c6 00 d0 	neg     r6,r6
+102e2f90 [file 0x002e2f90]:	38 80 00 00 	li      r4,0
+102e2f94 [file 0x002e2f94]:	4c c6 31 82 	crclr   4*cr1+eq
+102e2f98 [file 0x002e2f98]:	48 00 33 45 	bl      102e62dc <modff@@Base+0x1b338>
+102e2f9c [file 0x002e2f9c]:	4b ff ff 08 	b       102e2ea4 <modff@@Base+0x17f00>
+102e2fa0 [file 0x002e2fa0]:	80 7f 00 58 	lwz     r3,88(r31)
+102e2fa4 [file 0x002e2fa4]:	80 9f 00 5c 	lwz     r4,92(r31)
+102e2fa8 [file 0x002e2fa8]:	80 bf 00 60 	lwz     r5,96(r31)
+102e2fac [file 0x002e2fac]:	48 11 31 b5 	bl      103f6160 <mbedtls_ssl_conf_own_cert@plt>
+102e2fb0 [file 0x002e2fb0]:	7c 7e 1b 79 	mr.     r30,r3
+102e2fb4 [file 0x002e2fb4]:	40 a2 ff 08 	bne     102e2ebc <modff@@Base+0x17f18>
+102e2fb8 [file 0x002e2fb8]:	3b 80 00 01 	li      r28,1
+102e2fbc [file 0x002e2fbc]:	4b ff ff 00 	b       102e2ebc <modff@@Base+0x17f18>

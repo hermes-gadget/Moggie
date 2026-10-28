@@ -1,0 +1,377 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x15d68 --stop-address=0x16328 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00015d68 <.text+0x110b8>:
+   15d68 [file 0x00015d68]:	00 03 1e 18 	.long 0x31e18
+   15d6c [file 0x00015d6c]:	94 21 ff 20 	stwu    r1,-224(r1)
+   15d70 [file 0x00015d70]:	7c 08 02 a6 	mflr    r0
+   15d74 [file 0x00015d74]:	42 9f 00 05 	bcl     20,4*cr7+so,15d78 <_IO_stdin_used@@Base-0x134b0>
+   15d78 [file 0x00015d78]:	39 40 00 01 	li      r10,1
+   15d7c [file 0x00015d7c]:	be 21 00 a4 	stmw    r17,164(r1)
+   15d80 [file 0x00015d80]:	7f c8 02 a6 	mflr    r30
+   15d84 [file 0x00015d84]:	90 01 00 e4 	stw     r0,228(r1)
+   15d88 [file 0x00015d88]:	39 00 00 0a 	li      r8,10
+   15d8c [file 0x00015d8c]:	80 1e ff f0 	lwz     r0,-16(r30)
+   15d90 [file 0x00015d90]:	7c 77 1b 78 	mr      r23,r3
+   15d94 [file 0x00015d94]:	81 22 8f f8 	lwz     r9,-28680(r2)
+   15d98 [file 0x00015d98]:	91 21 00 9c 	stw     r9,156(r1)
+   15d9c [file 0x00015d9c]:	39 20 00 00 	li      r9,0
+   15da0 [file 0x00015da0]:	91 21 00 1c 	stw     r9,28(r1)
+   15da4 [file 0x00015da4]:	7f c0 f2 14 	add     r30,r0,r30
+   15da8 [file 0x00015da8]:	91 21 00 20 	stw     r9,32(r1)
+   15dac [file 0x00015dac]:	83 fe 80 1c 	lwz     r31,-32740(r30)
+   15db0 [file 0x00015db0]:	7c 9a 23 78 	mr      r26,r4
+   15db4 [file 0x00015db4]:	91 21 00 24 	stw     r9,36(r1)
+   15db8 [file 0x00015db8]:	3b a0 00 00 	li      r29,0
+   15dbc [file 0x00015dbc]:	91 5f 00 04 	stw     r10,4(r31)
+   15dc0 [file 0x00015dc0]:	3b 60 00 01 	li      r27,1
+   15dc4 [file 0x00015dc4]:	91 21 00 28 	stw     r9,40(r1)
+   15dc8 [file 0x00015dc8]:	3a c0 00 00 	li      r22,0
+   15dcc [file 0x00015dcc]:	91 21 00 2c 	stw     r9,44(r1)
+   15dd0 [file 0x00015dd0]:	3b 20 00 01 	li      r25,1
+   15dd4 [file 0x00015dd4]:	91 3f 00 00 	stw     r9,0(r31)
+   15dd8 [file 0x00015dd8]:	7f f8 fb 78 	mr      r24,r31
+   15ddc [file 0x00015ddc]:	91 3f 00 94 	stw     r9,148(r31)
+   15de0 [file 0x00015de0]:	3a a0 00 00 	li      r21,0
+   15de4 [file 0x00015de4]:	91 3f 00 9c 	stw     r9,156(r31)
+   15de8 [file 0x00015de8]:	91 3f 00 60 	stw     r9,96(r31)
+   15dec [file 0x00015dec]:	91 3f 00 64 	stw     r9,100(r31)
+   15df0 [file 0x00015df0]:	91 3f 00 68 	stw     r9,104(r31)
+   15df4 [file 0x00015df4]:	83 9e 80 44 	lwz     r28,-32700(r30)
+   15df8 [file 0x00015df8]:	91 1f 00 78 	stw     r8,120(r31)
+   15dfc [file 0x00015dfc]:	81 1e 80 14 	lwz     r8,-32748(r30)
+   15e00 [file 0x00015e00]:	91 5c 00 0c 	stw     r10,12(r28)
+   15e04 [file 0x00015e04]:	39 40 60 00 	li      r10,24576
+   15e08 [file 0x00015e08]:	91 3f 00 6c 	stw     r9,108(r31)
+   15e0c [file 0x00015e0c]:	91 3f 00 70 	stw     r9,112(r31)
+   15e10 [file 0x00015e10]:	91 3f 00 74 	stw     r9,116(r31)
+   15e14 [file 0x00015e14]:	91 3f 00 5c 	stw     r9,92(r31)
+   15e18 [file 0x00015e18]:	91 3f 00 30 	stw     r9,48(r31)
+   15e1c [file 0x00015e1c]:	91 3f 00 7c 	stw     r9,124(r31)
+   15e20 [file 0x00015e20]:	91 3f 00 80 	stw     r9,128(r31)
+   15e24 [file 0x00015e24]:	91 1f 00 98 	stw     r8,152(r31)
+   15e28 [file 0x00015e28]:	91 5c 00 00 	stw     r10,0(r28)
+   15e2c [file 0x00015e2c]:	91 3c 00 04 	stw     r9,4(r28)
+   15e30 [file 0x00015e30]:	91 3c 00 08 	stw     r9,8(r28)
+   15e34 [file 0x00015e34]:	7f 9b b8 40 	cmplw   cr7,r27,r23
+   15e38 [file 0x00015e38]:	40 9c 02 f0 	bge     cr7,16128 <_IO_stdin_used@@Base-0x13100>
+   15e3c [file 0x00015e3c]:	57 69 10 3a 	slwi    r9,r27,2
+   15e40 [file 0x00015e40]:	7c 9a 48 2e 	lwzx    r4,r26,r9
+   15e44 [file 0x00015e44]:	7c ba 4a 14 	add     r5,r26,r9
+   15e48 [file 0x00015e48]:	89 24 00 00 	lbz     r9,0(r4)
+   15e4c [file 0x00015e4c]:	2f 89 00 2d 	cmpwi   cr7,r9,45
+   15e50 [file 0x00015e50]:	41 be 00 0c 	beq     cr7,15e5c <_IO_stdin_used@@Base-0x133cc>
+   15e54 [file 0x00015e54]:	80 7e 80 48 	lwz     r3,-32696(r30)
+   15e58 [file 0x00015e58]:	48 00 03 20 	b       16178 <_IO_stdin_used@@Base-0x130b0>
+   15e5c [file 0x00015e5c]:	89 24 00 01 	lbz     r9,1(r4)
+   15e60 [file 0x00015e60]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   15e64 [file 0x00015e64]:	41 be ff f0 	beq     cr7,15e54 <_IO_stdin_used@@Base-0x133d4>
+   15e68 [file 0x00015e68]:	39 40 00 00 	li      r10,0
+   15e6c [file 0x00015e6c]:	39 20 00 01 	li      r9,1
+   15e70 [file 0x00015e70]:	81 05 00 00 	lwz     r8,0(r5)
+   15e74 [file 0x00015e74]:	2e 9d 00 00 	cmpwi   cr5,r29,0
+   15e78 [file 0x00015e78]:	2f 8a 00 00 	cmpwi   cr7,r10,0
+   15e7c [file 0x00015e7c]:	7c c8 48 ae 	lbzx    r6,r8,r9
+   15e80 [file 0x00015e80]:	2f 06 00 00 	cmpwi   cr6,r6,0
+   15e84 [file 0x00015e84]:	41 9a 01 00 	beq     cr6,15f84 <_IO_stdin_used@@Base-0x132a4>
+   15e88 [file 0x00015e88]:	40 96 01 20 	bne     cr5,15fa8 <_IO_stdin_used@@Base-0x13280>
+   15e8c [file 0x00015e8c]:	40 9e 01 30 	bne     cr7,15fbc <_IO_stdin_used@@Base-0x1326c>
+   15e90 [file 0x00015e90]:	39 06 ff be 	addi    r8,r6,-66
+   15e94 [file 0x00015e94]:	55 08 06 3e 	clrlwi  r8,r8,24
+   15e98 [file 0x00015e98]:	2b 88 00 35 	cmplwi  cr7,r8,53
+   15e9c [file 0x00015e9c]:	41 9d 00 b4 	bgt     cr7,15f50 <_IO_stdin_used@@Base-0x132d8>
+   15ea0 [file 0x00015ea0]:	80 fe 80 4c 	lwz     r7,-32692(r30)
+   15ea4 [file 0x00015ea4]:	55 08 10 3a 	slwi    r8,r8,2
+   15ea8 [file 0x00015ea8]:	7d 07 40 2e 	lwzx    r8,r7,r8
+   15eac [file 0x00015eac]:	7c e8 3a 14 	add     r7,r8,r7
+   15eb0 [file 0x00015eb0]:	7c e9 03 a6 	mtctr   r7
+   15eb4 [file 0x00015eb4]:	4e 80 04 20 	bctr
+   15eb8 [file 0x00015eb8]:	7f 1d c3 78 	mr      r29,r24
+   15ebc [file 0x00015ebc]:	48 00 00 c0 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15ec0 [file 0x00015ec0]:	3b a1 00 2c 	addi    r29,r1,44
+   15ec4 [file 0x00015ec4]:	48 00 00 b8 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15ec8 [file 0x00015ec8]:	93 3f 00 80 	stw     r25,128(r31)
+   15ecc [file 0x00015ecc]:	48 00 00 b0 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15ed0 [file 0x00015ed0]:	92 df 00 04 	stw     r22,4(r31)
+   15ed4 [file 0x00015ed4]:	48 00 00 a8 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15ed8 [file 0x00015ed8]:	92 dc 00 0c 	stw     r22,12(r28)
+   15edc [file 0x00015edc]:	48 00 00 a0 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15ee0 [file 0x00015ee0]:	39 40 00 01 	li      r10,1
+   15ee4 [file 0x00015ee4]:	48 00 00 98 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15ee8 [file 0x00015ee8]:	83 be 80 38 	lwz     r29,-32712(r30)
+   15eec [file 0x00015eec]:	48 00 00 90 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15ef0 [file 0x00015ef0]:	93 3f 00 60 	stw     r25,96(r31)
+   15ef4 [file 0x00015ef4]:	48 00 00 88 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15ef8 [file 0x00015ef8]:	83 be 80 3c 	lwz     r29,-32708(r30)
+   15efc [file 0x00015efc]:	48 00 00 80 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15f00 [file 0x00015f00]:	3b a1 00 1c 	addi    r29,r1,28
+   15f04 [file 0x00015f04]:	48 00 00 78 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15f08 [file 0x00015f08]:	3b a1 00 20 	addi    r29,r1,32
+   15f0c [file 0x00015f0c]:	48 00 00 70 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15f10 [file 0x00015f10]:	3b a1 00 24 	addi    r29,r1,36
+   15f14 [file 0x00015f14]:	48 00 00 68 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15f18 [file 0x00015f18]:	3b a1 00 28 	addi    r29,r1,40
+   15f1c [file 0x00015f1c]:	48 00 00 60 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15f20 [file 0x00015f20]:	93 3f 00 6c 	stw     r25,108(r31)
+   15f24 [file 0x00015f24]:	48 00 00 58 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15f28 [file 0x00015f28]:	93 3f 00 70 	stw     r25,112(r31)
+   15f2c [file 0x00015f2c]:	48 00 00 50 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15f30 [file 0x00015f30]:	93 3f 00 74 	stw     r25,116(r31)
+   15f34 [file 0x00015f34]:	48 00 00 48 	b       15f7c <_IO_stdin_used@@Base-0x132ac>
+   15f38 [file 0x00015f38]:	80 7a 00 00 	lwz     r3,0(r26)
+   15f3c [file 0x00015f3c]:	4b ff fc 49 	bl      15b84 <_IO_stdin_used@@Base-0x136a4>
+   15f40 [file 0x00015f40]:	48 00 00 08 	b       15f48 <_IO_stdin_used@@Base-0x132e0>
+   15f44 [file 0x00015f44]:	4b ff 2d a1 	bl      8ce4 <_IO_stdin_used@@Base-0x20544>
+   15f48 [file 0x00015f48]:	38 60 00 00 	li      r3,0
+   15f4c [file 0x00015f4c]:	48 02 a4 f1 	bl      4043c <exit@plt>
+   15f50 [file 0x00015f50]:	81 3e 80 10 	lwz     r9,-32752(r30)
+   15f54 [file 0x00015f54]:	38 80 00 01 	li      r4,1
+   15f58 [file 0x00015f58]:	80 be 80 50 	lwz     r5,-32688(r30)
+   15f5c [file 0x00015f5c]:	80 69 00 00 	lwz     r3,0(r9)
+   15f60 [file 0x00015f60]:	4c c6 31 82 	crclr   4*cr1+eq
+   15f64 [file 0x00015f64]:	48 02 a6 09 	bl      4056c <__fprintf_chk@plt>
+   15f68 [file 0x00015f68]:	80 7a 00 00 	lwz     r3,0(r26)
+   15f6c [file 0x00015f6c]:	4b ff fc 19 	bl      15b84 <_IO_stdin_used@@Base-0x136a4>
+   15f70 [file 0x00015f70]:	38 60 00 01 	li      r3,1
+   15f74 [file 0x00015f74]:	4b ff ff d8 	b       15f4c <_IO_stdin_used@@Base-0x132dc>
+   15f78 [file 0x00015f78]:	83 be 80 34 	lwz     r29,-32716(r30)
+   15f7c [file 0x00015f7c]:	39 29 00 01 	addi    r9,r9,1
+   15f80 [file 0x00015f80]:	4b ff fe f0 	b       15e70 <_IO_stdin_used@@Base-0x133b8>
+   15f84 [file 0x00015f84]:	40 b6 00 0c 	bne     cr5,15f90 <_IO_stdin_used@@Base-0x13298>
+   15f88 [file 0x00015f88]:	41 be 01 98 	beq     cr7,16120 <_IO_stdin_used@@Base-0x13108>
+   15f8c [file 0x00015f8c]:	39 40 00 01 	li      r10,1
+   15f90 [file 0x00015f90]:	81 25 00 04 	lwz     r9,4(r5)
+   15f94 [file 0x00015f94]:	3b 7b 00 01 	addi    r27,r27,1
+   15f98 [file 0x00015f98]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   15f9c [file 0x00015f9c]:	40 be 00 14 	bne     cr7,15fb0 <_IO_stdin_used@@Base-0x13278>
+   15fa0 [file 0x00015fa0]:	80 7e 80 54 	lwz     r3,-32684(r30)
+   15fa4 [file 0x00015fa4]:	48 00 01 4c 	b       160f0 <_IO_stdin_used@@Base-0x13138>
+   15fa8 [file 0x00015fa8]:	41 be 01 0c 	beq     cr7,160b4 <_IO_stdin_used@@Base-0x13174>
+   15fac [file 0x00015fac]:	48 00 00 10 	b       15fbc <_IO_stdin_used@@Base-0x1326c>
+   15fb0 [file 0x00015fb0]:	2f 8a 00 00 	cmpwi   cr7,r10,0
+   15fb4 [file 0x00015fb4]:	41 be 00 f8 	beq     cr7,160ac <_IO_stdin_used@@Base-0x1317c>
+   15fb8 [file 0x00015fb8]:	39 20 00 00 	li      r9,0
+   15fbc [file 0x00015fbc]:	81 5f 00 30 	lwz     r10,48(r31)
+   15fc0 [file 0x00015fc0]:	2b 8a 00 09 	cmplwi  cr7,r10,9
+   15fc4 [file 0x00015fc4]:	41 bd 01 5c 	bgt     cr7,16120 <_IO_stdin_used@@Base-0x13108>
+   15fc8 [file 0x00015fc8]:	57 6a 10 3a 	slwi    r10,r27,2
+   15fcc [file 0x00015fcc]:	7c 7a 50 2e 	lwzx    r3,r26,r10
+   15fd0 [file 0x00015fd0]:	7c 63 4a 14 	add     r3,r3,r9
+   15fd4 [file 0x00015fd4]:	4b ff 3d 4d 	bl      9d20 <_IO_stdin_used@@Base-0x1f508>
+   15fd8 [file 0x00015fd8]:	89 23 00 00 	lbz     r9,0(r3)
+   15fdc [file 0x00015fdc]:	7c 72 1b 78 	mr      r18,r3
+   15fe0 [file 0x00015fe0]:	2f 89 00 5b 	cmpwi   cr7,r9,91
+   15fe4 [file 0x00015fe4]:	40 be 00 40 	bne     cr7,16024 <_IO_stdin_used@@Base-0x13204>
+   15fe8 [file 0x00015fe8]:	3a 83 00 01 	addi    r20,r3,1
+   15fec [file 0x00015fec]:	38 80 00 5d 	li      r4,93
+   15ff0 [file 0x00015ff0]:	7e 83 a3 78 	mr      r3,r20
+   15ff4 [file 0x00015ff4]:	48 02 a4 89 	bl      4047c <strchr@plt>
+   15ff8 [file 0x00015ff8]:	7c 69 1b 79 	mr.     r9,r3
+   15ffc [file 0x00015ffc]:	40 a2 00 0c 	bne     16008 <_IO_stdin_used@@Base-0x13220>
+   16000 [file 0x00016000]:	80 7e 80 58 	lwz     r3,-32680(r30)
+   16004 [file 0x00016004]:	48 00 00 ec 	b       160f0 <_IO_stdin_used@@Base-0x13138>
+   16008 [file 0x00016008]:	9a a9 00 00 	stb     r21,0(r9)
+   1600c [file 0x0001600c]:	38 69 00 01 	addi    r3,r9,1
+   16010 [file 0x00016010]:	89 29 00 01 	lbz     r9,1(r9)
+   16014 [file 0x00016014]:	2f 89 00 3a 	cmpwi   cr7,r9,58
+   16018 [file 0x00016018]:	41 be 00 18 	beq     cr7,16030 <_IO_stdin_used@@Base-0x131f8>
+   1601c [file 0x0001601c]:	80 7e 80 5c 	lwz     r3,-32676(r30)
+   16020 [file 0x00016020]:	48 00 00 d0 	b       160f0 <_IO_stdin_used@@Base-0x13138>
+   16024 [file 0x00016024]:	38 80 00 3a 	li      r4,58
+   16028 [file 0x00016028]:	7e 54 93 78 	mr      r20,r18
+   1602c [file 0x0001602c]:	48 02 a5 a1 	bl      405cc <strrchr@plt>
+   16030 [file 0x00016030]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   16034 [file 0x00016034]:	41 9e 00 14 	beq     cr7,16048 <_IO_stdin_used@@Base-0x131e0>
+   16038 [file 0x00016038]:	7e 91 a3 78 	mr      r17,r20
+   1603c [file 0x0001603c]:	9a a3 00 00 	stb     r21,0(r3)
+   16040 [file 0x00016040]:	3a 83 00 01 	addi    r20,r3,1
+   16044 [file 0x00016044]:	48 00 00 08 	b       1604c <_IO_stdin_used@@Base-0x131dc>
+   16048 [file 0x00016048]:	82 3e 80 40 	lwz     r17,-32704(r30)
+   1604c [file 0x0001604c]:	89 34 00 00 	lbz     r9,0(r20)
+   16050 [file 0x00016050]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   16054 [file 0x00016054]:	40 be 00 0c 	bne     cr7,16060 <_IO_stdin_used@@Base-0x131c8>
+   16058 [file 0x00016058]:	80 7e 80 60 	lwz     r3,-32672(r30)
+   1605c [file 0x0001605c]:	48 00 00 94 	b       160f0 <_IO_stdin_used@@Base-0x13138>
+   16060 [file 0x00016060]:	82 7f 00 30 	lwz     r19,48(r31)
+   16064 [file 0x00016064]:	7e 83 a3 78 	mr      r3,r20
+   16068 [file 0x00016068]:	4b ff 3c b9 	bl      9d20 <_IO_stdin_used@@Base-0x1f508>
+   1606c [file 0x0001606c]:	82 9f 00 30 	lwz     r20,48(r31)
+   16070 [file 0x00016070]:	56 73 10 3a 	slwi    r19,r19,2
+   16074 [file 0x00016074]:	3a 94 00 0c 	addi    r20,r20,12
+   16078 [file 0x00016078]:	7e 7f 9a 14 	add     r19,r31,r19
+   1607c [file 0x0001607c]:	56 94 10 3a 	slwi    r20,r20,2
+   16080 [file 0x00016080]:	90 73 00 08 	stw     r3,8(r19)
+   16084 [file 0x00016084]:	7e 23 8b 78 	mr      r3,r17
+   16088 [file 0x00016088]:	4b ff 3c 99 	bl      9d20 <_IO_stdin_used@@Base-0x1f508>
+   1608c [file 0x0001608c]:	81 3f 00 30 	lwz     r9,48(r31)
+   16090 [file 0x00016090]:	7e 9f a2 14 	add     r20,r31,r20
+   16094 [file 0x00016094]:	39 29 00 01 	addi    r9,r9,1
+   16098 [file 0x00016098]:	90 74 00 04 	stw     r3,4(r20)
+   1609c [file 0x0001609c]:	7e 43 93 78 	mr      r3,r18
+   160a0 [file 0x000160a0]:	91 3f 00 30 	stw     r9,48(r31)
+   160a4 [file 0x000160a4]:	48 02 a2 41 	bl      402e4 <free@plt>
+   160a8 [file 0x000160a8]:	48 00 00 78 	b       16120 <_IO_stdin_used@@Base-0x13108>
+   160ac [file 0x000160ac]:	41 96 00 74 	beq     cr5,16120 <_IO_stdin_used@@Base-0x13108>
+   160b0 [file 0x000160b0]:	39 20 00 00 	li      r9,0
+   160b4 [file 0x000160b4]:	57 6a 10 3a 	slwi    r10,r27,2
+   160b8 [file 0x000160b8]:	7c 7a 50 2e 	lwzx    r3,r26,r10
+   160bc [file 0x000160bc]:	7d 23 4a 14 	add     r9,r3,r9
+   160c0 [file 0x000160c0]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   160c4 [file 0x000160c4]:	91 3d 00 00 	stw     r9,0(r29)
+   160c8 [file 0x000160c8]:	40 be 00 0c 	bne     cr7,160d4 <_IO_stdin_used@@Base-0x13154>
+   160cc [file 0x000160cc]:	80 7e 80 64 	lwz     r3,-32668(r30)
+   160d0 [file 0x000160d0]:	48 00 00 20 	b       160f0 <_IO_stdin_used@@Base-0x13138>
+   160d4 [file 0x000160d4]:	80 61 00 2c 	lwz     r3,44(r1)
+   160d8 [file 0x000160d8]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   160dc [file 0x000160dc]:	41 9e 00 40 	beq     cr7,1611c <_IO_stdin_used@@Base-0x1310c>
+   160e0 [file 0x000160e0]:	83 bf 00 90 	lwz     r29,144(r31)
+   160e4 [file 0x000160e4]:	2f 9d 00 02 	cmpwi   cr7,r29,2
+   160e8 [file 0x000160e8]:	40 bd 00 10 	ble     cr7,160f8 <_IO_stdin_used@@Base-0x13130>
+   160ec [file 0x000160ec]:	80 7e 80 68 	lwz     r3,-32664(r30)
+   160f0 [file 0x000160f0]:	4c c6 31 82 	crclr   4*cr1+eq
+   160f4 [file 0x000160f4]:	4b ff 45 0d 	bl      a600 <_IO_stdin_used@@Base-0x1ec28>
+   160f8 [file 0x000160f8]:	4b ff 3c 29 	bl      9d20 <_IO_stdin_used@@Base-0x1f508>
+   160fc [file 0x000160fc]:	3b bd 00 20 	addi    r29,r29,32
+   16100 [file 0x00016100]:	81 38 00 90 	lwz     r9,144(r24)
+   16104 [file 0x00016104]:	57 bd 10 3a 	slwi    r29,r29,2
+   16108 [file 0x00016108]:	7f b8 ea 14 	add     r29,r24,r29
+   1610c [file 0x0001610c]:	92 c1 00 2c 	stw     r22,44(r1)
+   16110 [file 0x00016110]:	39 29 00 01 	addi    r9,r9,1
+   16114 [file 0x00016114]:	90 7d 00 04 	stw     r3,4(r29)
+   16118 [file 0x00016118]:	91 38 00 90 	stw     r9,144(r24)
+   1611c [file 0x0001611c]:	3b a0 00 00 	li      r29,0
+   16120 [file 0x00016120]:	3b 7b 00 01 	addi    r27,r27,1
+   16124 [file 0x00016124]:	4b ff fd 10 	b       15e34 <_IO_stdin_used@@Base-0x133f4>
+   16128 [file 0x00016128]:	81 3f 00 30 	lwz     r9,48(r31)
+   1612c [file 0x0001612c]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   16130 [file 0x00016130]:	40 be 00 24 	bne     cr7,16154 <_IO_stdin_used@@Base-0x130d4>
+   16134 [file 0x00016134]:	80 7e 80 18 	lwz     r3,-32744(r30)
+   16138 [file 0x00016138]:	4b ff 3b e9 	bl      9d20 <_IO_stdin_used@@Base-0x1f508>
+   1613c [file 0x0001613c]:	90 7f 00 08 	stw     r3,8(r31)
+   16140 [file 0x00016140]:	80 7e 80 40 	lwz     r3,-32704(r30)
+   16144 [file 0x00016144]:	4b ff 3b dd 	bl      9d20 <_IO_stdin_used@@Base-0x1f508>
+   16148 [file 0x00016148]:	39 20 00 01 	li      r9,1
+   1614c [file 0x0001614c]:	90 7f 00 34 	stw     r3,52(r31)
+   16150 [file 0x00016150]:	91 3f 00 30 	stw     r9,48(r31)
+   16154 [file 0x00016154]:	80 7f 00 00 	lwz     r3,0(r31)
+   16158 [file 0x00016158]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   1615c [file 0x0001615c]:	41 9e 00 7c 	beq     cr7,161d8 <_IO_stdin_used@@Base-0x13050>
+   16160 [file 0x00016160]:	38 81 00 30 	addi    r4,r1,48
+   16164 [file 0x00016164]:	48 01 2f f9 	bl      2915c <_IO_stdin_used@@Base-0xcc>
+   16168 [file 0x00016168]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   1616c [file 0x0001616c]:	41 be 00 14 	beq     cr7,16180 <_IO_stdin_used@@Base-0x130a8>
+   16170 [file 0x00016170]:	80 9f 00 00 	lwz     r4,0(r31)
+   16174 [file 0x00016174]:	80 7e 80 6c 	lwz     r3,-32660(r30)
+   16178 [file 0x00016178]:	4c c6 31 82 	crclr   4*cr1+eq
+   1617c [file 0x0001617c]:	4b ff 44 85 	bl      a600 <_IO_stdin_used@@Base-0x1ec28>
+   16180 [file 0x00016180]:	81 21 00 60 	lwz     r9,96(r1)
+   16184 [file 0x00016184]:	80 61 00 64 	lwz     r3,100(r1)
+   16188 [file 0x00016188]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   1618c [file 0x0001618c]:	41 9d 00 10 	bgt     cr7,1619c <_IO_stdin_used@@Base-0x1308c>
+   16190 [file 0x00016190]:	40 be 00 18 	bne     cr7,161a8 <_IO_stdin_used@@Base-0x13080>
+   16194 [file 0x00016194]:	2b 83 07 d0 	cmplwi  cr7,r3,2000
+   16198 [file 0x00016198]:	40 bd 00 10 	ble     cr7,161a8 <_IO_stdin_used@@Base-0x13080>
+   1619c [file 0x0001619c]:	38 80 07 d0 	li      r4,2000
+   161a0 [file 0x000161a0]:	80 7e 80 70 	lwz     r3,-32656(r30)
+   161a4 [file 0x000161a4]:	4b ff ff d4 	b       16178 <_IO_stdin_used@@Base-0x130b0>
+   161a8 [file 0x000161a8]:	4b fe f1 31 	bl      52d8 <_IO_stdin_used@@Base-0x23f50>
+   161ac [file 0x000161ac]:	80 9f 00 00 	lwz     r4,0(r31)
+   161b0 [file 0x000161b0]:	90 7f 00 94 	stw     r3,148(r31)
+   161b4 [file 0x000161b4]:	4b ff 48 1d 	bl      a9d0 <_IO_stdin_used@@Base-0x1e858>
+   161b8 [file 0x000161b8]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   161bc [file 0x000161bc]:	41 be 00 10 	beq     cr7,161cc <_IO_stdin_used@@Base-0x1305c>
+   161c0 [file 0x000161c0]:	80 9f 00 00 	lwz     r4,0(r31)
+   161c4 [file 0x000161c4]:	80 7e 80 74 	lwz     r3,-32652(r30)
+   161c8 [file 0x000161c8]:	4b ff ff b0 	b       16178 <_IO_stdin_used@@Base-0x130b0>
+   161cc [file 0x000161cc]:	80 7f 00 94 	lwz     r3,148(r31)
+   161d0 [file 0x000161d0]:	38 80 00 00 	li      r4,0
+   161d4 [file 0x000161d4]:	4b fe f3 21 	bl      54f4 <_IO_stdin_used@@Base-0x23d34>
+   161d8 [file 0x000161d8]:	80 7f 00 64 	lwz     r3,100(r31)
+   161dc [file 0x000161dc]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   161e0 [file 0x000161e0]:	41 9e 00 28 	beq     cr7,16208 <_IO_stdin_used@@Base-0x13020>
+   161e4 [file 0x000161e4]:	48 02 a4 a9 	bl      4068c <getgrnam@plt>
+   161e8 [file 0x000161e8]:	2c 03 00 00 	cmpwi   r3,0
+   161ec [file 0x000161ec]:	41 82 00 10 	beq     161fc <_IO_stdin_used@@Base-0x1302c>
+   161f0 [file 0x000161f0]:	81 23 00 08 	lwz     r9,8(r3)
+   161f4 [file 0x000161f4]:	91 3f 00 68 	stw     r9,104(r31)
+   161f8 [file 0x000161f8]:	48 00 00 10 	b       16208 <_IO_stdin_used@@Base-0x13020>
+   161fc [file 0x000161fc]:	80 9f 00 64 	lwz     r4,100(r31)
+   16200 [file 0x00016200]:	80 7e 80 78 	lwz     r3,-32648(r30)
+   16204 [file 0x00016204]:	4b ff ff 74 	b       16178 <_IO_stdin_used@@Base-0x130b0>
+   16208 [file 0x00016208]:	83 a1 00 1c 	lwz     r29,28(r1)
+   1620c [file 0x0001620c]:	2f 9d 00 00 	cmpwi   cr7,r29,0
+   16210 [file 0x00016210]:	41 9e 00 30 	beq     cr7,16240 <_IO_stdin_used@@Base-0x12fe8>
+   16214 [file 0x00016214]:	7f a3 eb 78 	mr      r3,r29
+   16218 [file 0x00016218]:	48 02 a2 ad 	bl      404c4 <atol@plt>
+   1621c [file 0x0001621c]:	3d 20 00 0f 	lis     r9,15
+   16220 [file 0x00016220]:	90 7c 00 00 	stw     r3,0(r28)
+   16224 [file 0x00016224]:	61 29 ff ff 	ori     r9,r9,65535
+   16228 [file 0x00016228]:	38 63 ff ff 	addi    r3,r3,-1
+   1622c [file 0x0001622c]:	7f 83 48 40 	cmplw   cr7,r3,r9
+   16230 [file 0x00016230]:	40 bd 00 10 	ble     cr7,16240 <_IO_stdin_used@@Base-0x12fe8>
+   16234 [file 0x00016234]:	7f a4 eb 78 	mr      r4,r29
+   16238 [file 0x00016238]:	80 7e 80 7c 	lwz     r3,-32644(r30)
+   1623c [file 0x0001623c]:	4b ff ff 3c 	b       16178 <_IO_stdin_used@@Base-0x130b0>
+   16240 [file 0x00016240]:	83 a1 00 28 	lwz     r29,40(r1)
+   16244 [file 0x00016244]:	2f 9d 00 00 	cmpwi   cr7,r29,0
+   16248 [file 0x00016248]:	41 9e 00 3c 	beq     cr7,16284 <_IO_stdin_used@@Base-0x12fa4>
+   1624c [file 0x0001624c]:	38 81 00 a0 	addi    r4,r1,160
+   16250 [file 0x00016250]:	39 20 00 00 	li      r9,0
+   16254 [file 0x00016254]:	7f a3 eb 78 	mr      r3,r29
+   16258 [file 0x00016258]:	95 24 ff 90 	stwu    r9,-112(r4)
+   1625c [file 0x0001625c]:	4b ff 4a fd 	bl      ad58 <_IO_stdin_used@@Base-0x1e4d0>
+   16260 [file 0x00016260]:	2f 83 ff ff 	cmpwi   cr7,r3,-1
+   16264 [file 0x00016264]:	41 9e 00 10 	beq     cr7,16274 <_IO_stdin_used@@Base-0x12fb4>
+   16268 [file 0x00016268]:	81 21 00 30 	lwz     r9,48(r1)
+   1626c [file 0x0001626c]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   16270 [file 0x00016270]:	40 be 00 10 	bne     cr7,16280 <_IO_stdin_used@@Base-0x12fa8>
+   16274 [file 0x00016274]:	7f a4 eb 78 	mr      r4,r29
+   16278 [file 0x00016278]:	80 7e 80 80 	lwz     r3,-32640(r30)
+   1627c [file 0x0001627c]:	4b ff fe fc 	b       16178 <_IO_stdin_used@@Base-0x130b0>
+   16280 [file 0x00016280]:	91 3f 00 78 	stw     r9,120(r31)
+   16284 [file 0x00016284]:	83 a1 00 20 	lwz     r29,32(r1)
+   16288 [file 0x00016288]:	2f 9d 00 00 	cmpwi   cr7,r29,0
+   1628c [file 0x0001628c]:	41 9e 00 2c 	beq     cr7,162b8 <_IO_stdin_used@@Base-0x12f70>
+   16290 [file 0x00016290]:	38 81 00 30 	addi    r4,r1,48
+   16294 [file 0x00016294]:	7f a3 eb 78 	mr      r3,r29
+   16298 [file 0x00016298]:	4b ff 4a c1 	bl      ad58 <_IO_stdin_used@@Base-0x1e4d0>
+   1629c [file 0x0001629c]:	2f 83 ff ff 	cmpwi   cr7,r3,-1
+   162a0 [file 0x000162a0]:	40 be 00 10 	bne     cr7,162b0 <_IO_stdin_used@@Base-0x12f78>
+   162a4 [file 0x000162a4]:	7f a4 eb 78 	mr      r4,r29
+   162a8 [file 0x000162a8]:	80 7e 80 84 	lwz     r3,-32636(r30)
+   162ac [file 0x000162ac]:	4b ff fe cc 	b       16178 <_IO_stdin_used@@Base-0x130b0>
+   162b0 [file 0x000162b0]:	81 21 00 30 	lwz     r9,48(r1)
+   162b4 [file 0x000162b4]:	91 3c 00 04 	stw     r9,4(r28)
+   162b8 [file 0x000162b8]:	83 a1 00 24 	lwz     r29,36(r1)
+   162bc [file 0x000162bc]:	2f 9d 00 00 	cmpwi   cr7,r29,0
+   162c0 [file 0x000162c0]:	41 9e 00 2c 	beq     cr7,162ec <_IO_stdin_used@@Base-0x12f3c>
+   162c4 [file 0x000162c4]:	38 81 00 30 	addi    r4,r1,48
+   162c8 [file 0x000162c8]:	7f a3 eb 78 	mr      r3,r29
+   162cc [file 0x000162cc]:	4b ff 4a 8d 	bl      ad58 <_IO_stdin_used@@Base-0x1e4d0>
+   162d0 [file 0x000162d0]:	2f 83 ff ff 	cmpwi   cr7,r3,-1
+   162d4 [file 0x000162d4]:	40 be 00 10 	bne     cr7,162e4 <_IO_stdin_used@@Base-0x12f44>
+   162d8 [file 0x000162d8]:	7f a4 eb 78 	mr      r4,r29
+   162dc [file 0x000162dc]:	80 7e 80 88 	lwz     r3,-32632(r30)
+   162e0 [file 0x000162e0]:	4b ff fe 98 	b       16178 <_IO_stdin_used@@Base-0x130b0>
+   162e4 [file 0x000162e4]:	81 21 00 30 	lwz     r9,48(r1)
+   162e8 [file 0x000162e8]:	91 3c 00 08 	stw     r9,8(r28)
+   162ec [file 0x000162ec]:	80 bf 00 9c 	lwz     r5,156(r31)
+   162f0 [file 0x000162f0]:	2f 85 00 00 	cmpwi   cr7,r5,0
+   162f4 [file 0x000162f4]:	41 9e 00 14 	beq     cr7,16308 <_IO_stdin_used@@Base-0x12f20>
+   162f8 [file 0x000162f8]:	80 9e 80 8c 	lwz     r4,-32628(r30)
+   162fc [file 0x000162fc]:	38 60 00 06 	li      r3,6
+   16300 [file 0x00016300]:	4c c6 31 82 	crclr   4*cr1+eq
+   16304 [file 0x00016304]:	4b ff 43 dd 	bl      a6e0 <_IO_stdin_used@@Base-0x1eb48>
+   16308 [file 0x00016308]:	81 21 00 9c 	lwz     r9,156(r1)
+   1630c [file 0x0001630c]:	81 42 8f f8 	lwz     r10,-28680(r2)
+   16310 [file 0x00016310]:	7d 29 52 79 	xor.    r9,r9,r10
+   16314 [file 0x00016314]:	39 40 00 00 	li      r10,0
+   16318 [file 0x00016318]:	41 a2 00 08 	beq     16320 <_IO_stdin_used@@Base-0x12f08>
+   1631c [file 0x0001631c]:	48 02 a0 29 	bl      40344 <__stack_chk_fail@plt>
+   16320 [file 0x00016320]:	39 61 00 e0 	addi    r11,r1,224
+   16324 [file 0x00016324]:	48 01 2d 30 	b       29054 <_IO_stdin_used@@Base-0x1d4>

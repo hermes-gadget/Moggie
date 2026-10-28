@@ -1,0 +1,310 @@
+{
+  "Z": [
+    {
+      "va": "0x10314fec",
+      "file": "0x314fec",
+      "value": "/unlock"
+    },
+    {
+      "va": "0x10314ff4",
+      "file": "0x314ff4",
+      "value": "/unlock.htm"
+    },
+    {
+      "va": "0x10315000",
+      "file": "0x315000",
+      "value": "/devunlock"
+    },
+    {
+      "va": "0x1031500c",
+      "file": "0x31500c",
+      "value": "/mfgunlock"
+    },
+    {
+      "va": "0x10315018",
+      "file": "0x315018",
+      "value": "/devmode"
+    },
+    {
+      "va": "0x10315024",
+      "file": "0x315024",
+      "value": "/testenv"
+    },
+    {
+      "va": "0x1035a924",
+      "file": "0x35a924",
+      "value": "/tmp/device_unlocked_flag"
+    },
+    {
+      "va": "0x1035a940",
+      "file": "0x35a940",
+      "value": "02:"
+    },
+    {
+      "va": "0x1035a95c",
+      "file": "0x35a95c",
+      "value": "confirm="
+    },
+    {
+      "va": "0x1035a968",
+      "file": "0x35a968",
+      "value": "/opt/htdocs_locked"
+    },
+    {
+      "va": "0x1035a97c",
+      "file": "0x35a97c",
+      "value": "/tmp/htdocs_locked"
+    },
+    {
+      "va": "0x1035a990",
+      "file": "0x35a990",
+      "value": "/etc/init.d/inetd start"
+    },
+    {
+      "va": "0x1035aa88",
+      "file": "0x35aa88",
+      "value": "%s/debug/devmode.bin"
+    },
+    {
+      "va": "0x1035aa90",
+      "file": "0x35aa90",
+      "value": "/devmode.bin"
+    },
+    {
+      "va": "0x1035aaa0",
+      "file": "0x35aaa0",
+      "value": "%s/debug"
+    },
+    {
+      "va": "0x1035aaac",
+      "file": "0x35aaac",
+      "value": "/tmp/devmode.tmp.bin"
+    },
+    {
+      "va": "0x1035aac4",
+      "file": "0x35aac4",
+      "value": "<html><head></head><body>Device ID: %s<br /><br /><form action=\"/devmode\" method=\"POST\"><label for=\"statement\">Enter DevMode Code: </label><br /><textarea rows=\"11\" cols=\"80\" name=\"statement\" id=\"statement\"></textarea><br /><br /><button type=\"submit\" name=\"button\" value=\"submit\">Submit</button><br /><br /><button type=\"submit\" name=\"button\" value=\"delete\">Delete</button></form></body></html>"
+    },
+    {
+      "va": "0x10358204",
+      "file": "0x358204",
+      "value": "O_SONOS_CLOUD_API_TEST_ENV"
+    },
+    {
+      "va": "0x10313ec4",
+      "file": "0x313ec4",
+      "value": "OnlineUpdateBaseURL"
+    },
+    {
+      "va": "0x103474d0",
+      "file": "0x3474d0",
+      "value": "/jffs"
+    },
+    {
+      "va": "0x103474d8",
+      "file": "0x3474d8",
+      "value": "/jffs/settings"
+    },
+    {
+      "va": "0x10348344",
+      "file": "0x348344",
+      "value": "syssettings.xml"
+    },
+    {
+      "va": "0x10319d54",
+      "file": "0x319d54",
+      "value": "%s/%s"
+    },
+    {
+      "va": "0x1031f330",
+      "file": "0x31f330",
+      "value": "%s.tmp"
+    },
+    {
+      "va": "0x1033e408",
+      "file": "0x33e408",
+      "value": "%s"
+    },
+    {
+      "va": "0x10385de0",
+      "file": "0x385de0",
+      "value": "/dev/mtd/0"
+    },
+    {
+      "va": "0x1035a22c",
+      "file": "0x35a22c",
+      "value": "%s/%s.%s"
+    },
+    {
+      "va": "0x1035a238",
+      "file": "0x35a238",
+      "value": "private"
+    },
+    {
+      "va": "0x1034b548",
+      "file": "0x34b548",
+      "value": "key"
+    },
+    {
+      "va": "0x1035a240",
+      "file": "0x35a240",
+      "value": "rb"
+    },
+    {
+      "va": "0x103272e4",
+      "file": "0x3272e4",
+      "value": "host"
+    },
+    {
+      "va": "0x10329fd0",
+      "file": "0x329fd0",
+      "value": "%s/%s/%s"
+    },
+    {
+      "va": "0x10346e30",
+      "file": "0x346e30",
+      "value": "regdevicecert"
+    },
+    {
+      "va": "0x103455ec",
+      "file": "0x3455ec",
+      "value": "cert.xml"
+    }
+  ],
+  "ZU": [
+    {
+      "va": "0x2428",
+      "file": "0x2428",
+      "value": "%02X"
+    }
+  ],
+  "ZB": [
+    {
+      "va": "0x1003ba28",
+      "file": "0x3ba28",
+      "value": "login"
+    },
+    {
+      "va": "0x1003bb10",
+      "file": "0x3bb10",
+      "value": "telnetd"
+    },
+    {
+      "va": "0x1003b9f4",
+      "file": "0x3b9f4",
+      "value": "inetd"
+    },
+    {
+      "va": "0x10045758",
+      "file": "0x45758",
+      "value": "/bin/login"
+    },
+    {
+      "va": "0x1004631c",
+      "file": "0x4631c",
+      "value": "f:h:p"
+    },
+    {
+      "va": "0x10046350",
+      "file": "0x46350",
+      "value": "Login incorrect"
+    },
+    {
+      "va": "0x10048164",
+      "file": "0x48164",
+      "value": "Password: "
+    }
+  ],
+  "Z_float64": [
+    {
+      "va": "0x10336f60",
+      "file": "0x336f60",
+      "bytes": "4008000000000000",
+      "value": 3.0
+    },
+    {
+      "va": "0x1035a9e8",
+      "file": "0x35a9e8",
+      "bytes": "4082c00000000000",
+      "value": 600.0
+    }
+  ],
+  "vtables": [
+    {
+      "image": "Z",
+      "va": "0x103480d0",
+      "file": "0x3480d0",
+      "words": [
+        "0x101d0574",
+        "0x101d05ac",
+        "0x101cfa34",
+        "0x101cf234",
+        "0x101cc28c",
+        "0x101cc294",
+        "0x101cbd90",
+        "0x101cf8e4",
+        "0x101cf6b8",
+        "0x101cfaa0",
+        "0x101d0a38",
+        "0x101d05f8",
+        "0x101cf7c8",
+        "0x101cf808",
+        "0x101cf970",
+        "0xfffffff4",
+        "0x0",
+        "0x101d13e8",
+        "0x101d13f0",
+        "0x101d13d0",
+        "0x101d13c8",
+        "0x0"
+      ]
+    },
+    {
+      "image": "Z",
+      "va": "0x1031db34",
+      "file": "0x31db34",
+      "words": [
+        "0x10058ba4"
+      ]
+    },
+    {
+      "image": "ZB",
+      "va": "0x1003bd70",
+      "file": "0x3bd70",
+      "words": [
+        "0x1003b9f4",
+        "0x10019ef4",
+        "0x40000000"
+      ]
+    },
+    {
+      "image": "ZB",
+      "va": "0x1003bdc4",
+      "file": "0x3bdc4",
+      "words": [
+        "0x1003ba28",
+        "0x10021cb4",
+        "0x10000000"
+      ]
+    },
+    {
+      "image": "ZB",
+      "va": "0x1003bf2c",
+      "file": "0x3bf2c",
+      "words": [
+        "0x1003bb10",
+        "0x1001d884",
+        "0x40000000"
+      ]
+    },
+    {
+      "image": "ZB",
+      "va": "0x100590e8",
+      "file": "0x490e8",
+      "words": [
+        "0x10045758",
+        "0x10045764"
+      ]
+    }
+  ]
+}

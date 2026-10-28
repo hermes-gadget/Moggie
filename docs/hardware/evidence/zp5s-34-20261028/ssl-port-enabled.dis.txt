@@ -1,0 +1,17 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x102e10fc --stop-address=0x102e111c /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+102e10fc <modff@@Base+0x16158>:
+102e10fc [file 0x002e10fc]:	2c 03 00 00 	cmpwi   r3,0
+102e1100 [file 0x002e1100]:	38 00 00 00 	li      r0,0
+102e1104 [file 0x002e1104]:	41 82 00 10 	beq     102e1114 <modff@@Base+0x16170>
+102e1108 [file 0x002e1108]:	a0 03 01 32 	lhz     r0,306(r3)
+102e110c [file 0x002e110c]:	7c 00 00 d0 	neg     r0,r0
+102e1110 [file 0x002e1110]:	54 00 0f fe 	srwi    r0,r0,31
+102e1114 [file 0x002e1114]:	7c 03 03 78 	mr      r3,r0
+102e1118 [file 0x002e1118]:	4e 80 00 20 	blr

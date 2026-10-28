@@ -1,0 +1,95 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x12570 --stop-address=0x126c8 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00012570 <.text+0xd8c0>:
+   12570 [file 0x00012570]:	94 21 ff b0 	stwu    r1,-80(r1)
+   12574 [file 0x00012574]:	7c 08 02 a6 	mflr    r0
+   12578 [file 0x00012578]:	be c1 00 28 	stmw    r22,40(r1)
+   1257c [file 0x0001257c]:	90 01 00 54 	stw     r0,84(r1)
+   12580 [file 0x00012580]:	83 a7 00 08 	lwz     r29,8(r7)
+   12584 [file 0x00012584]:	81 22 8f f8 	lwz     r9,-28680(r2)
+   12588 [file 0x00012588]:	91 21 00 1c 	stw     r9,28(r1)
+   1258c [file 0x0001258c]:	39 20 00 00 	li      r9,0
+   12590 [file 0x00012590]:	81 27 00 04 	lwz     r9,4(r7)
+   12594 [file 0x00012594]:	7f bd 48 51 	subf.   r29,r29,r9
+   12598 [file 0x00012598]:	41 82 01 0c 	beq     126a4 <_IO_stdin_used@@Base-0x16b84>
+   1259c [file 0x0001259c]:	3b 81 00 20 	addi    r28,r1,32
+   125a0 [file 0x000125a0]:	7c 77 1b 78 	mr      r23,r3
+   125a4 [file 0x000125a4]:	57 a3 08 3c 	slwi    r3,r29,1
+   125a8 [file 0x000125a8]:	7c fb 3b 78 	mr      r27,r7
+   125ac [file 0x000125ac]:	7c b8 2b 78 	mr      r24,r5
+   125b0 [file 0x000125b0]:	7c da 33 78 	mr      r26,r6
+   125b4 [file 0x000125b4]:	7d 19 43 78 	mr      r25,r8
+   125b8 [file 0x000125b8]:	7c 96 23 78 	mr      r22,r4
+   125bc [file 0x000125bc]:	94 7c ff f8 	stwu    r3,-8(r28)
+   125c0 [file 0x000125c0]:	4b ff 2d 19 	bl      52d8 <_IO_stdin_used@@Base-0x23f50>
+   125c4 [file 0x000125c4]:	7f a4 eb 78 	mr      r4,r29
+   125c8 [file 0x000125c8]:	7c 7f 1b 78 	mr      r31,r3
+   125cc [file 0x000125cc]:	7f 63 db 78 	mr      r3,r27
+   125d0 [file 0x000125d0]:	4b ff 31 15 	bl      56e4 <_IO_stdin_used@@Base-0x23b44>
+   125d4 [file 0x000125d4]:	80 9f 00 0c 	lwz     r4,12(r31)
+   125d8 [file 0x000125d8]:	7c 7b 1b 78 	mr      r27,r3
+   125dc [file 0x000125dc]:	7f e3 fb 78 	mr      r3,r31
+   125e0 [file 0x000125e0]:	4b ff 31 69 	bl      5748 <_IO_stdin_used@@Base-0x23ae0>
+   125e4 [file 0x000125e4]:	7f 86 e3 78 	mr      r6,r28
+   125e8 [file 0x000125e8]:	7c 65 1b 78 	mr      r5,r3
+   125ec [file 0x000125ec]:	7f a4 eb 78 	mr      r4,r29
+   125f0 [file 0x000125f0]:	7f 63 db 78 	mr      r3,r27
+   125f4 [file 0x000125f4]:	48 00 80 91 	bl      1a684 <_IO_stdin_used@@Base-0xeba4>
+   125f8 [file 0x000125f8]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   125fc [file 0x000125fc]:	41 9e 00 0c 	beq     cr7,12608 <_IO_stdin_used@@Base-0x16c20>
+   12600 [file 0x00012600]:	3b a0 ff ff 	li      r29,-1
+   12604 [file 0x00012604]:	48 00 00 90 	b       12694 <_IO_stdin_used@@Base-0x16b94>
+   12608 [file 0x00012608]:	80 81 00 18 	lwz     r4,24(r1)
+   1260c [file 0x0001260c]:	7f e3 fb 78 	mr      r3,r31
+   12610 [file 0x00012610]:	4b ff 2e 85 	bl      5494 <_IO_stdin_used@@Base-0x23d94>
+   12614 [file 0x00012614]:	2f 99 00 00 	cmpwi   cr7,r25,0
+   12618 [file 0x00012618]:	41 9e 00 1c 	beq     cr7,12634 <_IO_stdin_used@@Base-0x16bf4>
+   1261c [file 0x0001261c]:	80 81 00 18 	lwz     r4,24(r1)
+   12620 [file 0x00012620]:	7f e3 fb 78 	mr      r3,r31
+   12624 [file 0x00012624]:	4b ff 30 c1 	bl      56e4 <_IO_stdin_used@@Base-0x23b44>
+   12628 [file 0x00012628]:	80 81 00 18 	lwz     r4,24(r1)
+   1262c [file 0x0001262c]:	4b ff f8 3d 	bl      11e68 <_IO_stdin_used@@Base-0x173c0>
+   12630 [file 0x00012630]:	90 79 00 00 	stw     r3,0(r25)
+   12634 [file 0x00012634]:	80 81 00 18 	lwz     r4,24(r1)
+   12638 [file 0x00012638]:	7f 84 b0 00 	cmpw    cr7,r4,r22
+   1263c [file 0x0001263c]:	40 9e ff c4 	bne     cr7,12600 <_IO_stdin_used@@Base-0x16c28>
+   12640 [file 0x00012640]:	80 9f 00 04 	lwz     r4,4(r31)
+   12644 [file 0x00012644]:	7f e3 fb 78 	mr      r3,r31
+   12648 [file 0x00012648]:	4b ff 30 9d 	bl      56e4 <_IO_stdin_used@@Base-0x23b44>
+   1264c [file 0x0001264c]:	80 bf 00 04 	lwz     r5,4(r31)
+   12650 [file 0x00012650]:	7e e4 bb 78 	mr      r4,r23
+   12654 [file 0x00012654]:	48 02 dc d1 	bl      40324 <memcmp@plt>
+   12658 [file 0x00012658]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   1265c [file 0x0001265c]:	40 9e ff a4 	bne     cr7,12600 <_IO_stdin_used@@Base-0x16c28>
+   12660 [file 0x00012660]:	7f e3 fb 78 	mr      r3,r31
+   12664 [file 0x00012664]:	4b ff 31 45 	bl      57a8 <_IO_stdin_used@@Base-0x23a80>
+   12668 [file 0x00012668]:	7c 7d 1b 78 	mr      r29,r3
+   1266c [file 0x0001266c]:	7c 64 1b 78 	mr      r4,r3
+   12670 [file 0x00012670]:	7f e3 fb 78 	mr      r3,r31
+   12674 [file 0x00012674]:	4b ff 30 71 	bl      56e4 <_IO_stdin_used@@Base-0x23b44>
+   12678 [file 0x00012678]:	7f 9d d0 40 	cmplw   cr7,r29,r26
+   1267c [file 0x0001267c]:	40 9e ff 84 	bne     cr7,12600 <_IO_stdin_used@@Base-0x16c28>
+   12680 [file 0x00012680]:	7f 45 d3 78 	mr      r5,r26
+   12684 [file 0x00012684]:	7f 04 c3 78 	mr      r4,r24
+   12688 [file 0x00012688]:	48 02 dc 9d 	bl      40324 <memcmp@plt>
+   1268c [file 0x0001268c]:	20 63 00 00 	subfic  r3,r3,0
+   12690 [file 0x00012690]:	7f bd e9 10 	subfe   r29,r29,r29
+   12694 [file 0x00012694]:	7f e3 fb 78 	mr      r3,r31
+   12698 [file 0x00012698]:	4b ff 2c ad 	bl      5344 <_IO_stdin_used@@Base-0x23ee4>
+   1269c [file 0x0001269c]:	7f a3 eb 78 	mr      r3,r29
+   126a0 [file 0x000126a0]:	48 00 00 08 	b       126a8 <_IO_stdin_used@@Base-0x16b80>
+   126a4 [file 0x000126a4]:	38 60 ff ff 	li      r3,-1
+   126a8 [file 0x000126a8]:	81 41 00 1c 	lwz     r10,28(r1)
+   126ac [file 0x000126ac]:	81 22 8f f8 	lwz     r9,-28680(r2)
+   126b0 [file 0x000126b0]:	7d 4a 4a 79 	xor.    r10,r10,r9
+   126b4 [file 0x000126b4]:	39 20 00 00 	li      r9,0
+   126b8 [file 0x000126b8]:	41 a2 00 08 	beq     126c0 <_IO_stdin_used@@Base-0x16b68>
+   126bc [file 0x000126bc]:	48 02 dc 89 	bl      40344 <__stack_chk_fail@plt>
+   126c0 [file 0x000126c0]:	39 61 00 50 	addi    r11,r1,80
+   126c4 [file 0x000126c4]:	48 01 69 a4 	b       29068 <_IO_stdin_used@@Base-0x1c0>

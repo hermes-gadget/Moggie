@@ -1,0 +1,27 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x102e2bbc --stop-address=0x102e2c04 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+102e2bbc <modff@@Base+0x17c18>:
+102e2bbc [file 0x002e2bbc]:	7c 08 02 a6 	mflr    r0
+102e2bc0 [file 0x002e2bc0]:	94 21 ff f0 	stwu    r1,-16(r1)
+102e2bc4 [file 0x002e2bc4]:	3c 80 10 39 	lis     r4,4153
+102e2bc8 [file 0x002e2bc8]:	90 01 00 14 	stw     r0,20(r1)
+102e2bcc [file 0x002e2bcc]:	38 00 00 00 	li      r0,0
+102e2bd0 [file 0x002e2bd0]:	90 03 00 54 	stw     r0,84(r3)
+102e2bd4 [file 0x002e2bd4]:	38 84 aa 7c 	addi    r4,r4,-21892
+102e2bd8 [file 0x002e2bd8]:	90 03 00 48 	stw     r0,72(r3)
+102e2bdc [file 0x002e2bdc]:	90 03 00 4c 	stw     r0,76(r3)
+102e2be0 [file 0x002e2be0]:	90 03 00 50 	stw     r0,80(r3)
+102e2be4 [file 0x002e2be4]:	90 03 00 58 	stw     r0,88(r3)
+102e2be8 [file 0x002e2be8]:	90 03 00 5c 	stw     r0,92(r3)
+102e2bec [file 0x002e2bec]:	90 03 00 60 	stw     r0,96(r3)
+102e2bf0 [file 0x002e2bf0]:	4b ff 3c 41 	bl      102d6830 <modff@@Base+0xb88c>
+102e2bf4 [file 0x002e2bf4]:	80 01 00 14 	lwz     r0,20(r1)
+102e2bf8 [file 0x002e2bf8]:	38 21 00 10 	addi    r1,r1,16
+102e2bfc [file 0x002e2bfc]:	7c 08 03 a6 	mtlr    r0
+102e2c00 [file 0x002e2c00]:	4e 80 00 20 	blr

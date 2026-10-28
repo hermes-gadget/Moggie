@@ -1,0 +1,304 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x12f4c --stop-address=0x133e8 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00012f4c <.text+0xe29c>:
+   12f4c [file 0x00012f4c]:	94 21 ff a0 	stwu    r1,-96(r1)
+   12f50 [file 0x00012f50]:	7c 08 02 a6 	mflr    r0
+   12f54 [file 0x00012f54]:	42 9f 00 05 	bcl     20,4*cr7+so,12f58 <_IO_stdin_used@@Base-0x162d0>
+   12f58 [file 0x00012f58]:	be a1 00 34 	stmw    r21,52(r1)
+   12f5c [file 0x00012f5c]:	7f c8 02 a6 	mflr    r30
+   12f60 [file 0x00012f60]:	90 01 00 64 	stw     r0,100(r1)
+   12f64 [file 0x00012f64]:	80 1e ff f0 	lwz     r0,-16(r30)
+   12f68 [file 0x00012f68]:	81 22 8f f8 	lwz     r9,-28680(r2)
+   12f6c [file 0x00012f6c]:	91 21 00 2c 	stw     r9,44(r1)
+   12f70 [file 0x00012f70]:	39 20 00 00 	li      r9,0
+   12f74 [file 0x00012f74]:	7f c0 f2 14 	add     r30,r0,r30
+   12f78 [file 0x00012f78]:	83 fe 80 28 	lwz     r31,-32728(r30)
+   12f7c [file 0x00012f7c]:	7f e3 fb 78 	mr      r3,r31
+   12f80 [file 0x00012f80]:	3b ff ff 38 	addi    r31,r31,-200
+   12f84 [file 0x00012f84]:	4b ff 7e 91 	bl      ae14 <_IO_stdin_used@@Base-0x1e414>
+   12f88 [file 0x00012f88]:	81 3f 00 bc 	lwz     r9,188(r31)
+   12f8c [file 0x00012f8c]:	2f 89 00 01 	cmpwi   cr7,r9,1
+   12f90 [file 0x00012f90]:	41 9e 04 38 	beq     cr7,133c8 <_IO_stdin_used@@Base-0x15e60>
+   12f94 [file 0x00012f94]:	83 be 80 04 	lwz     r29,-32764(r30)
+   12f98 [file 0x00012f98]:	80 7d 00 94 	lwz     r3,148(r29)
+   12f9c [file 0x00012f9c]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   12fa0 [file 0x00012fa0]:	41 9e 00 18 	beq     cr7,12fb8 <_IO_stdin_used@@Base-0x16270>
+   12fa4 [file 0x00012fa4]:	4b ff fc c9 	bl      12c6c <_IO_stdin_used@@Base-0x165bc>
+   12fa8 [file 0x00012fa8]:	80 7d 00 94 	lwz     r3,148(r29)
+   12fac [file 0x00012fac]:	4b ff 23 99 	bl      5344 <_IO_stdin_used@@Base-0x23ee4>
+   12fb0 [file 0x00012fb0]:	39 20 00 00 	li      r9,0
+   12fb4 [file 0x00012fb4]:	91 3d 00 94 	stw     r9,148(r29)
+   12fb8 [file 0x00012fb8]:	80 7f 00 30 	lwz     r3,48(r31)
+   12fbc [file 0x00012fbc]:	38 81 00 1c 	addi    r4,r1,28
+   12fc0 [file 0x00012fc0]:	4b ff 28 25 	bl      57e4 <_IO_stdin_used@@Base-0x23a44>
+   12fc4 [file 0x00012fc4]:	38 81 00 20 	addi    r4,r1,32
+   12fc8 [file 0x00012fc8]:	7c 7a 1b 78 	mr      r26,r3
+   12fcc [file 0x00012fcc]:	80 7f 00 30 	lwz     r3,48(r31)
+   12fd0 [file 0x00012fd0]:	4b ff 28 15 	bl      57e4 <_IO_stdin_used@@Base-0x23a44>
+   12fd4 [file 0x00012fd4]:	38 81 00 24 	addi    r4,r1,36
+   12fd8 [file 0x00012fd8]:	7c 78 1b 78 	mr      r24,r3
+   12fdc [file 0x00012fdc]:	80 7f 00 30 	lwz     r3,48(r31)
+   12fe0 [file 0x00012fe0]:	4b ff 28 05 	bl      57e4 <_IO_stdin_used@@Base-0x23a44>
+   12fe4 [file 0x00012fe4]:	81 21 00 20 	lwz     r9,32(r1)
+   12fe8 [file 0x00012fe8]:	2f 89 00 0e 	cmpwi   cr7,r9,14
+   12fec [file 0x00012fec]:	7c 79 1b 78 	mr      r25,r3
+   12ff0 [file 0x00012ff0]:	41 9e 00 40 	beq     cr7,13030 <_IO_stdin_used@@Base-0x161f8>
+   12ff4 [file 0x00012ff4]:	80 9e 80 2c 	lwz     r4,-32724(r30)
+   12ff8 [file 0x00012ff8]:	38 a0 00 0e 	li      r5,14
+   12ffc [file 0x00012ffc]:	7f 03 c3 78 	mr      r3,r24
+   13000 [file 0x00013000]:	48 02 d6 35 	bl      40634 <strncmp@plt>
+   13004 [file 0x00013004]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   13008 [file 0x00013008]:	41 be 00 28 	beq     cr7,13030 <_IO_stdin_used@@Base-0x161f8>
+   1300c [file 0x0001300c]:	7f 43 d3 78 	mr      r3,r26
+   13010 [file 0x00013010]:	48 02 d2 d5 	bl      402e4 <free@plt>
+   13014 [file 0x00013014]:	7f 03 c3 78 	mr      r3,r24
+   13018 [file 0x00013018]:	48 02 d2 cd 	bl      402e4 <free@plt>
+   1301c [file 0x0001301c]:	7f 23 cb 78 	mr      r3,r25
+   13020 [file 0x00013020]:	48 02 d2 c5 	bl      402e4 <free@plt>
+   13024 [file 0x00013024]:	80 7e 80 30 	lwz     r3,-32720(r30)
+   13028 [file 0x00013028]:	4c c6 31 82 	crclr   4*cr1+eq
+   1302c [file 0x0001302c]:	4b ff 75 d5 	bl      a600 <_IO_stdin_used@@Base-0x1ec28>
+   13030 [file 0x00013030]:	83 81 00 1c 	lwz     r28,28(r1)
+   13034 [file 0x00013034]:	2b 9c 00 64 	cmplwi  cr7,r28,100
+   13038 [file 0x00013038]:	41 9d 02 54 	bgt     cr7,1328c <_IO_stdin_used@@Base-0x15f9c>
+   1303c [file 0x0001303c]:	7f 43 d3 78 	mr      r3,r26
+   13040 [file 0x00013040]:	48 02 d4 55 	bl      40494 <strlen@plt>
+   13044 [file 0x00013044]:	7f 9c 18 00 	cmpw    cr7,r28,r3
+   13048 [file 0x00013048]:	41 be 00 14 	beq     cr7,1305c <_IO_stdin_used@@Base-0x161cc>
+   1304c [file 0x0001304c]:	81 3e 80 1c 	lwz     r9,-32740(r30)
+   13050 [file 0x00013050]:	80 7e 80 34 	lwz     r3,-32716(r30)
+   13054 [file 0x00013054]:	80 89 00 1c 	lwz     r4,28(r9)
+   13058 [file 0x00013058]:	48 00 00 40 	b       13098 <_IO_stdin_used@@Base-0x16190>
+   1305c [file 0x0001305c]:	80 9f 00 b0 	lwz     r4,176(r31)
+   13060 [file 0x00013060]:	7f 43 d3 78 	mr      r3,r26
+   13064 [file 0x00013064]:	2f 84 00 00 	cmpwi   cr7,r4,0
+   13068 [file 0x00013068]:	40 be 00 18 	bne     cr7,13080 <_IO_stdin_used@@Base-0x161a8>
+   1306c [file 0x0001306c]:	4b ff 66 cd 	bl      9738 <_IO_stdin_used@@Base-0x1faf0>
+   13070 [file 0x00013070]:	7f 43 d3 78 	mr      r3,r26
+   13074 [file 0x00013074]:	4b ff 6c ad 	bl      9d20 <_IO_stdin_used@@Base-0x1f508>
+   13078 [file 0x00013078]:	90 7f 00 b0 	stw     r3,176(r31)
+   1307c [file 0x0001307c]:	48 00 00 24 	b       130a0 <_IO_stdin_used@@Base-0x16188>
+   13080 [file 0x00013080]:	48 02 d2 05 	bl      40284 <strcmp@plt>
+   13084 [file 0x00013084]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   13088 [file 0x00013088]:	41 be 00 18 	beq     cr7,130a0 <_IO_stdin_used@@Base-0x16188>
+   1308c [file 0x0001308c]:	81 3e 80 1c 	lwz     r9,-32740(r30)
+   13090 [file 0x00013090]:	80 7e 80 38 	lwz     r3,-32712(r30)
+   13094 [file 0x00013094]:	80 89 00 1c 	lwz     r4,28(r9)
+   13098 [file 0x00013098]:	4c c6 31 82 	crclr   4*cr1+eq
+   1309c [file 0x0001309c]:	4b ff 75 65 	bl      a600 <_IO_stdin_used@@Base-0x1ec28>
+   130a0 [file 0x000130a0]:	81 3f 00 c4 	lwz     r9,196(r31)
+   130a4 [file 0x000130a4]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   130a8 [file 0x000130a8]:	40 9e 01 e4 	bne     cr7,1328c <_IO_stdin_used@@Base-0x15f9c>
+   130ac [file 0x000130ac]:	81 3f 00 e0 	lwz     r9,224(r31)
+   130b0 [file 0x000130b0]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   130b4 [file 0x000130b4]:	40 be 00 20 	bne     cr7,130d4 <_IO_stdin_used@@Base-0x16154>
+   130b8 [file 0x000130b8]:	81 3e 80 1c 	lwz     r9,-32740(r30)
+   130bc [file 0x000130bc]:	38 60 00 04 	li      r3,4
+   130c0 [file 0x000130c0]:	80 9e 80 3c 	lwz     r4,-32708(r30)
+   130c4 [file 0x000130c4]:	80 a9 00 1c 	lwz     r5,28(r9)
+   130c8 [file 0x000130c8]:	4c c6 31 82 	crclr   4*cr1+eq
+   130cc [file 0x000130cc]:	4b ff 76 15 	bl      a6e0 <_IO_stdin_used@@Base-0x1eb48>
+   130d0 [file 0x000130d0]:	48 00 01 50 	b       13220 <_IO_stdin_used@@Base-0x16008>
+   130d4 [file 0x000130d4]:	48 02 d2 a1 	bl      40374 <geteuid@plt>
+   130d8 [file 0x000130d8]:	2c 03 00 00 	cmpwi   r3,0
+   130dc [file 0x000130dc]:	41 82 00 24 	beq     13100 <_IO_stdin_used@@Base-0x16128>
+   130e0 [file 0x000130e0]:	81 3f 00 d0 	lwz     r9,208(r31)
+   130e4 [file 0x000130e4]:	7f 83 48 00 	cmpw    cr7,r3,r9
+   130e8 [file 0x000130e8]:	41 be 00 18 	beq     cr7,13100 <_IO_stdin_used@@Base-0x16128>
+   130ec [file 0x000130ec]:	81 3e 80 1c 	lwz     r9,-32740(r30)
+   130f0 [file 0x000130f0]:	80 bf 00 e0 	lwz     r5,224(r31)
+   130f4 [file 0x000130f4]:	80 c9 00 1c 	lwz     r6,28(r9)
+   130f8 [file 0x000130f8]:	80 9e 80 40 	lwz     r4,-32704(r30)
+   130fc [file 0x000130fc]:	48 00 01 18 	b       13214 <_IO_stdin_used@@Base-0x16014>
+   13100 [file 0x00013100]:	81 3d 00 60 	lwz     r9,96(r29)
+   13104 [file 0x00013104]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   13108 [file 0x00013108]:	41 9e 00 24 	beq     cr7,1312c <_IO_stdin_used@@Base-0x160fc>
+   1310c [file 0x0001310c]:	81 3f 00 d0 	lwz     r9,208(r31)
+   13110 [file 0x00013110]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   13114 [file 0x00013114]:	40 be 00 18 	bne     cr7,1312c <_IO_stdin_used@@Base-0x160fc>
+   13118 [file 0x00013118]:	80 9e 80 44 	lwz     r4,-32700(r30)
+   1311c [file 0x0001311c]:	38 60 00 04 	li      r3,4
+   13120 [file 0x00013120]:	4c c6 31 82 	crclr   4*cr1+eq
+   13124 [file 0x00013124]:	4b ff 75 bd 	bl      a6e0 <_IO_stdin_used@@Base-0x1eb48>
+   13128 [file 0x00013128]:	48 00 00 f8 	b       13220 <_IO_stdin_used@@Base-0x16008>
+   1312c [file 0x0001312c]:	81 3d 00 64 	lwz     r9,100(r29)
+   13130 [file 0x00013130]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   13134 [file 0x00013134]:	41 9e 00 f8 	beq     cr7,1322c <_IO_stdin_used@@Base-0x15ffc>
+   13138 [file 0x00013138]:	3b 61 00 30 	addi    r27,r1,48
+   1313c [file 0x0001313c]:	82 dd 00 68 	lwz     r22,104(r29)
+   13140 [file 0x00013140]:	39 20 00 20 	li      r9,32
+   13144 [file 0x00013144]:	82 ff 00 e0 	lwz     r23,224(r31)
+   13148 [file 0x00013148]:	82 bf 00 d4 	lwz     r21,212(r31)
+   1314c [file 0x0001314c]:	95 3b ff f8 	stwu    r9,-8(r27)
+   13150 [file 0x00013150]:	80 61 00 28 	lwz     r3,40(r1)
+   13154 [file 0x00013154]:	2f 83 04 00 	cmpwi   cr7,r3,1024
+   13158 [file 0x00013158]:	41 9d 00 4c 	bgt     cr7,131a4 <_IO_stdin_used@@Base-0x16084>
+   1315c [file 0x0001315c]:	54 63 10 3a 	slwi    r3,r3,2
+   13160 [file 0x00013160]:	4b ff 6b 29 	bl      9c88 <_IO_stdin_used@@Base-0x1f5a0>
+   13164 [file 0x00013164]:	7f 66 db 78 	mr      r6,r27
+   13168 [file 0x00013168]:	7c 65 1b 78 	mr      r5,r3
+   1316c [file 0x0001316c]:	7c 7c 1b 78 	mr      r28,r3
+   13170 [file 0x00013170]:	7e a4 ab 78 	mr      r4,r21
+   13174 [file 0x00013174]:	7e e3 bb 78 	mr      r3,r23
+   13178 [file 0x00013178]:	48 02 d1 dd 	bl      40354 <getgrouplist@plt>
+   1317c [file 0x0001317c]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   13180 [file 0x00013180]:	40 9c 00 1c 	bge     cr7,1319c <_IO_stdin_used@@Base-0x1608c>
+   13184 [file 0x00013184]:	7f 83 e3 78 	mr      r3,r28
+   13188 [file 0x00013188]:	48 02 d1 5d 	bl      402e4 <free@plt>
+   1318c [file 0x0001318c]:	81 21 00 28 	lwz     r9,40(r1)
+   13190 [file 0x00013190]:	55 29 08 3c 	slwi    r9,r9,1
+   13194 [file 0x00013194]:	91 21 00 28 	stw     r9,40(r1)
+   13198 [file 0x00013198]:	4b ff ff b8 	b       13150 <_IO_stdin_used@@Base-0x160d8>
+   1319c [file 0x0001319c]:	2f 9c 00 00 	cmpwi   cr7,r28,0
+   131a0 [file 0x000131a0]:	40 be 00 1c 	bne     cr7,131bc <_IO_stdin_used@@Base-0x1606c>
+   131a4 [file 0x000131a4]:	80 9e 80 48 	lwz     r4,-32696(r30)
+   131a8 [file 0x000131a8]:	7e e5 bb 78 	mr      r5,r23
+   131ac [file 0x000131ac]:	38 60 00 03 	li      r3,3
+   131b0 [file 0x000131b0]:	4c c6 31 82 	crclr   4*cr1+eq
+   131b4 [file 0x000131b4]:	4b ff 75 2d 	bl      a6e0 <_IO_stdin_used@@Base-0x1eb48>
+   131b8 [file 0x000131b8]:	48 00 00 50 	b       13208 <_IO_stdin_used@@Base-0x16020>
+   131bc [file 0x000131bc]:	81 41 00 28 	lwz     r10,40(r1)
+   131c0 [file 0x000131c0]:	39 1c ff fc 	addi    r8,r28,-4
+   131c4 [file 0x000131c4]:	2f 8a 00 00 	cmpwi   cr7,r10,0
+   131c8 [file 0x000131c8]:	39 2a 00 01 	addi    r9,r10,1
+   131cc [file 0x000131cc]:	40 bc 00 08 	bge     cr7,131d4 <_IO_stdin_used@@Base-0x16054>
+   131d0 [file 0x000131d0]:	39 20 00 01 	li      r9,1
+   131d4 [file 0x000131d4]:	2c 09 00 01 	cmpwi   r9,1
+   131d8 [file 0x000131d8]:	39 29 ff ff 	addi    r9,r9,-1
+   131dc [file 0x000131dc]:	41 82 00 18 	beq     131f4 <_IO_stdin_used@@Base-0x16034>
+   131e0 [file 0x000131e0]:	85 48 00 04 	lwzu    r10,4(r8)
+   131e4 [file 0x000131e4]:	7f 96 50 00 	cmpw    cr7,r22,r10
+   131e8 [file 0x000131e8]:	40 9e ff ec 	bne     cr7,131d4 <_IO_stdin_used@@Base-0x16054>
+   131ec [file 0x000131ec]:	3b 60 00 00 	li      r27,0
+   131f0 [file 0x000131f0]:	48 00 00 08 	b       131f8 <_IO_stdin_used@@Base-0x16030>
+   131f4 [file 0x000131f4]:	3b 60 ff ff 	li      r27,-1
+   131f8 [file 0x000131f8]:	7f 83 e3 78 	mr      r3,r28
+   131fc [file 0x000131fc]:	48 02 d0 e9 	bl      402e4 <free@plt>
+   13200 [file 0x00013200]:	2f 9b ff ff 	cmpwi   cr7,r27,-1
+   13204 [file 0x00013204]:	40 be 00 28 	bne     cr7,1322c <_IO_stdin_used@@Base-0x15ffc>
+   13208 [file 0x00013208]:	80 df 00 e0 	lwz     r6,224(r31)
+   1320c [file 0x0001320c]:	80 bd 00 64 	lwz     r5,100(r29)
+   13210 [file 0x00013210]:	80 9e 80 4c 	lwz     r4,-32692(r30)
+   13214 [file 0x00013214]:	38 60 00 04 	li      r3,4
+   13218 [file 0x00013218]:	4c c6 31 82 	crclr   4*cr1+eq
+   1321c [file 0x0001321c]:	4b ff 74 c5 	bl      a6e0 <_IO_stdin_used@@Base-0x1eb48>
+   13220 [file 0x00013220]:	39 20 00 01 	li      r9,1
+   13224 [file 0x00013224]:	91 3f 00 c4 	stw     r9,196(r31)
+   13228 [file 0x00013228]:	48 00 00 64 	b       1328c <_IO_stdin_used@@Base-0x15f9c>
+   1322c [file 0x0001322c]:	83 9f 00 dc 	lwz     r28,220(r31)
+   13230 [file 0x00013230]:	89 3c 00 00 	lbz     r9,0(r28)
+   13234 [file 0x00013234]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   13238 [file 0x00013238]:	40 9e 00 08 	bne     cr7,13240 <_IO_stdin_used@@Base-0x15fe8>
+   1323c [file 0x0001323c]:	83 9e 80 24 	lwz     r28,-32732(r30)
+   13240 [file 0x00013240]:	48 02 d2 0d 	bl      4044c <setusershell@plt>
+   13244 [file 0x00013244]:	48 02 d0 51 	bl      40294 <getusershell@plt>
+   13248 [file 0x00013248]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   1324c [file 0x0001324c]:	41 9e 00 20 	beq     cr7,1326c <_IO_stdin_used@@Base-0x15fbc>
+   13250 [file 0x00013250]:	7f 84 e3 78 	mr      r4,r28
+   13254 [file 0x00013254]:	48 02 d0 31 	bl      40284 <strcmp@plt>
+   13258 [file 0x00013258]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   1325c [file 0x0001325c]:	40 9e ff e8 	bne     cr7,13244 <_IO_stdin_used@@Base-0x15fe4>
+   13260 [file 0x00013260]:	48 02 d0 a5 	bl      40304 <endusershell@plt>
+   13264 [file 0x00013264]:	3b 80 00 01 	li      r28,1
+   13268 [file 0x00013268]:	48 00 00 28 	b       13290 <_IO_stdin_used@@Base-0x15f98>
+   1326c [file 0x0001326c]:	48 02 d0 99 	bl      40304 <endusershell@plt>
+   13270 [file 0x00013270]:	80 bf 00 e0 	lwz     r5,224(r31)
+   13274 [file 0x00013274]:	80 9e 80 50 	lwz     r4,-32688(r30)
+   13278 [file 0x00013278]:	39 20 00 01 	li      r9,1
+   1327c [file 0x0001327c]:	38 60 00 04 	li      r3,4
+   13280 [file 0x00013280]:	91 3f 00 c4 	stw     r9,196(r31)
+   13284 [file 0x00013284]:	4c c6 31 82 	crclr   4*cr1+eq
+   13288 [file 0x00013288]:	4b ff 74 59 	bl      a6e0 <_IO_stdin_used@@Base-0x1eb48>
+   1328c [file 0x0001328c]:	3b 80 00 00 	li      r28,0
+   13290 [file 0x00013290]:	83 61 00 24 	lwz     r27,36(r1)
+   13294 [file 0x00013294]:	2b 9b 00 04 	cmplwi  cr7,r27,4
+   13298 [file 0x00013298]:	40 be 00 90 	bne     cr7,13328 <_IO_stdin_used@@Base-0x15f00>
+   1329c [file 0x0001329c]:	80 9e 80 54 	lwz     r4,-32684(r30)
+   132a0 [file 0x000132a0]:	38 a0 00 04 	li      r5,4
+   132a4 [file 0x000132a4]:	7f 23 cb 78 	mr      r3,r25
+   132a8 [file 0x000132a8]:	48 02 d3 8d 	bl      40634 <strncmp@plt>
+   132ac [file 0x000132ac]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   132b0 [file 0x000132b0]:	40 9e 00 78 	bne     cr7,13328 <_IO_stdin_used@@Base-0x15f00>
+   132b4 [file 0x000132b4]:	2f 9c 00 00 	cmpwi   cr7,r28,0
+   132b8 [file 0x000132b8]:	41 9e 00 68 	beq     cr7,13320 <_IO_stdin_used@@Base-0x15f08>
+   132bc [file 0x000132bc]:	81 3d 00 74 	lwz     r9,116(r29)
+   132c0 [file 0x000132c0]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   132c4 [file 0x000132c4]:	41 9e 00 5c 	beq     cr7,13320 <_IO_stdin_used@@Base-0x15f08>
+   132c8 [file 0x000132c8]:	81 3d 00 6c 	lwz     r9,108(r29)
+   132cc [file 0x000132cc]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   132d0 [file 0x000132d0]:	40 9e 00 50 	bne     cr7,13320 <_IO_stdin_used@@Base-0x15f08>
+   132d4 [file 0x000132d4]:	81 3d 00 70 	lwz     r9,112(r29)
+   132d8 [file 0x000132d8]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   132dc [file 0x000132dc]:	41 9e 00 10 	beq     cr7,132ec <_IO_stdin_used@@Base-0x15f3c>
+   132e0 [file 0x000132e0]:	81 3f 00 d0 	lwz     r9,208(r31)
+   132e4 [file 0x000132e4]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   132e8 [file 0x000132e8]:	41 9e 00 38 	beq     cr7,13320 <_IO_stdin_used@@Base-0x15f08>
+   132ec [file 0x000132ec]:	81 3f 00 e4 	lwz     r9,228(r31)
+   132f0 [file 0x000132f0]:	89 29 00 00 	lbz     r9,0(r9)
+   132f4 [file 0x000132f4]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   132f8 [file 0x000132f8]:	40 be 00 28 	bne     cr7,13320 <_IO_stdin_used@@Base-0x15f08>
+   132fc [file 0x000132fc]:	81 3e 80 1c 	lwz     r9,-32740(r30)
+   13300 [file 0x00013300]:	38 60 00 05 	li      r3,5
+   13304 [file 0x00013304]:	80 bf 00 e0 	lwz     r5,224(r31)
+   13308 [file 0x00013308]:	80 c9 00 1c 	lwz     r6,28(r9)
+   1330c [file 0x0001330c]:	80 9e 80 58 	lwz     r4,-32680(r30)
+   13310 [file 0x00013310]:	4c c6 31 82 	crclr   4*cr1+eq
+   13314 [file 0x00013314]:	4b ff 73 cd 	bl      a6e0 <_IO_stdin_used@@Base-0x1eb48>
+   13318 [file 0x00013318]:	4b ff fb c1 	bl      12ed8 <_IO_stdin_used@@Base-0x16350>
+   1331c [file 0x0001331c]:	48 00 00 94 	b       133b0 <_IO_stdin_used@@Base-0x15e78>
+   13320 [file 0x00013320]:	38 80 00 00 	li      r4,0
+   13324 [file 0x00013324]:	48 00 00 84 	b       133a8 <_IO_stdin_used@@Base-0x15e80>
+   13328 [file 0x00013328]:	81 3d 00 6c 	lwz     r9,108(r29)
+   1332c [file 0x0001332c]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   13330 [file 0x00013330]:	40 9e 00 48 	bne     cr7,13378 <_IO_stdin_used@@Base-0x15eb0>
+   13334 [file 0x00013334]:	81 3d 00 70 	lwz     r9,112(r29)
+   13338 [file 0x00013338]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   1333c [file 0x0001333c]:	41 9e 00 10 	beq     cr7,1334c <_IO_stdin_used@@Base-0x15edc>
+   13340 [file 0x00013340]:	81 3f 00 d0 	lwz     r9,208(r31)
+   13344 [file 0x00013344]:	2f 89 00 00 	cmpwi   cr7,r9,0
+   13348 [file 0x00013348]:	41 9e 00 30 	beq     cr7,13378 <_IO_stdin_used@@Base-0x15eb0>
+   1334c [file 0x0001334c]:	2b 9b 00 08 	cmplwi  cr7,r27,8
+   13350 [file 0x00013350]:	40 be 00 28 	bne     cr7,13378 <_IO_stdin_used@@Base-0x15eb0>
+   13354 [file 0x00013354]:	80 9e 80 18 	lwz     r4,-32744(r30)
+   13358 [file 0x00013358]:	38 a0 00 08 	li      r5,8
+   1335c [file 0x0001335c]:	7f 23 cb 78 	mr      r3,r25
+   13360 [file 0x00013360]:	48 02 d2 d5 	bl      40634 <strncmp@plt>
+   13364 [file 0x00013364]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   13368 [file 0x00013368]:	40 be 00 3c 	bne     cr7,133a4 <_IO_stdin_used@@Base-0x15e84>
+   1336c [file 0x0001336c]:	7f 83 e3 78 	mr      r3,r28
+   13370 [file 0x00013370]:	48 00 00 7d 	bl      133ec <_IO_stdin_used@@Base-0x15e3c>
+   13374 [file 0x00013374]:	48 00 00 3c 	b       133b0 <_IO_stdin_used@@Base-0x15e78>
+   13378 [file 0x00013378]:	2b 9b 00 09 	cmplwi  cr7,r27,9
+   1337c [file 0x0001337c]:	40 9e 00 28 	bne     cr7,133a4 <_IO_stdin_used@@Base-0x15e84>
+   13380 [file 0x00013380]:	80 9e 80 14 	lwz     r4,-32748(r30)
+   13384 [file 0x00013384]:	38 a0 00 09 	li      r5,9
+   13388 [file 0x00013388]:	7f 23 cb 78 	mr      r3,r25
+   1338c [file 0x0001338c]:	48 02 d2 a9 	bl      40634 <strncmp@plt>
+   13390 [file 0x00013390]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   13394 [file 0x00013394]:	40 be 00 10 	bne     cr7,133a4 <_IO_stdin_used@@Base-0x15e84>
+   13398 [file 0x00013398]:	7f 83 e3 78 	mr      r3,r28
+   1339c [file 0x0001339c]:	48 00 01 f1 	bl      1358c <_IO_stdin_used@@Base-0x15c9c>
+   133a0 [file 0x000133a0]:	48 00 00 10 	b       133b0 <_IO_stdin_used@@Base-0x15e78>
+   133a4 [file 0x000133a4]:	38 80 00 01 	li      r4,1
+   133a8 [file 0x000133a8]:	38 60 00 00 	li      r3,0
+   133ac [file 0x000133ac]:	4b ff f9 29 	bl      12cd4 <_IO_stdin_used@@Base-0x16554>
+   133b0 [file 0x000133b0]:	7f 43 d3 78 	mr      r3,r26
+   133b4 [file 0x000133b4]:	48 02 cf 31 	bl      402e4 <free@plt>
+   133b8 [file 0x000133b8]:	7f 03 c3 78 	mr      r3,r24
+   133bc [file 0x000133bc]:	48 02 cf 29 	bl      402e4 <free@plt>
+   133c0 [file 0x000133c0]:	7f 23 cb 78 	mr      r3,r25
+   133c4 [file 0x000133c4]:	48 02 cf 21 	bl      402e4 <free@plt>
+   133c8 [file 0x000133c8]:	81 21 00 2c 	lwz     r9,44(r1)
+   133cc [file 0x000133cc]:	81 42 8f f8 	lwz     r10,-28680(r2)
+   133d0 [file 0x000133d0]:	7d 29 52 79 	xor.    r9,r9,r10
+   133d4 [file 0x000133d4]:	39 40 00 00 	li      r10,0
+   133d8 [file 0x000133d8]:	41 a2 00 08 	beq     133e0 <_IO_stdin_used@@Base-0x15e48>
+   133dc [file 0x000133dc]:	48 02 cf 69 	bl      40344 <__stack_chk_fail@plt>
+   133e0 [file 0x000133e0]:	39 61 00 60 	addi    r11,r1,96
+   133e4 [file 0x000133e4]:	48 01 5c 80 	b       29064 <_IO_stdin_used@@Base-0x1c4>

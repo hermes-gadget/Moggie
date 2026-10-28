@@ -1,0 +1,31 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x23b8 --stop-address=0x2410 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libflash.so.1
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libflash.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+000023b8 <hal_flash_get_mdp2_wrapper@@Base>:
+    23b8 [file 0x000023b8]:	94 21 ff e0 	stwu    r1,-32(r1)
+    23bc [file 0x000023bc]:	7c 08 02 a6 	mflr    r0
+    23c0 [file 0x000023c0]:	38 80 00 00 	li      r4,0
+    23c4 [file 0x000023c4]:	93 e1 00 1c 	stw     r31,28(r1)
+    23c8 [file 0x000023c8]:	7c 7f 1b 78 	mr      r31,r3
+    23cc [file 0x000023cc]:	38 61 00 08 	addi    r3,r1,8
+    23d0 [file 0x000023d0]:	90 01 00 24 	stw     r0,36(r1)
+    23d4 [file 0x000023d4]:	48 01 16 c9 	bl      13a9c <hal_flash_info_init@plt>
+    23d8 [file 0x000023d8]:	2c 03 00 00 	cmpwi   r3,0
+    23dc [file 0x000023dc]:	40 a2 00 20 	bne     23fc <hal_flash_get_mdp2_wrapper@@Base+0x44>
+    23e0 [file 0x000023e0]:	80 61 00 08 	lwz     r3,8(r1)
+    23e4 [file 0x000023e4]:	7f e4 fb 78 	mr      r4,r31
+    23e8 [file 0x000023e8]:	48 01 16 c5 	bl      13aac <hal_flash_get_mdp2@plt>
+    23ec [file 0x000023ec]:	7c 7f 1b 78 	mr      r31,r3
+    23f0 [file 0x000023f0]:	80 61 00 08 	lwz     r3,8(r1)
+    23f4 [file 0x000023f4]:	48 01 17 01 	bl      13af4 <hal_flash_info_exit@plt>
+    23f8 [file 0x000023f8]:	7f e3 fb 78 	mr      r3,r31
+    23fc [file 0x000023fc]:	80 01 00 24 	lwz     r0,36(r1)
+    2400 [file 0x00002400]:	83 e1 00 1c 	lwz     r31,28(r1)
+    2404 [file 0x00002404]:	7c 08 03 a6 	mtlr    r0
+    2408 [file 0x00002408]:	38 21 00 20 	addi    r1,r1,32
+    240c [file 0x0000240c]:	4e 80 00 20 	blr

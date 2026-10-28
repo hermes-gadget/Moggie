@@ -1,0 +1,29 @@
+$ unsquashfs -s /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section
+Found a valid big endian SQUASHFS 3:0 superblock on /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section.
+Creation or last append time Tue Jan 10 21:24:49 2017
+Filesystem size 4012629 bytes (3918.58 Kbytes / 3.83 Mbytes)
+Block size 65536
+Filesystem is not exportable via NFS
+Inodes are compressed
+Data is compressed
+Fragments are compressed
+Always-use-fragments option is not specified
+Check data is not present in the filesystem
+Duplicates are removed
+Number of fragments 24
+Number of inodes 300
+Number of uids 1
+Number of gids 0
+Reading a different endian SQUASHFS filesystem on /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section
+
+$ unsquashfs -ll /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section usr/sbin/inetd usr/sbin/telnetd bin/login tmp var
+drwxrwxr-x root/root               244 2017-01-10 21:24 squashfs-root
+drwxrwxr-x root/root               522 2017-01-10 21:24 squashfs-root/bin
+lrwxrwxrwx root/root                 7 2017-01-10 21:24 squashfs-root/bin/login -> busybox
+lrwxrwxrwx root/root                12 2017-01-10 21:24 squashfs-root/tmp -> /ramdisk/tmp
+drwxrwxr-x root/root                29 2017-01-10 21:24 squashfs-root/usr
+drwxrwxr-x root/root                94 2017-01-10 21:24 squashfs-root/usr/sbin
+lrwxrwxrwx root/root                17 2017-01-10 21:24 squashfs-root/usr/sbin/inetd -> ../../bin/busybox
+lrwxrwxrwx root/root                17 2017-01-10 21:24 squashfs-root/usr/sbin/telnetd -> ../../bin/busybox
+lrwxrwxrwx root/root                12 2017-01-10 21:24 squashfs-root/var -> /ramdisk/var
+Reading a different endian SQUASHFS filesystem on /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section

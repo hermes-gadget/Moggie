@@ -1,0 +1,82 @@
+{
+  "source": "/home/ben/Moggie/dl/stock-firmware/34.16-37101-1-16.upd",
+  "rootfs_record": {
+    "record_file": "0xadd3f",
+    "type": "0x4",
+    "size": 4014096,
+    "flags": "0x0",
+    "payload_file": "0xadd4f",
+    "payload_size": 4014080,
+    "prefix": "737173680000012c000000000000000000000000000000000000000000030000",
+    "sha256": "4c69dda984a91729933ec8525793135b3acbcb19f0c68e2bad4cb431e26600b9"
+  },
+  "unsquashfs_commands": [
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "opt/bin/anacapad"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "lib/libsonoscrypto.so.1"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "lib/libsonosutils.so.1"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "bin/busybox"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "etc/Configure"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "etc/inittab"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "etc/runanacapa"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "etc/init.d/inetd"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "etc/inetd.conf"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "opt/conf/anacapa.conf"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+      "opt/bin/anacapactl"
+    ]
+  ],
+  "boundary": "Fixed allowlist: no account database, target execution, socket or device access."
+}

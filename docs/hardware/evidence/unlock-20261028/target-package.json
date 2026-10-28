@@ -1,0 +1,18 @@
+{
+  "path": "/home/ben/sonos-bench-analysis/zp5s/57.23-74170-1-16.upd",
+  "size": 5606749,
+  "sha256": "e19a7bb28f2d940346c605ccfcff81f8d9a7dd1771ee991841ac1f9e07223ad4",
+  "signature_scan": {
+    "ELF": [],
+    "gzip": [],
+    "squashfs_LE": [],
+    "squashfs_BE": [],
+    "cramfs_LE": [],
+    "cramfs_BE": [],
+    "uImage": []
+  },
+  "adjacent_files": [
+    "57.23-74170-1-16.upd"
+  ],
+  "limitation": "Magic search does not prove encryption or impossibility of extraction."
+}

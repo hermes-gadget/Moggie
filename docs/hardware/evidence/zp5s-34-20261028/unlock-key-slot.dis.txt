@@ -1,0 +1,44 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x1025d9f4 --stop-address=0x1025da80 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+1025d9f4 <strlcpy@@Base+0xcc2f8>:
+1025d9f4 [file 0x0025d9f4]:	7c 08 02 a6 	mflr    r0
+1025d9f8 [file 0x0025d9f8]:	94 21 ff e0 	stwu    r1,-32(r1)
+1025d9fc [file 0x0025d9fc]:	bf a1 00 14 	stmw    r29,20(r1)
+1025da00 [file 0x0025da00]:	90 01 00 24 	stw     r0,36(r1)
+1025da04 [file 0x0025da04]:	3b e0 00 00 	li      r31,0
+1025da08 [file 0x0025da08]:	80 04 00 00 	lwz     r0,0(r4)
+1025da0c [file 0x0025da0c]:	3d 20 10 41 	lis     r9,4161
+1025da10 [file 0x0025da10]:	93 e1 00 08 	stw     r31,8(r1)
+1025da14 [file 0x0025da14]:	3b e9 34 7c 	addi    r31,r9,13436
+1025da18 [file 0x0025da18]:	2b 80 01 03 	cmplwi  cr7,r0,259
+1025da1c [file 0x0025da1c]:	7c 9e 23 78 	mr      r30,r4
+1025da20 [file 0x0025da20]:	7c 7d 1b 78 	mr      r29,r3
+1025da24 [file 0x0025da24]:	38 81 00 08 	addi    r4,r1,8
+1025da28 [file 0x0025da28]:	38 a0 00 04 	li      r5,4
+1025da2c [file 0x0025da2c]:	7f e3 fb 78 	mr      r3,r31
+1025da30 [file 0x0025da30]:	40 9d 00 1c 	ble     cr7,1025da4c <strlcpy@@Base+0xcc350>
+1025da34 [file 0x0025da34]:	48 19 8a 75 	bl      103f64a8 <memcmp@plt>
+1025da38 [file 0x0025da38]:	7f e4 fb 78 	mr      r4,r31
+1025da3c [file 0x0025da3c]:	2f 83 00 00 	cmpwi   cr7,r3,0
+1025da40 [file 0x0025da40]:	38 a0 01 04 	li      r5,260
+1025da44 [file 0x0025da44]:	7f a3 eb 78 	mr      r3,r29
+1025da48 [file 0x0025da48]:	40 9e 00 14 	bne     cr7,1025da5c <strlcpy@@Base+0xcc360>
+1025da4c [file 0x0025da4c]:	38 00 00 00 	li      r0,0
+1025da50 [file 0x0025da50]:	38 60 00 00 	li      r3,0
+1025da54 [file 0x0025da54]:	90 1e 00 00 	stw     r0,0(r30)
+1025da58 [file 0x0025da58]:	48 00 00 14 	b       1025da6c <strlcpy@@Base+0xcc370>
+1025da5c [file 0x0025da5c]:	48 19 8b 4d 	bl      103f65a8 <memcpy@plt>
+1025da60 [file 0x0025da60]:	38 00 01 04 	li      r0,260
+1025da64 [file 0x0025da64]:	90 1e 00 00 	stw     r0,0(r30)
+1025da68 [file 0x0025da68]:	38 60 00 01 	li      r3,1
+1025da6c [file 0x0025da6c]:	80 01 00 24 	lwz     r0,36(r1)
+1025da70 [file 0x0025da70]:	bb a1 00 14 	lmw     r29,20(r1)
+1025da74 [file 0x0025da74]:	38 21 00 20 	addi    r1,r1,32
+1025da78 [file 0x0025da78]:	7c 08 03 a6 	mtlr    r0
+1025da7c [file 0x0025da7c]:	4e 80 00 20 	blr

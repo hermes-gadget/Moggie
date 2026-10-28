@@ -1,0 +1,86 @@
+# Source: /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/etc/inetd.conf
+# Display only: trailing whitespace stripped; hash covers original bytes.
+   1: # See "man 8 inetd" for more information.
+   2: #
+   3: # If you make changes to this file, either reboot your machine or send the
+   4: # inetd a HUP signal with "/sbin/init.d/inetd reload" or by hand:
+   5: # Do a "ps x" as root and look up the pid of inetd. Then do a
+   6: # "kill -HUP <pid of inetd>".
+   7: # The inetd will re-read this file whenever it gets that signal.
+   8: #
+   9: # <service_name> <sock_type> <proto> <flags> <user> <server_path> <args>
+  10: #
+  11: # echo	stream	tcp	nowait	root	internal
+  12: # echo	dgram	udp	wait	root	internal
+  13: # discard	stream	tcp	nowait	root	internal
+  14: # discard	dgram	udp	wait	root	internal
+  15: # daytime	stream	tcp	nowait	root	internal
+  16: # daytime	dgram	udp	wait	root	internal
+  17: # chargen	stream	tcp	nowait	root	internal
+  18: # chargen	dgram	udp	wait	root	internal
+  19: # time	stream	tcp	nowait	root	internal
+  20: # time	dgram	udp	wait	root	internal
+  21: #
+  22: # These are standard services.
+  23: #
+  24: # ftp	stream	tcp	nowait	root	/usr/sbin/tcpd	wu.ftpd -a
+  25: # ftp	stream	tcp	nowait	root	/usr/sbin/tcpd	proftpd
+  26: # ftp	stream	tcp	nowait	root	/usr/sbin/tcpd	in.ftpd
+  27: # ftp	stream	tcp	nowait	root	/usr/sbin/in.ftpd	in.ftpd
+  28: #
+  29: # If you want telnetd not to "keep-alives" (e.g. if it runs over a ISDN
+  30: # uplink), add "-n".  See 'man telnetd' for more details.
+  31: telnet	stream  tcp     nowait  root    /usr/sbin/telnetd	telnetd
+  32: # smtp	stream  tcp     nowait  root    /usr/sbin/sendmail    sendmail -bs
+  33: # printer	stream	tcp	nowait	root	/usr/sbin/tcpd	/usr/bin/lpd -i
+  34: #
+  35: # Shell, login, exec and talk are BSD protocols.
+  36: #  The option "-h" permits ``.rhosts'' files for the superuser. Please look at
+  37: #  man-page of rlogind and rshd to see more configuration possibilities about
+  38: #  .rhosts files.
+  39: # shell	stream	tcp	nowait	root	/usr/sbin/tcpd	in.rshd -L
+  40: # shell	stream	tcp	nowait	root	/usr/sbin/tcpd	in.rshd -aL
+  41: #
+  42: # If you want rlogind not to "keep-alives" (e.g. if it runs over a ISDN
+  43: # uplink), add "-n".  See 'man rlogind' for more details.
+  44: # login	stream	tcp	nowait	root	/usr/sbin/in.rlogind	in.rlogind
+  45: # login	stream	tcp	nowait	root	/usr/sbin/tcpd	in.rlogind -a
+  46: # exec	stream	tcp	nowait	root	/usr/sbin/tcpd	in.rexecd
+  47: # talk	dgram	udp	wait	root	/usr/sbin/tcpd	in.talkd
+  48: # ntalk	dgram	udp	wait	root	/usr/sbin/tcpd	in.talkd
+  49: #
+  50: #
+  51: # Pop et al
+  52: #
+  53: # pop2	stream	tcp	nowait	root	/usr/sbin/tcpd	in.pop2d
+  54: # pop3	stream	tcp	nowait	root	/usr/sbin/tcpd	/usr/sbin/popper -s
+  55: #
+  56: # Imapd - Interactive Mail Access Protocol server
+  57: # Attention:  This service is very insecure
+  58: # imap2	stream	tcp	nowait	root	/usr/sbin/tcpd	imapd
+  59: #
+  60: # Comsat - has to do with mail.
+  61: #
+  62: # comsat	dgram	udp	wait	root	/usr/sbin/tcpd	in.comsat
+  63: #
+  64: # The Internet UUCP service.
+  65: #
+  66: # uucp	stream	tcp	nowait	uucp	/usr/sbin/tcpd	/usr/lib/uucp/uucico	-l
+  67: #
+  68: # Tftp service is provided primarily for booting.  Most sites
+  69: # run this only on machines acting as "boot servers."
+  70: #
+  71: # tftp          dgram   udp     wait    nobody  /usr/sbin/tcpd  in.tftpd /tftpboot
+  72: # bootps	dgram	udp	wait	root	/usr/sbin/bootpd	bootpd -c /tftpboot
+  73: #
+  74: # Finger, systat and netstat give out user information which may be
+  75: # valuable to potential "system crackers."  Many sites choose to disable
+  76: # some or all of these services to improve security.
+  77: # Try "telnet localhost systat" and "telnet localhost netstat" to see that
+  78: # information yourself!
+  79: #
+  80: # finger	stream	tcp	nowait	nobody	/usr/sbin/tcpd	in.fingerd -w
+  81: # systat	stream	tcp	nowait	nobody	/usr/sbin/tcpd	/bin/ps	-auwwx
+  82: # netstat	stream	tcp	nowait	root	/usr/sbin/tcpd	/bin/netstat	-a
+  83: #
+  84: # End.

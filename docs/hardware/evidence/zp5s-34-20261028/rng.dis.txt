@@ -1,0 +1,33 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x7408 --stop-address=0x7468 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/lib/libsonoscrypto.so.1
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/lib/libsonoscrypto.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00007408 <ZZ0071@@Base>:
+    7408 [file 0x00007408]:	94 21 ff f0 	stwu    r1,-16(r1)
+    740c [file 0x0000740c]:	7c 08 02 a6 	mflr    r0
+    7410 [file 0x00007410]:	42 9f 00 05 	bcl     20,4*cr7+so,7414 <ZZ0071@@Base+0xc>
+    7414 [file 0x00007414]:	93 c1 00 08 	stw     r30,8(r1)
+    7418 [file 0x00007418]:	7f c8 02 a6 	mflr    r30
+    741c [file 0x0000741c]:	90 01 00 14 	stw     r0,20(r1)
+    7420 [file 0x00007420]:	7c 85 23 78 	mr      r5,r4
+    7424 [file 0x00007424]:	80 1e ff f0 	lwz     r0,-16(r30)
+    7428 [file 0x00007428]:	7c 64 1b 78 	mr      r4,r3
+    742c [file 0x0000742c]:	7f c0 f2 14 	add     r30,r0,r30
+    7430 [file 0x00007430]:	81 3e 80 00 	lwz     r9,-32768(r30)
+    7434 [file 0x00007434]:	80 09 00 00 	lwz     r0,0(r9)
+    7438 [file 0x00007438]:	2f 80 00 00 	cmpwi   cr7,r0,0
+    743c [file 0x0000743c]:	41 9e 00 28 	beq     cr7,7464 <ZZ0071@@Base+0x5c>
+    7440 [file 0x00007440]:	80 7e 80 08 	lwz     r3,-32760(r30)
+    7444 [file 0x00007444]:	48 01 4e c9 	bl      1c30c <mbedtls_ctr_drbg_random@plt>
+    7448 [file 0x00007448]:	83 c1 00 08 	lwz     r30,8(r1)
+    744c [file 0x0000744c]:	20 03 00 00 	subfic  r0,r3,0
+    7450 [file 0x00007450]:	7c 60 19 14 	adde    r3,r0,r3
+    7454 [file 0x00007454]:	80 01 00 14 	lwz     r0,20(r1)
+    7458 [file 0x00007458]:	38 21 00 10 	addi    r1,r1,16
+    745c [file 0x0000745c]:	7c 08 03 a6 	mtlr    r0
+    7460 [file 0x00007460]:	4e 80 00 20 	blr
+    7464 [file 0x00007464]:	48 01 50 51 	bl      1c4b4 <abort@plt>

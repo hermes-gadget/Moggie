@@ -1,0 +1,65 @@
+# Source: /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/conf/anacapa.conf
+# Display only: trailing whitespace stripped; hash covers original bytes.
+   1: # Anacapa Web Server configuration file
+   2:
+   3: # Server TCP Port for HTTP operation
+   4: Port 1400
+   5:
+   6: # Port for HTTPS traffic (0 for disabled)
+   7: SSLPort 1443
+   8:
+   9: # The Server Root (UNIX systems style)
+  10: ServerRoot /opt
+  11:
+  12: # The Path option specifies the web files path.
+  13: Path htdocs
+  14:
+  15: # The Default option contains the name of the files the server should
+  16: # look for when only a path is given (e.g. http://myserver/info/).
+  17: Default index.html
+  18:
+  19: # The TimeOut option tells the server how much seconds to wait for
+  20: # an idle connection before closing it.
+  21: TimeOut 10
+  22:
+  23: # The MimeTypes option specifies the location of the file
+  24: # containing the mapping of MIME types and files extensions
+  25: MimeTypes conf/mime.types
+  26:
+  27: # The path of the diagnostic file
+  28: DiagFile log/anacapa.trace
+  29:
+  30: # The default max level for diagnostics logged to DiagFile
+  31: DiagLevel default=1,docked=3
+  32:
+  33: # Max_Conn is the maximum number of simultaneous connections
+  34: # This should be greater than NumThreads to support persistent
+  35: # connections.  The difference is the number of simultaneous
+  36: # persistent connections supported.
+  37: MaxConn 8
+  38:
+  39: # NumThreads is the number of anacapa worker threads.
+  40: # Previously this was equal to MaxConn but now MaxConn needs to be
+  41: # greater than NumThreads to support persistent connections
+  42: NumThreads 4
+  43:
+  44: # The file where the pid of the server is logged (UNIX specific)
+  45: PidFile log/anacapa.pid
+  46:
+  47: # Rincon-specific configuration settings
+  48: # JFFSRoot /tmp/jffs_1400
+  49: # ZPMusicServicesBackstop ../../../../cc/anacapa/anacapa/pkg/htdocs/xml/musicservices.xml
+  50: # ZPTimeZonesBackstop ../../../../cc/anacapa/anacapa/pkg/htdocs/xml/timezones.xml
+  51:
+  52: # Override the default Model[.Submodel] of the ZP emulator.
+  53: #HackModel 8.1
+  54:
+  55: # Special Logging for direct control
+  56: DiagFile log/anacapa.dc.trace
+  57: DiagLevel default=0,muse=6,cloudqueue=3
+  58: DiagMin 16384
+  59: DiagMax 32768
+  60: DiagFile log/anacapa.snf.trace
+  61: DiagLevel advert=3,upnpeventing=3,ana_http=2,arpchecker=3,association=5,assoctracker=3
+  62: DiagMin 8192
+  63: DiagMax 16384

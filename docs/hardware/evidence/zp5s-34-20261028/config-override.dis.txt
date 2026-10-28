@@ -1,0 +1,31 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x100060bc --stop-address=0x10006114 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+100060bc <strlcpy@@Base-0x18b640>:
+100060bc [file 0x000060bc]:	48 3e fe 05 	bl      103f5ec0 <strdup@plt>
+100060c0 [file 0x000060c0]:	3c a0 10 31 	lis     r5,4145
+100060c4 [file 0x000060c4]:	38 a5 52 70 	addi    r5,r5,21104
+100060c8 [file 0x000060c8]:	90 7b 5b e8 	stw     r3,23528(r27)
+100060cc [file 0x000060cc]:	7f e6 fb 78 	mr      r6,r31
+100060d0 [file 0x000060d0]:	38 80 01 00 	li      r4,256
+100060d4 [file 0x000060d4]:	7f 83 e3 78 	mr      r3,r28
+100060d8 [file 0x000060d8]:	4c c6 31 82 	crclr   4*cr1+eq
+100060dc [file 0x000060dc]:	48 3f 05 65 	bl      103f6640 <snprintf@plt>
+100060e0 [file 0x000060e0]:	80 7d 5b d8 	lwz     r3,23512(r29)
+100060e4 [file 0x000060e4]:	48 3f 05 f5 	bl      103f66d8 <free@plt>
+100060e8 [file 0x000060e8]:	7f 83 e3 78 	mr      r3,r28
+100060ec [file 0x000060ec]:	48 3e fd d5 	bl      103f5ec0 <strdup@plt>
+100060f0 [file 0x000060f0]:	90 7d 5b d8 	stw     r3,23512(r29)
+100060f4 [file 0x000060f4]:	48 00 00 1c 	b       10006110 <_init@@Base+0x684>
+100060f8 [file 0x000060f8]:	3f a0 10 3f 	lis     r29,4159
+100060fc [file 0x000060fc]:	80 7d 5b e4 	lwz     r3,23524(r29)
+10006100 [file 0x00006100]:	48 3f 05 d9 	bl      103f66d8 <free@plt>
+10006104 [file 0x00006104]:	7f e3 fb 78 	mr      r3,r31
+10006108 [file 0x00006108]:	48 3e fd b9 	bl      103f5ec0 <strdup@plt>
+1000610c [file 0x0000610c]:	90 7d 5b e4 	stw     r3,23524(r29)
+10006110 [file 0x00006110]:	80 01 01 34 	lwz     r0,308(r1)

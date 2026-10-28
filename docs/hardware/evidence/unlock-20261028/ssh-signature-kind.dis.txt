@@ -1,0 +1,15 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0xba78 --stop-address=0xba90 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+0000ba78 <.text+0x6dc8>:
+    ba78 [file 0x0000ba78]:	94 21 ff f0 	stwu    r1,-16(r1)
+    ba7c [file 0x0000ba7c]:	20 63 00 02 	subfic  r3,r3,2
+    ba80 [file 0x0000ba80]:	7c 63 19 10 	subfe   r3,r3,r3
+    ba84 [file 0x0000ba84]:	38 63 00 01 	addi    r3,r3,1
+    ba88 [file 0x0000ba88]:	38 21 00 10 	addi    r1,r1,16
+    ba8c [file 0x0000ba8c]:	4e 80 00 20 	blr

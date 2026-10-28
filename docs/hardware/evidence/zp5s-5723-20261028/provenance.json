@@ -1,0 +1,111 @@
+{
+  "extraction_commands": [
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin",
+      "opt/bin/anacapad"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin",
+      "bin/busybox"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin",
+      "etc/Configure"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin",
+      "etc/inittab"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin",
+      "etc/runanacapa"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin",
+      "etc/arch"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin",
+      "opt/conf/anacapa.conf"
+    ],
+    [
+      "unsquashfs",
+      "-cat",
+      "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin",
+      "etc/scripts/run_sshd.sh"
+    ]
+  ],
+  "previous_extraction_comparison": [
+    {
+      "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/rootfs16/opt/bin/anacapad",
+      "size": 5483684,
+      "sha256": "bea55150c43eaadeec72b03a9494c32d96ec8f0b4406b1b84e3f30ff652e04ba",
+      "byte_identical": true
+    },
+    {
+      "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/rootfs16/bin/busybox",
+      "size": 288488,
+      "sha256": "989ec0daad0778a8d66e6c8ddbac4dc25bfdf73a40c5ea5ebd01d6ded28749b2",
+      "byte_identical": true
+    },
+    {
+      "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/rootfs16/etc/Configure",
+      "size": 2067,
+      "sha256": "9cbd27cf39f5644a22b1b11fd3358d25342e120339513a9f10b5df9491500d94",
+      "byte_identical": true
+    },
+    {
+      "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/rootfs16/etc/inittab",
+      "size": 248,
+      "sha256": "b7ab9d8b974d4b99185dac97264cfcd94c275cbde259324bdf4389d1245f2533",
+      "byte_identical": true
+    },
+    {
+      "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/rootfs16/etc/runanacapa",
+      "size": 563,
+      "sha256": "66bf159d4c3c4779b1b93406ea9bce48402b0aa3c7b8b7df90067168b13741cf",
+      "byte_identical": true
+    },
+    {
+      "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/rootfs16/etc/arch",
+      "size": 4,
+      "sha256": "2e07887e8c70760795e3e9657bcd668e333815fca462a991552294b8a5d2b68f",
+      "byte_identical": true
+    },
+    {
+      "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/rootfs16/opt/conf/anacapa.conf",
+      "size": 2076,
+      "sha256": "afabc12e59c45a234fe88e644f80dec467e1b03dcc89ce248c40744b1ecfc52f",
+      "byte_identical": true
+    },
+    {
+      "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/rootfs16/etc/scripts/run_sshd.sh",
+      "size": 90,
+      "sha256": "5c4af360db64922bd9da95147dc32e2eaa7113e48fff943cefa6380b41526170",
+      "byte_identical": true
+    }
+  ],
+  "archive_claim": {
+    "package_id": "57.23-74170-1-16",
+    "release_tag": "firmware-57.23-74170",
+    "package_sha256": "e19a7bb28f2d940346c605ccfcff81f8d9a7dd1771ee991841ac1f9e07223ad4",
+    "receipt": "../raw/57.23-74170-1-16.json",
+    "component_count": 3,
+    "component_bytes": 5455419
+  },
+  "limitation": "The per-package receipt is not present at the referenced local path. No local decryption binds plaintext component to encrypted package; archive association is a capture claim, not cryptographic verification."
+}

@@ -1,0 +1,47 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x1027d4f4 --stop-address=0x1027d58c /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+1027d4f4 <strlcpy@@Base+0x59a1c>:
+1027d4f4 [file 0x0027d4f4]:	94 21 ff e0 	stwu    r1,-32(r1)
+1027d4f8 [file 0x0027d4f8]:	7c 08 02 a6 	mflr    r0
+1027d4fc [file 0x0027d4fc]:	93 c1 00 18 	stw     r30,24(r1)
+1027d500 [file 0x0027d500]:	3f c0 10 57 	lis     r30,4183
+1027d504 [file 0x0027d504]:	93 a1 00 14 	stw     r29,20(r1)
+1027d508 [file 0x0027d508]:	7c 7d 1b 78 	mr      r29,r3
+1027d50c [file 0x0027d50c]:	81 3e f8 44 	lwz     r9,-1980(r30)
+1027d510 [file 0x0027d510]:	90 01 00 24 	stw     r0,36(r1)
+1027d514 [file 0x0027d514]:	93 e1 00 1c 	stw     r31,28(r1)
+1027d518 [file 0x0027d518]:	7d 23 4b 78 	mr      r3,r9
+1027d51c [file 0x0027d51c]:	81 49 00 00 	lwz     r10,0(r9)
+1027d520 [file 0x0027d520]:	81 2a 00 78 	lwz     r9,120(r10)
+1027d524 [file 0x0027d524]:	7d 29 03 a6 	mtctr   r9
+1027d528 [file 0x0027d528]:	4e 80 04 21 	bctrl
+1027d52c [file 0x0027d52c]:	80 83 17 dc 	lwz     r4,6108(r3)
+1027d530 [file 0x0027d530]:	2f 84 00 00 	cmpwi   cr7,r4,0
+1027d534 [file 0x0027d534]:	41 9e 00 48 	beq     cr7,1027d57c <strlcpy@@Base+0x59aa4>
+1027d538 [file 0x0027d538]:	80 7e f8 44 	lwz     r3,-1980(r30)
+1027d53c [file 0x0027d53c]:	3b e4 00 08 	addi    r31,r4,8
+1027d540 [file 0x0027d540]:	81 23 00 00 	lwz     r9,0(r3)
+1027d544 [file 0x0027d544]:	81 29 00 64 	lwz     r9,100(r9)
+1027d548 [file 0x0027d548]:	7d 29 03 a6 	mtctr   r9
+1027d54c [file 0x0027d54c]:	4e 80 04 21 	bctrl
+1027d550 [file 0x0027d550]:	48 01 39 39 	bl      10290e88 <strlcpy@@Base+0x6d3b0>
+1027d554 [file 0x0027d554]:	80 01 00 24 	lwz     r0,36(r1)
+1027d558 [file 0x0027d558]:	83 c1 00 18 	lwz     r30,24(r1)
+1027d55c [file 0x0027d55c]:	7c 65 1b 78 	mr      r5,r3
+1027d560 [file 0x0027d560]:	7f e4 fb 78 	mr      r4,r31
+1027d564 [file 0x0027d564]:	7f a3 eb 78 	mr      r3,r29
+1027d568 [file 0x0027d568]:	83 e1 00 1c 	lwz     r31,28(r1)
+1027d56c [file 0x0027d56c]:	7c 08 03 a6 	mtlr    r0
+1027d570 [file 0x0027d570]:	83 a1 00 14 	lwz     r29,20(r1)
+1027d574 [file 0x0027d574]:	38 21 00 20 	addi    r1,r1,32
+1027d578 [file 0x0027d578]:	48 0f 05 f0 	b       1036db68 <strlcpy@@Base+0x14a090>
+1027d57c [file 0x0027d57c]:	80 7e f8 44 	lwz     r3,-1980(r30)
+1027d580 [file 0x0027d580]:	3b e0 00 00 	li      r31,0
+1027d584 [file 0x0027d584]:	81 23 00 00 	lwz     r9,0(r3)
+1027d588 [file 0x0027d588]:	81 29 00 64 	lwz     r9,100(r9)

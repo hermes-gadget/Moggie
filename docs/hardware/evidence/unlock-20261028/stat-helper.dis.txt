@@ -1,0 +1,25 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x1041e3e8 --stop-address=0x1041e428 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+1041e3e8 <modff@@Base+0xe634>:
+1041e3e8 [file 0x0041e3e8]:	7c 69 1b 79 	mr.     r9,r3
+1041e3ec [file 0x0041e3ec]:	41 82 00 48 	beq     1041e434 <modff@@Base+0xe680>
+1041e3f0 [file 0x0041e3f0]:	2f 84 00 00 	cmpwi   cr7,r4,0
+1041e3f4 [file 0x0041e3f4]:	38 60 00 00 	li      r3,0
+1041e3f8 [file 0x0041e3f8]:	4d 9e 00 20 	beqlr   cr7
+1041e3fc [file 0x0041e3fc]:	94 21 ff f0 	stwu    r1,-16(r1)
+1041e400 [file 0x0041e400]:	7c 08 02 a6 	mflr    r0
+1041e404 [file 0x0041e404]:	7c 85 23 78 	mr      r5,r4
+1041e408 [file 0x0041e408]:	38 60 00 03 	li      r3,3
+1041e40c [file 0x0041e40c]:	7d 24 4b 78 	mr      r4,r9
+1041e410 [file 0x0041e410]:	90 01 00 14 	stw     r0,20(r1)
+1041e414 [file 0x0041e414]:	48 15 1a 25 	bl      1056fe38 <__xstat@plt>
+1041e418 [file 0x0041e418]:	80 01 00 14 	lwz     r0,20(r1)
+1041e41c [file 0x0041e41c]:	38 63 00 01 	addi    r3,r3,1
+1041e420 [file 0x0041e420]:	7c 08 03 a6 	mtlr    r0
+1041e424 [file 0x0041e424]:	31 23 ff ff 	addic   r9,r3,-1

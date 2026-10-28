@@ -1,0 +1,162 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x1b8c --stop-address=0x1de8 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/lib/libsonosutils.so.1
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/lib/libsonosutils.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00001b8c <RserializeData@@Base>:
+    1b8c [file 0x00001b8c]:	54 89 08 3c 	slwi    r9,r4,1
+    1b90 [file 0x00001b90]:	94 21 ff c0 	stwu    r1,-64(r1)
+    1b94 [file 0x00001b94]:	39 29 00 01 	addi    r9,r9,1
+    1b98 [file 0x00001b98]:	7c 08 02 a6 	mflr    r0
+    1b9c [file 0x00001b9c]:	7f 89 30 40 	cmplw   cr7,r9,r6
+    1ba0 [file 0x00001ba0]:	42 9f 00 05 	bcl     20,4*cr7+so,1ba4 <RserializeData@@Base+0x18>
+    1ba4 [file 0x00001ba4]:	93 c1 00 38 	stw     r30,56(r1)
+    1ba8 [file 0x00001ba8]:	7f c8 02 a6 	mflr    r30
+    1bac [file 0x00001bac]:	90 01 00 44 	stw     r0,68(r1)
+    1bb0 [file 0x00001bb0]:	80 1e ff e4 	lwz     r0,-28(r30)
+    1bb4 [file 0x00001bb4]:	93 61 00 2c 	stw     r27,44(r1)
+    1bb8 [file 0x00001bb8]:	7c 7b 1b 78 	mr      r27,r3
+    1bbc [file 0x00001bbc]:	93 81 00 30 	stw     r28,48(r1)
+    1bc0 [file 0x00001bc0]:	7f c0 f2 14 	add     r30,r0,r30
+    1bc4 [file 0x00001bc4]:	93 e1 00 3c 	stw     r31,60(r1)
+    1bc8 [file 0x00001bc8]:	7c 9c 23 78 	mr      r28,r4
+    1bcc [file 0x00001bcc]:	93 41 00 28 	stw     r26,40(r1)
+    1bd0 [file 0x00001bd0]:	7c bf 2b 78 	mr      r31,r5
+    1bd4 [file 0x00001bd4]:	93 a1 00 34 	stw     r29,52(r1)
+    1bd8 [file 0x00001bd8]:	38 60 00 00 	li      r3,0
+    1bdc [file 0x00001bdc]:	41 9d 00 58 	bgt     cr7,1c34 <RserializeData@@Base+0xa8>
+    1be0 [file 0x00001be0]:	3b a0 00 00 	li      r29,0
+    1be4 [file 0x00001be4]:	7f 9d 20 40 	cmplw   cr7,r29,r4
+    1be8 [file 0x00001be8]:	40 9c 00 40 	bge     cr7,1c28 <RserializeData@@Base+0x9c>
+    1bec [file 0x00001bec]:	3b 41 00 10 	addi    r26,r1,16
+    1bf0 [file 0x00001bf0]:	7c db e8 ae 	lbzx    r6,r27,r29
+    1bf4 [file 0x00001bf4]:	7f 43 d3 78 	mr      r3,r26
+    1bf8 [file 0x00001bf8]:	80 be 80 00 	lwz     r5,-32768(r30)
+    1bfc [file 0x00001bfc]:	3b bd 00 01 	addi    r29,r29,1
+    1c00 [file 0x00001c00]:	38 80 00 03 	li      r4,3
+    1c04 [file 0x00001c04]:	4c c6 31 82 	crclr   4*cr1+eq
+    1c08 [file 0x00001c08]:	48 01 09 bd 	bl      125c4 <snprintf@plt>
+    1c0c [file 0x00001c0c]:	7f 9d e0 40 	cmplw   cr7,r29,r28
+    1c10 [file 0x00001c10]:	88 01 00 10 	lbz     r0,16(r1)
+    1c14 [file 0x00001c14]:	89 21 00 11 	lbz     r9,17(r1)
+    1c18 [file 0x00001c18]:	98 1f 00 00 	stb     r0,0(r31)
+    1c1c [file 0x00001c1c]:	9d 3f 00 01 	stbu    r9,1(r31)
+    1c20 [file 0x00001c20]:	3b ff 00 01 	addi    r31,r31,1
+    1c24 [file 0x00001c24]:	41 9c ff cc 	blt     cr7,1bf0 <RserializeData@@Base+0x64>
+    1c28 [file 0x00001c28]:	38 00 00 00 	li      r0,0
+    1c2c [file 0x00001c2c]:	98 1f 00 00 	stb     r0,0(r31)
+    1c30 [file 0x00001c30]:	38 60 00 01 	li      r3,1
+    1c34 [file 0x00001c34]:	80 01 00 44 	lwz     r0,68(r1)
+    1c38 [file 0x00001c38]:	83 41 00 28 	lwz     r26,40(r1)
+    1c3c [file 0x00001c3c]:	83 61 00 2c 	lwz     r27,44(r1)
+    1c40 [file 0x00001c40]:	7c 08 03 a6 	mtlr    r0
+    1c44 [file 0x00001c44]:	83 81 00 30 	lwz     r28,48(r1)
+    1c48 [file 0x00001c48]:	83 a1 00 34 	lwz     r29,52(r1)
+    1c4c [file 0x00001c4c]:	83 c1 00 38 	lwz     r30,56(r1)
+    1c50 [file 0x00001c50]:	83 e1 00 3c 	lwz     r31,60(r1)
+    1c54 [file 0x00001c54]:	38 21 00 40 	addi    r1,r1,64
+    1c58 [file 0x00001c58]:	4e 80 00 20 	blr
+
+00001c5c <RdeserializeData@@Base>:
+    1c5c [file 0x00001c5c]:	70 89 00 01 	andi.   r9,r4,1
+    1c60 [file 0x00001c60]:	7c 08 02 a6 	mflr    r0
+    1c64 [file 0x00001c64]:	94 21 ff c0 	stwu    r1,-64(r1)
+    1c68 [file 0x00001c68]:	93 41 00 28 	stw     r26,40(r1)
+    1c6c [file 0x00001c6c]:	7c ba 2b 78 	mr      r26,r5
+    1c70 [file 0x00001c70]:	93 61 00 2c 	stw     r27,44(r1)
+    1c74 [file 0x00001c74]:	7c 7b 1b 78 	mr      r27,r3
+    1c78 [file 0x00001c78]:	93 a1 00 34 	stw     r29,52(r1)
+    1c7c [file 0x00001c7c]:	7c dd 33 78 	mr      r29,r6
+    1c80 [file 0x00001c80]:	93 01 00 20 	stw     r24,32(r1)
+    1c84 [file 0x00001c84]:	93 21 00 24 	stw     r25,36(r1)
+    1c88 [file 0x00001c88]:	93 81 00 30 	stw     r28,48(r1)
+    1c8c [file 0x00001c8c]:	93 c1 00 38 	stw     r30,56(r1)
+    1c90 [file 0x00001c90]:	93 e1 00 3c 	stw     r31,60(r1)
+    1c94 [file 0x00001c94]:	90 01 00 44 	stw     r0,68(r1)
+    1c98 [file 0x00001c98]:	40 82 00 4c 	bne     1ce4 <RdeserializeData@@Base+0x88>
+    1c9c [file 0x00001c9c]:	80 06 00 00 	lwz     r0,0(r6)
+    1ca0 [file 0x00001ca0]:	54 9f f8 7e 	srwi    r31,r4,1
+    1ca4 [file 0x00001ca4]:	7f 9f 00 40 	cmplw   cr7,r31,r0
+    1ca8 [file 0x00001ca8]:	40 9d 00 78 	ble     cr7,1d20 <RdeserializeData@@Base+0xc4>
+    1cac [file 0x00001cac]:	80 01 00 44 	lwz     r0,68(r1)
+    1cb0 [file 0x00001cb0]:	38 60 00 00 	li      r3,0
+    1cb4 [file 0x00001cb4]:	83 01 00 20 	lwz     r24,32(r1)
+    1cb8 [file 0x00001cb8]:	83 21 00 24 	lwz     r25,36(r1)
+    1cbc [file 0x00001cbc]:	7c 08 03 a6 	mtlr    r0
+    1cc0 [file 0x00001cc0]:	83 41 00 28 	lwz     r26,40(r1)
+    1cc4 [file 0x00001cc4]:	83 61 00 2c 	lwz     r27,44(r1)
+    1cc8 [file 0x00001cc8]:	83 81 00 30 	lwz     r28,48(r1)
+    1ccc [file 0x00001ccc]:	83 a1 00 34 	lwz     r29,52(r1)
+    1cd0 [file 0x00001cd0]:	83 c1 00 38 	lwz     r30,56(r1)
+    1cd4 [file 0x00001cd4]:	83 e1 00 3c 	lwz     r31,60(r1)
+    1cd8 [file 0x00001cd8]:	38 21 00 40 	addi    r1,r1,64
+    1cdc [file 0x00001cdc]:	91 26 00 00 	stw     r9,0(r6)
+    1ce0 [file 0x00001ce0]:	4e 80 00 20 	blr
+    1ce4 [file 0x00001ce4]:	38 00 00 00 	li      r0,0
+    1ce8 [file 0x00001ce8]:	83 01 00 20 	lwz     r24,32(r1)
+    1cec [file 0x00001cec]:	90 1d 00 00 	stw     r0,0(r29)
+    1cf0 [file 0x00001cf0]:	38 60 00 00 	li      r3,0
+    1cf4 [file 0x00001cf4]:	80 01 00 44 	lwz     r0,68(r1)
+    1cf8 [file 0x00001cf8]:	83 21 00 24 	lwz     r25,36(r1)
+    1cfc [file 0x00001cfc]:	83 41 00 28 	lwz     r26,40(r1)
+    1d00 [file 0x00001d00]:	7c 08 03 a6 	mtlr    r0
+    1d04 [file 0x00001d04]:	83 61 00 2c 	lwz     r27,44(r1)
+    1d08 [file 0x00001d08]:	83 81 00 30 	lwz     r28,48(r1)
+    1d0c [file 0x00001d0c]:	83 a1 00 34 	lwz     r29,52(r1)
+    1d10 [file 0x00001d10]:	83 c1 00 38 	lwz     r30,56(r1)
+    1d14 [file 0x00001d14]:	83 e1 00 3c 	lwz     r31,60(r1)
+    1d18 [file 0x00001d18]:	38 21 00 40 	addi    r1,r1,64
+    1d1c [file 0x00001d1c]:	4e 80 00 20 	blr
+    1d20 [file 0x00001d20]:	2b 9f 00 00 	cmplwi  cr7,r31,0
+    1d24 [file 0x00001d24]:	3b 80 00 00 	li      r28,0
+    1d28 [file 0x00001d28]:	41 9d 00 3c 	bgt     cr7,1d64 <RdeserializeData@@Base+0x108>
+    1d2c [file 0x00001d2c]:	93 fd 00 00 	stw     r31,0(r29)
+    1d30 [file 0x00001d30]:	38 60 00 01 	li      r3,1
+    1d34 [file 0x00001d34]:	80 01 00 44 	lwz     r0,68(r1)
+    1d38 [file 0x00001d38]:	83 01 00 20 	lwz     r24,32(r1)
+    1d3c [file 0x00001d3c]:	83 21 00 24 	lwz     r25,36(r1)
+    1d40 [file 0x00001d40]:	7c 08 03 a6 	mtlr    r0
+    1d44 [file 0x00001d44]:	83 41 00 28 	lwz     r26,40(r1)
+    1d48 [file 0x00001d48]:	83 61 00 2c 	lwz     r27,44(r1)
+    1d4c [file 0x00001d4c]:	83 81 00 30 	lwz     r28,48(r1)
+    1d50 [file 0x00001d50]:	83 a1 00 34 	lwz     r29,52(r1)
+    1d54 [file 0x00001d54]:	83 c1 00 38 	lwz     r30,56(r1)
+    1d58 [file 0x00001d58]:	83 e1 00 3c 	lwz     r31,60(r1)
+    1d5c [file 0x00001d5c]:	38 21 00 40 	addi    r1,r1,64
+    1d60 [file 0x00001d60]:	4e 80 00 20 	blr
+    1d64 [file 0x00001d64]:	48 01 08 79 	bl      125dc <__ctype_b_loc@plt>
+    1d68 [file 0x00001d68]:	3b 00 00 00 	li      r24,0
+    1d6c [file 0x00001d6c]:	7c 79 1b 78 	mr      r25,r3
+    1d70 [file 0x00001d70]:	57 89 08 3c 	slwi    r9,r28,1
+    1d74 [file 0x00001d74]:	7d 69 d8 ae 	lbzx    r11,r9,r27
+    1d78 [file 0x00001d78]:	7d 29 da 14 	add     r9,r9,r27
+    1d7c [file 0x00001d7c]:	88 09 00 01 	lbz     r0,1(r9)
+    1d80 [file 0x00001d80]:	38 61 00 10 	addi    r3,r1,16
+    1d84 [file 0x00001d84]:	99 61 00 10 	stb     r11,16(r1)
+    1d88 [file 0x00001d88]:	38 80 00 00 	li      r4,0
+    1d8c [file 0x00001d8c]:	98 01 00 11 	stb     r0,17(r1)
+    1d90 [file 0x00001d90]:	38 a0 00 10 	li      r5,16
+    1d94 [file 0x00001d94]:	9b 01 00 12 	stb     r24,18(r1)
+    1d98 [file 0x00001d98]:	38 c0 00 00 	li      r6,0
+    1d9c [file 0x00001d9c]:	89 21 00 10 	lbz     r9,16(r1)
+    1da0 [file 0x00001da0]:	81 79 00 00 	lwz     r11,0(r25)
+    1da4 [file 0x00001da4]:	55 29 08 3c 	slwi    r9,r9,1
+    1da8 [file 0x00001da8]:	7c 09 5a 2e 	lhzx    r0,r9,r11
+    1dac [file 0x00001dac]:	70 09 00 10 	andi.   r9,r0,16
+    1db0 [file 0x00001db0]:	41 a2 ff 34 	beq     1ce4 <RdeserializeData@@Base+0x88>
+    1db4 [file 0x00001db4]:	89 21 00 11 	lbz     r9,17(r1)
+    1db8 [file 0x00001db8]:	55 29 08 3c 	slwi    r9,r9,1
+    1dbc [file 0x00001dbc]:	7c 09 5a 2e 	lhzx    r0,r9,r11
+    1dc0 [file 0x00001dc0]:	70 09 00 10 	andi.   r9,r0,16
+    1dc4 [file 0x00001dc4]:	41 a2 ff 20 	beq     1ce4 <RdeserializeData@@Base+0x88>
+    1dc8 [file 0x00001dc8]:	48 01 07 ed 	bl      125b4 <__strtol_internal@plt>
+    1dcc [file 0x00001dcc]:	7c 7a e1 ae 	stbx    r3,r26,r28
+    1dd0 [file 0x00001dd0]:	3b 9c 00 01 	addi    r28,r28,1
+    1dd4 [file 0x00001dd4]:	7f 9f e0 40 	cmplw   cr7,r31,r28
+    1dd8 [file 0x00001dd8]:	41 9d ff 98 	bgt     cr7,1d70 <RdeserializeData@@Base+0x114>
+    1ddc [file 0x00001ddc]:	38 60 00 01 	li      r3,1
+    1de0 [file 0x00001de0]:	93 fd 00 00 	stw     r31,0(r29)
+    1de4 [file 0x00001de4]:	4b ff ff 50 	b       1d34 <RdeserializeData@@Base+0xd8>

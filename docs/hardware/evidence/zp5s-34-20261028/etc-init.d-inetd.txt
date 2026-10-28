@@ -1,0 +1,47 @@
+# Source: /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/etc/init.d/inetd
+# Display only: trailing whitespace stripped; hash covers original bytes.
+   1: #!/bin/sh
+   2: #
+   3: # start/stop inetd super server.
+   4: #
+   5: # chkconfig: 2345 20 20
+   6: #
+   7: #
+   8: PATH=/bin:/usr/bin:/sbin:/usr/sbin
+   9: if ! [ -x /usr/sbin/inetd ]; then
+  10: 	exit 0
+  11: fi
+  12:
+  13: checkportmap () {
+  14:     if grep -v "^ *#" /etc/inetd.conf | grep 'rpc/' >/dev/null; then
+  15:         if ! /usr/bin/rpcinfo -u localhost portmapper >/dev/null 2>/dev/null
+  16:         then
+  17:             echo
+  18:             echo "WARNING: portmapper inactive - RPC services unavailable!"
+  19:             echo "         (Commenting out the rpc services in inetd.conf will"
+  20: 	    echo "         disable this message)"
+  21:             echo
+  22:         fi
+  23:     fi
+  24: }
+  25:
+  26: case "$1" in
+  27:     start)
+  28:         checkportmap
+  29: 	echo -n "Starting internet superserver:"
+  30: 	echo -n " inetd" ; start-stop-daemon -S -x /usr/sbin/inetd
+  31: 	echo "."
+  32: 	;;
+  33:     stop)
+  34: 	echo -n "Stopping internet superserver:"
+  35: 	echo -n " inetd" ; start-stop-daemon -K -x /usr/sbin/inetd
+  36: 	echo "."
+  37: 	;;
+  38:     *)
+  39: 	echo "Usage: /etc/init.d/inetd {start|stop}"
+  40: 	exit 1
+  41: 	;;
+  42: esac
+  43:
+  44: exit 0
+  45:

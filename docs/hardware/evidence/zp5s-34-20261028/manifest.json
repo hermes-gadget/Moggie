@@ -1,0 +1,151 @@
+{
+  "Z": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad",
+    "size": 4101056,
+    "sha256": "9db3247f232fa7e2dd1a42561782d38b95c6c4905029f16b22293471d6f23870",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 268435456,
+        "p_filesz": 4042504,
+        "p_memsz": 4042504,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 4042752,
+        "p_vaddr": 272543744,
+        "p_filesz": 43452,
+        "p_memsz": 202456,
+        "p_flags": 7
+      }
+    ]
+  },
+  "ZC": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/lib/libsonoscrypto.so.1",
+    "size": 51628,
+    "sha256": "03653fc9205ff23ad583506684f93387c444ac2b726a01bfa1ff18b6d7594c6c",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_DYN",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 0,
+        "p_filesz": 46961,
+        "p_memsz": 46961,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 49152,
+        "p_vaddr": 114688,
+        "p_filesz": 512,
+        "p_memsz": 3628,
+        "p_flags": 7
+      }
+    ]
+  },
+  "ZU": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/lib/libsonosutils.so.1",
+    "size": 10972,
+    "sha256": "bb2c52d5c21782e472d8a31991812cc77604a3eb9a7603821d46ebba631fd245",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_DYN",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 0,
+        "p_filesz": 9261,
+        "p_memsz": 9261,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 9264,
+        "p_vaddr": 74800,
+        "p_filesz": 284,
+        "p_memsz": 492,
+        "p_flags": 7
+      }
+    ]
+  },
+  "ZB": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/bin/busybox",
+    "size": 301664,
+    "sha256": "62bce872ce1e75d16d77b5edeaee7c2de86b2df231ff3bdc5d6b6a7ec3603d1c",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 268435456,
+        "p_filesz": 298512,
+        "p_memsz": 298512,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 299008,
+        "p_vaddr": 268800000,
+        "p_filesz": 1264,
+        "p_memsz": 29632,
+        "p_flags": 7
+      }
+    ]
+  },
+  "package": {
+    "path": "/home/ben/Moggie/dl/stock-firmware/34.16-37101-1-16.upd",
+    "size": 4727312,
+    "sha256": "84632e02bdce626bf10ae846839e90d66e510a627320fff8690c2bdb998733f2"
+  },
+  "rootfs-section": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs.section",
+    "size": 4014080,
+    "sha256": "4c69dda984a91729933ec8525793135b3acbcb19f0c68e2bad4cb431e26600b9"
+  },
+  "tool": {
+    "objdump": "/home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump",
+    "version": "GNU objdump (GNU Binutils) 2.45.1"
+  },
+  "etc/Configure": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/etc/Configure",
+    "size": 1611,
+    "sha256": "941fd3fe324c66f2a08222165d47700dccae6df06b83e7caff1ec099b4c206db"
+  },
+  "etc/inittab": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/etc/inittab",
+    "size": 178,
+    "sha256": "5cb7759351f7e0c41d89776337b7c4966ef5a07fc29e9fcfe7ce54b8f8662591"
+  },
+  "etc/runanacapa": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/etc/runanacapa",
+    "size": 563,
+    "sha256": "66bf159d4c3c4779b1b93406ea9bce48402b0aa3c7b8b7df90067168b13741cf"
+  },
+  "etc/init.d/inetd": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/etc/init.d/inetd",
+    "size": 954,
+    "sha256": "8db68dbd34ef00cab251559e8611cd5ad24a32eadf74e94c0cc1ec90a8f277f1"
+  },
+  "etc/inetd.conf": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/etc/inetd.conf",
+    "size": 3395,
+    "sha256": "46c2c5e7d747391fdff8ce4300aeb16be20a4fa17a3634b1eb5cfb51b3d6d4b8"
+  },
+  "opt/conf/anacapa.conf": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/conf/anacapa.conf",
+    "size": 1947,
+    "sha256": "7aaa768f81011f97dea1114385b7afd6342562efa568b40aa382ff890938a1c6"
+  },
+  "opt/bin/anacapactl": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapactl",
+    "size": 1988,
+    "sha256": "027c3335c56b41079e117d0ed30eced7e11ac054c395ab558dee0c5996a8a390"
+  }
+}

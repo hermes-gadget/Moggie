@@ -1,0 +1,20 @@
+{
+  "names_file": "0x5e148",
+  "function_table_file": "0x5ba90",
+  "applets": [
+    {
+      "name": "login",
+      "name_file": "0x5e280",
+      "index": 54,
+      "function_slot_file": "0x5bb68",
+      "function_va": "0x10006a58"
+    },
+    {
+      "name": "telnetd",
+      "name_file": "0x5e3a9",
+      "index": 106,
+      "function_slot_file": "0x5bc38",
+      "function_va": "0x10011f84"
+    }
+  ]
+}

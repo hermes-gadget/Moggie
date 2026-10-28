@@ -1,0 +1,62 @@
+[
+  {
+    "image": "ZU",
+    "section": ".rela.dyn",
+    "entry_file": "0x1934",
+    "target_va": "0x12454",
+    "target_file": "0x2454",
+    "type": 22,
+    "symbol": "",
+    "addend": "0x2428"
+  },
+  {
+    "image": "ZC",
+    "section": ".rela.dyn",
+    "entry_file": "0x3a14",
+    "target_va": "0x1c0ec",
+    "target_file": "0xc0ec",
+    "type": 22,
+    "symbol": "",
+    "addend": "0xb600"
+  },
+  {
+    "image": "ZC",
+    "section": ".rela.dyn",
+    "entry_file": "0x3a20",
+    "target_va": "0x1c0f8",
+    "target_file": "0xc0f8",
+    "type": 22,
+    "symbol": "",
+    "addend": "0x8d40"
+  },
+  {
+    "image": "ZC",
+    "section": ".rela.dyn",
+    "entry_file": "0x3b28",
+    "target_va": "0x1c0f0",
+    "target_file": "0xc0f0",
+    "type": 1,
+    "symbol": "ZZ0063",
+    "addend": "0x0"
+  },
+  {
+    "image": "ZC",
+    "section": ".rela.dyn",
+    "entry_file": "0x3b34",
+    "target_va": "0x1c0f4",
+    "target_file": "0xc0f4",
+    "type": 1,
+    "symbol": "ZZ0110",
+    "addend": "0x0"
+  },
+  {
+    "image": "ZC",
+    "section": ".rela.dyn",
+    "entry_file": "0x3b40",
+    "target_va": "0x1c0fc",
+    "target_file": "0xc0fc",
+    "type": 1,
+    "symbol": "ZZ0078",
+    "addend": "0x0"
+  }
+]

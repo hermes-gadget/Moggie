@@ -1,0 +1,68 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x100093d0 --stop-address=0x100094bc /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+100093d0 <strlcpy@@Base-0x21a708>:
+100093d0 [file 0x000093d0]:	7f c3 f3 78 	mr      r3,r30
+100093d4 [file 0x000093d4]:	3f a0 10 57 	lis     r29,4183
+100093d8 [file 0x000093d8]:	48 56 6b f1 	bl      1056ffc8 <setJFFSRoot@plt>
+100093dc [file 0x000093dc]:	3c a0 10 46 	lis     r5,4166
+100093e0 [file 0x000093e0]:	7f c6 f3 78 	mr      r6,r30
+100093e4 [file 0x000093e4]:	38 a5 b3 60 	addi    r5,r5,-19616
+100093e8 [file 0x000093e8]:	38 80 01 00 	li      r4,256
+100093ec [file 0x000093ec]:	38 61 00 08 	addi    r3,r1,8
+100093f0 [file 0x000093f0]:	3f e0 10 57 	lis     r31,4183
+100093f4 [file 0x000093f4]:	4c c6 31 82 	crclr   4*cr1+eq
+100093f8 [file 0x000093f8]:	48 56 6a b9 	bl      1056feb0 <snprintf@plt>
+100093fc [file 0x000093fc]:	3d 20 10 57 	lis     r9,4183
+10009400 [file 0x00009400]:	90 69 f7 20 	stw     r3,-2272(r9)
+10009404 [file 0x00009404]:	80 7d f7 24 	lwz     r3,-2268(r29)
+10009408 [file 0x00009408]:	48 56 6e 91 	bl      10570298 <free@plt>
+1000940c [file 0x0000940c]:	38 61 00 08 	addi    r3,r1,8
+10009410 [file 0x00009410]:	48 56 67 31 	bl      1056fb40 <strdup@plt>
+10009414 [file 0x00009414]:	3c a0 10 46 	lis     r5,4166
+10009418 [file 0x00009418]:	7f c6 f3 78 	mr      r6,r30
+1000941c [file 0x0000941c]:	90 7d f7 24 	stw     r3,-2268(r29)
+10009420 [file 0x00009420]:	38 a5 b3 6c 	addi    r5,r5,-19604
+10009424 [file 0x00009424]:	38 80 01 00 	li      r4,256
+10009428 [file 0x00009428]:	38 61 00 08 	addi    r3,r1,8
+1000942c [file 0x0000942c]:	4c c6 31 82 	crclr   4*cr1+eq
+10009430 [file 0x00009430]:	48 56 6a 81 	bl      1056feb0 <snprintf@plt>
+10009434 [file 0x00009434]:	3d 20 10 57 	lis     r9,4183
+10009438 [file 0x00009438]:	90 69 f7 18 	stw     r3,-2280(r9)
+1000943c [file 0x0000943c]:	3f a0 10 57 	lis     r29,4183
+10009440 [file 0x00009440]:	80 7f f7 1c 	lwz     r3,-2276(r31)
+10009444 [file 0x00009444]:	48 56 6e 55 	bl      10570298 <free@plt>
+10009448 [file 0x00009448]:	38 61 00 08 	addi    r3,r1,8
+1000944c [file 0x0000944c]:	48 56 66 f5 	bl      1056fb40 <strdup@plt>
+10009450 [file 0x00009450]:	3c a0 10 46 	lis     r5,4166
+10009454 [file 0x00009454]:	7f c6 f3 78 	mr      r6,r30
+10009458 [file 0x00009458]:	90 7f f7 1c 	stw     r3,-2276(r31)
+1000945c [file 0x0000945c]:	38 a5 b3 78 	addi    r5,r5,-19592
+10009460 [file 0x00009460]:	38 80 01 00 	li      r4,256
+10009464 [file 0x00009464]:	38 61 00 08 	addi    r3,r1,8
+10009468 [file 0x00009468]:	4c c6 31 82 	crclr   4*cr1+eq
+1000946c [file 0x0000946c]:	48 56 6a 45 	bl      1056feb0 <snprintf@plt>
+10009470 [file 0x00009470]:	80 7d f8 68 	lwz     r3,-1944(r29)
+10009474 [file 0x00009474]:	48 56 6e 25 	bl      10570298 <free@plt>
+10009478 [file 0x00009478]:	38 61 00 08 	addi    r3,r1,8
+1000947c [file 0x0000947c]:	48 56 66 c5 	bl      1056fb40 <strdup@plt>
+10009480 [file 0x00009480]:	3c a0 10 46 	lis     r5,4166
+10009484 [file 0x00009484]:	7f c6 f3 78 	mr      r6,r30
+10009488 [file 0x00009488]:	90 7d f8 68 	stw     r3,-1944(r29)
+1000948c [file 0x0000948c]:	38 a5 b3 90 	addi    r5,r5,-19568
+10009490 [file 0x00009490]:	38 80 01 00 	li      r4,256
+10009494 [file 0x00009494]:	3f e0 10 57 	lis     r31,4183
+10009498 [file 0x00009498]:	38 61 00 08 	addi    r3,r1,8
+1000949c [file 0x0000949c]:	4c c6 31 82 	crclr   4*cr1+eq
+100094a0 [file 0x000094a0]:	48 56 6a 11 	bl      1056feb0 <snprintf@plt>
+100094a4 [file 0x000094a4]:	80 7f f8 58 	lwz     r3,-1960(r31)
+100094a8 [file 0x000094a8]:	48 56 6d f1 	bl      10570298 <free@plt>
+100094ac [file 0x000094ac]:	38 61 00 08 	addi    r3,r1,8
+100094b0 [file 0x000094b0]:	48 56 66 91 	bl      1056fb40 <strdup@plt>
+100094b4 [file 0x000094b4]:	90 7f f8 58 	stw     r3,-1960(r31)
+100094b8 [file 0x000094b8]:	4b ff fe 88 	b       10009340 <_init@@Base+0x2cd8>

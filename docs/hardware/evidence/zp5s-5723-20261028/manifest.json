@@ -1,0 +1,101 @@
+{
+  "plaintext-component": {
+    "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/57.23-74170-1-16-rootfs.bin",
+    "size": 4571136,
+    "sha256": "48fc2172e56cbd2a6304cd67a627ff50aaf4bb37fd6480dd2b245d71e8a2e98d"
+  },
+  "package": {
+    "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/fw/pkg.upd",
+    "size": 5606749,
+    "sha256": "e19a7bb28f2d940346c605ccfcff81f8d9a7dd1771ee991841ac1f9e07223ad4"
+  },
+  "archive-run-receipt": {
+    "path": "/home/ben/.review-notes/moggie-zero-pound-2026-10-28/work/lane1/raw/fw-m16-m17.json",
+    "size": 9282,
+    "sha256": "47becea93093f537144e4a5e7488fe28b83b2488ccb7fefc168541b1d739b7e9"
+  },
+  "W": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/opt/bin/anacapad",
+    "size": 5483684,
+    "sha256": "bea55150c43eaadeec72b03a9494c32d96ec8f0b4406b1b84e3f30ff652e04ba",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 268435456,
+        "p_filesz": 5424640,
+        "p_memsz": 5424640,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 5424640,
+        "p_vaddr": 273925632,
+        "p_filesz": 38424,
+        "p_memsz": 1120460,
+        "p_flags": 7
+      }
+    ]
+  },
+  "WB": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/bin/busybox",
+    "size": 288488,
+    "sha256": "989ec0daad0778a8d66e6c8ddbac4dc25bfdf73a40c5ea5ebd01d6ded28749b2",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 268435456,
+        "p_filesz": 284948,
+        "p_memsz": 284948,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 286720,
+        "p_vaddr": 268787712,
+        "p_filesz": 384,
+        "p_memsz": 12184,
+        "p_flags": 7
+      }
+    ]
+  },
+  "etc/Configure": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/etc/Configure",
+    "size": 2067,
+    "sha256": "9cbd27cf39f5644a22b1b11fd3358d25342e120339513a9f10b5df9491500d94"
+  },
+  "etc/inittab": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/etc/inittab",
+    "size": 248,
+    "sha256": "b7ab9d8b974d4b99185dac97264cfcd94c275cbde259324bdf4389d1245f2533"
+  },
+  "etc/runanacapa": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/etc/runanacapa",
+    "size": 563,
+    "sha256": "66bf159d4c3c4779b1b93406ea9bce48402b0aa3c7b8b7df90067168b13741cf"
+  },
+  "etc/arch": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/etc/arch",
+    "size": 4,
+    "sha256": "2e07887e8c70760795e3e9657bcd668e333815fca462a991552294b8a5d2b68f"
+  },
+  "opt/conf/anacapa.conf": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/opt/conf/anacapa.conf",
+    "size": 2076,
+    "sha256": "afabc12e59c45a234fe88e644f80dec467e1b03dcc89ce248c40744b1ecfc52f"
+  },
+  "etc/scripts/run_sshd.sh": {
+    "path": "/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-57-23/rootfs/etc/scripts/run_sshd.sh",
+    "size": 90,
+    "sha256": "5c4af360db64922bd9da95147dc32e2eaa7113e48fff943cefa6380b41526170"
+  },
+  "tool": {
+    "objdump": "/home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump",
+    "version": "GNU objdump (GNU Binutils) 2.45.1"
+  }
+}

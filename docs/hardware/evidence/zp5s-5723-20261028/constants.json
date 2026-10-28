@@ -1,0 +1,49 @@
+{
+  "W": [
+    {
+      "va": "0x1048b808",
+      "file": "0x48b808",
+      "value": "57.23-74170"
+    },
+    {
+      "va": "0x10497040",
+      "file": "0x497040",
+      "value": "confirm="
+    },
+    {
+      "va": "0x1049704c",
+      "file": "0x49704c",
+      "value": "/tmp/device_unlocked_flag"
+    },
+    {
+      "va": "0x10497068",
+      "file": "0x497068",
+      "value": "/opt/htdocs_locked"
+    },
+    {
+      "va": "0x1049707c",
+      "file": "0x49707c",
+      "value": "/tmp/htdocs_locked"
+    },
+    {
+      "va": "0x10497090",
+      "file": "0x497090",
+      "value": "/etc/scripts/run_sshd.sh"
+    },
+    {
+      "va": "0x1043dbe4",
+      "file": "0x43dbe4",
+      "value": "/unlock"
+    },
+    {
+      "va": "0x1043dbf8",
+      "file": "0x43dbf8",
+      "value": "/devmode"
+    },
+    {
+      "va": "0x1043dc04",
+      "file": "0x43dc04",
+      "value": "/testenv"
+    }
+  ]
+}

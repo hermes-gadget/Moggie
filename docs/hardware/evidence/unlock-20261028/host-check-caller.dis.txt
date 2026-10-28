@@ -1,0 +1,39 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10425328 --stop-address=0x104253a0 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10425328 <modff@@Base+0x15574>:
+10425328 [file 0x00425328]:	83 e1 00 2c 	lwz     r31,44(r1)
+1042532c [file 0x0042532c]:	38 21 00 30 	addi    r1,r1,48
+10425330 [file 0x00425330]:	4e 80 00 20 	blr
+10425334 [file 0x00425334]:	7f c3 f3 78 	mr      r3,r30
+10425338 [file 0x00425338]:	4b ff e6 69 	bl      104239a0 <modff@@Base+0x13bec>
+1042533c [file 0x0042533c]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10425340 [file 0x00425340]:	40 9e 00 14 	bne     cr7,10425354 <modff@@Base+0x155a0>
+10425344 [file 0x00425344]:	38 80 01 90 	li      r4,400
+10425348 [file 0x00425348]:	7f c3 f3 78 	mr      r3,r30
+1042534c [file 0x0042534c]:	4b ff ef 9d 	bl      104242e8 <modff@@Base+0x14534>
+10425350 [file 0x00425350]:	4b ff fe f0 	b       10425240 <modff@@Base+0x1548c>
+10425354 [file 0x00425354]:	7f c3 f3 78 	mr      r3,r30
+10425358 [file 0x00425358]:	4b ff eb ad 	bl      10423f04 <modff@@Base+0x14150>
+1042535c [file 0x0042535c]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10425360 [file 0x00425360]:	40 9e 00 1c 	bne     cr7,1042537c <modff@@Base+0x155c8>
+10425364 [file 0x00425364]:	38 80 01 90 	li      r4,400
+10425368 [file 0x00425368]:	7f c3 f3 78 	mr      r3,r30
+1042536c [file 0x0042536c]:	4b ff ef 7d 	bl      104242e8 <modff@@Base+0x14534>
+10425370 [file 0x00425370]:	39 20 00 01 	li      r9,1
+10425374 [file 0x00425374]:	99 3e 04 c4 	stb     r9,1220(r30)
+10425378 [file 0x00425378]:	4b ff fe c8 	b       10425240 <modff@@Base+0x1548c>
+1042537c [file 0x0042537c]:	7f c3 f3 78 	mr      r3,r30
+10425380 [file 0x00425380]:	4b ff 60 19 	bl      1041b398 <modff@@Base+0xb5e4>
+10425384 [file 0x00425384]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10425388 [file 0x00425388]:	41 9e 00 60 	beq     cr7,104253e8 <modff@@Base+0x15634>
+1042538c [file 0x0042538c]:	80 7f 00 20 	lwz     r3,32(r31)
+10425390 [file 0x00425390]:	3b a0 00 00 	li      r29,0
+10425394 [file 0x00425394]:	38 63 00 30 	addi    r3,r3,48
+10425398 [file 0x00425398]:	4b ff 62 b9 	bl      1041b650 <modff@@Base+0xb89c>
+1042539c [file 0x0042539c]:	80 7f 00 20 	lwz     r3,32(r31)

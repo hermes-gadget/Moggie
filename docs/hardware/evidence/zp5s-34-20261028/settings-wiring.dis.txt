@@ -1,0 +1,47 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10050f30 --stop-address=0x10050fc8 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10050f30 <strlcpy@@Base-0x1407cc>:
+10050f30 [file 0x00050f30]:	3b 57 3f 54 	addi    r26,r23,16212
+10050f34 [file 0x00050f34]:	7f a3 eb 78 	mr      r3,r29
+10050f38 [file 0x00050f38]:	7f 84 e3 78 	mr      r4,r28
+10050f3c [file 0x00050f3c]:	48 17 ec a1 	bl      101cfbdc <strlcpy@@Base+0x3e4e0>
+10050f40 [file 0x00050f40]:	3b 77 40 50 	addi    r27,r23,16464
+10050f44 [file 0x00050f44]:	7f 43 d3 78 	mr      r3,r26
+10050f48 [file 0x00050f48]:	7f a4 eb 78 	mr      r4,r29
+10050f4c [file 0x00050f4c]:	7f 85 e3 78 	mr      r5,r28
+10050f50 [file 0x00050f50]:	48 17 f5 81 	bl      101d04d0 <strlcpy@@Base+0x3edd4>
+10050f54 [file 0x00050f54]:	7f 84 e3 78 	mr      r4,r28
+10050f58 [file 0x00050f58]:	7f 63 db 78 	mr      r3,r27
+10050f5c [file 0x00050f5c]:	48 0f af 0d 	bl      1014be68 <_init@@Base+0x1463dc>
+10050f60 [file 0x00050f60]:	38 95 cd f8 	addi    r4,r21,-12808
+10050f64 [file 0x00050f64]:	41 92 03 dc 	beq     cr4,10051340 <_init@@Base+0x4b8b4>
+10050f68 [file 0x00050f68]:	39 56 48 b0 	addi    r10,r22,18608
+10050f6c [file 0x00050f6c]:	7f 67 db 78 	mr      r7,r27
+10050f70 [file 0x00050f70]:	7f a5 eb 78 	mr      r5,r29
+10050f74 [file 0x00050f74]:	7f 46 d3 78 	mr      r6,r26
+10050f78 [file 0x00050f78]:	7f 29 cb 78 	mr      r9,r25
+10050f7c [file 0x00050f7c]:	7f c8 f3 78 	mr      r8,r30
+10050f80 [file 0x00050f80]:	39 71 03 d0 	addi    r11,r17,976
+10050f84 [file 0x00050f84]:	38 1f 61 c0 	addi    r0,r31,25024
+10050f88 [file 0x00050f88]:	91 61 00 14 	stw     r11,20(r1)
+10050f8c [file 0x00050f8c]:	7f 83 e3 78 	mr      r3,r28
+10050f90 [file 0x00050f90]:	90 01 00 20 	stw     r0,32(r1)
+10050f94 [file 0x00050f94]:	3b 96 47 40 	addi    r28,r22,18240
+10050f98 [file 0x00050f98]:	3b bf 22 10 	addi    r29,r31,8720
+10050f9c [file 0x00050f9c]:	93 81 00 08 	stw     r28,8(r1)
+10050fa0 [file 0x00050fa0]:	3b 75 cf 00 	addi    r27,r21,-12544
+10050fa4 [file 0x00050fa4]:	93 a1 00 18 	stw     r29,24(r1)
+10050fa8 [file 0x00050fa8]:	3b 30 68 a0 	addi    r25,r16,26784
+10050fac [file 0x00050fac]:	93 61 00 0c 	stw     r27,12(r1)
+10050fb0 [file 0x00050fb0]:	3b 57 72 68 	addi    r26,r23,29288
+10050fb4 [file 0x00050fb4]:	93 21 00 10 	stw     r25,16(r1)
+10050fb8 [file 0x00050fb8]:	3b b7 5a a0 	addi    r29,r23,23200
+10050fbc [file 0x00050fbc]:	93 41 00 1c 	stw     r26,28(r1)
+10050fc0 [file 0x00050fc0]:	3b 95 cd f8 	addi    r28,r21,-12808
+10050fc4 [file 0x00050fc4]:	48 0f b2 ed 	bl      1014c2b0 <_init@@Base+0x146824>

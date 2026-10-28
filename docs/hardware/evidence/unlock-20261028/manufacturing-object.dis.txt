@@ -1,0 +1,44 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10355d34 --stop-address=0x10355dc0 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10355d34 <strlcpy@@Base+0x13225c>:
+10355d34 [file 0x00355d34]:	94 21 ef e0 	stwu    r1,-4128(r1)
+10355d38 [file 0x00355d38]:	7c 08 02 a6 	mflr    r0
+10355d3c [file 0x00355d3c]:	90 01 10 24 	stw     r0,4132(r1)
+10355d40 [file 0x00355d40]:	93 a1 10 14 	stw     r29,4116(r1)
+10355d44 [file 0x00355d44]:	93 e1 10 1c 	stw     r31,4124(r1)
+10355d48 [file 0x00355d48]:	7c 7f 1b 78 	mr      r31,r3
+10355d4c [file 0x00355d4c]:	93 c1 10 18 	stw     r30,4120(r1)
+10355d50 [file 0x00355d50]:	48 00 a4 95 	bl      103601e4 <strlcpy@@Base+0x13c70c>
+10355d54 [file 0x00355d54]:	3d 20 10 52 	lis     r9,4178
+10355d58 [file 0x00355d58]:	3b bf 01 0c 	addi    r29,r31,268
+10355d5c [file 0x00355d5c]:	39 29 95 8c 	addi    r9,r9,-27252
+10355d60 [file 0x00355d60]:	38 a0 02 00 	li      r5,512
+10355d64 [file 0x00355d64]:	91 3f 00 00 	stw     r9,0(r31)
+10355d68 [file 0x00355d68]:	38 80 00 00 	li      r4,0
+10355d6c [file 0x00355d6c]:	7f a3 eb 78 	mr      r3,r29
+10355d70 [file 0x00355d70]:	48 21 a8 21 	bl      10570590 <memset@plt>
+10355d74 [file 0x00355d74]:	7f a3 eb 78 	mr      r3,r29
+10355d78 [file 0x00355d78]:	48 21 9e 61 	bl      1056fbd8 <hal_flash_get_mdp_wrapper@plt>
+10355d7c [file 0x00355d7c]:	38 61 00 08 	addi    r3,r1,8
+10355d80 [file 0x00355d80]:	48 21 a0 01 	bl      1056fd80 <hal_flash_get_mdp2_wrapper@plt>
+10355d84 [file 0x00355d84]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10355d88 [file 0x00355d88]:	40 9e 00 20 	bne     cr7,10355da8 <strlcpy@@Base+0x1322d0>
+10355d8c [file 0x00355d8c]:	81 21 00 08 	lwz     r9,8(r1)
+10355d90 [file 0x00355d90]:	6d 2a 35 67 	xoris   r10,r9,13671
+10355d94 [file 0x00355d94]:	2f 8a 9b 4a 	cmpwi   cr7,r10,-25782
+10355d98 [file 0x00355d98]:	41 9e 01 f8 	beq     cr7,10355f90 <strlcpy@@Base+0x1324b8>
+10355d9c [file 0x00355d9c]:	6d 2a 05 78 	xoris   r10,r9,1400
+10355da0 [file 0x00355da0]:	2f 8a b9 21 	cmpwi   cr7,r10,-18143
+10355da4 [file 0x00355da4]:	41 9e 02 04 	beq     cr7,10355fa8 <strlcpy@@Base+0x1324d0>
+10355da8 [file 0x00355da8]:	83 df 01 14 	lwz     r30,276(r31)
+10355dac [file 0x00355dac]:	2b 9e 00 0f 	cmplwi  cr7,r30,15
+10355db0 [file 0x00355db0]:	41 9e 03 14 	beq     cr7,103560c4 <strlcpy@@Base+0x1325ec>
+10355db4 [file 0x00355db4]:	2b 9e 00 05 	cmplwi  cr7,r30,5
+10355db8 [file 0x00355db8]:	41 9e 02 60 	beq     cr7,10356018 <strlcpy@@Base+0x132540>
+10355dbc [file 0x00355dbc]:	2b 9e 00 0c 	cmplwi  cr7,r30,12
