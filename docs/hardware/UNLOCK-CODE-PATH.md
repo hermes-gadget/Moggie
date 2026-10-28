@@ -350,4 +350,17 @@ python3 tools/stock_unlock_evidence.py \
 
 The separate [34.16 generator](../../tools/zp5s_unlock_evidence.py) parses the already-captured UPD and uses host `unsquashfs -cat` for four ELF files and seven non-credential text files. It never extracts account databases or executes package scripts/target programs; exact reproduction commands are in the [34.16 provenance note](evidence/ZP5S-34-20261028.md).
 
+The evidence checker independently validates selected ELF relocation entries/symbols, route words/paths/stride, constants and SSH option-table deltas against the captured sources, as well as source hashes, instruction bytes and document offsets/links ([checker](../../tools/check_stock_unlock_evidence.py)). Deterministic regeneration is an additional check, not the only metadata check. The isolated negative checks mutate scratch copies and require the checker to reject changed symbols, relocation addends, route flags, strings and CLI jump deltas; they never modify captured inputs or committed packets ([negative-check driver](../../tools/test_stock_unlock_evidence.py)). Run:
+
+```sh
+python3 tools/test_stock_unlock_evidence.py \
+  --evidence docs/hardware/evidence/unlock-20261028 \
+  --document docs/hardware/UNLOCK-CODE-PATH.md
+python3 tools/test_stock_unlock_evidence.py \
+  --evidence docs/hardware/evidence/zp5s-34-20261028 \
+  --document docs/hardware/UNLOCK-CODE-PATH.md
+```
+
+Neither positive nor negative integrity checks certify reverse-engineering semantics, runtime authentication, hardware behavior or installed-build applicability.
+
 Verification results and the ranked handoff are in [2026-10-28-l1-moggie-unlock.md](../reviews/2026-10-28-l1-moggie-unlock.md). The authorization boundary remains offline only (brief lines 29–40). Required input to close the installed-build gap is **already-captured matching ZP5S 57.10 `-1-16` userspace plus provenance**, not device access, credentials, flashing or GPIO.

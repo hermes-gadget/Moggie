@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import re
 import shlex
+import struct
 
 from stock_unlock_evidence import Image
 
@@ -16,6 +17,89 @@ from stock_unlock_evidence import Image
 def require(condition, message):
     if not condition:
         raise SystemExit('FAIL: ' + message)
+
+
+def check_metadata(packet, images):
+    """Check saved symbolic metadata independently against ELF source records."""
+    relocations = json.loads((packet / 'relocations.json').read_text())
+    for saved in relocations:
+        source = images[saved['image']]
+        entry = int(saved['entry_file'], 16)
+        actual = None
+        for section in source.elf.iter_sections():
+            if section['sh_type'] != 'SHT_RELA' or section.name != saved['section']:
+                continue
+            delta = entry - section['sh_offset']
+            if 0 <= delta < section['sh_size'] and delta % section['sh_entsize'] == 0:
+                actual = section.get_relocation(delta // section['sh_entsize'])
+                symbols = source.elf.get_section(section['sh_link'])
+                break
+        require(actual is not None, 'relocation entry outside ELF table')
+        require(actual['r_offset'] == int(saved['target_va'], 16), 'relocation target')
+        require(actual['r_info_type'] == saved['type'], 'relocation type')
+        require(actual['r_addend'] == int(saved['addend'], 16), 'relocation addend')
+        offset = source.offset(actual['r_offset'])
+        require(saved['target_file'] == (hex(offset) if offset is not None else None),
+                'relocation target VA/file mapping')
+        if 'symbol' in saved:
+            require(symbols.get_symbol(actual['r_info_sym']).name == saved['symbol'],
+                    'relocation symbol')
+
+    routes = json.loads((packet / 'routes.json').read_text())
+    source = images['A'] if 'A' in images else images['Z']
+    previous = None
+    for row in [routes['module_root'], routes['module'], *routes['routes']]:
+        va = int(row['va'], 16)
+        require(source.offset(va) == int(row['file'], 16), 'route VA/file mapping')
+        require(source.words(va, len(row['words'])) == row['words'], 'route words')
+    for row in routes['routes']:
+        va = int(row['va'], 16)
+        require(len(row['words']) * 4 == routes['stride'], 'route stride/word count')
+        if previous is not None:
+            require(va - previous == routes['stride'], 'route table continuity')
+        previous = va
+        pointer = int(row['words'][3], 16)
+        require(row['path'] == (source.string(pointer) if pointer else None), 'route path')
+    require(all(int(w, 16) == 0 for w in routes['routes'][-1]['words']),
+            'missing route-table terminator')
+
+    constants = 0
+    for key, rows in json.loads((packet / 'constants.json').read_text()).items():
+        for row in rows:
+            source = images[row.get('image', key.split('_')[0])]
+            va, offset = int(row['va'], 16), int(row['file'], 16)
+            require(source.offset(va) == offset, 'constant VA/file mapping')
+            if 'words' in row:
+                require(source.words(va, len(row['words'])) == row['words'], 'constant words')
+            elif 'bytes' in row:
+                raw = bytes.fromhex(row['bytes'])
+                require(source.data[offset:offset + len(raw)] == raw, 'constant bytes')
+                fmt = ('<' if source.elf.little_endian else '>') + ('f' if len(raw) == 4 else 'd')
+                require(struct.unpack(fmt, raw)[0] == row['value'], 'floating constant value')
+            else:
+                require(source.string(va) == row['value'], 'constant string')
+            constants += 1
+
+    option_count = 0
+    options_path = packet / 'ssh-options.json'
+    if options_path.is_file():
+        source = images['D']
+        options = json.loads(options_path.read_text())
+        table = int(options['table_va'], 16)
+        require(source.offset(table) == int(options['table_file'], 16), 'option table mapping')
+        for row in options['options']:
+            option = row['option']
+            require(len(option) == 2 and option[0] == '-', 'invalid option label')
+            slot = table + 4 * (ord(option[1]) - ord('B'))
+            offset = source.offset(slot)
+            require(offset == int(row['entry_file'], 16), 'option jump slot')
+            delta = struct.unpack_from('>i', source.data, offset)[0]
+            require(delta == row['relative_delta'], 'option jump delta')
+            target = table + delta
+            require(target == int(row['target_va'], 16), 'option jump target')
+            require(source.offset(target) == int(row['target_file'], 16), 'option target mapping')
+            option_count += 1
+    return len(relocations), len(routes['routes']), constants, option_count
 
 
 def main():
@@ -42,6 +126,7 @@ def main():
         require(len(data) == record['size'], 'source size: ' + record['path'])
         require(hashlib.sha256(data).hexdigest() == record['sha256'],
                 'source hash: ' + record['path'])
+    metadata = check_metadata(packet, images)
     sources = {str(image.path): image for image in images.values()}
     instruction = re.compile(
         r'^\s*([0-9a-f]+) \[file (0x[0-9a-f]+)\]:\s*'
@@ -86,6 +171,7 @@ def main():
         print(f'REPRODUCIBLE: {len(original)} evidence files byte-identical')
     print(f'PROVENANCE: {len(records)} source records match original size and SHA-256')
     print(f'BYTES: {len(excerpts)} excerpts; {count} instructions match original bytes and LOAD mappings')
+    print('METADATA: %d relocations; %d routes; %d constants; %d CLI option rows match source' % metadata)
     print(f'DOCUMENT: {offsets} explicit source-offset citations in file-backed LOAD bytes; all local links resolve')
     print('LIMIT: byte/offset/link checks do not establish semantic or hardware correctness')
 
