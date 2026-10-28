@@ -1,0 +1,16 @@
+SOURCE /home/ben/Moggie/dl/stock-firmware/34.16-37101-1-16.upd record6_payload=0xd3f gzip_relative=0x5779 gzip_absolute=0x64b8 inflated_bytes=1511544 inflated_sha256=c0a562fa670d1f620c249c8e5857388a575d85fa4fe3f5ce587720719509bf51
+inflated_offset=0x125e68 Linux version 2.4.22-rincon- (build@LIN-77) (gcc version 3.4.4) #1 Tue Jan 10 15:55:02 EST 2017
+inflated_offset=0x12cb40 <3>SQUASHFS error: Major/Minor mismatch, trying to mount newer %d.%d filesystem
+inflated_offset=0x12cb94 <3>SQUASHFS error: Please update your kernel
+inflated_offset=0x12ce78 <6>squashfs: version 3.0 (2006/03/15) Phillip Lougher
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/dump/57.10-25140/rootfs.gz sha256=606f8146c3c8394409fa2060820eee4fb66552d5d52e1b55711d644a29ced257 outer_inflated_bytes=10485760 prefix=28cd3d45006e70000000000300000000
+CRAMFS big_endian size=7237632 flags=0x3 signature=b'Compressed ROMFS'
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/dump/57.10-25140/kernel.gz sha256=65aa26a1a83bd8bce050e8c3d8979b9801051d2dd1eadb89143de51525d14437 outer_inflated_bytes=3145728 prefix=270519568e3b580661e1a69a00164b62
+UIMAGE payload_size=1461090 name=b'Linux-2.6.35-dirty\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+kernel_inflated_bytes=3078644 sha256=1c4c3d8eb73dc8aa53628505de429bb062e11349836dfc9eca3ed0c95aa808bc
+inflated_offset=0x210120 Linux version 2.6.35-dirty (secbuild@lin-243) (gcc version 5.2.0 (crosstool-NG crosstool-ng-1.22.0 - allen.antony@sonos.com) ) #1 Fri Jan 14 11:36:40 EST 2022
+inflated_offset=0x254dd4 fsl,mpc8315erdb
+inflated_offset=0x2615c4 <3>cramfs: wrong endianess
+inflated_offset=0x2615e0 <3>cramfs: wrong magic
+inflated_offset=0x2e30cc fsl,mpc8315erdb
+literal_squashfs_count=0

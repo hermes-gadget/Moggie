@@ -851,3 +851,108 @@ $ /home/ben/Moggie/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc
     a514:	c8 09 00 00 	lfd     f0,0(r9)
     a518:	d8 01 00 28 	stfd    f0,40(r1)
     a5c0:	c8 09 00 00 	lfd     f0,0(r9)
+$ /home/ben/Moggie/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0xa478 --stop-address=0xa4a8 /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libm-2.3.5.so
+
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libm-2.3.5.so:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+0000a478 <matherr@@GLIBC_2.0-0x20ec>:
+    a478:	94 21 ff b0 	stwu    r1,-80(r1)
+    a47c:	7c 08 02 a6 	mflr    r0
+    a480:	db e1 00 48 	stfd    f31,72(r1)
+    a484:	93 a1 00 3c 	stw     r29,60(r1)
+    a488:	93 c1 00 40 	stw     r30,64(r1)
+    a48c:	90 01 00 54 	stw     r0,84(r1)
+    a490:	48 07 bd 85 	bl      86214 <.got>
+    a494:	7f c8 02 a6 	mflr    r30
+    a498:	fd a0 08 90 	fmr     f13,f1
+    a49c:	ff e0 10 90 	fmr     f31,f2
+    a4a0:	d8 21 00 18 	stfd    f1,24(r1)
+    a4a4:	d8 41 00 20 	stfd    f2,32(r1)
+[exit 0]
+
+$ readelf --version-info /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/usr/sbin/sonosd
+
+Version symbols section '.gnu.version' contains 80 entries:
+ Addr: 0x0000000000000d16  Offset: 0x00000d16  Link: 4 (.dynsym)
+  000:   0 (*local*)       0 (*local*)       2 (GLIBC_2.0)     2 (GLIBC_2.0)
+  004:   2 (GLIBC_2.0)     3 (GLIBC_2.1)     4 (GLIBC_2.34)    5 (MOSQ_1.0)
+  008:   2 (GLIBC_2.0)     1 (*global*)      5 (MOSQ_1.0)      6 (GLIBC_2.4)
+  00c:   7 (GLIBC_2.3.2)   2 (GLIBC_2.0)     5 (MOSQ_1.0)      3 (GLIBC_2.1)
+  010:   5 (MOSQ_1.0)      5 (MOSQ_1.0)      2 (GLIBC_2.0)     2 (GLIBC_2.0)
+  014:   2 (GLIBC_2.0)     2 (GLIBC_2.0)     3 (GLIBC_2.1)     2 (GLIBC_2.0)
+  018:   7 (GLIBC_2.3.2)   5 (MOSQ_1.0)      2 (GLIBC_2.0)     6 (GLIBC_2.4)
+  01c:   2 (GLIBC_2.0)     2 (GLIBC_2.0)     2 (GLIBC_2.0)     2 (GLIBC_2.0)
+  020:   3 (GLIBC_2.1)     8 (GLIBC_2.1.3)   5 (MOSQ_1.0)      2 (GLIBC_2.0)
+  024:   2 (GLIBC_2.0)     2 (GLIBC_2.0)     2 (GLIBC_2.0)     2 (GLIBC_2.0)
+  028:   9 (GLIBC_2.3.4)   5 (MOSQ_1.0)      1 (*global*)      5 (MOSQ_1.0)
+  02c:   2 (GLIBC_2.0)     2 (GLIBC_2.0)     2 (GLIBC_2.0)     2 (GLIBC_2.0)
+  030:   2 (GLIBC_2.0)     7 (GLIBC_2.3.2)   5 (MOSQ_1.0)      6 (GLIBC_2.4)
+  034:   6 (GLIBC_2.4)     2 (GLIBC_2.0)     2 (GLIBC_2.0)     2 (GLIBC_2.0)
+  038:   5 (MOSQ_1.0)      2 (GLIBC_2.0)     2 (GLIBC_2.0)     2 (GLIBC_2.0)
+  03c:   3 (GLIBC_2.1)     a (GLIBC_2.28)    6 (GLIBC_2.4)     2 (GLIBC_2.0)
+  040:   5 (MOSQ_1.0)      2 (GLIBC_2.0)     7 (GLIBC_2.3.2)   2 (GLIBC_2.0)
+  044:   5 (MOSQ_1.0)      6 (GLIBC_2.4)     2 (GLIBC_2.0)     2 (GLIBC_2.0)
+  048:   1 (*global*)      5 (MOSQ_1.0)      2 (GLIBC_2.0)     2 (GLIBC_2.0)
+  04c:   2 (GLIBC_2.0)     2 (GLIBC_2.0)     b (GLIBC_2.3)     1 (*global*)
+
+Version needs section '.gnu.version_r' contains 2 entries:
+ Addr: 0x0000000000000db8  Offset: 0x00000db8  Link: 5 (.dynstr)
+  000000: Version: 1  File: libmosquitto.so.1  Cnt: 1
+  0x0010:   Name: MOSQ_1.0  Flags: none  Version: 5
+  0x0020: Version: 1  File: libc.so.6  Cnt: 9
+  0x0030:   Name: GLIBC_2.3  Flags: none  Version: 11
+  0x0040:   Name: GLIBC_2.28  Flags: none  Version: 10
+  0x0050:   Name: GLIBC_2.3.4  Flags: none  Version: 9
+  0x0060:   Name: GLIBC_2.1.3  Flags: none  Version: 8
+  0x0070:   Name: GLIBC_2.3.2  Flags: none  Version: 7
+  0x0080:   Name: GLIBC_2.4  Flags: none  Version: 6
+  0x0090:   Name: GLIBC_2.34  Flags: none  Version: 4
+  0x00a0:   Name: GLIBC_2.1  Flags: none  Version: 3
+  0x00b0:   Name: GLIBC_2.0  Flags: none  Version: 2
+[exit 0]
+
+$ readelf --version-info /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/sonosd
+
+Version symbols section '.gnu.version' contains 81 entries:
+ Addr: 0x0000000000000d40  Offset: 0x00000d40  Link: 4 (.dynsym)
+  000:   0 (*local*)       0 (*local*)       2 (GLIBC_2.0)     3 (GLIBC_2.0)
+  004:   3 (GLIBC_2.0)     4 (MOSQ_1.0)      2 (GLIBC_2.0)     0 (*local*)
+  008:   4 (MOSQ_1.0)      5 (GLIBC_2.4)     6 (GLIBC_2.3.2)   3 (GLIBC_2.0)
+  00c:   4 (MOSQ_1.0)      4 (MOSQ_1.0)      4 (MOSQ_1.0)      3 (GLIBC_2.0)
+  010:   3 (GLIBC_2.0)     3 (GLIBC_2.0)     2 (GLIBC_2.0)     7 (GLIBC_2.1)
+  014:   3 (GLIBC_2.0)     6 (GLIBC_2.3.2)   4 (MOSQ_1.0)      3 (GLIBC_2.0)
+  018:   5 (GLIBC_2.4)     2 (GLIBC_2.0)     3 (GLIBC_2.0)     3 (GLIBC_2.0)
+  01c:   3 (GLIBC_2.0)     7 (GLIBC_2.1)     8 (GLIBC_2.1.3)   4 (MOSQ_1.0)
+  020:   3 (GLIBC_2.0)     3 (GLIBC_2.0)     3 (GLIBC_2.0)     3 (GLIBC_2.0)
+  024:   3 (GLIBC_2.0)     9 (GLIBC_2.3.4)   4 (MOSQ_1.0)      0 (*local*)
+  028:   4 (MOSQ_1.0)      1 (*global*)      3 (GLIBC_2.0)     3 (GLIBC_2.0)
+  02c:   3 (GLIBC_2.0)     2 (GLIBC_2.0)     3 (GLIBC_2.0)     2 (GLIBC_2.0)
+  030:   6 (GLIBC_2.3.2)   4 (MOSQ_1.0)      5 (GLIBC_2.4)     a (GLIBC_2.2)
+  034:   2 (GLIBC_2.0)     5 (GLIBC_2.4)     3 (GLIBC_2.0)     3 (GLIBC_2.0)
+  038:   2 (GLIBC_2.0)     4 (MOSQ_1.0)      a (GLIBC_2.2)     3 (GLIBC_2.0)
+  03c:   3 (GLIBC_2.0)     3 (GLIBC_2.0)     7 (GLIBC_2.1)     5 (GLIBC_2.4)
+  040:   3 (GLIBC_2.0)     4 (MOSQ_1.0)      3 (GLIBC_2.0)     6 (GLIBC_2.3.2)
+  044:   0 (*local*)       3 (GLIBC_2.0)     4 (MOSQ_1.0)      5 (GLIBC_2.4)
+  048:   2 (GLIBC_2.0)     2 (GLIBC_2.0)     0 (*local*)       4 (MOSQ_1.0)
+  04c:   3 (GLIBC_2.0)     3 (GLIBC_2.0)     3 (GLIBC_2.0)     2 (GLIBC_2.0)
+  050:   b (GLIBC_2.3)
+
+Version needs section '.gnu.version_r' contains 3 entries:
+ Addr: 0x0000000000000de4  Offset: 0x00000de4  Link: 5 (.dynstr)
+  000000: Version: 1  File: libmosquitto.so.1  Cnt: 1
+  0x0010:   Name: MOSQ_1.0  Flags: none  Version: 4
+  0x0020: Version: 1  File: libc.so.6  Cnt: 6
+  0x0030:   Name: GLIBC_2.3  Flags: none  Version: 11
+  0x0040:   Name: GLIBC_2.3.4  Flags: none  Version: 9
+  0x0050:   Name: GLIBC_2.1.3  Flags: none  Version: 8
+  0x0060:   Name: GLIBC_2.1  Flags: none  Version: 7
+  0x0070:   Name: GLIBC_2.4  Flags: none  Version: 5
+  0x0080:   Name: GLIBC_2.0  Flags: none  Version: 3
+  0x0090: Version: 1  File: libpthread.so.0  Cnt: 3
+  0x00a0:   Name: GLIBC_2.2  Flags: none  Version: 10
+  0x00b0:   Name: GLIBC_2.3.2  Flags: none  Version: 6
+  0x00c0:   Name: GLIBC_2.0  Flags: none  Version: 2
+[exit 0]

@@ -1,0 +1,768 @@
+$ git rev-parse origin/main
+3ff0a53814e6f7ba33cf4c8e8b56a9202d3af5db
+[exit 0]
+
+$ git ls-remote --symref origin HEAD
+ref: refs/heads/main	HEAD
+3ff0a53814e6f7ba33cf4c8e8b56a9202d3af5db	HEAD
+[exit 0]
+
+READ-ONLY main checkout out/ inventory (directory sizes are host metadata)
+artifacts.sha256 file 156
+audiodev.ko file 120720
+kernel-build-full.log file 187141
+kernel-build-os.log file 182375
+kernel-build-os2.log file 182487
+kernel-build.log file 182185
+make-kernel-test.log file 193088
+rootfs-stage directory 4096
+stock-vmlinux.bin file 3145728
+stock-vmlinux.elf file 3078644
+vmlinux-full.bin file 4204896
+vmlinux-os.bin file 4163884
+vmlinux-os.elf file 4954684
+vmlinux-stripped file 5507372
+vmlinux-stripped-os file 5507372
+vmlinux-unstripped file 6281684
+vmlinux.bin file 4204896
+vmlinux.elf file 4999888
+
+SOURCE /home/ben/Moggie-wt/buildroot/buildroot.lock sha256=2e3de36dbb8eaa9c5262c1ac5f727228fdcb24900ac64a602fb5995e5580b23a lines=17-42
+  17: # Target fact, repeated here because the rootfs build enforces it.
+  18: ROOTFS_SLOT_BYTES=8388608        # 8 MiB per A/B slot
+  19: ROOTFS_MAX_BYTES=7864320         # hard cap: half of the 16 MiB mtd3
+  20: NAND_ERASEBLOCK=131072           # 128 KiB
+  21:
+  22: # Known incompatibility, deliberately not papered over
+  23: # ----------------------------------------------------
+  24: # The pinned toolchain is glibc 2.44 (Bootlin 2026.08-1). Its own libc
+  25: # carries a .note.ABI-tag of "Linux, ABI: 3.2.0": glibc 2.34+ dropped
+  26: # support for kernels older than 3.2. The target kernel is 2.6.35.
+  27: #
+  28: # The toolchain's kernel headers are 5.10, and Buildroot's external-toolchain
+  29: # check is strict, so BR2_TOOLCHAIN_EXTERNAL_HEADERS_5_10 is the only value
+  30: # that lets the build run. Consequences:
+  31: #   * the rootfs is built against a 5.10 kernel API despite a 2.6.35 kernel;
+  32: #   * binaries may call syscalls added after 2.6.35 (prlimit64 is 2.6.36 --
+  33: #     one release later -- and glibc assumes it exists);
+  34: #   * whether the image actually boots on the speaker is UNVERIFIED. It
+  35: #     cannot be verified without the hardware, and qemu-user cannot model a
+  36: #     2.6.35 kernel.
+  37: # The only real fixes are a different C library (uClibc-ng/musl toolchain for
+  38: # e300c3) or a much older glibc toolchain, both of which contradict the
+  39: # pinned-toolchain requirement. Recorded here so nobody discovers it on the
+  40: # bench and thinks the rootfs is at fault.
+  41: GLIBC_MIN_KERNEL=3.2.0
+  42: TARGET_KERNEL=2.6.35
+
+SOURCE /home/ben/Moggie-wt/buildroot/toolchain.lock sha256=fc1362c3f94eb38aa8a7899fab51f9fbbf9d9f05d532d3b8857a6fc15d832041 lines=5-39
+   5: # ---------------------------------------------------------------------------
+   6: # Default toolchain: built, not downloaded.
+   7: #
+   8: # glibc 2.23 configured with --enable-kernel=2.6.35, so its libc declares
+   9: # "OS: Linux, ABI: 2.6.35" and its headers are linux-2.6.35. That is what the
+  10: # device runs; the Bootlin toolchain below is kept as a fallback and builds a
+  11: # rootfs that cannot work on 2.6.35.
+  12: #
+  13: # crosstool-NG builds it from toolchain-2.6.35.ctng.config -- see
+  14: # docs/TOOLCHAIN-2.6.35.md. It is not redistributable from a URL, so the lock
+  15: # records how to recognise a correct one rather than a hash to fetch.
+  16: #
+  17: # Override the location with MOGGIE_TOOLCHAIN_DIR.
+  18: TOOLCHAIN26_PATH=${MOGGIE_TOOLCHAIN26:-$HOME/Moggie-tc/toolchain/powerpc-buildroot-linux-gnu}
+  19: TOOLCHAIN26_GCC=5.5.0
+  20: TOOLCHAIN26_GLIBC=2.23
+  21: TOOLCHAIN26_ABI_TAG=2.6.35
+  22:
+  23: TOOLCHAIN_URL=https://toolchains.bootlin.com/downloads/releases/toolchains/powerpc-e300c3/tarballs/powerpc-e300c3--glibc--stable-2026.08-1.tar.xz
+  24: TOOLCHAIN_SHA256=623c15594a4be26c63a2090a0b3ce9efcf15809c9b9a8bfb95773240c70d8403
+  25: TOOLCHAIN_DIR=powerpc-e300c3--glibc--stable-2026.08-1
+  26: TOOLCHAIN_PREFIX=powerpc-buildroot-linux-gnu
+  27:
+  28: # Sonos GPL drop (version 14.4 hosts the 2.6.35 sources we need)
+  29: GPL_BASE=https://www.sonos.com/documents/gpl/14.4
+  30: GPL_DRIVERS=drivers.txz
+  31: GPL_DRIVERS_SHA256=
+  32: GPL_KERNEL=linux-2.6.35.txz
+  33: GPL_KERNEL_SHA256=
+  34:
+  35: # Target
+  36: MODEL=8
+  37: SOC=mpc8247
+  38: KERNEL_VERSION=2.6.35
+  39: ROOTFS_MAX_BYTES=7864320   # 7.5 MiB
+
+SOURCE /home/ben/Moggie-wt/buildroot/buildroot/configs/moggie_powerpc_defconfig sha256=966a507c855fbbbaa0a2fc91fd682e09c1420336a31ae9b9585a78f19671152c lines=7-67
+   7: # --- architecture --------------------------------------------------------
+   8: BR2_powerpc=y
+   9: BR2_powerpc_e300c3=y
+  10: BR2_ARCH="powerpc"
+  11: BR2_ENDIAN="BIG"
+  12: BR2_BINFMT_ELF=y
+  13: # hard float: the e300c3 has an FPU and the vendor userspace uses it
+  14: # BR2_SOFT_FLOAT is not set
+  15:
+  16: # --- toolchain -----------------------------------------------------------
+  17: BR2_TOOLCHAIN_EXTERNAL=y
+  18: BR2_TOOLCHAIN_EXTERNAL_CUSTOM=y
+  19: BR2_TOOLCHAIN_EXTERNAL_PREINSTALLED=y
+  20: # Empty: the compiler is found through PATH, which scripts/build-rootfs.sh
+  21: # points at the pinned toolchain. Keeping an absolute path out of here means
+  22: # the defconfig does not encode one developer's checkout layout.
+  23: BR2_TOOLCHAIN_EXTERNAL_PATH=""
+  24: BR2_TOOLCHAIN_EXTERNAL_CUSTOM_PREFIX="powerpc-buildroot-linux-gnu"
+  25: BR2_TOOLCHAIN_EXTERNAL_GCC_5=y
+  26: # The toolchain is crosstool-NG glibc 2.23 built against linux-2.6.35 headers,
+  27: # so 2.6.x is now the truthful answer rather than a fudge. Buildroot offers
+  28: # "2.6.x" but its check-kernel-headers.sh cannot consume it: the option selects
+  29: # no BR2_TOOLCHAIN_HEADERS_AT_LEAST, so the script is handed an empty version
+  30: # and fails to compile KERNEL_VERSION(,0,0). scripts/build-rootfs.sh repairs
+  31: # that one expression (${3:-2.6}) after extraction; see toolchain.lock.
+  32: BR2_TOOLCHAIN_EXTERNAL_HEADERS_REALLY_OLD=y
+  33: BR2_TOOLCHAIN_EXTERNAL_CUSTOM_GLIBC=y
+  34: # glibc 2.23 still ships Sun RPC, so Buildroot's check insists the option be
+  35: # on (with glibc 2.44 it insisted the opposite). Nothing in the rootfs uses
+  36: # RPC; enabling it keeps the external-toolchain check honest about the libc.
+  37: BR2_TOOLCHAIN_EXTERNAL_INET_RPC=y
+  38: # Buildroot's external-toolchain check is an exact match: if the toolchain
+  39: # can compile C++/OpenMP (this one can), the option must be selected or the
+  40: # build stops with "not selected but is available". Nothing in the rootfs
+  41: # uses either; the cost is libstdc++/libgomp on the target (see MANIFEST).
+  42: BR2_TOOLCHAIN_EXTERNAL_CXX=y
+  43: # BR2_TOOLCHAIN_EXTERNAL_FORTRAN is not set
+  44: # This toolchain is built with --disable-libgomp, so OpenMP must not be claimed.
+  45: # BR2_TOOLCHAIN_EXTERNAL_OPENMP is not set
+  46: # BR2_TOOLCHAIN_EXTERNAL_DLANG is not set
+  47: BR2_TOOLCHAIN_EXTERNAL_HAS_SSP=y
+  48: BR2_TOOLCHAIN_EXTERNAL_HAS_SSP_STRONG=y
+  49:
+  50: # --- build ---------------------------------------------------------------
+  51: BR2_OPTIMIZE_S=y
+  52: BR2_REPRODUCIBLE=y
+  53: BR2_TARGET_OPTIMIZATION=""
+  54:
+  55: # --- system --------------------------------------------------------------
+  56: BR2_TARGET_GENERIC_HOSTNAME="moggie"
+  57: BR2_TARGET_GENERIC_ISSUE="Moggie -- Sonos Play:5 Gen 1"
+  58: BR2_TARGET_GENERIC_ROOT_PASSWD=""
+  59: BR2_SYSTEM_DHCP=""
+  60: BR2_INIT_BUSYBOX=y
+  61: # The 2.6.35 kernel has no CONFIG_DEVTMPFS, so /dev is built statically and
+  62: # rcS layers a tmpfs + mdev on top at boot.
+  63: BR2_ROOTFS_DEVICE_CREATION_STATIC=y
+  64: BR2_ROOTFS_STATIC_DEVICE_TABLE="$(BR2_EXTERNAL_MOGGIE_PATH)/board/moggie/device_table_dev.txt"
+  65: BR2_ROOTFS_DEVICE_TABLE="$(BR2_EXTERNAL_MOGGIE_PATH)/board/moggie/device_table.txt"
+  66: BR2_ROOTFS_OVERLAY="$(BR2_EXTERNAL_MOGGIE_PATH)/board/moggie/rootfs-overlay"
+  67: BR2_ROOTFS_POST_BUILD_SCRIPT="$(BR2_EXTERNAL_MOGGIE_PATH)/board/moggie/post-build.sh"
+
+SOURCE /home/ben/Moggie-wt/buildroot/buildroot/configs/moggie_powerpc_defconfig sha256=966a507c855fbbbaa0a2fc91fd682e09c1420336a31ae9b9585a78f19671152c lines=120-130
+ 120: # --- root filesystem -----------------------------------------------------
+ 121: BR2_TARGET_ROOTFS_SQUASHFS=y
+ 122: BR2_TARGET_ROOTFS_SQUASHFS_BS_128K=y
+ 123: # Raw image stays unpadded; scripts/build-rootfs.sh pads to the 128 KiB NAND
+ 124: # eraseblock for the flashable artifact and measures both.
+ 125: # BR2_TARGET_ROOTFS_SQUASHFS_PAD is not set
+ 126: # gzip/zlib only: the 2.6.35 kernel has CONFIG_SQUASHFS with zlib and no
+ 127: # XZ/LZMA decoder. EXTREME_COMP turns on -Xcompression-level 9.
+ 128: BR2_TARGET_ROOTFS_SQUASHFS4_GZIP=y
+ 129: BR2_TARGET_ROOTFS_SQUASHFS_EXTREME_COMP=y
+ 130:
+
+SOURCE /home/ben/Moggie-wt/buildroot/scripts/build-rootfs.sh sha256=ad4c6510b59e97312d8683d331b5f54cbc74b3cd47bef8778fcce6f19f4dd16a lines=123-146
+ 123: TC_DIR="${MOGGIE_TOOLCHAIN_DIR:-${TOOLCHAIN26_PATH:-$REPO/toolchain/$TOOLCHAIN_DIR}}"
+ 124: TC_GCC="$TC_DIR/bin/${TOOLCHAIN_PREFIX}-gcc"
+ 125:
+ 126: ensure_toolchain() {
+ 127:     if [ ! -x "$TC_GCC" ]; then
+ 128:         say "toolchain missing at $TC_DIR"
+ 129:         say "fetching it (pinned in toolchain.lock)"
+ 130:         ./scripts/fetch-toolchain.sh || die "toolchain fetch failed"
+ 131:     fi
+ 132:     [ -x "$TC_GCC" ] || die "no cross gcc at $TC_GCC"
+ 133:     local ver sysroot abi
+ 134:     ver=$("$TC_GCC" -dumpversion)
+ 135:     sysroot=$("$TC_GCC" -print-sysroot)
+ 136:     say "toolchain $TC_DIR (gcc $ver)"
+ 137:
+ 138:     # The whole point of this toolchain is its kernel floor. Read it out of the
+ 139:     # libc's .note.ABI-tag instead of trusting the path it came from.
+ 140:     abi=$("${CROSS_READELF:-readelf}" -n "$sysroot/lib/libc.so.6" 2>/dev/null \
+ 141:           | sed -n 's/.*ABI: \([0-9.]*\).*/\1/p' | head -1)
+ 142:     say "libc kernel floor: ${abi:-unknown} (target kernel $TARGET_KERNEL)"
+ 143:     [ -n "$abi" ] || die "could not read the ABI tag from $sysroot/lib/libc.so.6"
+ 144:     [ "$abi" = "${TOOLCHAIN26_ABI_TAG:-2.6.35}" ] \
+ 145:         || say "WARNING: libc floor $abi is not ${TOOLCHAIN26_ABI_TAG:-2.6.35}; \
+ 146: this image will not run on the target kernel"
+
+SOURCE /home/ben/Moggie-wt/buildroot/scripts/build-rootfs.sh sha256=ad4c6510b59e97312d8683d331b5f54cbc74b3cd47bef8778fcce6f19f4dd16a lines=204-254
+ 204: measure() {
+ 205:     local img="$BUILD/images/rootfs.squashfs"
+ 206:     [ -f "$img" ] || die "no squashfs at $img (build first)"
+ 207:
+ 208:     local unsq="$BUILD/host/bin/unsquashfs"
+ 209:     [ -x "$unsq" ] || unsq=$(command -v unsquashfs) || die "no unsquashfs"
+ 210:
+ 211:     local raw padded files inodes
+ 212:     raw=$(stat -c%s "$img")
+ 213:     # Round up to the NAND eraseblock: the flashable artifact must not straddle
+ 214:     # an eraseblock boundary, and the padded size is what has to fit the slot.
+ 215:     padded=$(( (raw + NAND_ERASEBLOCK - 1) / NAND_ERASEBLOCK * NAND_ERASEBLOCK ))
+ 216:
+ 217:     # Entry/inode counts from the image itself, not from the staging dir.
+ 218:     files=$("$unsq" -l "$img" | wc -l)
+ 219:     inodes=$("$unsq" -s "$img" | awk '/^Number of inodes/ {print $NF}')
+ 220:
+ 221:     local comp blocksize xattrs created
+ 222:     comp=$("$unsq" -s "$img" | awk '/^Compression/ {print $2}')
+ 223:     blocksize=$("$unsq" -s "$img" | awk '/^Block size/ {print $3}')
+ 224:     xattrs=$("$unsq" -s "$img" | awk '/^Number of xattr ids/ {print $NF}')
+ 225:     created=$("$unsq" -s "$img" | sed -n 's/^Creation or last append time //p')
+ 226:
+ 227:     # Artifacts: raw image, padded NAND image, sizes report.
+ 228:     mkdir -p "$OUT"
+ 229:     cp -f "$img" "$OUT/rootfs.squashfs"
+ 230:     cp -f "$img" "$OUT/rootfs.nand.img"
+ 231:     truncate -s "$padded" "$OUT/rootfs.nand.img"
+ 232:
+ 233:     {
+ 234:         echo "# Moggie rootfs measurements -- generated by scripts/build-rootfs.sh"
+ 235:         echo "buildroot_version=$BUILDROOT_VERSION"
+ 236:         echo "buildroot_sha256=$BUILDROOT_SHA256"
+ 237:         echo "toolchain=$TOOLCHAIN_DIR"
+ 238:         echo "source_date_epoch=$SOURCE_DATE_EPOCH"
+ 239:         echo "compression=$comp"
+ 240:         echo "block_size=$blocksize"
+ 241:         echo "xattr_ids=$xattrs"
+ 242:         echo "image_creation_time=$created"
+ 243:         echo "raw_bytes=$raw"
+ 244:         echo "padded_bytes=$padded"
+ 245:         echo "nand_eraseblock=$NAND_ERASEBLOCK"
+ 246:         echo "slot_bytes=$ROOTFS_SLOT_BYTES"
+ 247:         echo "max_bytes=$ROOTFS_MAX_BYTES"
+ 248:         echo "headroom_raw=$((ROOTFS_MAX_BYTES - raw))"
+ 249:         echo "headroom_padded=$((ROOTFS_MAX_BYTES - padded))"
+ 250:         echo "entries=$files"
+ 251:         echo "inodes=$inodes"
+ 252:         echo "squashfs_sha256=$(sha256sum "$OUT/rootfs.squashfs" | awk '{print $1}')"
+ 253:         echo "nand_sha256=$(sha256sum "$OUT/rootfs.nand.img" | awk '{print $1}')"
+ 254:     } > "$OUT/rootfs.sizes.txt"
+
+SOURCE /home/ben/Moggie-wt/buildroot/buildroot/board/moggie/post-build.sh sha256=813d7a06a5ad06922764c9c8871a1397a2235c401aaf9910dbc656c530d68364 lines=29-64
+  29: find "$TARGET_DIR" -xdev -type d -exec chmod 0755 {} +
+  30: find "$TARGET_DIR" -xdev -type f -exec chmod go-w {} +
+  31:
+  32: chmod 0700 "$TARGET_DIR/root"
+  33: chmod 0600 "$TARGET_DIR/etc/shadow"
+  34: chmod 0644 "$TARGET_DIR/etc/passwd" "$TARGET_DIR/etc/group"
+  35: chmod 0755 "$TARGET_DIR/etc/init.d/rcS"
+  36: chmod 0755 "$TARGET_DIR/usr/share/udhcpc/default.script"
+  37:
+  38: # Buildroot installs busybox 4755 unconditionally, even with
+  39: # CONFIG_FEATURE_SUID off. Nothing on this device runs as a non-root user,
+  40: # so a setuid-root busybox is pure escalation surface.
+  41: chmod 0755 "$TARGET_DIR/bin/busybox"
+  42:
+  43: for d in /tmp /run /var/log /var/tmp /var/lock /jffs; do
+  44:     [ -d "$TARGET_DIR$d" ] || mkdir -p "$TARGET_DIR$d"
+  45:     chmod 0755 "$TARGET_DIR$d"
+  46: done
+  47:
+  48: # --- writable-state indirections -----------------------------------------
+  49: # Everything writable lives on tmpfs or jffs2. Dangling symlinks are fine:
+  50: # sonosd falls back to its compiled-in defaults when /etc/sonosd.conf is
+  51: # not readable.
+  52: ln -sfn /run/resolv.conf  "$TARGET_DIR/etc/resolv.conf"
+  53: ln -sfn /run              "$TARGET_DIR/var/run"
+  54: ln -sfn /jffs/sonosd.conf "$TARGET_DIR/etc/sonosd.conf"
+  55:
+  56: # dropbear's package installs /etc/dropbear as a symlink to
+  57: # /var/run/dropbear, which resolves onto the /run tmpfs. That is exactly
+  58: # right for a read-only rootfs, so it is left alone.
+  59:
+  60: # --- one init entry point -------------------------------------------------
+  61: # rcS starts everything explicitly and conditionally. Package S* scripts
+  62: # would start sshd (and anything else) unconditionally, so they are not
+  63: # shipped. Nothing in this rootfs needs them.
+  64: rm -f "$TARGET_DIR"/etc/init.d/S*
+
+SOURCE /home/ben/Moggie-wt/buildroot/buildroot/board/moggie/post-build.sh sha256=813d7a06a5ad06922764c9c8871a1397a2235c401aaf9910dbc656c530d68364 lines=76-90
+  76: RELEASE="$TARGET_DIR/etc/moggie-release"
+  77: {
+  78:     echo "MOGGIE_BUILDROOT=${MOGGIE_BUILDROOT_VERSION:-unknown}"
+  79:     echo "MOGGIE_BUILDROOT_SHA256=${MOGGIE_BUILDROOT_SHA256:-unknown}"
+  80:     echo "MOGGIE_TOOLCHAIN=${MOGGIE_TOOLCHAIN:-unknown}"
+  81:     echo "MOGGIE_SOURCE_DATE_EPOCH=${SOURCE_DATE_EPOCH:-0}"
+  82:     echo "MOGGIE_GIT_COMMIT=${MOGGIE_GIT_COMMIT:-unknown}"
+  83:     echo "MOGGIE_TARGET=powerpc-e300c3-linux-gnu (big endian, hard float)"
+  84: } > "$RELEASE"
+  85: chmod 0644 "$RELEASE"
+  86:
+  87: # --- sanity checks --------------------------------------------------------
+  88: for f in /sbin/init /bin/busybox /etc/inittab /etc/init.d/rcS /usr/sbin/sonosd; do
+  89:     [ -e "$TARGET_DIR$f" ] || fail "missing $f"
+  90: done
+
+SOURCE /home/ben/Moggie-wt/buildroot/buildroot/board/moggie/device_table_dev.txt sha256=3fb922ce72b240e158ddff4e01dd57a5316560640201bfbd5edbebae7234b8e6 lines=1-37
+   1: # Moggie static /dev -- used because the 2.6.35 kernel has no CONFIG_DEVTMPFS.
+   2: #
+   3: # <name>	<type>	<mode>	<uid>	<gid>	<major>	<minor>	<start>	<inc>	<count>
+   4: #
+   5: # Modes are deliberately stricter than a desktop /dev: /dev/null etc. are
+   6: # 0600 here because these nodes live on a read-only squashfs and every
+   7: # process on the speaker runs as root. At boot rcS mounts a tmpfs over /dev
+   8: # and mdev recreates the normal modes there.
+   9:
+  10: /dev/console	c	600	0	0	5	1	-	-	-
+  11: /dev/null	c	600	0	0	1	3	-	-	-
+  12: /dev/zero	c	600	0	0	1	5	-	-	-
+  13: /dev/tty	c	600	0	0	5	0	-	-	-
+  14: /dev/ptmx	c	600	0	0	5	2	-	-	-
+  15: /dev/random	c	644	0	0	1	8	-	-	-
+  16: /dev/urandom	c	644	0	0	1	9	-	-	-
+  17: /dev/ttyS0	c	600	0	5	4	64	-	-	-
+  18: /dev/ttyS1	c	600	0	5	4	65	-	-	-
+  19:
+  20: # MTD: char major 90, block major 31.
+  21: # mtd0 u-boot | mtd1 jffs2 | mtd2 ramdisk | mtd3 rootfs A/B | mtd4 kernel | mtd5 dtb
+  22: /dev/mtd0	c	600	0	0	90	0	-	-	-
+  23: /dev/mtd1	c	600	0	0	90	2	-	-	-
+  24: /dev/mtd2	c	600	0	0	90	4	-	-	-
+  25: /dev/mtd3	c	600	0	0	90	6	-	-	-
+  26: /dev/mtd4	c	600	0	0	90	8	-	-	-
+  27: /dev/mtd5	c	600	0	0	90	10	-	-	-
+  28: /dev/mtdblock0	b	600	0	0	31	0	-	-	-
+  29: /dev/mtdblock1	b	600	0	0	31	1	-	-	-
+  30: /dev/mtdblock2	b	600	0	0	31	2	-	-	-
+  31: /dev/mtdblock3	b	600	0	0	31	3	-	-	-
+  32: /dev/mtdblock4	b	600	0	0	31	4	-	-	-
+  33: /dev/mtdblock5	b	600	0	0	31	5	-	-	-
+  34:
+  35: # Sonos audiodev (GPL driver): major numbers from audioctl_abi.h.
+  36: /dev/dsp	c	660	0	18	250	0	-	-	-
+  37: /dev/audioctl	c	660	0	18	252	0	-	-	-
+
+SOURCE /home/ben/Moggie-wt/buildroot/scripts/build-kernel.sh sha256=a9255de462eddfe25df587754d6d63c7d55a164c8b9adf6f8e481ff7aab82eeb lines=79-94
+  79: # --- 3. Configure -----------------------------------------------------------
+  80: echo "==> fenway_op_defconfig"
+  81: make -C "$KERNEL_DIR" fenway_op_defconfig >/dev/null
+  82:
+  83: echo "==> enabling the options Moggie needs"
+  84: # -Os matters: the kernel partition is 2 MB and a -O2 build does not fit.
+  85: sed -i 's/^# CONFIG_CC_OPTIMIZE_FOR_SIZE is not set/CONFIG_CC_OPTIMIZE_FOR_SIZE=y/' \
+  86:     "$KERNEL_DIR/.config"
+  87: sed -i 's/^# CONFIG_SQUASHFS is not set/CONFIG_SQUASHFS=y/' "$KERNEL_DIR/.config"
+  88: sed -i 's/^# CONFIG_BLK_DEV_INITRD is not set/CONFIG_BLK_DEV_INITRD=y/' \
+  89:     "$KERNEL_DIR/.config"
+  90: make -C "$KERNEL_DIR" oldconfig </dev/null >/dev/null
+  91:
+  92: for opt in CC_OPTIMIZE_FOR_SIZE SQUASHFS BLK_DEV_INITRD; do
+  93:     grep -q "^CONFIG_$opt=y" "$KERNEL_DIR/.config" \
+  94:         || die "$opt did not stick in .config"
+
+SOURCE /home/ben/Moggie-wt/buildroot/firmware/bootchooser/init sha256=eb5ef34d7a4a1dc9b797b0d8aeea02fbdf7305c9ae13d7dcc23a4e8c93636e5c lines=56-90
+  56: # --- slot plumbing ----------------------------------------------------------
+  57:
+  58: # Resolve "rootfs_a"/"rootfs_b" through /proc/mtd: the kernel splits mtd3 with
+  59: # CONFIG_MTD_CMDLINE_PARTS, so the names come from the cmdline the bootloader
+  60: # passes, not from anything we can assume at compile time.
+  61: mtd_block_for() { # partition name -> /dev/mtdblockN
+  62:     _want=$1
+  63:     [ -r /proc/mtd ] || return 1
+  64:     while read -r _line; do
+  65:         set -- $_line                     # mtd3: 01000000 00020000 "rootfs_a"
+  66:         _dev=${1%:}
+  67:         _name=$4
+  68:         _name=${_name#\"}
+  69:         _name=${_name%\"}
+  70:         if [ "$_name" = "$_want" ]; then
+  71:             echo "/dev/${_dev%mtd}mtdblock${_dev#mtd}"
+  72:             return 0
+  73:         fi
+  74:     done < /proc/mtd
+  75:     return 1
+  76: }
+  77:
+  78: slot_dev() { # a|b -> device path
+  79:     if [ "$SIM" = "1" ]; then
+  80:         echo "$SLOT_DIR/slot_$1.img"
+  81:         return 0
+  82:     fi
+  83:     mtd_block_for "rootfs_$1"
+  84: }
+  85:
+  86: slot_bytes() { echo 8388608; }
+  87:
+  88: slot_magic_ok() { # dev
+  89:     _m=$(dd if="$1" bs=1 count=4 2>/dev/null)
+  90:     [ "$_m" = "hsqs" ]
+
+SOURCE /home/ben/Moggie-wt/buildroot/firmware/bootchooser/init sha256=eb5ef34d7a4a1dc9b797b0d8aeea02fbdf7305c9ae13d7dcc23a4e8c93636e5c lines=169-186
+ 169: mount_pseudo() {
+ 170:     mount -t proc proc /proc 2>/dev/null
+ 171:     mount -t sysfs sysfs /sys 2>/dev/null
+ 172:     mount -t devtmpfs dev /dev 2>/dev/null || mdev -s 2>/dev/null
+ 173:     mkdir -p "$ROOT_MNT" 2>/dev/null
+ 174: }
+ 175:
+ 176: mount_state() {
+ 177:     if [ "$SIM" = "1" ]; then
+ 178:         mkdir -p "$STATE_DIR" 2>/dev/null
+ 179:         return 0
+ 180:     fi
+ 181:     mkdir -p "$STATE_DIR" 2>/dev/null
+ 182:     _jffs=$(mtd_block_for jffs2)
+ 183:     [ -n "$_jffs" ] || _jffs=/dev/mtdblock1
+ 184:     mount -t jffs2 "$_jffs" "$STATE_DIR" 2>/dev/null
+ 185:     # An already-mounted /jffs (initramfs baked it in) is fine too.
+ 186:     [ -f "$STATE_DIR/bootslot" ] || [ -d "$STATE_DIR" ]
+
+SOURCE /home/ben/Moggie-wt/buildroot/firmware/bootchooser/init sha256=eb5ef34d7a4a1dc9b797b0d8aeea02fbdf7305c9ae13d7dcc23a4e8c93636e5c lines=219-251
+ 219:     # Record what we are actually booting. The updater must never infer the
+ 220:     # running slot from bootslot, which names the *next* boot and is rewritten
+ 221:     # whenever an update commits. Written here, before switch_root (and before
+ 222:     # the simulation branch, so the tests model what a real boot leaves behind).
+ 223:     write_state running_slot "$_slot" || msg "warning: cannot record running slot"
+ 224:
+ 225:     if [ "$SIM" = "1" ]; then
+ 226:         printf '%s\n' "$_slot" > "$SLOT_DIR/booted" 2>/dev/null
+ 227:         if [ -n "${MOGGIE_SIM_BOOT_HOOK:-}" ]; then
+ 228:             # shellcheck disable=SC2086
+ 229:             sh -c "$MOGGIE_SIM_BOOT_HOOK" "$PROG" "$_slot"
+ 230:         fi
+ 231:         exit 0
+ 232:     fi
+ 233:
+ 234:     if ! mount -t squashfs -o ro "$_dev" "$ROOT_MNT" 2>/dev/null; then
+ 235:         msg "mount of $_dev failed"
+ 236:         return 1
+ 237:     fi
+ 238:     if [ ! -x "$ROOT_MNT/sbin/init" ] && [ ! -x "$ROOT_MNT/init" ]; then
+ 239:         msg "slot $_slot has no /sbin/init or /init"
+ 240:         umount "$ROOT_MNT" 2>/dev/null
+ 241:         return 1
+ 242:     fi
+ 243:
+ 244:     # Hand the pseudo-filesystems over to the real root.
+ 245:     for _d in proc sys dev; do
+ 246:         [ -d "$ROOT_MNT/$_d" ] && mount --move "/$_d" "$ROOT_MNT/$_d" 2>/dev/null
+ 247:     done
+ 248:
+ 249:     _init=/sbin/init
+ 250:     [ -x "$ROOT_MNT/sbin/init" ] || _init=/init
+ 251:     exec switch_root "$ROOT_MNT" "$_init"
+
+SOURCE /home/ben/Moggie-wt/buildroot/firmware/updater/slotdev.h sha256=b9a6ac2d66b0ddd9619a7ba5883a2a0e546b330087defd9f4bc7a9c91a9d7dfe lines=20-24
+  20:
+  21: #include "sha256.h"
+  22:
+  23: #define SLOT_BYTES (8ULL * 1024ULL * 1024ULL)
+  24: #define FLASH_ROOTFS_BYTES (2ULL * SLOT_BYTES)
+
+SOURCE /home/ben/Moggie-wt/buildroot/firmware/updater/slotdev.c sha256=e8c82500c1632b84df05c52bffaa1b1c18e30d9dbaff5c0cca77925f4e1dfa20 lines=143-150
+ 143:     if (pid == 0) {
+ 144:         /* Child: stream stdin into the slot. */
+ 145:         if (dup2(fds[0], STDIN_FILENO) < 0)
+ 146:             _exit(127);
+ 147:         close(fds[0]);
+ 148:         close(fds[1]);
+ 149:         execlp("nandwrite", "nandwrite", "-p", "-q", "-s", base_s, "-l", size_s,
+ 150:                d->path, "-", (char *)NULL);
+
+SOURCE /home/ben/Moggie-wt/buildroot/firmware/updater/updater.c sha256=cb9b4a9b2559ed0b98fa33b55bcf99500c911b9ea70a1c77176fb98ccf4efdb4 lines=51-57
+  51: /* Which slot the chooser actually booted. Distinct from `bootslot`, which means
+  52:  * "boot this one next" and is rewritten at commit time -- so reading bootslot
+  53:  * as the running slot lets a second update target the slot that is still
+  54:  * running. The chooser writes this file immediately before switch_root. */
+  55: #define STATE_RUNNING_SLOT "running_slot"
+  56: #define STATE_BOOT_OK "boot_ok"
+  57: #define SQUASHFS_MAGIC "hsqs"
+
+SOURCE /home/ben/sonos-bench/logs/uboot-first-boot-2026-10-27.log sha256=0909f18913b8e621c3668608f5bca0b7e5b06b46879cf8a77e453d2a4b7b3fea lines=1-26
+   1:
+   2:
+   3: U-Boot 1.1.1(1-16-4-zp5s-0.5), Build: zp5s-0.5
+   4:
+   5: MPC8272 Reset Status: External Soft, External Hard
+   6:
+   7: MPC8272 Clock Configuration
+   8:  - Bus-to-Core Mult 3x, VCO Div 4, 60x Bus Freq  16-50 , Core Freq  50-150
+   9:  - dfbrg 1, corecnf 0x10, busdf 3, cpmdf 1, plldf 0, pllmf 3
+  10:  - vco_out  400000000, scc_clk  100000000, brg_clk   25000000
+  11:  - cpu_clk  300000000, cpm_clk  200000000, bus_clk  100000000
+  12:  - pci_clk   33333333
+  13:
+  14: CPU:   MPC8272 (HiP7 Rev 14, Mask unknown [immr=0x0d10,k=0x00e1]) at 300 MHz
+  15: Board: Sonos ZP5S
+  16: DRAM:  32 MB
+  17: IMMR: f0000000
+  18: DRAM tests running ... done
+  19: Using default environment
+  20:
+  21: In:    serial
+  22: Out:   serial
+  23: Err:   serial
+  24: Net:   FCC1 ETHERNET, FCC2 ETHERNET
+  25: Hit any key to stop autoboot:  0  0
+  26: =>
+
+SOURCE /home/ben/Moggie/src/linux-2.6.35/arch/powerpc/configs/fenway_op_defconfig sha256=abc15760ab8fa088b4bc4bbd65967b3492db53f6abb97301e0f1cb5cb6c7c59e lines=224-249
+ 224: # CONFIG_PPC_PMAC is not set
+ 225: # CONFIG_PPC_CELL is not set
+ 226: # CONFIG_PPC_CELL_NATIVE is not set
+ 227: # CONFIG_PPC_82xx is not set
+ 228: # CONFIG_PQ2ADS is not set
+ 229: CONFIG_PPC_83xx=y
+ 230: CONFIG_MPC831x_RDB=y
+ 231: # CONFIG_MPC832x_MDS is not set
+ 232: # CONFIG_MPC832x_RDB is not set
+ 233: # CONFIG_MPC834x_MDS is not set
+ 234: # CONFIG_MPC834x_ITX is not set
+ 235: # CONFIG_MPC836x_MDS is not set
+ 236: # CONFIG_MPC836x_RDK is not set
+ 237: # CONFIG_MPC837x_MDS is not set
+ 238: # CONFIG_MPC837x_RDB is not set
+ 239: # CONFIG_SBC834x is not set
+ 240: # CONFIG_ASP834x is not set
+ 241: # CONFIG_KMETER1 is not set
+ 242: CONFIG_PPC_MPC831x=y
+ 243: # CONFIG_PPC_86xx is not set
+ 244: # CONFIG_EMBEDDED6xx is not set
+ 245: # CONFIG_AMIGAONE is not set
+ 246: CONFIG_SONOS=y
+ 247: CONFIG_SONOS_FENWAY=y
+ 248: # CONFIG_SONOS_DIAGS is not set
+ 249: CONFIG_PPC_OF_BOOT_TRAMPOLINE=y
+
+SOURCE /home/ben/Moggie/src/linux-2.6.35/arch/powerpc/configs/fenway_op_defconfig sha256=abc15760ab8fa088b4bc4bbd65967b3492db53f6abb97301e0f1cb5cb6c7c59e lines=1128-1135
+1128: # CONFIG_JFFS2_RUBIN is not set
+1129: # CONFIG_YAFFS_FS is not set
+1130: # CONFIG_LOGFS is not set
+1131: CONFIG_CRAMFS=y
+1132: # CONFIG_SQUASHFS is not set
+1133: # CONFIG_VXFS_FS is not set
+1134: # CONFIG_MINIX_FS is not set
+1135: # CONFIG_OMFS_FS is not set
+
+SOURCE /home/ben/Moggie/src/linux-2.6.35/drivers/mtd/nand/sonos_nand_oob.h sha256=f3eaa4be63275c0057c2cd105d4041f4e6c3ade0bbe8936b237b438fcad53756 lines=88-161
+  88: /* Fenway flash partition sizes */
+  89:
+  90: // Small block NAND
+  91: #define FENWAY_FLASH_UBOOT_BLOCKS         48
+  92: #define FLASH_UBOOT_BLOCKS		   FENWAY_FLASH_UBOOT_BLOCKS
+  93: #define FENWAY_FLASH_RESERVED_BLOCKS      11
+  94: #define FENWAY_FLASH_PTABLE_BLOCKS         1
+  95: #define FENWAY_FLASH_MDP_BLOCKS            4
+  96: #define FENWAY_FLASH_KERNEL_BLOCKS       192
+  97: #define FENWAY_FLASH_ROOTFS_BLOCKS       640
+  98: #define FENWAY_FLASH_JFFS_BLOCKS        2288
+  99: #define FENWAY_FLASH_REPLACEMENT_BLOCKS   80
+ 100: #define FLASH_REPLACEMENT_BLOCKS           FENWAY_FLASH_REPLACEMENT_BLOCKS
+ 101:
+ 102: #define NUM_MAPPABLE_PHYSICAL_BLOCKS   \
+ 103:    (FENWAY_FLASH_RESERVED_BLOCKS +     \
+ 104:     FENWAY_FLASH_PTABLE_BLOCKS   +     \
+ 105:     FENWAY_FLASH_MDP_BLOCKS      +     \
+ 106:     FENWAY_FLASH_KERNEL_BLOCKS   +     \
+ 107:     FENWAY_FLASH_KERNEL_BLOCKS   +     \
+ 108:     FENWAY_FLASH_ROOTFS_BLOCKS   +     \
+ 109:     FENWAY_FLASH_ROOTFS_BLOCKS   +     \
+ 110:     FENWAY_FLASH_JFFS_BLOCKS     +     \
+ 111:     FENWAY_FLASH_REPLACEMENT_BLOCKS)
+ 112:
+ 113: #define NUM_VIRTUAL_BLOCKS  (NUM_MAPPABLE_PHYSICAL_BLOCKS - FENWAY_FLASH_REPLACEMENT_BLOCKS)
+ 114:
+ 115: // Large block NAND
+ 116: #define FENWAY_FLASH_UBOOT_BLOCKS_LP	8
+ 117: #define FLASH_UBOOT_BLOCKS_LP		FENWAY_FLASH_UBOOT_BLOCKS_LP
+ 118: #define FENWAY_FLASH_RESERVED_BLOCKS_LP	12
+ 119: #define FENWAY_FLASH_PTABLE_BLOCKS_LP	1
+ 120: #define FENWAY_FLASH_MDP_BLOCKS_LP	4
+ 121: #define FENWAY_FLASH_KERNEL_BLOCKS_LP	24
+ 122: #define FENWAY_FLASH_ROOTFS_BLOCKS_LP	80
+ 123: #define FENWAY_FLASH_JFFS_BLOCKS_LP	286
+ 124: #define FENWAY_FLASH_REPLACEMENT_BLOCKS_LP	20
+ 125: #define FLASH_REPLACEMENT_BLOCKS_LP	FENWAY_FLASH_REPLACEMENT_BLOCKS_LP
+ 126:
+ 127: #define NUM_MAPPABLE_PHYSICAL_BLOCKS_LP   \
+ 128:    (FENWAY_FLASH_RESERVED_BLOCKS_LP +     \
+ 129:     FENWAY_FLASH_PTABLE_BLOCKS_LP   +     \
+ 130:     FENWAY_FLASH_MDP_BLOCKS_LP      +     \
+ 131:     FENWAY_FLASH_KERNEL_BLOCKS_LP   +     \
+ 132:     FENWAY_FLASH_KERNEL_BLOCKS_LP   +     \
+ 133:     FENWAY_FLASH_ROOTFS_BLOCKS_LP   +     \
+ 134:     FENWAY_FLASH_ROOTFS_BLOCKS_LP   +     \
+ 135:     FENWAY_FLASH_JFFS_BLOCKS_LP     +     \
+ 136:     FENWAY_FLASH_REPLACEMENT_BLOCKS_LP)
+ 137:
+ 138: #define NUM_VIRTUAL_BLOCKS_LP  (NUM_MAPPABLE_PHYSICAL_BLOCKS_LP - FENWAY_FLASH_REPLACEMENT_BLOCKS_LP)
+ 139:
+ 140:
+ 141: #define FIRST_LOGICAL_BLOCK  0
+ 142:
+ 143: /*
+ 144:  * Platform customization
+ 145:  */
+ 146:
+ 147: /* Small page NAND */
+ 148: #define SONOS_NAND_OOB_MAGIC0	   10
+ 149: #define SONOS_NAND_OOB_MAGIC1	   11
+ 150: #define SONOS_NAND_OOB_LPAGE0	    0
+ 151: #define SONOS_NAND_OOB_LPAGE1	    1
+ 152: /* Large page NAND */
+ 153: #define SONOS_NAND_OOB_MAGIC0_LP	6
+ 154: #define SONOS_NAND_OOB_MAGIC1_LP	7
+ 155: #define SONOS_NAND_OOB_LPAGE0_LP	1
+ 156: #define SONOS_NAND_OOB_LPAGE1_LP	2
+ 157: /* Common */
+ 158: #define SONOS_NAND_OOB_BOOTGEN0    12
+ 159: #define SONOS_NAND_OOB_BOOTGEN1    13
+ 160: #define SONOS_NAND_OOB_LBLOCK0     14
+ 161: #define SONOS_NAND_OOB_LBLOCK1     15
+
+SOURCE /home/ben/Moggie/src/linux-2.6.35/drivers/mtd/nand/virtual_block.c sha256=39d504f7dcbf40817a3f0cee12991ce306102e1886bc6f55efd942e7f23a60f1 lines=720-765
+ 720:    loff_t physicalOffset;
+ 721:    uint32_t startOffset;
+ 722:    uint16_t virtualBlockNum;
+ 723:    uint8_t  vnboob[NAND_OOB_SIZE];
+ 724:    int error;
+ 725:    struct mtd_oob_ops vnb_ops;
+ 726:    uint16_t bootgen = bootgeneration+1;
+ 727:
+ 728:    startOffset = mtd_mod_by_eb(virtualOffset, pVirtualMtd);
+ 729:    // printk("%s: start.\n"i, __func__);
+ 730:    if ((startOffset & (pPhysicalMtd->writesize - 1)) != 0) {
+ 731:       printk("%s: unaligned offset %llx, abort\n", __func__, virtualOffset);
+ 732:       return -EINVAL;
+ 733:    }
+ 734:    if ((ops->len)&&(ops->len!=pPhysicalMtd->writesize)) {
+ 735:       printk("%s: surprising, in-band length is not writesize %i %i\n", __func__, ops->len, pPhysicalMtd->writesize);
+ 736:    }
+ 737:
+ 738:    /* We call the translate routine that allocs a new physical block if the
+ 739:     * virtual block hasn't already been mapped. The mapping probably
+ 740:     * already happened previously but this takes care of the case where
+ 741:     * a bad block is replaced. */
+ 742:    error = vnb_translateOffset_alloc(pVirtualMtd, virtualOffset, &physicalOffset);
+ 743:    if (error) {
+ 744:       printk("%s: virtual offset %llX not mapped, abort\n", __func__, virtualOffset);
+ 745:       return error;
+ 746:    }
+ 747:
+ 748:    /* write the sonos VNB OOB data */
+ 749:    virtualBlockNum = mtd_div_by_eb(virtualOffset, pVirtualMtd);
+ 750:    memset(vnboob,0xff,NAND_OOB_SIZE);
+ 751:
+ 752:    nand_oob_set_lblock(vnboob, virtualBlockNum);
+ 753:    nand_oob_set_magic(vnboob, SONOS_NAND_OOB_MAGIC);
+ 754:    // XXX BT should not have magic numbers in the following
+ 755:    if(nand_oob_is_last_block(virtualOffset, pVirtualNandData->lastBlockOffset)) {
+ 756:       nand_oob_set_magic(vnboob, SONOS_NAND_OOB_MAGIC_LAST);
+ 757:    }
+ 758:
+ 759:    nand_oob_set_bootgen(vnboob, bootgen);
+ 760: #ifdef NAND_OOB_WITH_ECC
+ 761:    nand_oob_set_ecc(vnboob, virtualBlockNum);
+ 762: #endif
+ 763:
+ 764:    if (ops->oobbuf) {
+ 765:       if (ops->mode==MTD_OOB_AUTO) {
+
+SOURCE /home/ben/Moggie/src/linux-2.6.35/fs/squashfs/super.c sha256=58cf52fcf62b03dd98a88ae74f9ecaa9d5606454a290eb278832db13ca8a8d83 lines=51-74
+  51: static const struct squashfs_decompressor *supported_squashfs_filesystem(short
+  52: 	major, short minor, short id)
+  53: {
+  54: 	const struct squashfs_decompressor *decompressor;
+  55:
+  56: 	if (major < SQUASHFS_MAJOR) {
+  57: 		ERROR("Major/Minor mismatch, older Squashfs %d.%d "
+  58: 			"filesystems are unsupported\n", major, minor);
+  59: 		return NULL;
+  60: 	} else if (major > SQUASHFS_MAJOR || minor > SQUASHFS_MINOR) {
+  61: 		ERROR("Major/Minor mismatch, trying to mount newer "
+  62: 			"%d.%d filesystem\n", major, minor);
+  63: 		ERROR("Please update your kernel\n");
+  64: 		return NULL;
+  65: 	}
+  66:
+  67: 	decompressor = squashfs_lookup_decompressor(id);
+  68: 	if (!decompressor->supported) {
+  69: 		ERROR("Filesystem uses \"%s\" compression. This is not "
+  70: 			"supported\n", decompressor->name);
+  71: 		return NULL;
+  72: 	}
+  73:
+  74: 	return decompressor;
+
+EFFECTIVE buildroot /home/ben/Moggie-wt/buildroot/out/buildroot/.config sha256=a4e4d9790580d858876d37787828416a5d074135600e15b43d516397e2278bf6
+  53: BR2_ENDIAN="BIG"
+ 112: BR2_TOOLCHAIN_EXTERNAL_CUSTOM=y
+ 114: BR2_TOOLCHAIN_EXTERNAL_PREINSTALLED=y
+ 115: BR2_TOOLCHAIN_EXTERNAL_PATH=""
+ 116: BR2_TOOLCHAIN_EXTERNAL_GLIBC=y
+ 119: BR2_TOOLCHAIN_EXTERNAL_PREFIX="powerpc-buildroot-linux-gnu"
+ 120: BR2_TOOLCHAIN_EXTERNAL_BOOTLIN_ARCH_SUPPORTS=y
+ 121: BR2_TOOLCHAIN_EXTERNAL_CUSTOM_PREFIX="powerpc-buildroot-linux-gnu"
+ 122: BR2_TOOLCHAIN_EXTERNAL_GCC_15=y
+ 170: BR2_TOOLCHAIN_EXTERNAL_HEADERS_5_10=y
+ 224: BR2_TOOLCHAIN_EXTERNAL_CUSTOM_GLIBC=y
+ 226: BR2_TOOLCHAIN_EXTERNAL_HAS_SSP=y
+ 227: BR2_TOOLCHAIN_EXTERNAL_HAS_SSP_STRONG=y
+ 229: BR2_TOOLCHAIN_EXTERNAL_CXX=y
+ 232: BR2_TOOLCHAIN_EXTERNAL_OPENMP=y
+2796: BR2_TARGET_ROOTFS_SQUASHFS=y
+2802: BR2_TARGET_ROOTFS_SQUASHFS_BS_128K=y
+2806: BR2_TARGET_ROOTFS_SQUASHFS_BS="128K"
+2808: BR2_TARGET_ROOTFS_SQUASHFS4_GZIP=y
+2815: BR2_TARGET_ROOTFS_SQUASHFS_EXTREME_COMP=y
+2816: BR2_TARGET_ROOTFS_SQUASHFS_COMP_OPTS="-Xcompression-level 9"
+
+EFFECTIVE tc26 /home/ben/Moggie-wt/tc26/out/buildroot/.config sha256=dce3bf87da20014df6c1489224d43027880e932de28b1c07213cb0fe242b12a4
+  53: BR2_ENDIAN="BIG"
+ 112: BR2_TOOLCHAIN_EXTERNAL_CUSTOM=y
+ 114: BR2_TOOLCHAIN_EXTERNAL_PREINSTALLED=y
+ 115: BR2_TOOLCHAIN_EXTERNAL_PATH=""
+ 116: BR2_TOOLCHAIN_EXTERNAL_GLIBC=y
+ 119: BR2_TOOLCHAIN_EXTERNAL_PREFIX="powerpc-buildroot-linux-gnu"
+ 120: BR2_TOOLCHAIN_EXTERNAL_BOOTLIN_ARCH_SUPPORTS=y
+ 121: BR2_TOOLCHAIN_EXTERNAL_CUSTOM_PREFIX="powerpc-buildroot-linux-gnu"
+ 132: BR2_TOOLCHAIN_EXTERNAL_GCC_5=y
+ 222: BR2_TOOLCHAIN_EXTERNAL_HEADERS_REALLY_OLD=y
+ 228: BR2_TOOLCHAIN_EXTERNAL_CUSTOM_GLIBC=y
+ 230: BR2_TOOLCHAIN_EXTERNAL_HAS_SSP=y
+ 231: BR2_TOOLCHAIN_EXTERNAL_HAS_SSP_STRONG=y
+ 232: BR2_TOOLCHAIN_EXTERNAL_INET_RPC=y
+ 233: BR2_TOOLCHAIN_EXTERNAL_CXX=y
+3115: BR2_TARGET_ROOTFS_SQUASHFS=y
+3121: BR2_TARGET_ROOTFS_SQUASHFS_BS_128K=y
+3125: BR2_TARGET_ROOTFS_SQUASHFS_BS="128K"
+3127: BR2_TARGET_ROOTFS_SQUASHFS4_GZIP=y
+3134: BR2_TARGET_ROOTFS_SQUASHFS_EXTREME_COMP=y
+3135: BR2_TARGET_ROOTFS_SQUASHFS_COMP_OPTS="-Xcompression-level 9"
+
+Vendor updater string offsets; diagnostics alone are not a complete control-flow proof
+SOURCE /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/upgrade sha256=d17809f33003856d66f5406e080081ca8f0e3954a8d5536bb8f541010b8cce1a
+  19918 couldn't read /proc/sys/kernel/bootsection
+  19944 couldn't read /proc/sys/kernel/bootgeneration
+  199e0 couldn't open /proc/sys/kernel/bootsection
+  19a0c couldn't open /proc/sys/kernel/bootgeneration
+  19aac /proc/sys/kernel/bootsection
+  19acc /proc/sys/kernel/bootgeneration
+  19d34 read_hdr: bad magic
+  1a184 invalid Sonos signature section length: %zu
+  1a1b4 Sonos signature parse failed
+  1a1d4 Sonos signature verification failed
+  1a28c No valid signature
+  1a690 The file is greater than the size of partition %d actual size %d and partition size %d
+  1ba04 attempted to upgrade to an incompatible version
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/bin/upgrade sha256=f804725e2b6b1fa1f4c5ee730c0063b79b383e9a2bb9d7dcd06e8566f98bcf71
+    f85 hal_flash_get_bootsection
+    fe1 hal_flash_get_bootgeneration
+  1d4bc invalid Sonos signature section length: %zu
+  1d4ec malloc Sonos signature failed: %zu
+  1d510 Sonos signature parse failed
+  1d530 Sonos signature verification failed
+  1d784 bootsection read failed Error code: %d
+  1d7ac bootgeneration read failed Error code: %d
+  1d918 read_hdr: bad magic
+  1da58 No valid signature
+  1f7a4 attempted to upgrade to an incompatible version

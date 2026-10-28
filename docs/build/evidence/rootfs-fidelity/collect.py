@@ -1,19 +1,23 @@
 #!/usr/bin/env python3
-"""Offline evidence capture; never builds, mounts, runs target code, or writes inputs.
+"""Read-only evidence capture; never builds, mounts, runs target code, or writes inputs.
 
 Run from the repo root. Only this evidence directory and out/fidelity-audit are
 written. Stock password fields are redacted; shadow files are never opened.
 """
 import hashlib
+import gzip
 import os
+import posixpath
 from pathlib import Path
 import re
 import shlex
 import struct
 import subprocess
+import zlib
 
 ROOT = Path(__file__).resolve().parents[4]
 os.chdir(ROOT)
+os.environ.update(LC_ALL="C", TZ="UTC")
 DEST = Path(__file__).resolve().parent
 SCRATCH = ROOT / "out/fidelity-audit"
 SCRATCH.mkdir(parents=True, exist_ok=True)
@@ -186,9 +190,141 @@ with (DEST / "abi.txt").open("w") as log:
     assembly, _ = command([objdump, "-d", path])
     log.write(f"$ {objdump} -d {path} (first eight FPU instructions)\n")
     log.write("\n".join([x for x in assembly.splitlines() if re.search(r"\b(lfd|stfd|fadd|fmul|fdiv)\b", x)][:8]) + "\n")
+    capture(log, [objdump, "-d", "--start-address=0xa478", "--stop-address=0xa4a8", path])
+    for label in ("buildroot", "tc26"):
+        path = SCRATCH / label / "usr/sbin/sonosd"
+        capture(log, ["readelf", "--version-info", path])
+
+with (DEST / "stock-kernel.txt").open("w") as log:
+    package = Path("/home/ben/Moggie/dl/stock-firmware/34.16-37101-1-16.upd")
+    payload = package.read_bytes()[0xd3f:0xadd3f]
+    for match in re.finditer(b"\x1f\x8b\x08", payload):
+        try:
+            raw = zlib.decompress(payload[match.start():], 31)
+        except zlib.error:
+            continue
+        log.write(f"SOURCE {package} record6_payload=0xd3f gzip_relative=0x{match.start():x} "
+                  f"gzip_absolute=0x{0xd3f+match.start():x} inflated_bytes={len(raw)} "
+                  f"inflated_sha256={hashlib.sha256(raw).hexdigest()}\n")
+        path = SCRATCH / "stock16/kernel-inflated.bin"
+        path.write_bytes(raw)
+        for string in re.finditer(rb"[\x20-\x7e]{8,}", raw):
+            if re.search(rb"Linux version 2|squashfs: version|trying to mount newer|Please update your kernel", string.group()):
+                log.write(f"inflated_offset=0x{string.start():x} {string.group().decode()}\n")
+    for name in ("rootfs", "kernel"):
+        path = BENCH / f"dump/57.10-25140/{name}.gz"
+        raw = gzip.decompress(path.read_bytes())
+        log.write(f"SOURCE {path} sha256={digest(path)} outer_inflated_bytes={len(raw)} "
+                  f"prefix={raw[:16].hex()}\n")
+        if name == "rootfs":
+            magic, size, flags = struct.unpack_from(">III", raw)
+            assert magic == 0x28cd3d45
+            log.write(f"CRAMFS big_endian size={size} flags=0x{flags:x} signature={raw[16:32]!r}\n")
+        else:
+            assert raw[:4] == bytes.fromhex("27051956")
+            size = struct.unpack_from(">I", raw, 12)[0]
+            log.write(f"UIMAGE payload_size={size} name={raw[32:64]!r}\n")
+            kernel = zlib.decompress(raw[64:64+size], 31)
+            log.write(f"kernel_inflated_bytes={len(kernel)} sha256={hashlib.sha256(kernel).hexdigest()}\n")
+            for string in re.finditer(rb"[\x20-\x7e]{8,}", kernel):
+                if re.search(rb"Linux version 2|fsl,mpc8315erdb|cramfs: wrong|squashfs", string.group()):
+                    log.write(f"inflated_offset=0x{string.start():x} {string.group().decode()}\n")
+            log.write(f"literal_squashfs_count={kernel.lower().count(b'squashfs')}\n")
+
+with (DEST / "elf-closure.txt").open("w") as log:
+    for label in ("buildroot", "tc26"):
+        manifest = manifests[label]
+
+        def exists_in_image(path):
+            for _ in range(40):
+                attrs = manifest.get(path)
+                if attrs is None:
+                    return False
+                if not attrs.startswith("l"):
+                    return True
+                target = attrs.split("\t")[-1]
+                path = posixpath.normpath(posixpath.join(posixpath.dirname(path), target))
+            return False
+
+        count = 0
+        missing = []
+        log.write(f"IMAGE {label}: regular ELF files in bin/sbin/lib/usr/bin/usr/sbin/usr/lib; default loader paths only\n")
+        for name, attrs in sorted(manifest.items()):
+            if not attrs.startswith("-") or not name.startswith(("/bin/", "/sbin/", "/lib/", "/usr/bin/", "/usr/sbin/", "/usr/lib/")):
+                continue
+            data = cat_image(images[label], name[1:])
+            if data[:4] != b"\x7fELF":
+                continue
+            path = SCRATCH / "elf-current"
+            path.write_bytes(data)
+            dynamic, _ = command(["readelf", "-d", path])
+            phdr, _ = command(["readelf", "-l", path])
+            needs = re.findall(r"Shared library: \[(.*?)\]", dynamic)
+            interpreters = re.findall(r"Requesting program interpreter: (.*?)\]", phdr)
+            versions, _ = command(["readelf", "--version-info", path])
+            needs_section = versions.partition("Version needs section")[2]
+            required = sorted(set(re.findall(r"Name: (GLIBC_[\d.]+)", needs_section)))
+            count += 1
+            log.write(f"{name} sha256={hashlib.sha256(data).hexdigest()} "
+                      f"NEEDED={needs!r} INTERP={interpreters!r} GLIBC_versions={required!r}\n")
+            for dep in needs:
+                if not any(exists_in_image(f"{prefix}/{dep}") for prefix in ("/lib", "/usr/lib")):
+                    missing.append((name, dep))
+            missing.extend((name, dep) for dep in interpreters if not exists_in_image(dep))
+        log.write(f"RESULT {label} ELF_count={count} missing_default_path_dependencies={missing!r}\n\n")
+
+with (DEST / "config-review.txt").open("w") as log:
+    capture(log, ["git", "rev-parse", "origin/main"])
+    capture(log, ["git", "ls-remote", "--symref", "origin", "HEAD"])
+    log.write("READ-ONLY main checkout out/ inventory (directory sizes are host metadata)\n")
+    for path in sorted(Path("/home/ben/Moggie/out").iterdir()):
+        log.write(f"{path.name} {'directory' if path.is_dir() else 'file'} {path.stat().st_size}\n")
+    excerpts = [
+        (ROOT / "buildroot.lock", 17, 42),
+        (ROOT / "toolchain.lock", 5, 39),
+        (ROOT / "buildroot/configs/moggie_powerpc_defconfig", 7, 67),
+        (ROOT / "buildroot/configs/moggie_powerpc_defconfig", 120, 130),
+        (ROOT / "scripts/build-rootfs.sh", 123, 146),
+        (ROOT / "scripts/build-rootfs.sh", 204, 254),
+        (ROOT / "buildroot/board/moggie/post-build.sh", 29, 64),
+        (ROOT / "buildroot/board/moggie/post-build.sh", 76, 90),
+        (ROOT / "buildroot/board/moggie/device_table_dev.txt", 1, 37),
+        (ROOT / "scripts/build-kernel.sh", 79, 94),
+        (ROOT / "firmware/bootchooser/init", 56, 90),
+        (ROOT / "firmware/bootchooser/init", 169, 186),
+        (ROOT / "firmware/bootchooser/init", 219, 251),
+        (ROOT / "firmware/updater/slotdev.h", 20, 24),
+        (ROOT / "firmware/updater/slotdev.c", 143, 150),
+        (ROOT / "firmware/updater/updater.c", 51, 57),
+        (Path("/home/ben/sonos-bench/logs/uboot-first-boot-2026-10-27.log"), 1, 26),
+        (Path("/home/ben/Moggie/src/linux-2.6.35/arch/powerpc/configs/fenway_op_defconfig"), 224, 249),
+        (Path("/home/ben/Moggie/src/linux-2.6.35/arch/powerpc/configs/fenway_op_defconfig"), 1128, 1135),
+        (Path("/home/ben/Moggie/src/linux-2.6.35/drivers/mtd/nand/sonos_nand_oob.h"), 88, 161),
+        (Path("/home/ben/Moggie/src/linux-2.6.35/drivers/mtd/nand/virtual_block.c"), 720, 765),
+        (Path("/home/ben/Moggie/src/linux-2.6.35/fs/squashfs/super.c"), 51, 74),
+    ]
+    for path, first, last in excerpts:
+        log.write(f"\nSOURCE {path} sha256={digest(path)} lines={first}-{last}\n")
+        for number, line in enumerate(path.read_text().splitlines(), 1):
+            if first <= number <= last:
+                log.write(f"{number:4}: {line}\n")
+    for label, base in [("buildroot", ROOT / "out/buildroot"),
+                        ("tc26", Path("/home/ben/Moggie-wt/tc26/out/buildroot"))]:
+        config = base / ".config"
+        log.write(f"\nEFFECTIVE {label} {config} sha256={digest(config)}\n")
+        for number, line in enumerate(config.read_text().splitlines(), 1):
+            if line.startswith(("BR2_TOOLCHAIN_EXTERNAL_", "BR2_TARGET_ROOTFS_SQUASHFS", "BR2_SOFT_FLOAT", "BR2_ENDIAN")):
+                log.write(f"{number:4}: {line}\n")
+    log.write("\nVendor updater string offsets; diagnostics alone are not a complete control-flow proof\n")
+    for path in (SCRATCH / "stock16/bin/upgrade", STOCK / "bin/upgrade"):
+        log.write(f"SOURCE {path} sha256={digest(path)}\n")
+        strings, _ = command(["strings", "-t", "x", path])
+        for line in strings.splitlines():
+            if re.search(r"read_hdr: bad magic|Sonos signature|No valid signature|incompatible version|size of partition|bootsection|bootgeneration", line):
+                log.write(line + "\n")
 
 # Remove terminal whitespace only, retaining the tool output and its exit code.
 for path in DEST.glob("*.txt"):
-    path.write_text("\n".join(line.rstrip() for line in path.read_text().splitlines()) + "\n")
+    path.write_text("\n".join(line.rstrip() for line in path.read_text().splitlines()).rstrip() + "\n")
 
 print("PASS: captured 3 image manifests, 2 full layout diffs, container offsets, boot content and ABI evidence; no builds")
