@@ -141,6 +141,7 @@ def main():
         ('accepted-address-storage', 'Z', 0x102e1614, 0x102e1758),
         ('http-connection-worker', 'Z', 0x102e0618, 0x102e08c0),
         ('request-target-parser', 'Z', 0x102de760, 0x102de920),
+        ('request-header-parser', 'Z', 0x102ddf8c, 0x102de674),
         ('tls-server-config', 'Z', 0x102e2d70, 0x102e2fc0),
         ('tls-connection', 'Z', 0x102e2fd8, 0x102e310c),
         ('tls-handshake', 'Z', 0x102e323c, 0x102e331c),
@@ -200,7 +201,7 @@ def main():
         0x1035aaa0, 0x1035aaac, 0x1035aac4, 0x10358204, 0x10313ec4,
         0x103474d0, 0x103474d8, 0x10348344, 0x10319d54, 0x1031f330,
         0x1033e408, 0x10385de0, 0x1035a22c, 0x1035a238,
-        0x1034b548, 0x1035a240),
+        0x1034b548, 0x1035a240, 0x103272e4),
         'ZU': (0x2428,),
         'ZB': (0x1003ba28, 0x1003bb10, 0x1003b9f4, 0x10045758,
                0x1004631c, 0x10046350, 0x10048164)}
