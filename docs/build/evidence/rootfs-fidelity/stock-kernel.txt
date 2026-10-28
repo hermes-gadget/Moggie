@@ -1,0 +1,84 @@
+SOURCE /home/ben/Moggie/dl/stock-firmware/34.16-37101-1-16.upd record6_payload=0xd3f gzip_relative=0x5779 gzip_absolute=0x64b8 inflated_bytes=1511544 inflated_sha256=c0a562fa670d1f620c249c8e5857388a575d85fa4fe3f5ce587720719509bf51
+inflated_offset=0x125e68 Linux version 2.4.22-rincon- (build@LIN-77) (gcc version 3.4.4) #1 Tue Jan 10 15:55:02 EST 2017
+inflated_offset=0x12cb40 <3>SQUASHFS error: Major/Minor mismatch, trying to mount newer %d.%d filesystem
+inflated_offset=0x12cb94 <3>SQUASHFS error: Please update your kernel
+inflated_offset=0x12ce78 <6>squashfs: version 3.0 (2006/03/15) Phillip Lougher
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/dump/57.10-25140/rootfs.gz sha256=606f8146c3c8394409fa2060820eee4fb66552d5d52e1b55711d644a29ced257 outer_inflated_bytes=10485760 prefix=28cd3d45006e70000000000300000000
+CRAMFS big_endian size=7237632 flags=0x3 signature=b'Compressed ROMFS'
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/dump/57.10-25140/kernel.gz sha256=65aa26a1a83bd8bce050e8c3d8979b9801051d2dd1eadb89143de51525d14437 outer_inflated_bytes=3145728 prefix=270519568e3b580661e1a69a00164b62
+UIMAGE payload_size=1461090 name=b'Linux-2.6.35-dirty\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+kernel_inflated_bytes=3078644 sha256=1c4c3d8eb73dc8aa53628505de429bb062e11349836dfc9eca3ed0c95aa808bc
+inflated_offset=0x210120 Linux version 2.6.35-dirty (secbuild@lin-243) (gcc version 5.2.0 (crosstool-NG crosstool-ng-1.22.0 - allen.antony@sonos.com) ) #1 Fri Jan 14 11:36:40 EST 2022
+inflated_offset=0x254dd4 fsl,mpc8315erdb
+inflated_offset=0x2615c4 <3>cramfs: wrong endianess
+inflated_offset=0x2615e0 <3>cramfs: wrong magic
+inflated_offset=0x2e30cc fsl,mpc8315erdb
+literal_squashfs_count=0
+$ /home/ben/Moggie/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -D -b binary -m powerpc:common -EB --start-address=0x65758 --stop-address=0x65844 /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/kernel-inflated.bin
+
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/kernel-inflated.bin:     file format binary
+
+
+Disassembly of section .data:
+
+00065758 <.data+0x65758>:
+   65758:	a0 1e 00 1c 	lhz     r0,28(r30)
+   6575c:	3d 20 c0 06 	lis     r9,-16378
+   65760:	39 29 2f bc 	addi    r9,r9,12220
+   65764:	2f 80 00 01 	cmpwi   cr7,r0,1
+   65768:	91 3e 01 04 	stw     r9,260(r30)
+   6576c:	3d 20 c0 06 	lis     r9,-16378
+   65770:	39 29 63 b0 	addi    r9,r9,25520
+   65774:	91 3e 01 08 	stw     r9,264(r30)
+   65778:	3d 20 c0 06 	lis     r9,-16378
+   6577c:	39 29 4c c4 	addi    r9,r9,19652
+   65780:	91 3e 01 0c 	stw     r9,268(r30)
+   65784:	40 be 00 24 	bne     cr7,0x657a8
+   65788:	2f 99 00 00 	cmpwi   cr7,r25,0
+   6578c:	40 be 04 f4 	bne     cr7,0x65c80
+   65790:	3c 60 c0 13 	lis     r3,-16365
+   65794:	38 63 ca 08 	addi    r3,r3,-13816
+   65798:	4b fa df 81 	bl      0x13718
+   6579c:	3c 60 c0 13 	lis     r3,-16365
+   657a0:	38 63 ca 5c 	addi    r3,r3,-13732
+   657a4:	48 00 00 38 	b       0x657dc
+   657a8:	2f 80 00 02 	cmpwi   cr7,r0,2
+   657ac:	40 be 00 38 	bne     cr7,0x657e4
+   657b0:	7f c3 f3 78 	mr      r3,r30
+   657b4:	48 00 49 ed 	bl      0x6a1a0
+   657b8:	2f 83 00 00 	cmpwi   cr7,r3,0
+   657bc:	40 9e 00 84 	bne     cr7,0x65840
+   657c0:	2f 99 00 00 	cmpwi   cr7,r25,0
+   657c4:	40 be 04 bc 	bne     cr7,0x65c80
+   657c8:	3c 60 c0 13 	lis     r3,-16365
+   657cc:	38 63 ca a4 	addi    r3,r3,-13660
+   657d0:	4b fa df 49 	bl      0x13718
+   657d4:	3c 60 c0 13 	lis     r3,-16365
+   657d8:	38 63 ca f8 	addi    r3,r3,-13576
+   657dc:	4b fa df 3d 	bl      0x13718
+   657e0:	48 00 04 a0 	b       0x65c80
+   657e4:	2f 80 00 03 	cmpwi   cr7,r0,3
+   657e8:	40 be 00 18 	bne     cr7,0x65800
+   657ec:	88 1e 00 1e 	lbz     r0,30(r30)
+   657f0:	89 3e 00 1f 	lbz     r9,31(r30)
+   657f4:	54 00 40 2e 	slwi    r0,r0,8
+   657f8:	7d 2b 03 79 	or.     r11,r9,r0
+   657fc:	41 82 00 44 	beq     0x65840
+   65800:	2f 99 00 00 	cmpwi   cr7,r25,0
+   65804:	40 be 04 7c 	bne     cr7,0x65c80
+   65808:	88 9e 00 1c 	lbz     r4,28(r30)
+   6580c:	3c 60 c0 13 	lis     r3,-16365
+   65810:	88 be 00 1e 	lbz     r5,30(r30)
+   65814:	38 63 cb 40 	addi    r3,r3,-13504
+   65818:	88 1e 00 1d 	lbz     r0,29(r30)
+   6581c:	54 84 40 2e 	slwi    r4,r4,8
+   65820:	89 3e 00 1f 	lbz     r9,31(r30)
+   65824:	54 a5 40 2e 	slwi    r5,r5,8
+   65828:	7c 04 23 78 	or      r4,r0,r4
+   6582c:	7d 25 2b 78 	or      r5,r9,r5
+   65830:	4b fa de e9 	bl      0x13718
+   65834:	3c 60 c0 13 	lis     r3,-16365
+   65838:	38 63 cb 94 	addi    r3,r3,-13420
+   6583c:	4b ff ff a0 	b       0x657dc
+   65840:	80 1a 00 30 	lwz     r0,48(r26)
+[exit 0]

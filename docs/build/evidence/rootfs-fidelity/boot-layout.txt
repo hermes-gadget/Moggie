@@ -1,0 +1,675 @@
+IMAGE stock16
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs etc/inittab
+   1: ::sysinit:/etc/Configure
+   2: null::respawn:/wifi/netstartd
+   3: null::respawn:/etc/runanacapa
+   4: ::askfirst:/bin/sh
+   5: ::ctrlaltdel:/sbin/reboot
+   6: ::shutdown:/etc/init.d/rcK
+   7: ::restart:/sbin/init
+
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs etc/Configure
+   1: #!/bin/sh
+   2:
+   3: mount -t proc proc proc
+   4:
+   5: /sbin/ifconfig lo 127.0.0.1 up
+   6:
+   7: mount -t ramfs ramfs /ramdisk
+   8: mkdir -m 777 /ramdisk/var
+   9: mkdir -m 777 /ramdisk/var/run
+  10: mkdir -m 777 /ramdisk/var/log
+  11: mkdir -m 777 /ramdisk/tmp
+  12: mkdir -m 777 /ramdisk/tmp/pub
+  13: mkdir -m 777 /ramdisk/optlog
+  14: mkdir -m 777 /ramdisk/smb
+  15:
+  16: if [ -f /bin/repartition.sh ]; then
+  17:   sh /bin/repartition.sh
+  18: fi
+  19:
+  20: mount -t jffs2 -o noatime /dev/nandjffs /jffs
+  21: if [ $? -ne 0 ]
+  22: then
+  23:     if [ -f /bin/formatjffs ]; then
+  24:         echo "Reformat jffs" >> /opt/log/repartition.log
+  25:         /bin/formatjffs
+  26:         mount -t jffs2 -o noatime /dev/nandjffs /jffs
+  27:     fi
+  28: fi
+  29:
+  30: /etc/init.d/Srandom
+  31:
+  32: /sbin/insmod /modules/chk_driver.o
+  33: /sbin/insmod /modules/audiodev.o
+  34:
+  35: /wifi/netstartd --resetcheckonly
+  36:
+  37: if [ -f /jffs/Configure ]; then
+  38:   echo "Running custom Configure..."
+  39:   exec /jffs/Configure
+  40: fi
+  41:
+  42: echo 262143 > /proc/sys/net/core/rmem_max
+  43: echo 0 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+  44:
+  45: echo 32768 36863 > /proc/sys/net/ipv4/ip_local_port_range
+  46:
+  47: /bin/mdputil -B
+  48:
+  49: wifiType=N
+  50:
+  51: /sbin/insmod /wifi/$wifiType/ath_hal.o
+  52: /sbin/insmod /wifi/$wifiType/ath_driver.o
+  53:
+  54: if [ -e /wifi/bridge-ppc.o ]; then
+  55:     /sbin/insmod /wifi/bridge-ppc.o
+  56: fi
+  57:
+  58: /usr/sbin/setmac
+  59:
+  60: touch /var/run/waitforip
+  61:
+  62: if [ -f /etc/unlocked_build_flag -o -e /jffs/system/Configure.dev ]; then
+  63:     /usr/sbin/inetd
+  64:
+  65:     ln -s /opt/htdocs_locked /tmp/htdocs_locked
+  66:
+  67:     touch /tmp/device_unlocked_flag
+  68: fi
+  69:
+  70: if [ -f /jffs/system/Configure.dev ]; then
+  71:     sh /jffs/system/Configure.dev
+  72: fi
+  73:
+  74: if [ -f /jffs/hosts ]; then
+  75:     touch /jffs/hosts
+  76: else
+  77:     cp /etc/hosts.orig /jffs/hosts
+  78: fi
+  79:
+  80: echo "Configure script complete."
+
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs etc/init.d/rcS
+   1: #!/bin/sh
+   2:
+   3: mount -t proc proc proc
+   4: mount /dev/pts
+   5: rm -f /var/run/*.pid
+   6: rm -f /tmp/*
+   7: ifconfig lo 127.0.0.1 up
+   8: /etc/init.d/syslog start
+   9: /etc/init.d/inetd start
+  10: /etc/init.d/netconf start
+  11: # Initialize RNG
+  12: /etc/init.d/Srandom
+  13: exit 0
+
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs etc/fstab
+   1: # /etc/fstab: static file system information.
+   2: #
+   3: # <file system> <mount point>   <type>  <options>               <dump>  <pass>
+   4: #/dev/root       /               auto    defaults,errors=remount-ro      0 0
+   5: /dev/mapper/crroot	/	auto	noatime,nodiratime,defaults     0 0
+   6: proc            /proc           proc    defaults                        0 0
+   7: none            /dev/pts        devpts  gid=5,mode=620                  0 0
+
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs etc/passwd
+   1: root:<redacted>:0:0:root:/:/bin/sh
+   2: bin:<redacted>:1:1:bin:/bin:
+   3: daemon:<redacted>:2:2:daemon:/usr/sbin:
+   4: sys:<redacted>:3:3:sys:/dev:
+   5: adm:<redacted>:4:4:adm:/var/adm:
+   6: sync:<redacted>:6:8:sync:/bin:/bin/sync
+   7: shutdown:<redacted>:7:9:shutdown:/sbin:/sbin/shutdown
+   8: halt:<redacted>:8:10:halt:/sbin:/sbin/halt
+   9: mail:<redacted>:9:11:mail:/var/spool/mail:
+  10: man:<redacted>:16:100:man:/var/cache/man:
+  11: nobody:<redacted>:65534:65534:nobody:/home:/bin/sh
+
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs etc/group
+   1: root:*:0:root,operator
+   2: bin:*:1:bin
+   3: daemon:*:2:daemon
+   4: sys:*:3:sys
+   5: adm:*:4:adm
+   6: tty:*:5:
+   7: disk:*:6:
+   8: lp:*:7:lp
+   9: sync:*:8:sync
+  10: shutdown:*:9:shutdown
+  11: halt:*:10:halt
+  12: mail:*:11:mail
+  13: news:*:12:news
+  14: uucp:*:13:uucp
+  15: ftp:*:14:ftp
+  16: kmem:*:15:
+  17: utmp:*:16:
+  18: shadow:*:17:
+  19: users:*:100:
+  20: nogroup:*:65534:
+  21: upgrade:x:998:
+
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs VERSION
+   1: 34.16-37101
+
+IMAGE buildroot
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/rootfs.squashfs etc/inittab
+   1: # /etc/inittab -- Moggie
+   2: #
+   3: # PID 1 is busybox init. rcS does all one-shot setup; sonosd is respawned by
+   4: # init so a crash restarts it (busybox init throttles runaway respawns).
+   5: #
+   6: # The console runs a shell directly: root's password is locked in /etc/shadow
+   7: # and no password-authenticated login exists anywhere on the device. Physical
+   8: # UART access is the trust boundary. SSH is opt-in and key-only; see rcS.
+   9:
+  10: ::sysinit:/etc/init.d/rcS
+  11:
+  12: ttyS0::respawn:/sbin/getty -L -l /bin/sh 115200 ttyS0 vt100
+  13:
+  14: ::respawn:/usr/sbin/sonosd
+  15:
+  16: ::restart:/sbin/init
+  17: ::ctrlaltdel:/sbin/reboot
+  18: ::shutdown:/bin/umount -a -r
+  19: ::shutdown:/bin/sync
+
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/rootfs.squashfs etc/init.d/rcS
+   1: #!/bin/sh
+   2: #
+   3: # Moggie first-stage init -- runs as PID 1's sysinit from /etc/inittab.
+   4: #
+   5: # POSIX sh, busybox ash compatible. Must work with:
+   6: #   * no network
+   7: #   * a read-only squashfs root
+   8: #   * a 2.6.35 kernel with no CONFIG_DEVTMPFS and no CONFIG_SQUASHFS_XATTRS
+   9: #
+  10: # sonosd itself is respawned by init (see /etc/inittab), not started here.
+  11:
+  12: PATH=/sbin:/usr/sbin:/bin:/usr/bin
+  13: export PATH
+  14:
+  15: log() { echo "moggie: $*"; }
+  16:
+  17: # --- pseudo filesystems ---------------------------------------------------
+  18: mount -t proc  proc  /proc 2>/dev/null || log "proc: mount failed"
+  19: mount -t sysfs sysfs /sys  2>/dev/null || log "sysfs: mount failed"
+  20:
+  21: for d in /tmp /run /var/log; do
+  22:     [ -d "$d" ] || mkdir -p "$d" 2>/dev/null
+  23: done
+  24: mount -t tmpfs -o mode=1777,nosuid,nodev tmpfs /tmp     2>/dev/null || log "tmpfs /tmp: mount failed"
+  25: mount -t tmpfs -o mode=0755,nosuid,nodev tmpfs /run     2>/dev/null || log "tmpfs /run: mount failed"
+  26: mount -t tmpfs -o mode=0755,nosuid,nodev tmpfs /var/log 2>/dev/null || log "tmpfs /var/log: mount failed"
+  27:
+  28: # --- /dev -----------------------------------------------------------------
+  29: # The shipped 2.6.35 kernel was built without CONFIG_DEVTMPFS, so the image
+  30: # carries static nodes and this script layers tmpfs + mdev on top. If a
+  31: # future kernel does provide devtmpfs, use it instead.
+  32: if grep -qw devtmpfs /proc/filesystems 2>/dev/null; then
+  33:     mount -t devtmpfs devtmpfs /dev 2>/dev/null && log "/dev: devtmpfs"
+  34: else
+  35:     mount -t tmpfs -o mode=0755,nosuid tmpfs /dev 2>/dev/null && log "/dev: tmpfs + mdev"
+  36: fi
+  37:
+  38: # Minimum nodes mdev needs before it can run; also the fallback if the tmpfs
+  39: # mount above failed and we are still looking at the read-only image /dev.
+  40: [ -c /dev/console ] || mknod -m 600 /dev/console c 5 1 2>/dev/null
+  41: [ -c /dev/null ]    || mknod -m 666 /dev/null    c 1 3 2>/dev/null
+  42: [ -c /dev/zero ]    || mknod -m 666 /dev/zero    c 1 5 2>/dev/null
+  43:
+  44: if [ -x /sbin/mdev ]; then
+  45:     mdev -s 2>/dev/null || log "mdev: scan failed"
+  46: fi
+  47:
+  48: # --- identity -------------------------------------------------------------
+  49: if [ -r /etc/hostname ]; then
+  50:     read -r HN < /etc/hostname 2>/dev/null
+  51:     [ -n "$HN" ] && hostname "$HN" 2>/dev/null
+  52: fi
+  53:
+  54: # --- persistent state -----------------------------------------------------
+  55: # docs/ARCHITECTURE.md: mtd0 u-boot, mtd1 jffs2 (7 MB), mtd2 ramdisk,
+  56: # mtd3 rootfs A/B, mtd4 kernel, mtd5 dtb. A missing or unformatted jffs2
+  57: # must not stop the boot.
+  58: mkdir -p /jffs 2>/dev/null
+  59: if [ -b /dev/mtdblock1 ]; then
+  60:     if ! mount -t jffs2 /dev/mtdblock1 /jffs 2>/dev/null; then
+  61:         log "/jffs: not mounted (unformatted or no jffs2 support)"
+  62:     fi
+  63: else
+  64:     log "/jffs: /dev/mtdblock1 absent"
+  65: fi
+  66:
+  67: # --- network (best effort) ------------------------------------------------
+  68: if [ -d /sys/class/net/lo ]; then
+  69:     ip link set lo up 2>/dev/null || ifconfig lo up 2>/dev/null
+  70: fi
+  71:
+  72: if [ -d /sys/class/net/eth0 ]; then
+  73:     ip link set eth0 up 2>/dev/null || ifconfig eth0 up 2>/dev/null
+  74:     (
+  75:         if command -v udhcpc >/dev/null 2>&1; then
+  76:             udhcpc -i eth0 -n -q -t 4 -T 3 \
+  77:                    -s /usr/share/udhcpc/default.script >/dev/null 2>&1
+  78:         fi
+  79:         if ! ip addr show dev eth0 2>/dev/null | grep -q 'inet '; then
+  80:             # No DHCP server on the wire. 169.254/16 is deliberate: a
+  81:             # hard-coded 192.168.x address could collide with the LAN.
+  82:             if ip addr add 169.254.10.1/16 dev eth0 2>/dev/null; then
+  83:                 log "eth0: no DHCP lease, link-local 169.254.10.1/16"
+  84:             else
+  85:                 log "eth0: no DHCP lease and no static fallback"
+  86:             fi
+  87:         else
+  88:             log "eth0: DHCP lease acquired"
+  89:         fi
+  90:     ) &
+  91: fi
+  92:
+  93: # --- ssh (opt-in, key-only) -----------------------------------------------
+  94: # dropbear is installed but silent by default. To enable it, put on the
+  95: # jffs2 partition:  /jffs/ssh/enable  /jffs/ssh/host_key  /jffs/ssh/authorized_keys
+  96: # Password authentication is disabled unconditionally (-s).
+  97: if [ -r /jffs/ssh/enable ] && [ -r /jffs/ssh/host_key ] \
+  98:    && [ -r /jffs/ssh/authorized_keys ]; then
+  99:     mkdir -p /root/.ssh 2>/dev/null
+ 100:     cp /jffs/ssh/authorized_keys /root/.ssh/authorized_keys 2>/dev/null
+ 101:     chmod 700 /root/.ssh 2>/dev/null
+ 102:     chmod 600 /root/.ssh/authorized_keys 2>/dev/null
+ 103:     if /usr/sbin/dropbear -s -p 22 -r /jffs/ssh/host_key 2>/dev/null; then
+ 104:         log "sshd: listening on :22 (key only)"
+ 105:     else
+ 106:         log "sshd: failed to start"
+ 107:     fi
+ 108: else
+ 109:     log "sshd: disabled (provision /jffs/ssh/{enable,host_key,authorized_keys})"
+ 110: fi
+ 111:
+ 112: log "boot complete"
+
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/rootfs.squashfs etc/fstab
+   1: # /etc/fstab -- Moggie
+   2: #
+   3: # Most of this is mounted explicitly by rcS; the file exists so `mount -a`
+   4: # and `mount` output agree with reality. /jffs is mtd1 (see the flash map in
+   5: # docs/ARCHITECTURE.md) and is only mounted if it is present and formatted.
+   6:
+   7: proc		/proc		proc		defaults		0 0
+   8: sysfs		/sys		sysfs		defaults		0 0
+   9: tmpfs		/dev		tmpfs		mode=0755,nosuid	0 0
+  10: tmpfs		/tmp		tmpfs		mode=1777,nosuid	0 0
+  11: tmpfs		/run		tmpfs		mode=0755,nosuid	0 0
+  12: tmpfs		/var/log	tmpfs		mode=0755,nosuid	0 0
+  13: /dev/mtdblock1	/jffs		jffs2		rw,noatime		0 0
+
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/rootfs.squashfs etc/passwd
+   1: root:<redacted>:0:0:root:/root:/bin/sh
+   2: daemon:<redacted>:1:1:daemon:/usr/sbin:/bin/false
+   3: nobody:<redacted>:65534:65534:nobody:/nonexistent:/bin/false
+
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/rootfs.squashfs etc/group
+   1: root:x:0:
+   2: daemon:x:1:
+   3: tty:x:5:
+   4: disk:x:6:
+   5: audio:x:18:
+   6: nogroup:x:65534:
+
+unsquashfs -cat /home/ben/Moggie-wt/buildroot/out/rootfs.squashfs etc/moggie-release
+   1: MOGGIE_BUILDROOT=unknown
+   2: MOGGIE_BUILDROOT_SHA256=unknown
+   3: MOGGIE_TOOLCHAIN=unknown
+   4: MOGGIE_SOURCE_DATE_EPOCH=1700000000
+   5: MOGGIE_GIT_COMMIT=unknown
+   6: MOGGIE_TARGET=powerpc-e300c3-linux-gnu (big endian, hard float)
+
+IMAGE tc26
+unsquashfs -cat /home/ben/Moggie-wt/tc26/out/rootfs.squashfs etc/inittab
+   1: # /etc/inittab -- Moggie
+   2: #
+   3: # PID 1 is busybox init. rcS does all one-shot setup; sonosd is respawned by
+   4: # init so a crash restarts it (busybox init throttles runaway respawns).
+   5: #
+   6: # The console runs a shell directly: root's password is locked in /etc/shadow
+   7: # and no password-authenticated login exists anywhere on the device. Physical
+   8: # UART access is the trust boundary. SSH is opt-in and key-only; see rcS.
+   9:
+  10: ::sysinit:/etc/init.d/rcS
+  11:
+  12: ttyS0::respawn:/sbin/getty -L -l /bin/sh 115200 ttyS0 vt100
+  13:
+  14: ::respawn:/usr/sbin/sonosd
+  15: ::respawn:/usr/sbin/dlna-renderer
+  16:
+  17: ::restart:/sbin/init
+  18: ::ctrlaltdel:/sbin/reboot
+  19: ::shutdown:/bin/umount -a -r
+  20: ::shutdown:/bin/sync
+
+unsquashfs -cat /home/ben/Moggie-wt/tc26/out/rootfs.squashfs etc/init.d/rcS
+   1: #!/bin/sh
+   2: #
+   3: # Moggie first-stage init -- runs as PID 1's sysinit from /etc/inittab.
+   4: #
+   5: # POSIX sh, busybox ash compatible. Must work with:
+   6: #   * no network
+   7: #   * a read-only squashfs root
+   8: #   * a 2.6.35 kernel with no CONFIG_DEVTMPFS and no CONFIG_SQUASHFS_XATTRS
+   9: #
+  10: # sonosd itself is respawned by init (see /etc/inittab), not started here.
+  11:
+  12: PATH=/sbin:/usr/sbin:/bin:/usr/bin
+  13: export PATH
+  14:
+  15: log() { echo "moggie: $*"; }
+  16:
+  17: # --- pseudo filesystems ---------------------------------------------------
+  18: mount -t proc  proc  /proc 2>/dev/null || log "proc: mount failed"
+  19: mount -t sysfs sysfs /sys  2>/dev/null || log "sysfs: mount failed"
+  20:
+  21: for d in /tmp /run /var/log; do
+  22:     [ -d "$d" ] || mkdir -p "$d" 2>/dev/null
+  23: done
+  24: mount -t tmpfs -o mode=1777,nosuid,nodev tmpfs /tmp     2>/dev/null || log "tmpfs /tmp: mount failed"
+  25: mount -t tmpfs -o mode=0755,nosuid,nodev tmpfs /run     2>/dev/null || log "tmpfs /run: mount failed"
+  26: mount -t tmpfs -o mode=0755,nosuid,nodev tmpfs /var/log 2>/dev/null || log "tmpfs /var/log: mount failed"
+  27:
+  28: # --- /dev -----------------------------------------------------------------
+  29: # The shipped 2.6.35 kernel was built without CONFIG_DEVTMPFS, so the image
+  30: # carries static nodes and this script layers tmpfs + mdev on top. If a
+  31: # future kernel does provide devtmpfs, use it instead.
+  32: if grep -qw devtmpfs /proc/filesystems 2>/dev/null; then
+  33:     mount -t devtmpfs devtmpfs /dev 2>/dev/null && log "/dev: devtmpfs"
+  34: else
+  35:     mount -t tmpfs -o mode=0755,nosuid tmpfs /dev 2>/dev/null && log "/dev: tmpfs + mdev"
+  36: fi
+  37:
+  38: # Minimum nodes mdev needs before it can run; also the fallback if the tmpfs
+  39: # mount above failed and we are still looking at the read-only image /dev.
+  40: [ -c /dev/console ] || mknod -m 600 /dev/console c 5 1 2>/dev/null
+  41: [ -c /dev/null ]    || mknod -m 666 /dev/null    c 1 3 2>/dev/null
+  42: [ -c /dev/zero ]    || mknod -m 666 /dev/zero    c 1 5 2>/dev/null
+  43:
+  44: if [ -x /sbin/mdev ]; then
+  45:     mdev -s 2>/dev/null || log "mdev: scan failed"
+  46: fi
+  47:
+  48: # --- identity -------------------------------------------------------------
+  49: if [ -r /etc/hostname ]; then
+  50:     read -r HN < /etc/hostname 2>/dev/null
+  51:     [ -n "$HN" ] && hostname "$HN" 2>/dev/null
+  52: fi
+  53:
+  54: # --- persistent state -----------------------------------------------------
+  55: # docs/ARCHITECTURE.md: mtd0 u-boot, mtd1 jffs2 (7 MB), mtd2 ramdisk,
+  56: # mtd3 rootfs A/B, mtd4 kernel, mtd5 dtb. A missing or unformatted jffs2
+  57: # must not stop the boot.
+  58: mkdir -p /jffs 2>/dev/null
+  59: if [ -b /dev/mtdblock1 ]; then
+  60:     if ! mount -t jffs2 /dev/mtdblock1 /jffs 2>/dev/null; then
+  61:         log "/jffs: not mounted (unformatted or no jffs2 support)"
+  62:     fi
+  63: else
+  64:     log "/jffs: /dev/mtdblock1 absent"
+  65: fi
+  66:
+  67: # --- network (best effort) ------------------------------------------------
+  68: if [ -d /sys/class/net/lo ]; then
+  69:     ip link set lo up 2>/dev/null || ifconfig lo up 2>/dev/null
+  70: fi
+  71:
+  72: if [ -d /sys/class/net/eth0 ]; then
+  73:     ip link set eth0 up 2>/dev/null || ifconfig eth0 up 2>/dev/null
+  74:     (
+  75:         if command -v udhcpc >/dev/null 2>&1; then
+  76:             udhcpc -i eth0 -n -q -t 4 -T 3 \
+  77:                    -s /usr/share/udhcpc/default.script >/dev/null 2>&1
+  78:         fi
+  79:         if ! ip addr show dev eth0 2>/dev/null | grep -q 'inet '; then
+  80:             # No DHCP server on the wire. 169.254/16 is deliberate: a
+  81:             # hard-coded 192.168.x address could collide with the LAN.
+  82:             if ip addr add 169.254.10.1/16 dev eth0 2>/dev/null; then
+  83:                 log "eth0: no DHCP lease, link-local 169.254.10.1/16"
+  84:             else
+  85:                 log "eth0: no DHCP lease and no static fallback"
+  86:             fi
+  87:         else
+  88:             log "eth0: DHCP lease acquired"
+  89:         fi
+  90:     ) &
+  91: fi
+  92:
+  93: # --- ssh (opt-in, key-only) -----------------------------------------------
+  94: # dropbear is installed but silent by default. To enable it, put on the
+  95: # jffs2 partition:  /jffs/ssh/enable  /jffs/ssh/host_key  /jffs/ssh/authorized_keys
+  96: # Password authentication is disabled unconditionally (-s).
+  97: if [ -r /jffs/ssh/enable ] && [ -r /jffs/ssh/host_key ] \
+  98:    && [ -r /jffs/ssh/authorized_keys ]; then
+  99:     mkdir -p /root/.ssh 2>/dev/null
+ 100:     cp /jffs/ssh/authorized_keys /root/.ssh/authorized_keys 2>/dev/null
+ 101:     chmod 700 /root/.ssh 2>/dev/null
+ 102:     chmod 600 /root/.ssh/authorized_keys 2>/dev/null
+ 103:     if /usr/sbin/dropbear -s -p 22 -r /jffs/ssh/host_key 2>/dev/null; then
+ 104:         log "sshd: listening on :22 (key only)"
+ 105:     else
+ 106:         log "sshd: failed to start"
+ 107:     fi
+ 108: else
+ 109:     log "sshd: disabled (provision /jffs/ssh/{enable,host_key,authorized_keys})"
+ 110: fi
+ 111:
+ 112: log "boot complete"
+
+unsquashfs -cat /home/ben/Moggie-wt/tc26/out/rootfs.squashfs etc/fstab
+   1: # /etc/fstab -- Moggie
+   2: #
+   3: # Most of this is mounted explicitly by rcS; the file exists so `mount -a`
+   4: # and `mount` output agree with reality. /jffs is mtd1 (see the flash map in
+   5: # docs/ARCHITECTURE.md) and is only mounted if it is present and formatted.
+   6:
+   7: proc		/proc		proc		defaults		0 0
+   8: sysfs		/sys		sysfs		defaults		0 0
+   9: tmpfs		/dev		tmpfs		mode=0755,nosuid	0 0
+  10: tmpfs		/tmp		tmpfs		mode=1777,nosuid	0 0
+  11: tmpfs		/run		tmpfs		mode=0755,nosuid	0 0
+  12: tmpfs		/var/log	tmpfs		mode=0755,nosuid	0 0
+  13: /dev/mtdblock1	/jffs		jffs2		rw,noatime		0 0
+
+unsquashfs -cat /home/ben/Moggie-wt/tc26/out/rootfs.squashfs etc/passwd
+   1: root:<redacted>:0:0:root:/root:/bin/sh
+   2: daemon:<redacted>:1:1:daemon:/usr/sbin:/bin/false
+   3: nobody:<redacted>:65534:65534:nobody:/nonexistent:/bin/false
+
+unsquashfs -cat /home/ben/Moggie-wt/tc26/out/rootfs.squashfs etc/group
+   1: root:x:0:
+   2: daemon:x:1:
+   3: tty:x:5:
+   4: disk:x:6:
+   5: audio:x:18:
+   6: nogroup:x:65534:
+
+unsquashfs -cat /home/ben/Moggie-wt/tc26/out/rootfs.squashfs etc/moggie-release
+   1: MOGGIE_BUILDROOT=2026.02.3
+   2: MOGGIE_BUILDROOT_SHA256=5a59e7501b0b4ec52c41f4bfa79412320e0b37eae5f719605a258e8d0c6fc7fb
+   3: MOGGIE_TOOLCHAIN=powerpc-e300c3--glibc--stable-2026.08-1
+   4: MOGGIE_SOURCE_DATE_EPOCH=1700000000
+   5: MOGGIE_GIT_COMMIT=28b29a84e490276af236b691f4e021dd020c110d
+   6: MOGGIE_TARGET=powerpc-e300c3-linux-gnu (big endian, hard float)
+
+FENWAY EXTRACTED TREE (content only; host modes/owners not image metadata)
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/arch
+   1: fenway
+
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/soc_arch
+   1: fenway
+
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/inittab
+   1: # autogenerated by gen_inittab.py for ARCH fenway; DO NOT EDIT
+   2: ::sysinit:/etc/Configure
+   3: null::respawn:/wifi/netstartd
+   4: null::respawn:/etc/runmdns
+   5: null::respawn:/etc/runanacapa
+   6: null::respawn:/etc/runchrony
+   7: null::respawn:/etc/runsddp
+   8: /dev/ttyS0::askfirst:/bin/sh
+   9: ::ctrlaltdel:/sbin/reboot
+  10: ::shutdown:/etc/init.d/rcK
+  11: ::restart:/sbin/init
+
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/Configure
+   1: #!/bin/sh
+   2:
+   3: mount -t proc proc proc
+   4:
+   5: /sbin/ifconfig lo 127.0.0.1 up
+   6:
+   7: mount -t ramfs ramfs /ramdisk
+   8: mkdir -m 777 /ramdisk/var
+   9: mkdir -m 777 /ramdisk/var/run
+  10: mkdir -m 777 /ramdisk/var/log
+  11: mkdir -m 777 /ramdisk/tmp
+  12: mkdir -m 777 /ramdisk/tmp/pub
+  13: mkdir -m 777 /ramdisk/optlog
+  14: mkdir -m 777 /ramdisk/smb
+  15:
+  16: mount -t jffs2 -o noatime /dev/nandjffs /jffs
+  17: mount -t devpts none /dev/pts
+  18:
+  19: /etc/init.d/Srandom
+  20:
+  21: /sbin/insmod /modules/chk.ko
+  22: /sbin/insmod /modules/audiodev.ko
+  23:
+  24: if [ -f /modules/ir_rcvr.ko ]; then
+  25:     /sbin/insmod /modules/ir_rcvr.ko
+  26: fi
+  27:
+  28: /wifi/netstartd --resetcheckonly
+  29:
+  30: mkdir -p /jffs/app/run
+  31: mkdir -p /jffs/app/log
+  32: mkdir -p /jffs/app/debug
+  33: mkdir -p /jffs/app/settings
+  34: mkdir -p /jffs/sys/run
+  35: mkdir -p /jffs/sys/log
+  36: mkdir -p /jffs/sys/debug
+  37: mkdir -p /jffs/sys/settings
+  38: mkdir -p /jffs/net/run
+  39: mkdir -p /jffs/net/log
+  40: mkdir -p /jffs/net/debug
+  41: mkdir -p /jffs/net/settings
+  42: mkdir -p /jffs/persist
+  43:
+  44: /bin/mdputil -B
+  45:
+  46: HOSTNAME=Sonos-`/bin/mdputil | /usr/sbin/keyval ^SERIAL | /usr/bin/cut -c 1-12`
+  47: /bin/hostname $HOSTNAME
+  48:
+  49: if [ -f /etc/Configure.ART ]; then
+  50:   echo "Running custom ART Configure..."
+  51:   exec /etc/Configure.ART
+  52: else
+  53:   rm -f /jffs/art_build_running
+  54:   rm -f /jffs/art_ipaddr
+  55: fi
+  56:
+  57: if [ -f /jffs/Configure ]; then
+  58:   echo "Running custom Configure..."
+  59:   exec /jffs/Configure
+  60: fi
+  61:
+  62: echo 262143 > /proc/sys/net/core/rmem_max
+  63: echo 0 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+  64:
+  65: wifiType=N
+  66:
+  67: /sbin/insmod /wifi/$wifiType/adf.ko
+  68: /sbin/insmod /wifi/$wifiType/asf.ko
+  69: /sbin/insmod /wifi/$wifiType/ath_hal.ko
+  70: if [ -f /wifi/$wifiType/dfs.ko ]; then
+  71:     /sbin/insmod /wifi/$wifiType/dfs.ko
+  72: fi
+  73: /sbin/insmod /wifi/$wifiType/ath_driver.ko
+  74:
+  75: /sbin/insmod /wifi/bridge.ko
+  76:
+  77:
+  78: /usr/sbin/setmac
+  79:
+  80: ifconfig eth0 0.0.0.0
+  81:
+  82: touch /var/run/waitforip
+  83:
+  84: touch /var/run/waitforclockstep
+  85:
+  86: if [ -f /etc/unlocked_build_flag -o -e /jffs/system/Configure.dev ]; then
+  87:     /etc/scripts/run_sshd.sh
+  88:
+  89:     ln -s /opt/htdocs_locked /tmp/htdocs_locked
+  90:
+  91:     touch /tmp/device_unlocked_flag
+  92: fi
+  93:
+  94: if [ -f /jffs/system/Configure.dev ]; then
+  95:     sh /jffs/system/Configure.dev
+  96: fi
+  97:
+  98: if [ -s /jffs/hosts ]; then
+  99:     touch /jffs/hosts
+ 100: else
+ 101:     cp /etc/hosts.orig /jffs/hosts
+ 102: fi
+ 103:
+ 104: /etc/init.d/Krandom
+ 105:
+ 106: echo "Configure script complete."
+
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/fstab
+   1: # /etc/fstab: static file system information.
+   2: #
+   3: # <file system> <mount point>   <type>  <options>               <dump>  <pass>
+   4: #/dev/root       /               auto    defaults,errors=remount-ro      0 0
+   5: /dev/mapper/crroot	/	auto	noatime,nodiratime,defaults     0 0
+   6: proc            /proc           proc    defaults                        0 0
+   7: none            /dev/pts        devpts  gid=5,mode=620                  0 0
+   8: tmpfs           /dev/shm        tmpfs   defaults,noexec,nodev,nosuid,mode=600  0 0
+
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/group
+   1: root:*:0:root,operator
+   2: bin:*:1:bin
+   3: daemon:*:2:daemon
+   4: sys:*:3:sys
+   5: adm:*:4:adm
+   6: tty:*:5:
+   7: disk:*:6:
+   8: lp:*:7:lp
+   9: sync:*:8:sync
+  10: shutdown:*:9:shutdown
+  11: halt:*:10:halt
+  12: mail:*:11:mail
+  13: news:*:12:news
+  14: uucp:*:13:uucp
+  15: ftp:*:14:ftp
+  16: kmem:*:15:
+  17: utmp:*:16:
+  18: shadow:*:17:
+  19: users:*:100:
+  20: nogroup:*:65534:
+  21: upgrade:x:998:
+  22: messagebus:x:18:
+
+SOURCE /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/passwd
+   1: root:<redacted>:0:0:root:/:/bin/sh
+   2: bin:<redacted>:1:1:bin:/bin:
+   3: daemon:<redacted>:2:2:daemon:/usr/sbin:
+   4: sys:<redacted>:3:3:sys:/dev:
+   5: adm:<redacted>:4:4:adm:/var/adm:
+   6: sync:<redacted>:6:8:sync:/bin:/bin/sync
+   7: shutdown:<redacted>:7:9:shutdown:/sbin:/sbin/shutdown
+   8: halt:<redacted>:8:10:halt:/sbin:/sbin/halt
+   9: mail:<redacted>:9:11:mail:/var/spool/mail:
+  10: man:<redacted>:16:100:man:/var/cache/man:
+  11: nobody:<redacted>:65534:65534:nobody:/home:/bin/sh
+  12: messagebus:<redacted>:18:18:messagebus:/tmp:/bin/false

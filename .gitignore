@@ -1,6 +1,7 @@
 # build output
 out/
 build/
+!docs/build/
 dl/
 src/
 

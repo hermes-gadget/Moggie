@@ -1,0 +1,110 @@
+INPUT /home/ben/Moggie/dl/stock-firmware/34.16-37101-1-16.upd bytes=4727312 sha256=84632e02bdce626bf10ae846839e90d66e510a627320fff8690c2bdb998733f2
+record=0x0 type=0x1 total=28 flags=0x0 payload=0x10 payload_bytes=12 prefix=2200000010000000ed900000
+record=0x1c type=0x2 total=44 flags=0x0 payload=0x2c payload_bytes=28 prefix=01000000100000000200000005000000
+record=0x48 type=0x2 total=44 flags=0x0 payload=0x58 payload_bytes=28 prefix=feffffff3000000000000000feffffff
+record=0x74 type=0x3 total=3259 flags=0x0 payload=0x84 payload_bytes=3243 prefix=23212f62696e2f73680a6b696c6c5f61
+record=0xd2f type=0x6 total=708624 flags=0x0 payload=0xd3f payload_bytes=708608 prefix=480000057c6802a67fa4eb783863fffc
+kernel_version_strings=[]
+record=0xadd3f type=0x4 total=4014096 flags=0x0 payload=0xadd4f payload_bytes=4014080 prefix=737173680000012c0000000000000000
+record=0x481d4f type=0x5 total=17 flags=0x0 payload=0x481d5f payload_bytes=1 prefix=00
+record=0x481d60 type=0x9 total=528 flags=0x0 payload=0x481d70 payload_bytes=512 prefix=e4033565010000000100000000000000
+record=0x481f70 type=0xa total=528 flags=0x0 payload=0x481f80 payload_bytes=512 prefix=e4033565010000000100000000000000
+record=0x482180 type=0xffffffff total=144 flags=0x1 payload=0x482190 payload_bytes=128 prefix=7e74f345c01aaebe4cb252196366b705
+EXACT-EOF 4727312
+
+INPUT /home/ben/Moggie/dl/stock-firmware/57.23-74170-1-16.upd bytes=5606749 sha256=e19a7bb28f2d940346c605ccfcff81f8d9a7dd1771ee991841ac1f9e07223ad4
+record=0x0 type=0x1 total=28 flags=0x0 payload=0x10 payload_bytes=12 prefix=3900000017000000ba210100
+record=0x1c type=0x15 total=84 flags=0x0 payload=0x2c payload_bytes=68 prefix=323032315f31315f504154434845533a
+record=0x70 type=0x2 total=44 flags=0x0 payload=0x80 payload_bytes=28 prefix=01000000100000000200000005000000
+record=0x9c type=0x2 total=148 flags=0x0 payload=0xac payload_bytes=132 prefix=fdffffff020000000000000000000000
+record=0x130 type=0x2 total=44 flags=0x0 payload=0x140 payload_bytes=28 prefix=feffffff3000000000000000feffffff
+record=0x15c type=0x16 total=149527 flags=0x0 payload=0x16c payload_bytes=149511 prefix=621da74d0000016c0001000000000000
+record=0x24973 type=0x3 total=176026 flags=0x4 payload=0x24983 payload_bytes=176010 prefix=886499ca0000013a0001000000000000
+record=0x4f90d type=0x6 total=708970 flags=0x4 payload=0x4f91d payload_bytes=708954 prefix=886499ca0000013a0001000000000000
+record=0xfca77 type=0x4 total=4571498 flags=0x4 payload=0xfca87 payload_bytes=4571482 prefix=886499ca0000013a0001000000000000
+record=0x558be1 type=0x11 total=380 flags=0x1 payload=0x558bf1 payload_bytes=364 prefix=621da74d0000016c0001000000000000
+EXACT-EOF 5606749
+
+IMAGE stock16 /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs bytes=4014080 sha256=4c69dda984a91729933ec8525793135b3acbcb19f0c68e2bad4cb431e26600b9
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs: Squashfs filesystem, big endian, version 3.0, uncompressed, 4012629 bytes, 300 inodes, blocksize: 65536 bytes, created: Tue Jan 10 21:24:49 2017
+[exit 0]
+
+$ unsquashfs -s /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs
+Found a valid big endian SQUASHFS 3:0 superblock on /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs.
+Creation or last append time Tue Jan 10 21:24:49 2017
+Filesystem size 4012629 bytes (3918.58 Kbytes / 3.83 Mbytes)
+Block size 65536
+Filesystem is not exportable via NFS
+Inodes are compressed
+Data is compressed
+Fragments are compressed
+Always-use-fragments option is not specified
+Check data is not present in the filesystem
+Duplicates are removed
+Number of fragments 24
+Number of inodes 300
+Number of uids 1
+Number of gids 0
+[stderr]
+Reading a different endian SQUASHFS filesystem on /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock-34.16-1-16.squashfs
+[exit 0]
+
+IMAGE buildroot /home/ben/Moggie-wt/buildroot/out/rootfs.squashfs bytes=4171506 sha256=e170798721720ee0e1a53b19ac30b735ca24b5002d2ec24b96754f7bf8ef5307
+$ file /home/ben/Moggie-wt/buildroot/out/rootfs.squashfs
+/home/ben/Moggie-wt/buildroot/out/rootfs.squashfs: Squashfs filesystem, little endian, version 4.0, zlib compressed, 4171506 bytes, 431 inodes, blocksize: 131072 bytes, created: Tue Nov 14 22:13:20 2023
+[exit 0]
+
+$ unsquashfs -s /home/ben/Moggie-wt/buildroot/out/rootfs.squashfs
+Found a valid SQUASHFS 4:0 superblock on /home/ben/Moggie-wt/buildroot/out/rootfs.squashfs.
+Creation or last append time Tue Nov 14 22:13:20 2023
+Filesystem size 4171506 bytes (4073.74 Kbytes / 3.98 Mbytes)
+Compression gzip
+Block size 131072
+Filesystem is exportable via NFS
+Inodes are compressed
+Data is compressed
+Uids/Gids (Id table) are compressed
+Fragments are compressed
+Always-use-fragments option is not specified
+Xattrs are compressed
+Duplicates are removed
+Number of fragments 23
+Number of inodes 431
+Number of ids 3
+Number of xattr ids 0
+[exit 0]
+
+PADDED /home/ben/Moggie-wt/buildroot/out/rootfs.nand.img bytes=4194304 sha256=00361335015eb92bebfae8e24f35f3c4c2f5746b46377ba0232bebcf5287303f
+prefix_matches=True padding_bytes=22798 padding_values=[0]
+
+IMAGE tc26 /home/ben/Moggie-wt/tc26/out/rootfs.squashfs bytes=4437288 sha256=b4b7e40e425a7a990fa9c6d905faa847be04f3706e3abb7607c4bed00741efe2
+$ file /home/ben/Moggie-wt/tc26/out/rootfs.squashfs
+/home/ben/Moggie-wt/tc26/out/rootfs.squashfs: Squashfs filesystem, little endian, version 4.0, zlib compressed, 4437288 bytes, 485 inodes, blocksize: 131072 bytes, created: Tue Nov 14 22:13:20 2023
+[exit 0]
+
+$ unsquashfs -s /home/ben/Moggie-wt/tc26/out/rootfs.squashfs
+Found a valid SQUASHFS 4:0 superblock on /home/ben/Moggie-wt/tc26/out/rootfs.squashfs.
+Creation or last append time Tue Nov 14 22:13:20 2023
+Filesystem size 4437288 bytes (4333.29 Kbytes / 4.23 Mbytes)
+Compression gzip
+Block size 131072
+Filesystem is exportable via NFS
+Inodes are compressed
+Data is compressed
+Uids/Gids (Id table) are compressed
+Fragments are compressed
+Always-use-fragments option is not specified
+Xattrs are compressed
+Duplicates are removed
+Number of fragments 34
+Number of inodes 485
+Number of ids 3
+Number of xattr ids 0
+[exit 0]
+
+PADDED /home/ben/Moggie-wt/tc26/out/rootfs.nand.img bytes=4456448 sha256=783c95c9ee270582fa0c3dc66c5b57d3f7440fb48bc265c47e707fdde8344d4a
+prefix_matches=True padding_bytes=19160 padding_values=[0]
+
+DECLARED_CAP_CHECK buildroot cap=7864320 padded=4194304 headroom=3670016 fits_declared_cap=True actual_stock_slot=UNVERIFIED
+DECLARED_CAP_CHECK tc26 cap=7864320 padded=4456448 headroom=3407872 fits_declared_cap=True actual_stock_slot=UNVERIFIED
