@@ -163,6 +163,80 @@ def embedded_tree(data):
     raise ValueError('unterminated FDT')
 
 
+def encrypted_headers(data, records):
+    """Inspect framing only; never decrypt recipient blobs or payloads."""
+    headers = []
+    for record in records:
+        if record['flags'] != '0x4':
+            continue
+        base, size = int(record['payload_offset'], 16), record['payload_size']
+        payload = data[base:base + size]
+        magic, length, version, flags, attributes = struct.unpack_from('>IIHHI', payload)
+        if magic != 0x886499ca or not 17 <= length <= len(payload) or version != 1 or attributes:
+            raise ValueError('unexpected pinned encrypted-envelope header')
+        count = payload[16]
+        if not 1 <= count <= 2:
+            raise ValueError('unexpected recipient count')
+        position, recipients = 17, []
+        for _ in range(count):
+            if position + 5 > length:
+                raise ValueError('truncated recipient')
+            id_size = struct.unpack_from('>I', payload, position)[0]
+            id_type = payload[position + 4]
+            position += 5
+            if id_size > 2047 or position + id_size + 8 > length:
+                raise ValueError('invalid recipient identifier size')
+            position += id_size
+            algorithm, wrapped_size = struct.unpack_from('>II', payload, position)
+            position += 8
+            if wrapped_size > 512 or position + wrapped_size > length:
+                raise ValueError('invalid wrapped-data size')
+            recipients.append(dict(identifier_size=id_size, identifier_type=id_type,
+                                   algorithm=algorithm, wrapped_size=wrapped_size))
+            position += wrapped_size
+        if position + 8 != length:
+            raise ValueError('unexpected envelope trailer size')
+        cipher, scalar = struct.unpack_from('>II', payload, position)
+        headers.append(dict(type=record['type'], payload_file=hex(base), magic=hex(magic),
+            header_size=length, version=version, flags=flags, attributes=attributes,
+            recipients=recipients, cipher_id=cipher, trailing_scalar=scalar,
+            data_file=hex(base + length), data_size=len(payload) - length,
+            boundary='Structural metadata only; no key/ciphertext contents or decryption.'))
+    return headers
+
+
+def envelope_anchors(path):
+    data = path.read_bytes()
+    with path.open('rb') as stream:
+        elf = ELFFile(stream)
+        loads = [s for s in elf.iter_segments() if s['p_type'] == 'PT_LOAD']
+        def offset(va):
+            return next(s['p_offset'] + va - s['p_vaddr'] for s in loads
+                        if s['p_vaddr'] <= va < s['p_vaddr'] + s['p_filesz'])
+        relocations = {r['r_offset']: r['r_addend'] for s in elf.iter_sections()
+                       if s['sh_type'] == 'SHT_RELA' for r in s.iter_relocations()
+                       if r['r_info_type'] == 22}
+        delta = struct.unpack_from('>i', data, offset(0x70e4))[0]
+        slot = 0x70f4 + delta - 32768
+        table = relocations[slot]
+        anchors = []
+        for index in range(2):
+            row = table + index * 32
+            position = offset(row)
+            mask = struct.unpack_from('>I', data, position)[0]
+            der_va = relocations[row + 24]
+            length = struct.unpack_from('>I', data, position + 28)[0]
+            der = data[offset(der_va):offset(der_va) + length]
+            # Public-key parsing deliberately rejects private-key encodings.
+            key = load_der_public_key(der)
+            anchors.append(dict(table_index=index, row_va=hex(row), row_file=hex(position),
+                deny_mask=mask, identifier=data[position + 4:position + 24].hex(),
+                der_va=hex(der_va), der_file=hex(offset(der_va)), der_size=length,
+                sha256=digest(der), bits=key.key_size, exponent=key.public_numbers().e))
+    return dict(selector_va='0x70e8', got_slot_va=hex(slot), table_va=hex(table),
+                table_file=hex(offset(table)), anchors=anchors)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--older-package', type=Path, required=True)
@@ -187,6 +261,8 @@ def main():
                               sha256=digest(data), records=parse_upd(data))
         if name.startswith('34.'):
             older_data = data
+        else:
+            current_data = data
     root_records = [r for r in packages['34.16-37101-1-16']['records']
                     if r['type'] == '0x4']
     if len(root_records) != 1 or root_records[0]['flags'] != '0x0':
@@ -291,6 +367,7 @@ def main():
         ('install', 0x100057b0, 0x10005dec),
         ('hash-stream', 0x100055d0, 0x10005668),
         ('payload-reader', 0x10006028, 0x100061d4),
+        ('encrypted-payload', 0x100063fc, 0x100069b0),
         ('legacy-signature', 0x100074e4, 0x100075c8),
         ('envelope-signature', 0x100075c8, 0x1000778c),
         ('record-dispatch', 0x1000778c, 0x10007c80),
@@ -304,10 +381,18 @@ def main():
         ('envelope-parser', 0x8448, 0x87d4),
         ('envelope-entry', 0x8b10, 0x8b48),
         ('envelope-verifier', 0x8870, 0x8b10),
+        ('envelope-key-selector', 0x70e8, 0x7274),
+        ('encrypted-parser', 0xa7bc, 0xaae0),
+        ('encrypted-setup', 0xad5c, 0xaeec),
+        ('rsa-decrypt', 0x5ac4, 0x5c18),
     ), out, 'crypto')
     write_json(out / 'images.json', images)
     write_json(out / 'legacy-public-anchor.json', public_anchor(
         cache / 'rootfs/lib/libsonoscrypto.so.1'))
+    write_json(out / 'envelope-public-anchors.json', envelope_anchors(
+        cache / 'rootfs/lib/libsonoscrypto.so.1'))
+    write_json(out / 'encrypted-headers.json', encrypted_headers(current_data,
+        packages['57.23-74170-1-16']['records']))
     upgrade_data = (cache / 'rootfs/bin/upgrade').read_bytes()
     write_json(out / 'record-handlers.json', [dict(file=hex(offset),
         words=[hex(value) for value in struct.unpack_from('>4I', upgrade_data, offset)])

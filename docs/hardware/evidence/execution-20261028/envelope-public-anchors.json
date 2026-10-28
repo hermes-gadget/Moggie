@@ -1,0 +1,34 @@
+{
+  "anchors": [
+    {
+      "bits": 2048,
+      "deny_mask": 1,
+      "der_file": "0xb490",
+      "der_size": 294,
+      "der_va": "0xb490",
+      "exponent": 65537,
+      "identifier": "4cde17c6b9966c3084231fd84296c5b59d052d44",
+      "row_file": "0xc018",
+      "row_va": "0x1c018",
+      "sha256": "7a39bfeba6ada5638b29c84f7362b59e6ddd742feaafe23cd9bda23684411373",
+      "table_index": 0
+    },
+    {
+      "bits": 2048,
+      "deny_mask": 0,
+      "der_file": "0xb368",
+      "der_size": 294,
+      "der_va": "0xb368",
+      "exponent": 65537,
+      "identifier": "d67d7a0749635410ab3013a37418d4fb6de57de6",
+      "row_file": "0xc038",
+      "row_va": "0x1c038",
+      "sha256": "6fc4219abf0b4cd3aeaf4f2a170d0c3c0b94e869f9b0f901fe45bd3f09c4e1a5",
+      "table_index": 1
+    }
+  ],
+  "got_slot_va": "0x1c0c4",
+  "selector_va": "0x70e8",
+  "table_file": "0xc018",
+  "table_va": "0x1c018"
+}

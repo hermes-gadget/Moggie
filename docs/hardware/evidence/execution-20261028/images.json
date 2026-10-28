@@ -1,6 +1,6 @@
 {
   "crypto": {
-    "checked_disassembly_rows": 953,
+    "checked_disassembly_rows": 1438,
     "loads": [
       {
         "offset": 0,
@@ -18,7 +18,7 @@
     "size": 51628
   },
   "upgrade": {
-    "checked_disassembly_rows": 1381,
+    "checked_disassembly_rows": 1746,
     "loads": [
       {
         "offset": 0,

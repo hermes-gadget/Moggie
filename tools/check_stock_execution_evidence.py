@@ -115,6 +115,30 @@ def main():
     anchor = read('legacy-public-anchor.json')
     start = int(anchor['der_file'], 16)
     assert sha(sources['crypto'][start:start + anchor['der_size']]) == anchor['sha256']
+    for anchor in read('envelope-public-anchors.json')['anchors']:
+        start = int(anchor['der_file'], 16)
+        assert sha(sources['crypto'][start:start + anchor['der_size']]) == anchor['sha256']
+        row = int(anchor['row_file'], 16)
+        assert struct.unpack_from('>I', sources['crypto'], row)[0] == anchor['deny_mask']
+        assert sources['crypto'][row + 4:row + 24].hex() == anchor['identifier']
+    current = Path(packages['57.23-74170-1-16']['path']).read_bytes()
+    for header in read('encrypted-headers.json'):
+        start, length = int(header['payload_file'], 16), header['header_size']
+        fields = struct.unpack_from('>IIHHI', current, start)
+        assert fields == (int(header['magic'], 16), length, header['version'], header['flags'], header['attributes'])
+        assert int(header['data_file'], 16) == start + length
+        assert current[start + 16] == len(header['recipients'])
+        position = start + 17
+        for recipient in header['recipients']:
+            assert struct.unpack_from('>I', current, position)[0] == recipient['identifier_size']
+            assert current[position + 4] == recipient['identifier_type']
+            position += 5 + recipient['identifier_size']
+            assert struct.unpack_from('>II', current, position) == (recipient['algorithm'], recipient['wrapped_size'])
+            position += 8 + recipient['wrapped_size']
+        assert position + 8 == start + length
+        assert struct.unpack_from('>II', current, position) == (header['cipher_id'], header['trailing_scalar'])
+        record = next(r for r in packages['57.23-74170-1-16']['records'] if r['payload_offset'] == header['payload_file'])
+        assert header['data_size'] == record['payload_size'] - length
     document = args.document.read_text()
     assert '## CONFIDENCE' in document and '## UNKNOWN-OFFLINE' in document
     links = 0

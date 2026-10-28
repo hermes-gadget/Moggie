@@ -3,12 +3,12 @@ Execution-surface evidence verification — 2026-10-28
 Generation: tools/stock_execution_evidence.py, exact command in EXECUTION-SURFACE.md.
 Second generation: same command/cache, --out build/stock-execution/reproduced.
 PASS: 2 pinned UPDs parsed to exact EOF; 14 allowlisted files extracted; 7 absent
-PASS: 2334 disassembly rows match ELF file bytes
+PASS: 3184 disassembly rows match ELF file bytes
 
 Independent check:
 python3 tools/check_stock_execution_evidence.py --evidence docs/hardware/evidence/execution-20261028 --cache build/stock-execution/34.16 --compare build/stock-execution/reproduced --document docs/hardware/EXECUTION-SURFACE.md
-PASS: 2 source packages; 20 records; 14 extracted hashes; 2334 disassembly rows
-PASS: 37 document links; 20 cited offset starts in bounds; 42 regenerated files identical
+PASS: 2 source packages; 20 records; 14 extracted hashes; 3184 disassembly rows
+PASS: 44 document links; 32 cited offset starts in bounds; 49 regenerated files identical
 
 Framing negative cases: empty stream, 15-byte header, wrong magic,
 header-inclusive size 15, size extending one byte beyond EOF.
@@ -17,12 +17,13 @@ PASS: 5 malformed/truncated UPD framing cases rejected
 Adversarial evidence check: copied the packet to build/stock-execution/tampered,
 changed the first crypto-rsa.dis.txt instruction from 94 21 ff d0 to 94 21 ff d1,
 ran the independent checker, and required a nonzero return with AssertionError.
-PASS: independent checker rejects a modified disassembly byte
+PASS: independent checker rejects altered instruction bytes and encrypted-envelope boundaries
+Envelope negative check: changed data_size by one in a fresh copied packet; checker rejected it.
 
 git diff --check: exit 0
 
 Report SHA-256:
-53b31aeeed27509645b500d333c30356a4799eea26c3c13b5d7c36f4568440de  docs/hardware/EXECUTION-SURFACE.md
+77fbb8a061024111bc1d0acc7fd7f4456f49c002852937baeaf1a3fb44d6c6e6  docs/hardware/EXECUTION-SURFACE.md
 
 LIMIT: integrity/transcription checks do not validate vendor signatures,
 reverse-engineering semantics, exhaustive control flow or hardware behavior.

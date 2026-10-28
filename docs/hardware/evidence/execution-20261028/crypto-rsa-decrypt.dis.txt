@@ -1,0 +1,94 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x5ac4 --stop-address=0x5c18 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00005ac4 <ZZ0075@@Base>:
+    5ac4:	94 21 fe f0 	stwu    r1,-272(r1)  # file 0x5ac4
+    5ac8:	7c 08 02 a6 	mflr    r0  # file 0x5ac8
+    5acc:	42 9f 00 05 	bcl     20,4*cr7+so,5ad0 <ZZ0075@@Base+0xc>  # file 0x5acc
+    5ad0:	93 c1 01 08 	stw     r30,264(r1)  # file 0x5ad0
+    5ad4:	7f c8 02 a6 	mflr    r30  # file 0x5ad4
+    5ad8:	90 01 01 14 	stw     r0,276(r1)  # file 0x5ad8
+    5adc:	93 e1 01 0c 	stw     r31,268(r1)  # file 0x5adc
+    5ae0:	7c 9f 23 78 	mr      r31,r4  # file 0x5ae0
+    5ae4:	80 1e ff f0 	lwz     r0,-16(r30)  # file 0x5ae4
+    5ae8:	92 c1 00 e8 	stw     r22,232(r1)  # file 0x5ae8
+    5aec:	7c b6 2b 78 	mr      r22,r5  # file 0x5aec
+    5af0:	7f c0 f2 14 	add     r30,r0,r30  # file 0x5af0
+    5af4:	92 e1 00 ec 	stw     r23,236(r1)  # file 0x5af4
+    5af8:	93 01 00 f0 	stw     r24,240(r1)  # file 0x5af8
+    5afc:	7c f7 3b 78 	mr      r23,r7  # file 0x5afc
+    5b00:	93 21 00 f4 	stw     r25,244(r1)  # file 0x5b00
+    5b04:	7c d8 33 78 	mr      r24,r6  # file 0x5b04
+    5b08:	93 61 00 fc 	stw     r27,252(r1)  # file 0x5b08
+    5b0c:	7c 79 1b 78 	mr      r25,r3  # file 0x5b0c
+    5b10:	93 81 01 00 	stw     r28,256(r1)  # file 0x5b10
+    5b14:	3b 80 00 00 	li      r28,0  # file 0x5b14
+    5b18:	93 a1 01 04 	stw     r29,260(r1)  # file 0x5b18
+    5b1c:	7d 1d 43 78 	mr      r29,r8  # file 0x5b1c
+    5b20:	93 41 00 f8 	stw     r26,248(r1)  # file 0x5b20
+    5b24:	48 01 68 29 	bl      1c34c <ZZ0106@plt>  # file 0x5b24
+    5b28:	7c 7b 1b 78 	mr      r27,r3  # file 0x5b28
+    5b2c:	48 01 67 71 	bl      1c29c <ZZ0042@plt>  # file 0x5b2c
+    5b30:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x5b30
+    5b34:	41 9e 00 e0 	beq     cr7,5c14 <ZZ0075@@Base+0x150>  # file 0x5b34
+    5b38:	3b 41 00 10 	addi    r26,r1,16  # file 0x5b38
+    5b3c:	7f 43 d3 78 	mr      r3,r26  # file 0x5b3c
+    5b40:	38 80 00 00 	li      r4,0  # file 0x5b40
+    5b44:	38 a0 00 00 	li      r5,0  # file 0x5b44
+    5b48:	48 01 6c 15 	bl      1c75c <mbedtls_rsa_init@plt>  # file 0x5b48
+    5b4c:	2b 9b 02 00 	cmplwi  cr7,r27,512  # file 0x5b4c
+    5b50:	41 9d 00 14 	bgt     cr7,5b64 <ZZ0075@@Base+0xa0>  # file 0x5b50
+    5b54:	2f 9f 00 01 	cmpwi   cr7,r31,1  # file 0x5b54
+    5b58:	41 9e 00 90 	beq     cr7,5be8 <ZZ0075@@Base+0x124>  # file 0x5b58
+    5b5c:	2f 9f 00 02 	cmpwi   cr7,r31,2  # file 0x5b5c
+    5b60:	41 9e 00 4c 	beq     cr7,5bac <ZZ0075@@Base+0xe8>  # file 0x5b60
+    5b64:	93 9d 00 00 	stw     r28,0(r29)  # file 0x5b64
+    5b68:	7f 43 d3 78 	mr      r3,r26  # file 0x5b68
+    5b6c:	48 01 67 01 	bl      1c26c <mbedtls_rsa_free@plt>  # file 0x5b6c
+    5b70:	80 01 01 14 	lwz     r0,276(r1)  # file 0x5b70
+    5b74:	7f 83 e3 78 	mr      r3,r28  # file 0x5b74
+    5b78:	82 c1 00 e8 	lwz     r22,232(r1)  # file 0x5b78
+    5b7c:	82 e1 00 ec 	lwz     r23,236(r1)  # file 0x5b7c
+    5b80:	7c 08 03 a6 	mtlr    r0  # file 0x5b80
+    5b84:	83 01 00 f0 	lwz     r24,240(r1)  # file 0x5b84
+    5b88:	83 21 00 f4 	lwz     r25,244(r1)  # file 0x5b88
+    5b8c:	83 41 00 f8 	lwz     r26,248(r1)  # file 0x5b8c
+    5b90:	83 61 00 fc 	lwz     r27,252(r1)  # file 0x5b90
+    5b94:	83 81 01 00 	lwz     r28,256(r1)  # file 0x5b94
+    5b98:	83 a1 01 04 	lwz     r29,260(r1)  # file 0x5b98
+    5b9c:	83 c1 01 08 	lwz     r30,264(r1)  # file 0x5b9c
+    5ba0:	83 e1 01 0c 	lwz     r31,268(r1)  # file 0x5ba0
+    5ba4:	38 21 01 10 	addi    r1,r1,272  # file 0x5ba4
+    5ba8:	4e 80 00 20 	blr  # file 0x5ba8
+    5bac:	80 79 00 04 	lwz     r3,4(r25)  # file 0x5bac
+    5bb0:	7f 98 d8 00 	cmpw    cr7,r24,r27  # file 0x5bb0
+    5bb4:	40 9e ff b0 	bne     cr7,5b64 <ZZ0075@@Base+0xa0>  # file 0x5bb4
+    5bb8:	80 9e 80 00 	lwz     r4,-32768(r30)  # file 0x5bb8
+    5bbc:	7e c8 b3 78 	mr      r8,r22  # file 0x5bbc
+    5bc0:	80 be 80 04 	lwz     r5,-32764(r30)  # file 0x5bc0
+    5bc4:	7e e9 bb 78 	mr      r9,r23  # file 0x5bc4
+    5bc8:	81 5d 00 00 	lwz     r10,0(r29)  # file 0x5bc8
+    5bcc:	38 c0 00 01 	li      r6,1  # file 0x5bcc
+    5bd0:	7f a7 eb 78 	mr      r7,r29  # file 0x5bd0
+    5bd4:	48 01 67 01 	bl      1c2d4 <mbedtls_rsa_pkcs1_decrypt@plt>  # file 0x5bd4
+    5bd8:	20 03 00 00 	subfic  r0,r3,0  # file 0x5bd8
+    5bdc:	7f 80 19 15 	adde.   r28,r0,r3  # file 0x5bdc
+    5be0:	40 a2 ff 88 	bne     5b68 <ZZ0075@@Base+0xa4>  # file 0x5be0
+    5be4:	4b ff ff 80 	b       5b64 <ZZ0075@@Base+0xa0>  # file 0x5be4
+    5be8:	80 99 00 04 	lwz     r4,4(r25)  # file 0x5be8
+    5bec:	7f 43 d3 78 	mr      r3,r26  # file 0x5bec
+    5bf0:	48 01 67 9d 	bl      1c38c <mbedtls_rsa_copy@plt>  # file 0x5bf0
+    5bf4:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x5bf4
+    5bf8:	40 be ff 6c 	bne     cr7,5b64 <ZZ0075@@Base+0xa0>  # file 0x5bf8
+    5bfc:	7f 43 d3 78 	mr      r3,r26  # file 0x5bfc
+    5c00:	38 80 00 01 	li      r4,1  # file 0x5c00
+    5c04:	38 a0 00 04 	li      r5,4  # file 0x5c04
+    5c08:	48 01 6a 25 	bl      1c62c <mbedtls_rsa_set_padding@plt>  # file 0x5c08
+    5c0c:	7f 43 d3 78 	mr      r3,r26  # file 0x5c0c
+    5c10:	4b ff ff a0 	b       5bb0 <ZZ0075@@Base+0xec>  # file 0x5c10
+    5c14:	48 01 68 a1 	bl      1c4b4 <abort@plt>  # file 0x5c14

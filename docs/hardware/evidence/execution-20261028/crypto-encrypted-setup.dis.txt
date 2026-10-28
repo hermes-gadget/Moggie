@@ -1,0 +1,111 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0xad5c --stop-address=0xaeec /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+0000ad5c <ZZ0052@@Base>:
+    ad5c:	7c 08 02 a6 	mflr    r0  # file 0xad5c
+    ad60:	94 21 fd b0 	stwu    r1,-592(r1)  # file 0xad60
+    ad64:	92 c1 02 28 	stw     r22,552(r1)  # file 0xad64
+    ad68:	39 20 02 00 	li      r9,512  # file 0xad68
+    ad6c:	92 e1 02 2c 	stw     r23,556(r1)  # file 0xad6c
+    ad70:	3a c0 00 00 	li      r22,0  # file 0xad70
+    ad74:	93 01 02 30 	stw     r24,560(r1)  # file 0xad74
+    ad78:	7c 77 1b 78 	mr      r23,r3  # file 0xad78
+    ad7c:	93 21 02 34 	stw     r25,564(r1)  # file 0xad7c
+    ad80:	7c f8 3b 78 	mr      r24,r7  # file 0xad80
+    ad84:	93 41 02 38 	stw     r26,568(r1)  # file 0xad84
+    ad88:	3b 20 00 00 	li      r25,0  # file 0xad88
+    ad8c:	93 61 02 3c 	stw     r27,572(r1)  # file 0xad8c
+    ad90:	7c ba 2b 78 	mr      r26,r5  # file 0xad90
+    ad94:	93 81 02 40 	stw     r28,576(r1)  # file 0xad94
+    ad98:	7c db 33 78 	mr      r27,r6  # file 0xad98
+    ad9c:	93 e1 02 4c 	stw     r31,588(r1)  # file 0xad9c
+    ada0:	7c 9c 23 78 	mr      r28,r4  # file 0xada0
+    ada4:	93 a1 02 44 	stw     r29,580(r1)  # file 0xada4
+    ada8:	3b e0 00 00 	li      r31,0  # file 0xada8
+    adac:	93 c1 02 48 	stw     r30,584(r1)  # file 0xadac
+    adb0:	90 01 02 54 	stw     r0,596(r1)  # file 0xadb0
+    adb4:	88 04 08 50 	lbz     r0,2128(r4)  # file 0xadb4
+    adb8:	91 21 02 10 	stw     r9,528(r1)  # file 0xadb8
+    adbc:	2b 80 00 00 	cmplwi  cr7,r0,0  # file 0xadbc
+    adc0:	41 9d 00 68 	bgt     cr7,ae28 <ZZ0052@@Base+0xcc>  # file 0xadc0
+    adc4:	3b e1 00 10 	addi    r31,r1,16  # file 0xadc4
+    adc8:	31 39 ff ff 	addic   r9,r25,-1  # file 0xadc8
+    adcc:	7c 09 c9 10 	subfe   r0,r9,r25  # file 0xadcc
+    add0:	31 78 ff ff 	addic   r11,r24,-1  # file 0xadd0
+    add4:	7d 2b c1 10 	subfe   r9,r11,r24  # file 0xadd4
+    add8:	7c 0b 48 39 	and.    r11,r0,r9  # file 0xadd8
+    addc:	40 82 00 f4 	bne     aed0 <ZZ0052@@Base+0x174>  # file 0xaddc
+    ade0:	7f e3 fb 78 	mr      r3,r31  # file 0xade0
+    ade4:	38 80 02 00 	li      r4,512  # file 0xade4
+    ade8:	48 01 16 6d 	bl      1c454 <ZZ0038@plt>  # file 0xade8
+    adec:	80 01 02 54 	lwz     r0,596(r1)  # file 0xadec
+    adf0:	7e c3 b3 78 	mr      r3,r22  # file 0xadf0
+    adf4:	82 e1 02 2c 	lwz     r23,556(r1)  # file 0xadf4
+    adf8:	82 c1 02 28 	lwz     r22,552(r1)  # file 0xadf8
+    adfc:	7c 08 03 a6 	mtlr    r0  # file 0xadfc
+    ae00:	83 01 02 30 	lwz     r24,560(r1)  # file 0xae00
+    ae04:	83 21 02 34 	lwz     r25,564(r1)  # file 0xae04
+    ae08:	83 41 02 38 	lwz     r26,568(r1)  # file 0xae08
+    ae0c:	83 61 02 3c 	lwz     r27,572(r1)  # file 0xae0c
+    ae10:	83 81 02 40 	lwz     r28,576(r1)  # file 0xae10
+    ae14:	83 a1 02 44 	lwz     r29,580(r1)  # file 0xae14
+    ae18:	83 c1 02 48 	lwz     r30,584(r1)  # file 0xae18
+    ae1c:	83 e1 02 4c 	lwz     r31,588(r1)  # file 0xae1c
+    ae20:	38 21 02 50 	addi    r1,r1,592  # file 0xae20
+    ae24:	4e 80 00 20 	blr  # file 0xae24
+    ae28:	1c bf 0a 0c 	mulli   r5,r31,2572  # file 0xae28
+    ae2c:	7f 48 03 a6 	mtlr    r26  # file 0xae2c
+    ae30:	7c a5 e2 14 	add     r5,r5,r28  # file 0xae30
+    ae34:	3b a5 08 54 	addi    r29,r5,2132  # file 0xae34
+    ae38:	80 c5 08 54 	lwz     r6,2132(r5)  # file 0xae38
+    ae3c:	7f 63 db 78 	mr      r3,r27  # file 0xae3c
+    ae40:	88 9d 00 04 	lbz     r4,4(r29)  # file 0xae40
+    ae44:	38 a5 08 59 	addi    r5,r5,2137  # file 0xae44
+    ae48:	4e 80 00 21 	blrl  # file 0xae48
+    ae4c:	38 1f 00 01 	addi    r0,r31,1  # file 0xae4c
+    ae50:	7c 79 1b 79 	mr.     r25,r3  # file 0xae50
+    ae54:	54 1f 06 3e 	clrlwi  r31,r0,24  # file 0xae54
+    ae58:	40 82 00 14 	bne     ae6c <ZZ0052@@Base+0x110>  # file 0xae58
+    ae5c:	88 1c 08 50 	lbz     r0,2128(r28)  # file 0xae5c
+    ae60:	7f 80 f8 40 	cmplw   cr7,r0,r31  # file 0xae60
+    ae64:	41 9d ff c4 	bgt     cr7,ae28 <ZZ0052@@Base+0xcc>  # file 0xae64
+    ae68:	41 a2 ff 5c 	beq     adc4 <ZZ0052@@Base+0x68>  # file 0xae68
+    ae6c:	3b e1 00 10 	addi    r31,r1,16  # file 0xae6c
+    ae70:	80 dd 08 08 	lwz     r6,2056(r29)  # file 0xae70
+    ae74:	80 9d 08 04 	lwz     r4,2052(r29)  # file 0xae74
+    ae78:	7f 23 cb 78 	mr      r3,r25  # file 0xae78
+    ae7c:	38 bd 08 0c 	addi    r5,r29,2060  # file 0xae7c
+    ae80:	7f e7 fb 78 	mr      r7,r31  # file 0xae80
+    ae84:	39 01 02 10 	addi    r8,r1,528  # file 0xae84
+    ae88:	48 01 15 c5 	bl      1c44c <ZZ0075@plt>  # file 0xae88
+    ae8c:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0xae8c
+    ae90:	41 be ff 38 	beq     cr7,adc8 <ZZ0052@@Base+0x6c>  # file 0xae90
+    ae94:	80 9c 1c 6c 	lwz     r4,7276(r28)  # file 0xae94
+    ae98:	7e e3 bb 78 	mr      r3,r23  # file 0xae98
+    ae9c:	80 c1 02 10 	lwz     r6,528(r1)  # file 0xae9c
+    aea0:	7f e5 fb 78 	mr      r5,r31  # file 0xaea0
+    aea4:	38 e0 00 00 	li      r7,0  # file 0xaea4
+    aea8:	48 01 14 15 	bl      1c2bc <ZZ0048@plt>  # file 0xaea8
+    aeac:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0xaeac
+    aeb0:	40 be ff 18 	bne     cr7,adc8 <ZZ0052@@Base+0x6c>  # file 0xaeb0
+    aeb4:	31 39 ff ff 	addic   r9,r25,-1  # file 0xaeb4
+    aeb8:	7c 09 c9 10 	subfe   r0,r9,r25  # file 0xaeb8
+    aebc:	31 78 ff ff 	addic   r11,r24,-1  # file 0xaebc
+    aec0:	7d 2b c1 10 	subfe   r9,r11,r24  # file 0xaec0
+    aec4:	7c 0b 48 39 	and.    r11,r0,r9  # file 0xaec4
+    aec8:	3a c0 00 01 	li      r22,1  # file 0xaec8
+    aecc:	41 82 ff 14 	beq     ade0 <ZZ0052@@Base+0x84>  # file 0xaecc
+    aed0:	7f 23 cb 78 	mr      r3,r25  # file 0xaed0
+    aed4:	7f 08 03 a6 	mtlr    r24  # file 0xaed4
+    aed8:	4e 80 00 21 	blrl  # file 0xaed8
+    aedc:	4b ff ff 04 	b       ade0 <ZZ0052@@Base+0x84>  # file 0xaedc
+
+0000aee0 <ZZ0070@@Base>:
+    aee0:	94 21 ff f0 	stwu    r1,-16(r1)  # file 0xaee0
+    aee4:	38 21 00 10 	addi    r1,r1,16  # file 0xaee4
+    aee8:	4e 80 00 20 	blr  # file 0xaee8

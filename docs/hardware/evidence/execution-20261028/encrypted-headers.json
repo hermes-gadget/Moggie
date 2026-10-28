@@ -1,0 +1,68 @@
+[
+  {
+    "attributes": 0,
+    "boundary": "Structural metadata only; no key/ciphertext contents or decryption.",
+    "cipher_id": 1,
+    "data_file": "0x24abd",
+    "data_size": 175696,
+    "flags": 0,
+    "header_size": 314,
+    "magic": "0x886499ca",
+    "payload_file": "0x24983",
+    "recipients": [
+      {
+        "algorithm": 1,
+        "identifier_size": 20,
+        "identifier_type": 3,
+        "wrapped_size": 256
+      }
+    ],
+    "trailing_scalar": 175696,
+    "type": "0x3",
+    "version": 1
+  },
+  {
+    "attributes": 0,
+    "boundary": "Structural metadata only; no key/ciphertext contents or decryption.",
+    "cipher_id": 1,
+    "data_file": "0x4fa57",
+    "data_size": 708640,
+    "flags": 0,
+    "header_size": 314,
+    "magic": "0x886499ca",
+    "payload_file": "0x4f91d",
+    "recipients": [
+      {
+        "algorithm": 1,
+        "identifier_size": 20,
+        "identifier_type": 3,
+        "wrapped_size": 256
+      }
+    ],
+    "trailing_scalar": 708640,
+    "type": "0x6",
+    "version": 1
+  },
+  {
+    "attributes": 0,
+    "boundary": "Structural metadata only; no key/ciphertext contents or decryption.",
+    "cipher_id": 1,
+    "data_file": "0xfcbc1",
+    "data_size": 4571168,
+    "flags": 0,
+    "header_size": 314,
+    "magic": "0x886499ca",
+    "payload_file": "0xfca87",
+    "recipients": [
+      {
+        "algorithm": 1,
+        "identifier_size": 20,
+        "identifier_type": 3,
+        "wrapped_size": 256
+      }
+    ],
+    "trailing_scalar": 4571168,
+    "type": "0x4",
+    "version": 1
+  }
+]

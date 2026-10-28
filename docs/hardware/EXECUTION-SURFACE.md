@@ -113,9 +113,18 @@ Nearest-symbol labels in stripped code are not recovered function names.
    `C@0x8b34` calls `ZZ0125`; [verifier](evidence/execution-20261028/crypto-envelope-verifier.dis.txt)
    `C@0x8970–0x898c,0x8a70–0x8a8c` invokes key-selection and verification
    callbacks. The supplied verifier is `ZZ0110`, forwarding to `ZZ0109` at
-   `C@0x6b48`. Selector 1 is SHA-256 in the hash/RSA wrappers. The full
-   callback-selected trust provenance, envelope nesting and accepted-key set
-   remain incomplete; the legacy key must not be substituted for them.
+   `C@0x6b48`. Selector 1 is SHA-256 in the hash/RSA wrappers. The
+   [key selector](evidence/execution-20261028/crypto-envelope-key-selector.dis.txt)
+   `C@0x70e8–0x7270` requires identifier type 3/length 20, compares two entries
+   and rejects a matching entry when its deny mask intersects context bits
+   `context[0] & 7`. The relocated table is at VA `0x1c018`, file `0xc018`.
+   Both entries are 294-byte RSA-2048 public DER keys, exponent 65537, at
+   `C@0xb490` (deny mask 1) and `C@0xb368` (deny mask 0). The caller initializes
+   context word 1 at `U@0x76f8–0x7724`, so the first entry fails that mask gate.
+   [Envelope anchor metadata](evidence/execution-20261028/envelope-public-anchors.json)
+   records identifiers, offsets and DER hashes. This is a bounded static
+   selection trace, not proof of runtime trust state, all envelope callers or
+   installed-build applicability. The legacy 1024-bit key is a separate anchor.
 5. **Hash coverage boundary.** [Stream helper](evidence/execution-20261028/upgrade-hash-stream.dis.txt)
    `U@0x5614–0x5664` updates active digest contexts. The [reader](evidence/execution-20261028/upgrade-payload-reader.dis.txt)
    `U@0x607c,0x6110–0x6114` gates hashing on its argument. The legacy handler
@@ -148,6 +157,44 @@ Moggie's own updater uses a separate RSA-2048/SHA-256 scheme
 (`firmware/bootchooser/init:192–223,298–339`). Moggie's `bootslot`, `running_slot`,
 `boot_ok`, two-attempt rule and custom A/B dimensions are **not stock findings**.
 No stock `boot_ok` producer/consumer or health rollback rule is established here.
+
+## Later encrypted envelope: completed host-only framing experiment
+
+The 57.23 type-3/6/4 payloads each have a **314-byte**, big-endian `886499ca`
+header with version 1, zero attributes, one recipient, a 20-byte type-3
+identifier, wrapping algorithm ID 1 and a 256-byte wrapped blob. Cipher ID is 1;
+no cipher-name claim is made. Their data sizes are 175,696 / 708,640 /
+4,571,168 bytes respectively. The rootfs data starts at package file offset
+`0xfcbc1`; this is not a decoded filesystem offset. These fields are read with
+explicit bounds, without decrypting anything
+([encrypted-headers.json](evidence/execution-20261028/encrypted-headers.json)).
+
+The older [payload loader](evidence/execution-20261028/upgrade-encrypted-payload.dis.txt)
+`U@0x64d4–0x6504` handles outer flag 4, rejects the signature/encrypted combination,
+and requires a nonzero supplied context; the absent-context branch at
+`U@0x6764–0x6784` returns error 48. It parses the header through `ZZ0053` at
+`U@0x6718`, then initializes decryption through `ZZ0052` at `U@0x67a4`.
+The captured [header parser](evidence/execution-20261028/crypto-encrypted-parser.dis.txt)
+`C@0xa828–0xa8c0` checks that same magic/version and bounds the rest of the
+structure; matching these fields establishes a format lead, not cross-version
+implementation equivalence.
+
+[Decryption setup](evidence/execution-20261028/crypto-encrypted-setup.dis.txt)
+`C@0xae28–0xae88` obtains its key through the supplied callback then calls
+`ZZ0075`. The supplied `ZZ0070` at `C@0xaee0–0xaee8` returns its first argument
+unchanged; it does not derive a key from public signature anchors.
+The [RSA decrypt wrapper](evidence/execution-20261028/crypto-rsa-decrypt.dis.txt)
+`C@0x5bac–0x5c10` uses RSA private operation mode 1, and for scheme 1 configures
+OAEP with hash selector 4 before `mbedtls_rsa_pkcs1_decrypt`. This is evidence of
+a required caller-supplied RSA private-operation capability in this older path;
+its provisioning/source and 57.23 applicability remain unproved. No private
+key or decrypted key/payload was read, recovered or generated.
+
+**Result:** the queued host-only experiment now establishes bounded header
+structure and a concrete captured decryption gate. It does not produce a decoded
+later rootfs, prove device access is necessary, or establish impossibility of
+other offline extraction. Further progress needs a non-secret provisioning
+trace or already-decoded matching capture; a magic-search miss is insufficient.
 
 ## Kernel, captured boot selection and prior-map reconciliation
 
@@ -200,13 +247,14 @@ risk, not measured success probabilities.
 | Exclude as zero-write | `/jffs/Configure`, Configure.dev and official update/install | Persistent hooks, earlier writes and flash/update effects above | These may matter to eventual installation; they do not satisfy this task's zero-write condition |
 | Exclude as stock proof | Moggie chooser/updater | Custom source with persistent metadata and image writes | Already requires replacement-firmware execution |
 
-**Single safest next supervised experiment:** host-only analysis of the
-already-captured `57.23-74170-1-16.upd` flags-4 type-4 envelope, starting at
-package offset `0xfca87`, using its pinned hash and captured parser code. Expected
-result: either a documented offline decoding path/provenance or a precise missing
-input. This experiment was not performed beyond outer parsing in this increment.
-Do not execute any package program, script or device operation to close the gap.
-No live experiment is justified as zero-write by this report.
+**Single safest next supervised experiment:** host-only completion of the
+older updater's authenticated-byte-range and caller inventory, using the
+preserved dispatch/hash/read helpers and original captured bytes. Expected
+result: an explicit record/range and verify-before-install map, or a precisely
+bounded indirect-call gap. The later-envelope framing experiment above is
+complete within its stated bounds; decoding remains open. Do not execute any
+package program, script or device operation to close a gap. No live experiment
+is justified as zero-write by this report.
 
 ## CONFIDENCE
 
@@ -228,7 +276,7 @@ No live experiment is justified as zero-write by this report.
    deciphering a different-version package would still not prove that build.
 2. Actual mount table, physical partition map, NOR identity/residency, MTD
    aliases, on-flash metadata and VNB applicability to this device.
-3. All updater entry paths, authenticated ranges, envelope anchors/rotation,
+3. All updater entry paths, authenticated ranges, all-caller envelope anchors/rotation,
    pre/post-write checks, rollback/downgrade rules and power-loss ordering.
 4. U-Boot verification primitive/key, generation ties/wrap/fallback semantics,
    meaning of provisionally good, stock boot acceptance flags/boot_ok if any.

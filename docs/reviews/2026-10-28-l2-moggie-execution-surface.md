@@ -44,6 +44,20 @@ Firmware binaries remain only in ignored `build/stock-execution/34.16/`.
 - Captured 57.23 `-1-16` type-3/4/6 inner envelopes remain undecoded. Exact
   installed 57.10 `-1-16` code is not supplied by the reviewed artifacts.
 
+## Completed next queue item: later-envelope framing and older trust selection
+
+Host-only parsing now establishes the three 57.23 encrypted headers, their
+314-byte boundaries and one 256-byte wrapped blob apiece. The older parser
+recognizes the format, but requires a caller-supplied RSA private-operation
+capability; its callback is identity, not public-key derivation. No private
+material was inspected and no payload was decrypted (report later-envelope
+experiment and encrypted-headers.json).
+
+The older signature callback's two-entry table is also resolved to distinct
+RSA-2048 public DER anchors with deny-mask selection; it is separate from the
+legacy RSA-1024 anchor (envelope-public-anchors.json). Full caller/coverage and
+installed-build claims remain incomplete.
+
 ## Verification executed so far
 
 The report's reproduction command was run with existing host tools; no packages
@@ -51,7 +65,7 @@ were installed and no target software executed. Current result:
 
 ```text
 PASS: 2 pinned UPDs parsed to exact EOF; 14 allowlisted files extracted; 7 absent
-PASS: 2334 disassembly rows match ELF file bytes
+PASS: 3184 disassembly rows match ELF file bytes
 ```
 
 The generator checks source package hashes, framing bounds, gzip EOF, ELF
@@ -59,12 +73,13 @@ identity/mappings and every saved disassembly row's bytes. These are integrity
 checks, not signature validation, complete RE review or hardware tests.
 `git diff --check` passed for the report/tool edits. Independent verification and deterministic regeneration passed; see the
 [validation receipt](../hardware/evidence/execution-validation-20261028.txt).
-Actual results: 2 source packages, 20 records, 14 extracted hashes, 2,334
-disassembly rows, 37 document links and 20 cited offset starts checked; all 42
+Actual results: 2 source packages, 20 records, 14 extracted hashes, 3,184
+disassembly rows, 44 document links and 32 cited offset starts checked; all 49
 regenerated files identical. Five malformed framing cases and a deliberately
-modified disassembly byte were rejected. Report SHA-256:
-`53b31aeeed27509645b500d333c30356a4799eea26c3c13b5d7c36f4568440de`.
-Push and draft PR remain the next publication step at this checkpoint.
+modified disassembly byte and envelope boundary were rejected. Report SHA-256:
+`77fbb8a061024111bc1d0acc7fd7f4456f49c002852937baeaf1a3fb44d6c6e6`.
+Verification commit `59af893` is pushed. Draft PR:
+https://github.com/hermes-gadget/Moggie/pull/63 (OPEN, draft; no CI checks reported).
 
 ## Requirement audit
 
@@ -76,20 +91,15 @@ Push and draft PR remain the next publication step at this checkpoint.
 | Ranked routes and single safest experiment | Report table and pinned later-envelope host-only experiment | Ranking is provisional; no device experiment approved |
 | Reconcile prior map | Five reports read; explicit correction table | Physical target map still unknown |
 | Report CONFIDENCE/UNKNOWN-OFFLINE + handoff/hash | Report, handoff, independently checked packet and validation receipt/hash present | Evidence-integrity checks do not close substantive analysis gaps |
-| Commit + push + PR | Initial and first stock commits pushed | Final commit/push/PR pending |
+| Commit + push + PR | Stock evidence and verification pushed; draft PR #63 open | Later increments continue on the same branch; no merge |
 
 ## Ordered remaining queue
 
-1. Push the verification increment and open a draft PR that explicitly preserves
-   incomplete status; record its URL/current SHA in this handoff.
-2. Trace the already-captured later `-1-16` flags-4 envelope parser/key selection,
-   without extracting private material or executing target code. Decoding 57.23
-   would support a version comparison, not installed-57.10 applicability.
-3. Finish older updater authenticated-byte coverage, complete caller inventory,
+1. Finish older updater authenticated-byte coverage, complete caller inventory,
    envelope trust callbacks and inline flash/OOB commit ordering.
-4. Trace watchdog/reset ownership and remaining kernel boot-selection logic from
+2. Trace watchdog/reset ownership and remaining kernel boot-selection logic from
    existing captures. Keep unknown physical layout and U-Boot semantics explicit.
-5. To close installed-build claims, obtain the path/provenance of an
+3. To close installed-build claims, obtain the path/provenance of an
    already-captured exact matching 57.10 `-1-16` image. Do not repeat device probes
    or substitute Fenway/34.16 evidence for absent target bytes.
 
