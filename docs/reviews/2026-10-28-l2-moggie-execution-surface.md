@@ -26,6 +26,7 @@ Committed increments (all pushed before the final handoff update):
 | `e0f7481` | Matching older OOB writer, kernel consumer and raw-image checks |
 | `56540e9` | Board NAND setup, table replacement and Linux section choice |
 | `73ddff9` | Matching kernel payload readback and partition RAM controls |
+| `85bb7e2` | Application watchdog/reset paths and relocatable-module integrity |
 
 Draft PR: [#63](https://github.com/hermes-gadget/Moggie/pull/63), based on main.
 The final handoff update follows these commits on the same branch. Nothing was
@@ -158,7 +159,7 @@ Draft PR: https://github.com/hermes-gadget/Moggie/pull/63 (OPEN, draft;
 no CI checks reported at the last inspection). No merge was performed.
 
 Final receipt: 20 UPD records, 16 extracted hashes, 8,102 source-matching
-disassembly rows; 62 document links and 66 cited offset starts checked; all 98
+disassembly rows; 93 document links and 100 cited offset starts checked; all 98
 regenerated files identical. Older legacy signature validates the exact prefix
 and rejects alteration. Latest report SHA-256:
 `54a4c602d7d21e6888843de01bf279aa6019f783c41ad27b63dd2d994880e125`.
@@ -177,9 +178,9 @@ and rejects alteration. Latest report SHA-256:
 
 ## Ordered remaining queue
 
-1. Trace watchdog/reset ownership and updater failure paths, now that data/OOB
-   readback and vendor partition RAM callbacks join the recovered board/table
-   sequence. Preserve the normal sequential gate;
+1. Finish registered watchdog-client coverage and updater failure paths;
+   application reset requests are now recovered, while hardware watchdog
+   ownership and log-prefix backing remain open. Preserve the normal sequential gate;
    asynchronous/virtual variants and complete state writers remain unclosed.
 2. Close remaining indirect/asynchronous verification and state-writer coverage
    where the captured bytes support it. Keep unknown physical layout and U-Boot
