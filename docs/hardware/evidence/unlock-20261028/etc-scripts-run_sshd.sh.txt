@@ -1,0 +1,15 @@
+# Source: /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/scripts/run_sshd.sh
+# Display only: trailing whitespace stripped; hash covers original bytes.
+   1: #!/bin/sh
+   2: # Copyright (c) 2019, Sonos, Inc.  All rights reserved.
+   3:
+   4: mkdir -p /jffs/persist/ssh
+   5: mkdir -m 700 -p /jffs/sys/debug/ssh
+   6: if [ ! -f /jffs/sys/debug/ssh/authorized_keys ]; then
+   7:     touch /jffs/sys/debug/ssh/authorized_keys
+   8: fi
+   9: if [ ! -f /jffs/persist/ssh/dropbear_ecdsa_host_key ]; then
+  10:     /usr/bin/dropbearkey -t ecdsa -s 256 -f /jffs/persist/ssh/dropbear_ecdsa_host_key
+  11: fi
+  12: /usr/sbin/telnetd &
+  13: exec /usr/bin/dropbear -R

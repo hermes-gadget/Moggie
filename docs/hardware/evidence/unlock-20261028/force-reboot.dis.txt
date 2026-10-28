@@ -1,0 +1,27 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x6820 --stop-address=0x6868 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libsonosutils.so.1
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libsonosutils.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00006820 <sonosForceReboot@@Base>:
+    6820 [file 0x00006820]:	94 21 ff f0 	stwu    r1,-16(r1)
+    6824 [file 0x00006824]:	7c 08 02 a6 	mflr    r0
+    6828 [file 0x00006828]:	90 01 00 14 	stw     r0,20(r1)
+    682c [file 0x0000682c]:	93 e1 00 0c 	stw     r31,12(r1)
+    6830 [file 0x00006830]:	7c 7f 1b 78 	mr      r31,r3
+    6834 [file 0x00006834]:	48 01 2c 01 	bl      19434 <sync@plt>
+    6838 [file 0x00006838]:	38 60 00 01 	li      r3,1
+    683c [file 0x0000683c]:	48 01 29 59 	bl      19194 <sleep@plt>
+    6840 [file 0x00006840]:	48 01 2b f5 	bl      19434 <sync@plt>
+    6844 [file 0x00006844]:	7f e3 fb 78 	mr      r3,r31
+    6848 [file 0x00006848]:	48 01 29 4d 	bl      19194 <sleep@plt>
+    684c [file 0x0000684c]:	80 01 00 14 	lwz     r0,20(r1)
+    6850 [file 0x00006850]:	83 e1 00 0c 	lwz     r31,12(r1)
+    6854 [file 0x00006854]:	3c 60 01 23 	lis     r3,291
+    6858 [file 0x00006858]:	60 63 45 67 	ori     r3,r3,17767
+    685c [file 0x0000685c]:	7c 08 03 a6 	mtlr    r0
+    6860 [file 0x00006860]:	38 21 00 10 	addi    r1,r1,16
+    6864 [file 0x00006864]:	48 01 2a 48 	b       192ac <reboot@plt>

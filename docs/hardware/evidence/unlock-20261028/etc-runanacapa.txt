@@ -1,0 +1,29 @@
+# Source: /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/runanacapa
+# Display only: trailing whitespace stripped; hash covers original bytes.
+   1: #!/bin/sh
+   2: while [ -f /var/run/waitforip ]; do
+   3:     sleep 1
+   4: done
+   5: if [ -f /var/run/upgradeinfo ]; then
+   6:     mkdir /tmp
+   7:     rm /jffs/upgrade_tmp_prev.log
+   8:     mv /tmp/upgrade.log /jffs/upgrade_tmp_prev.log
+   9:     echo Running upgrade ...
+  10:     /bin/upgrade >> /tmp/upgrade.log 2>&1
+  11:     rr=$?
+  12:     echo RESULT = $rr >> /tmp/upgrade.log
+  13:     rm /var/run/upgradeinfo
+  14:     exit $rr
+  15: fi
+  16: for X in /tmp/smb/*
+  17: do
+  18:     if [ -d "$X" ]
+  19:     then
+  20:         umount "$X"
+  21:         rmdir "$X"
+  22:     fi
+  23: done
+  24: while [ -f /var/run/stopanacapa ]; do
+  25:     sleep 10
+  26: done
+  27: exec /opt/bin/anacapactl start-demo

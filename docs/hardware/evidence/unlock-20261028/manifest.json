@@ -1,0 +1,156 @@
+{
+  "A": {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad",
+    "size": 5636472,
+    "sha256": "2a0e6adb831d995a2863f4307077e2c14c59afc52a43815865f0bc09f8580962",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 268435456,
+        "p_filesz": 5616753,
+        "p_memsz": 5616753,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 5616756,
+        "p_vaddr": 274117748,
+        "p_filesz": 17052,
+        "p_memsz": 1116592,
+        "p_flags": 7
+      }
+    ]
+  },
+  "C": {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libsonoscrypto.so.1",
+    "size": 54884,
+    "sha256": "f89d45c2a16a573d960d4afe5081e0d0ae67017844681bd7f1f22fdf053d9874",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_DYN",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 0,
+        "p_filesz": 52880,
+        "p_memsz": 52880,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 52880,
+        "p_vaddr": 118416,
+        "p_filesz": 684,
+        "p_memsz": 4144,
+        "p_flags": 7
+      }
+    ]
+  },
+  "U": {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libsonosutils.so.1",
+    "size": 38484,
+    "sha256": "eaf3493555cb1c5b9aac6eed89b22209eb9288a020035158cdda052478e2af3c",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_DYN",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 0,
+        "p_filesz": 35984,
+        "p_memsz": 35984,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 35984,
+        "p_vaddr": 101520,
+        "p_filesz": 1060,
+        "p_memsz": 2668,
+        "p_flags": 7
+      }
+    ]
+  },
+  "D": {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear",
+    "size": 198736,
+    "sha256": "9be533325e83a604e3ee992a7b1b7388449a01bfd702f5d603b1dbee75a965b4",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_DYN",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 0,
+        "p_filesz": 190996,
+        "p_memsz": 190996,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 192036,
+        "p_vaddr": 257572,
+        "p_filesz": 5060,
+        "p_memsz": 8992,
+        "p_flags": 7
+      }
+    ]
+  },
+  "F": {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libflash.so.1",
+    "size": 16116,
+    "sha256": "69d1a79a17fe0e4194ed15b790efabb2f805e6c077a734ea6d700ecee37870cc",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_DYN",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 0,
+        "p_filesz": 14352,
+        "p_memsz": 14352,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 14352,
+        "p_vaddr": 79888,
+        "p_filesz": 452,
+        "p_memsz": 912,
+        "p_flags": 7
+      }
+    ]
+  },
+  "tool": {
+    "objdump": "/home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump",
+    "version": "GNU objdump (GNU Binutils) 2.45.1"
+  },
+  "etc/Configure": {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/Configure",
+    "size": 2179,
+    "sha256": "b9f08cb9e1d3eb0b41ba2426903d76785dbdeca4bcea760b55ef7830dd020e9c"
+  },
+  "etc/inittab": {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/inittab",
+    "size": 334,
+    "sha256": "8882bb3533ded384f380665ea3cd0f22608010cc778686a965304ad48378eff2"
+  },
+  "etc/runanacapa": {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/runanacapa",
+    "size": 563,
+    "sha256": "66bf159d4c3c4779b1b93406ea9bce48402b0aa3c7b8b7df90067168b13741cf"
+  },
+  "etc/scripts/run_sshd.sh": {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/scripts/run_sshd.sh",
+    "size": 428,
+    "sha256": "f73803c40b8794750b76f8e6d2448ea5cb29037897bcde3ea1972be277955f53"
+  },
+  "opt/conf/anacapa.conf": {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/conf/anacapa.conf",
+    "size": 2186,
+    "sha256": "716efcce25d7532cc321579e80826b1d3b7514744c2115f7292a2d7f37e069e1"
+  }
+}
