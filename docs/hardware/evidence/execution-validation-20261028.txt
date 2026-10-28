@@ -19,6 +19,7 @@ Adversarial evidence check: copied the packet to build/stock-execution/tampered,
 changed the first crypto-rsa.dis.txt instruction from 94 21 ff d0 to 94 21 ff d1,
 ran the independent checker, and required a nonzero return with AssertionError.
 PASS: independent checker rejects altered instruction bytes and encrypted-envelope boundaries
+The tamper checks were rerun after the final checker/signature changes.
 Envelope negative check: changed data_size by one in a fresh copied packet; checker rejected it.
 
 git diff --check: exit 0

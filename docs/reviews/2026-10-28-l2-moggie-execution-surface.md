@@ -11,12 +11,22 @@ credentials, target execution or new sessions/agents.
 Worktree `/home/ben/Moggie-wt/ota`; branch
 `burn/moggie-execution-surface-20261028`, based on default/main
 `3ff0a53814e6f7ba33cf4c8e8b56a9202d3af5db`.
-Initial custom-source report commits: `b75e217`, `54d3832`.
-Stock-init increment: `49218b6`, already pushed. Stock updater/kernel evidence
-and replacement of the obsolete access-gated report: `8458e4e`. The next commit
-adds independent evidence checks and their receipt. Envelope framing/key
-selection is committed in `adf46de`; later commits preserve the validated legacy
-signed range and direct-call inventory.
+Committed increments (all pushed before the final handoff update):
+
+| Commit | Coherent result |
+|---|---|
+| `b75e217`, `54d3832` | Initial custom-source/access-boundary checkpoint |
+| `49218b6` | Recovered stock init and package provenance |
+| `8458e4e` | Versioned kernel/updater evidence; replaced obsolete report |
+| `59af893` | Independent byte checker and deterministic reproduction |
+| `adf46de` | Encrypted-header gate and distinct envelope public anchors |
+| `a85a26f` | Host-verified legacy signed range and direct-call inventory |
+| `aa01191` | Normal sequential phase gate and bounded NAND-writer evidence |
+
+Draft PR: [#63](https://github.com/hermes-gadget/Moggie/pull/63), based on main.
+The final handoff update follows these commits on the same branch. Nothing was
+merged. The installed-target gaps in the audit remain substantive; publishing
+this partial evidence does not declare the original goal achieved.
 
 Primary deliverable: [EXECUTION-SURFACE.md](../hardware/EXECUTION-SURFACE.md).
 Reproduction tool: [stock_execution_evidence.py](../../tools/stock_execution_evidence.py).
@@ -93,6 +103,12 @@ boundaries and an altered signed prefix were rejected. These checks do not
 certify complete RE semantics, current-device applicability or hardware behavior.
 Draft PR: https://github.com/hermes-gadget/Moggie/pull/63 (OPEN, draft;
 no CI checks reported at the last inspection). No merge was performed.
+
+Final receipt: 20 UPD records, 14 extracted hashes, 4,010 source-matching
+disassembly rows; 53 document links and 43 cited offset starts checked; all 58
+regenerated files identical. Older legacy signature validates the exact prefix
+and rejects alteration. Latest report SHA-256:
+`09bcf17a7060b08296391af66243d2f23b12ddc495f5601dc5b25f9608677778`.
 
 ## Requirement audit
 
