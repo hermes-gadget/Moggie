@@ -26,12 +26,17 @@ def main():
     args = parser.parse_args()
     packet = args.evidence
     manifest = json.loads((packet / 'manifest.json').read_text())
-    images = {key: Image(manifest[key]['path']) for key in ('A', 'C', 'U', 'D', 'F')}
+    images = {key: Image(value['path']) for key, value in manifest.items()
+              if isinstance(value, dict) and 'elf_class' in value}
+    require(bool(images), 'no ELF sources in manifest')
     records = [v for v in manifest.values() if isinstance(v, dict) and 'sha256' in v]
-    records += json.loads((packet / 'versions.json').read_text())
-    package_path = packet / 'target-package.json'
-    if package_path.is_file():
-        records.append(json.loads(package_path.read_text()))
+    versions_path = packet / 'versions.json'
+    if versions_path.is_file():
+        records += json.loads(versions_path.read_text())
+    for name in ('target-package.json', 'current-package.json'):
+        package_path = packet / name
+        if package_path.is_file():
+            records.append(json.loads(package_path.read_text()))
     for record in records:
         data = Path(record['path']).read_bytes()
         require(len(data) == record['size'], 'source size: ' + record['path'])
@@ -59,7 +64,9 @@ def main():
             count += 1
     document = args.document.read_text()
     offsets = 0
-    for match in re.finditer(r'([ACUD])@`?(0x[0-9a-f]+)(?:[–-](0x[0-9a-f]+))?', document):
+    for match in re.finditer(r'\b([A-Z]+)@`?(0x[0-9a-f]+)(?:[–-](0x[0-9a-f]+))?', document):
+        if match[1] not in images:
+            continue  # A document can cite several independently audited packets.
         image = images[match[1]]
         first, last = int(match[2], 16), int(match[3] or match[2], 16)
         require(0 <= first <= last < len(image.data), 'document offset outside source')

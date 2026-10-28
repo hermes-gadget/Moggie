@@ -1,0 +1,400 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10021cb4 --stop-address=0x100222d0 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/bin/busybox
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/bin/busybox:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10021cb4 <pivot_root@@Base-0x178c8>:
+10021cb4 [file 0x00021cb4]:	94 21 d7 f0 	stwu    r1,-10256(r1)
+10021cb8 [file 0x00021cb8]:	7c 08 02 a6 	mflr    r0
+10021cbc [file 0x00021cbc]:	bf 01 27 f0 	stmw    r24,10224(r1)
+10021cc0 [file 0x00021cc0]:	7c 9f 23 78 	mr      r31,r4
+10021cc4 [file 0x00021cc4]:	90 01 28 14 	stw     r0,10260(r1)
+10021cc8 [file 0x00021cc8]:	3b 00 00 00 	li      r24,0
+10021ccc [file 0x00021ccc]:	7c 7e 1b 78 	mr      r30,r3
+10021cd0 [file 0x00021cd0]:	9b 01 22 e0 	stb     r24,8928(r1)
+10021cd4 [file 0x00021cd4]:	48 03 82 75 	bl      10059f48 <getuid@plt>
+10021cd8 [file 0x00021cd8]:	3c 80 10 02 	lis     r4,4098
+10021cdc [file 0x00021cdc]:	20 03 00 00 	subfic  r0,r3,0
+10021ce0 [file 0x00021ce0]:	7f a0 19 14 	adde    r29,r0,r3
+10021ce4 [file 0x00021ce4]:	38 84 1c 84 	addi    r4,r4,7300
+10021ce8 [file 0x00021ce8]:	38 60 00 0e 	li      r3,14
+10021cec [file 0x00021cec]:	48 03 7e 3d 	bl      10059b28 <signal@plt>
+10021cf0 [file 0x00021cf0]:	38 60 00 3c 	li      r3,60
+10021cf4 [file 0x00021cf4]:	3b 20 00 00 	li      r25,0
+10021cf8 [file 0x00021cf8]:	3b 40 00 00 	li      r26,0
+10021cfc [file 0x00021cfc]:	3b 80 00 00 	li      r28,0
+10021d00 [file 0x00021d00]:	48 03 84 f9 	bl      1005a1f8 <alarm@plt>
+10021d04 [file 0x00021d04]:	48 00 00 88 	b       10021d8c <pivot_root@@Base-0x177f0>
+10021d08 [file 0x00021d08]:	41 9a 00 74 	beq     cr6,10021d7c <pivot_root@@Base-0x17800>
+10021d0c [file 0x00021d0c]:	2c 83 00 66 	cmpwi   cr1,r3,102
+10021d10 [file 0x00021d10]:	2f 83 00 70 	cmpwi   cr7,r3,112
+10021d14 [file 0x00021d14]:	2c 1d 00 00 	cmpwi   r29,0
+10021d18 [file 0x00021d18]:	41 99 00 18 	bgt     cr6,10021d30 <pivot_root@@Base-0x1784c>
+10021d1c [file 0x00021d1c]:	38 61 22 e0 	addi    r3,r1,8928
+10021d20 [file 0x00021d20]:	38 a0 00 20 	li      r5,32
+10021d24 [file 0x00021d24]:	3b 40 00 01 	li      r26,1
+10021d28 [file 0x00021d28]:	41 a6 00 14 	beq     cr1,10021d3c <pivot_root@@Base-0x17840>
+10021d2c [file 0x00021d2c]:	48 00 00 5c 	b       10021d88 <pivot_root@@Base-0x177f4>
+10021d30 [file 0x00021d30]:	3b 00 00 01 	li      r24,1
+10021d34 [file 0x00021d34]:	40 9e 00 54 	bne     cr7,10021d88 <pivot_root@@Base-0x177f4>
+10021d38 [file 0x00021d38]:	48 00 00 54 	b       10021d8c <pivot_root@@Base-0x177f0>
+10021d3c [file 0x00021d3c]:	3d 20 10 06 	lis     r9,4102
+10021d40 [file 0x00021d40]:	81 29 95 04 	lwz     r9,-27388(r9)
+10021d44 [file 0x00021d44]:	3d 60 10 06 	lis     r11,4102
+10021d48 [file 0x00021d48]:	81 6b 95 00 	lwz     r11,-27392(r11)
+10021d4c [file 0x00021d4c]:	55 29 10 3a 	slwi    r9,r9,2
+10021d50 [file 0x00021d50]:	7d 29 fa 14 	add     r9,r9,r31
+10021d54 [file 0x00021d54]:	80 09 ff fc 	lwz     r0,-4(r9)
+10021d58 [file 0x00021d58]:	7d 64 5b 78 	mr      r4,r11
+10021d5c [file 0x00021d5c]:	7f 8b 00 00 	cmpw    cr7,r11,r0
+10021d60 [file 0x00021d60]:	40 9e 00 28 	bne     cr7,10021d88 <pivot_root@@Base-0x177f4>
+10021d64 [file 0x00021d64]:	40 a2 00 10 	bne     10021d74 <pivot_root@@Base-0x17808>
+10021d68 [file 0x00021d68]:	3c 60 10 04 	lis     r3,4100
+10021d6c [file 0x00021d6c]:	38 63 63 04 	addi    r3,r3,25348
+10021d70 [file 0x00021d70]:	48 01 3a 51 	bl      100357c0 <pivot_root@@Base-0x3dbc>
+10021d74 [file 0x00021d74]:	48 01 74 c1 	bl      10039234 <pivot_root@@Base-0x348>
+10021d78 [file 0x00021d78]:	48 00 00 14 	b       10021d8c <pivot_root@@Base-0x177f0>
+10021d7c [file 0x00021d7c]:	3d 20 10 06 	lis     r9,4102
+10021d80 [file 0x00021d80]:	83 89 95 00 	lwz     r28,-27392(r9)
+10021d84 [file 0x00021d84]:	48 00 00 08 	b       10021d8c <pivot_root@@Base-0x177f0>
+10021d88 [file 0x00021d88]:	4b fe 1c 6d 	bl      100039f4 <pivot_root@@Base-0x35b88>
+10021d8c [file 0x00021d8c]:	3c a0 10 04 	lis     r5,4100
+10021d90 [file 0x00021d90]:	38 a5 63 1c 	addi    r5,r5,25372
+10021d94 [file 0x00021d94]:	7f e4 fb 78 	mr      r4,r31
+10021d98 [file 0x00021d98]:	7f c3 f3 78 	mr      r3,r30
+10021d9c [file 0x00021d9c]:	48 03 80 35 	bl      10059dd0 <getopt@plt>
+10021da0 [file 0x00021da0]:	2f 83 ff ff 	cmpwi   cr7,r3,-1
+10021da4 [file 0x00021da4]:	2f 03 00 68 	cmpwi   cr6,r3,104
+10021da8 [file 0x00021da8]:	40 9e ff 60 	bne     cr7,10021d08 <pivot_root@@Base-0x17874>
+10021dac [file 0x00021dac]:	3d 20 10 06 	lis     r9,4102
+10021db0 [file 0x00021db0]:	80 09 95 04 	lwz     r0,-27388(r9)
+10021db4 [file 0x00021db4]:	7f 80 f0 00 	cmpw    cr7,r0,r30
+10021db8 [file 0x00021db8]:	40 bc 00 18 	bge     cr7,10021dd0 <pivot_root@@Base-0x177ac>
+10021dbc [file 0x00021dbc]:	54 00 10 3a 	slwi    r0,r0,2
+10021dc0 [file 0x00021dc0]:	7c 9f 00 2e 	lwzx    r4,r31,r0
+10021dc4 [file 0x00021dc4]:	38 61 22 e0 	addi    r3,r1,8928
+10021dc8 [file 0x00021dc8]:	38 a0 00 20 	li      r5,32
+10021dcc [file 0x00021dcc]:	48 01 74 69 	bl      10039234 <pivot_root@@Base-0x348>
+10021dd0 [file 0x00021dd0]:	38 60 00 00 	li      r3,0
+10021dd4 [file 0x00021dd4]:	48 03 82 d5 	bl      1005a0a8 <isatty@plt>
+10021dd8 [file 0x00021dd8]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10021ddc [file 0x00021ddc]:	41 be 04 e0 	beq     cr7,100222bc <pivot_root@@Base-0x172c0>
+10021de0 [file 0x00021de0]:	38 60 00 01 	li      r3,1
+10021de4 [file 0x00021de4]:	48 03 82 c5 	bl      1005a0a8 <isatty@plt>
+10021de8 [file 0x00021de8]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10021dec [file 0x00021dec]:	41 be 04 d0 	beq     cr7,100222bc <pivot_root@@Base-0x172c0>
+10021df0 [file 0x00021df0]:	38 60 00 02 	li      r3,2
+10021df4 [file 0x00021df4]:	48 03 82 b5 	bl      1005a0a8 <isatty@plt>
+10021df8 [file 0x00021df8]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10021dfc [file 0x00021dfc]:	41 be 04 c0 	beq     cr7,100222bc <pivot_root@@Base-0x172c0>
+10021e00 [file 0x00021e00]:	38 60 00 00 	li      r3,0
+10021e04 [file 0x00021e04]:	48 03 7b d5 	bl      100599d8 <ttyname@plt>
+10021e08 [file 0x00021e08]:	7c 7d 1b 79 	mr.     r29,r3
+10021e0c [file 0x00021e0c]:	41 82 00 20 	beq     10021e2c <pivot_root@@Base-0x17750>
+10021e10 [file 0x00021e10]:	3c 80 10 04 	lis     r4,4100
+10021e14 [file 0x00021e14]:	38 84 2c b4 	addi    r4,r4,11444
+10021e18 [file 0x00021e18]:	38 a0 00 05 	li      r5,5
+10021e1c [file 0x00021e1c]:	48 03 80 7d 	bl      10059e98 <strncmp@plt>
+10021e20 [file 0x00021e20]:	38 9d 00 05 	addi    r4,r29,5
+10021e24 [file 0x00021e24]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10021e28 [file 0x00021e28]:	41 9e 00 0c 	beq     cr7,10021e34 <pivot_root@@Base-0x17748>
+10021e2c [file 0x00021e2c]:	3c 80 10 04 	lis     r4,4100
+10021e30 [file 0x00021e30]:	38 84 4c 70 	addi    r4,r4,19568
+10021e34 [file 0x00021e34]:	38 61 00 10 	addi    r3,r1,16
+10021e38 [file 0x00021e38]:	38 a0 20 00 	li      r5,8192
+10021e3c [file 0x00021e3c]:	48 01 73 f9 	bl      10039234 <pivot_root@@Base-0x348>
+10021e40 [file 0x00021e40]:	2f 9c 00 00 	cmpwi   cr7,r28,0
+10021e44 [file 0x00021e44]:	38 81 00 10 	addi    r4,r1,16
+10021e48 [file 0x00021e48]:	38 61 20 e0 	addi    r3,r1,8416
+10021e4c [file 0x00021e4c]:	41 9e 00 24 	beq     cr7,10021e70 <pivot_root@@Base-0x1770c>
+10021e50 [file 0x00021e50]:	3c a0 10 04 	lis     r5,4100
+10021e54 [file 0x00021e54]:	7c 86 23 78 	mr      r6,r4
+10021e58 [file 0x00021e58]:	38 a5 63 24 	addi    r5,r5,25380
+10021e5c [file 0x00021e5c]:	7f 87 e3 78 	mr      r7,r28
+10021e60 [file 0x00021e60]:	38 80 01 ff 	li      r4,511
+10021e64 [file 0x00021e64]:	4c c6 31 82 	crclr   4*cr1+eq
+10021e68 [file 0x00021e68]:	48 03 81 69 	bl      10059fd0 <snprintf@plt>
+10021e6c [file 0x00021e6c]:	48 00 00 1c 	b       10021e88 <pivot_root@@Base-0x176f4>
+10021e70 [file 0x00021e70]:	3c a0 10 04 	lis     r5,4100
+10021e74 [file 0x00021e74]:	7c 86 23 78 	mr      r6,r4
+10021e78 [file 0x00021e78]:	38 a5 63 40 	addi    r5,r5,25408
+10021e7c [file 0x00021e7c]:	38 80 01 ff 	li      r4,511
+10021e80 [file 0x00021e80]:	4c c6 31 82 	crclr   4*cr1+eq
+10021e84 [file 0x00021e84]:	48 03 81 4d 	bl      10059fd0 <snprintf@plt>
+10021e88 [file 0x00021e88]:	48 03 7b b9 	bl      10059a40 <setpgrp@plt>
+10021e8c [file 0x00021e8c]:	3c 60 10 04 	lis     r3,4100
+10021e90 [file 0x00021e90]:	38 63 ba 28 	addi    r3,r3,-17880
+10021e94 [file 0x00021e94]:	38 80 00 13 	li      r4,19
+10021e98 [file 0x00021e98]:	38 a0 00 20 	li      r5,32
+10021e9c [file 0x00021e9c]:	48 03 80 1d 	bl      10059eb8 <openlog@plt>
+10021ea0 [file 0x00021ea0]:	88 01 22 e0 	lbz     r0,8928(r1)
+10021ea4 [file 0x00021ea4]:	3b 80 00 00 	li      r28,0
+10021ea8 [file 0x00021ea8]:	2f 80 00 00 	cmpwi   cr7,r0,0
+10021eac [file 0x00021eac]:	40 9e 00 c4 	bne     cr7,10021f70 <pivot_root@@Base-0x1760c>
+10021eb0 [file 0x00021eb0]:	3b 61 22 e0 	addi    r27,r1,8928
+10021eb4 [file 0x00021eb4]:	3b c0 00 00 	li      r30,0
+10021eb8 [file 0x00021eb8]:	48 01 5c 11 	bl      10037ac8 <pivot_root@@Base-0x1ab4>
+10021ebc [file 0x00021ebc]:	3d 20 10 06 	lis     r9,4102
+10021ec0 [file 0x00021ec0]:	80 a9 94 fc 	lwz     r5,-27396(r9)
+10021ec4 [file 0x00021ec4]:	3b a1 23 20 	addi    r29,r1,8992
+10021ec8 [file 0x00021ec8]:	7f a3 eb 78 	mr      r3,r29
+10021ecc [file 0x00021ecc]:	38 80 03 ff 	li      r4,1023
+10021ed0 [file 0x00021ed0]:	48 03 7f 11 	bl      10059de0 <fgets@plt>
+10021ed4 [file 0x00021ed4]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10021ed8 [file 0x00021ed8]:	41 9e 03 e4 	beq     cr7,100222bc <pivot_root@@Base-0x172c0>
+10021edc [file 0x00021edc]:	7f a3 eb 78 	mr      r3,r29
+10021ee0 [file 0x00021ee0]:	38 80 00 0a 	li      r4,10
+10021ee4 [file 0x00021ee4]:	48 03 7b 55 	bl      10059a38 <strchr@plt>
+10021ee8 [file 0x00021ee8]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10021eec [file 0x00021eec]:	41 9e 03 d0 	beq     cr7,100222bc <pivot_root@@Base-0x172c0>
+10021ef0 [file 0x00021ef0]:	7f bf eb 78 	mr      r31,r29
+10021ef4 [file 0x00021ef4]:	48 00 00 08 	b       10021efc <pivot_root@@Base-0x17680>
+10021ef8 [file 0x00021ef8]:	3b ff 00 01 	addi    r31,r31,1
+10021efc [file 0x00021efc]:	48 03 82 b5 	bl      1005a1b0 <__ctype_b_loc@plt>
+10021f00 [file 0x00021f00]:	89 3f 00 00 	lbz     r9,0(r31)
+10021f04 [file 0x00021f04]:	81 63 00 00 	lwz     r11,0(r3)
+10021f08 [file 0x00021f08]:	55 29 08 3c 	slwi    r9,r9,1
+10021f0c [file 0x00021f0c]:	7c 09 5a 2e 	lhzx    r0,r9,r11
+10021f10 [file 0x00021f10]:	70 09 00 20 	andi.   r9,r0,32
+10021f14 [file 0x00021f14]:	40 82 ff e4 	bne     10021ef8 <pivot_root@@Base-0x17684>
+10021f18 [file 0x00021f18]:	7f fd fb 78 	mr      r29,r31
+10021f1c [file 0x00021f1c]:	48 00 00 08 	b       10021f24 <pivot_root@@Base-0x17658>
+10021f20 [file 0x00021f20]:	3b bd 00 01 	addi    r29,r29,1
+10021f24 [file 0x00021f24]:	48 03 82 8d 	bl      1005a1b0 <__ctype_b_loc@plt>
+10021f28 [file 0x00021f28]:	89 3d 00 00 	lbz     r9,0(r29)
+10021f2c [file 0x00021f2c]:	81 63 00 00 	lwz     r11,0(r3)
+10021f30 [file 0x00021f30]:	55 29 08 3c 	slwi    r9,r9,1
+10021f34 [file 0x00021f34]:	7c 09 5a 2e 	lhzx    r0,r9,r11
+10021f38 [file 0x00021f38]:	70 00 00 80 	andi.   r0,r0,128
+10021f3c [file 0x00021f3c]:	40 82 ff e4 	bne     10021f20 <pivot_root@@Base-0x1765c>
+10021f40 [file 0x00021f40]:	98 1d 00 00 	stb     r0,0(r29)
+10021f44 [file 0x00021f44]:	7f e4 fb 78 	mr      r4,r31
+10021f48 [file 0x00021f48]:	7f 63 db 78 	mr      r3,r27
+10021f4c [file 0x00021f4c]:	38 a0 00 20 	li      r5,32
+10021f50 [file 0x00021f50]:	48 01 72 e5 	bl      10039234 <pivot_root@@Base-0x348>
+10021f54 [file 0x00021f54]:	88 1b 00 00 	lbz     r0,0(r27)
+10021f58 [file 0x00021f58]:	2f 80 00 00 	cmpwi   cr7,r0,0
+10021f5c [file 0x00021f5c]:	40 9e 00 14 	bne     cr7,10021f70 <pivot_root@@Base-0x1760c>
+10021f60 [file 0x00021f60]:	3b de 00 01 	addi    r30,r30,1
+10021f64 [file 0x00021f64]:	2f 9e 00 09 	cmpwi   cr7,r30,9
+10021f68 [file 0x00021f68]:	40 9d ff 50 	ble     cr7,10021eb8 <pivot_root@@Base-0x176c4>
+10021f6c [file 0x00021f6c]:	48 00 03 50 	b       100222bc <pivot_root@@Base-0x172c0>
+10021f70 [file 0x00021f70]:	38 61 22 e0 	addi    r3,r1,8928
+10021f74 [file 0x00021f74]:	48 03 80 a5 	bl      1005a018 <getpwnam@plt>
+10021f78 [file 0x00021f78]:	7c 7e 1b 79 	mr.     r30,r3
+10021f7c [file 0x00021f7c]:	40 a2 00 28 	bne     10021fa4 <pivot_root@@Base-0x175d8>
+10021f80 [file 0x00021f80]:	3d 20 10 04 	lis     r9,4100
+10021f84 [file 0x00021f84]:	39 29 4c 70 	addi    r9,r9,19568
+10021f88 [file 0x00021f88]:	91 21 23 00 	stw     r9,8960(r1)
+10021f8c [file 0x00021f8c]:	3d 20 10 04 	lis     r9,4100
+10021f90 [file 0x00021f90]:	39 29 7d 00 	addi    r9,r9,32000
+10021f94 [file 0x00021f94]:	3b 40 00 00 	li      r26,0
+10021f98 [file 0x00021f98]:	91 21 23 04 	stw     r9,8964(r1)
+10021f9c [file 0x00021f9c]:	3b 80 00 01 	li      r28,1
+10021fa0 [file 0x00021fa0]:	48 00 00 10 	b       10021fb0 <pivot_root@@Base-0x175cc>
+10021fa4 [file 0x00021fa4]:	38 81 23 00 	addi    r4,r1,8960
+10021fa8 [file 0x00021fa8]:	7c be e4 aa 	lswi    r5,r30,28
+10021fac [file 0x00021fac]:	7c a4 e5 aa 	stswi   r5,r4,28
+10021fb0 [file 0x00021fb0]:	81 21 23 04 	lwz     r9,8964(r1)
+10021fb4 [file 0x00021fb4]:	3b c1 23 00 	addi    r30,r1,8960
+10021fb8 [file 0x00021fb8]:	88 09 00 00 	lbz     r0,0(r9)
+10021fbc [file 0x00021fbc]:	2f 80 00 21 	cmpwi   cr7,r0,33
+10021fc0 [file 0x00021fc0]:	41 9e 00 0c 	beq     cr7,10021fcc <pivot_root@@Base-0x175b0>
+10021fc4 [file 0x00021fc4]:	2f 80 00 2a 	cmpwi   cr7,r0,42
+10021fc8 [file 0x00021fc8]:	40 be 00 08 	bne     cr7,10021fd0 <pivot_root@@Base-0x175ac>
+10021fcc [file 0x00021fcc]:	3b 80 00 01 	li      r28,1
+10021fd0 [file 0x00021fd0]:	2f 9a 00 00 	cmpwi   cr7,r26,0
+10021fd4 [file 0x00021fd4]:	41 be 00 0c 	beq     cr7,10021fe0 <pivot_root@@Base-0x1759c>
+10021fd8 [file 0x00021fd8]:	3b 40 00 00 	li      r26,0
+10021fdc [file 0x00021fdc]:	48 00 00 24 	b       10022000 <pivot_root@@Base-0x1757c>
+10021fe0 [file 0x00021fe0]:	81 3e 00 04 	lwz     r9,4(r30)
+10021fe4 [file 0x00021fe4]:	88 09 00 00 	lbz     r0,0(r9)
+10021fe8 [file 0x00021fe8]:	2f 80 00 00 	cmpwi   cr7,r0,0
+10021fec [file 0x00021fec]:	41 9e 00 14 	beq     cr7,10022000 <pivot_root@@Base-0x1757c>
+10021ff0 [file 0x00021ff0]:	7f c3 f3 78 	mr      r3,r30
+10021ff4 [file 0x00021ff4]:	48 01 35 89 	bl      1003557c <pivot_root@@Base-0x4000>
+10021ff8 [file 0x00021ff8]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10021ffc [file 0x00021ffc]:	41 be 00 0c 	beq     cr7,10022008 <pivot_root@@Base-0x17574>
+10022000 [file 0x00022000]:	2f 9c 00 00 	cmpwi   cr7,r28,0
+10022004 [file 0x00022004]:	41 9e 00 88 	beq     cr7,1002208c <pivot_root@@Base-0x174f0>
+10022008 [file 0x00022008]:	38 61 27 e0 	addi    r3,r1,10208
+1002200c [file 0x0002200c]:	48 03 7d ad 	bl      10059db8 <time@plt>
+10022010 [file 0x00022010]:	80 01 27 e0 	lwz     r0,10208(r1)
+10022014 [file 0x00022014]:	90 01 27 e4 	stw     r0,10212(r1)
+10022018 [file 0x00022018]:	48 00 00 10 	b       10022028 <pivot_root@@Base-0x17554>
+1002201c [file 0x0002201c]:	48 03 7e 0d 	bl      10059e28 <sleep@plt>
+10022020 [file 0x00022020]:	38 61 27 e4 	addi    r3,r1,10212
+10022024 [file 0x00022024]:	48 03 7d 95 	bl      10059db8 <time@plt>
+10022028 [file 0x00022028]:	80 61 27 e4 	lwz     r3,10212(r1)
+1002202c [file 0x0002202c]:	80 81 27 e0 	lwz     r4,10208(r1)
+10022030 [file 0x00022030]:	48 03 7c 61 	bl      10059c90 <difftime@plt>
+10022034 [file 0x00022034]:	3d 20 10 04 	lis     r9,4100
+10022038 [file 0x00022038]:	39 29 64 20 	addi    r9,r9,25632
+1002203c [file 0x0002203c]:	c8 09 00 00 	lfd     f0,0(r9)
+10022040 [file 0x00022040]:	38 60 00 03 	li      r3,3
+10022044 [file 0x00022044]:	ff 81 00 00 	fcmpu   cr7,f1,f0
+10022048 [file 0x00022048]:	41 9c ff d4 	blt     cr7,1002201c <pivot_root@@Base-0x17560>
+1002204c [file 0x0002204c]:	3c 60 10 04 	lis     r3,4100
+10022050 [file 0x00022050]:	38 63 63 50 	addi    r3,r3,25424
+10022054 [file 0x00022054]:	48 03 7c 15 	bl      10059c68 <puts@plt>
+10022058 [file 0x00022058]:	2f 99 00 02 	cmpwi   cr7,r25,2
+1002205c [file 0x0002205c]:	38 00 00 00 	li      r0,0
+10022060 [file 0x00022060]:	98 01 22 e0 	stb     r0,8928(r1)
+10022064 [file 0x00022064]:	3b 39 00 01 	addi    r25,r25,1
+10022068 [file 0x00022068]:	40 9e fe 38 	bne     cr7,10021ea0 <pivot_root@@Base-0x176dc>
+1002206c [file 0x0002206c]:	80 be 00 00 	lwz     r5,0(r30)
+10022070 [file 0x00022070]:	3c 80 10 04 	lis     r4,4100
+10022074 [file 0x00022074]:	38 84 63 60 	addi    r4,r4,25440
+10022078 [file 0x00022078]:	38 60 00 04 	li      r3,4
+1002207c [file 0x0002207c]:	38 c1 20 e0 	addi    r6,r1,8416
+10022080 [file 0x00022080]:	4c c6 31 82 	crclr   4*cr1+eq
+10022084 [file 0x00022084]:	48 03 7c 95 	bl      10059d18 <syslog@plt>
+10022088 [file 0x00022088]:	48 00 02 34 	b       100222bc <pivot_root@@Base-0x172c0>
+1002208c [file 0x0002208c]:	38 60 00 00 	li      r3,0
+10022090 [file 0x00022090]:	48 03 81 69 	bl      1005a1f8 <alarm@plt>
+10022094 [file 0x00022094]:	3d 20 10 06 	lis     r9,4102
+10022098 [file 0x00022098]:	83 e9 94 dc 	lwz     r31,-27428(r9)
+1002209c [file 0x0002209c]:	38 80 00 00 	li      r4,0
+100220a0 [file 0x000220a0]:	80 1e 00 08 	lwz     r0,8(r30)
+100220a4 [file 0x000220a4]:	7f e3 fb 78 	mr      r3,r31
+100220a8 [file 0x000220a8]:	21 20 00 00 	subfic  r9,r0,0
+100220ac [file 0x000220ac]:	7f a9 01 14 	adde    r29,r9,r0
+100220b0 [file 0x000220b0]:	48 03 7b a9 	bl      10059c58 <access@plt>
+100220b4 [file 0x000220b4]:	2f 83 00 00 	cmpwi   cr7,r3,0
+100220b8 [file 0x000220b8]:	40 be 00 80 	bne     cr7,10022138 <pivot_root@@Base-0x17444>
+100220bc [file 0x000220bc]:	3c 80 10 04 	lis     r4,4100
+100220c0 [file 0x000220c0]:	7f e3 fb 78 	mr      r3,r31
+100220c4 [file 0x000220c4]:	38 84 2c 5c 	addi    r4,r4,11356
+100220c8 [file 0x000220c8]:	48 03 80 41 	bl      1005a108 <fopen@plt>
+100220cc [file 0x000220cc]:	7c 7f 1b 79 	mr.     r31,r3
+100220d0 [file 0x000220d0]:	41 82 00 48 	beq     10022118 <pivot_root@@Base-0x17464>
+100220d4 [file 0x000220d4]:	48 00 00 14 	b       100220e8 <pivot_root@@Base-0x17494>
+100220d8 [file 0x000220d8]:	40 ba 00 08 	bne     cr6,100220e0 <pivot_root@@Base-0x1749c>
+100220dc [file 0x000220dc]:	38 00 00 0d 	li      r0,13
+100220e0 [file 0x000220e0]:	7c 03 03 78 	mr      r3,r0
+100220e4 [file 0x000220e4]:	48 03 7a dd 	bl      10059bc0 <putchar@plt>
+100220e8 [file 0x000220e8]:	7f e3 fb 78 	mr      r3,r31
+100220ec [file 0x000220ec]:	48 03 80 b5 	bl      1005a1a0 <_IO_getc@plt>
+100220f0 [file 0x000220f0]:	2f 83 ff ff 	cmpwi   cr7,r3,-1
+100220f4 [file 0x000220f4]:	7c 60 1b 78 	mr      r0,r3
+100220f8 [file 0x000220f8]:	2f 03 00 0a 	cmpwi   cr6,r3,10
+100220fc [file 0x000220fc]:	40 9e ff dc 	bne     cr7,100220d8 <pivot_root@@Base-0x174a4>
+10022100 [file 0x00022100]:	3d 20 10 06 	lis     r9,4102
+10022104 [file 0x00022104]:	80 69 94 f4 	lwz     r3,-27404(r9)
+10022108 [file 0x00022108]:	48 03 7a 29 	bl      10059b30 <fflush@plt>
+1002210c [file 0x0002210c]:	7f e3 fb 78 	mr      r3,r31
+10022110 [file 0x00022110]:	48 03 7e 59 	bl      10059f68 <fclose@plt>
+10022114 [file 0x00022114]:	48 00 00 10 	b       10022124 <pivot_root@@Base-0x17458>
+10022118 [file 0x00022118]:	3c 60 10 04 	lis     r3,4100
+1002211c [file 0x0002211c]:	38 63 63 80 	addi    r3,r3,25472
+10022120 [file 0x00022120]:	48 03 7b 49 	bl      10059c68 <puts@plt>
+10022124 [file 0x00022124]:	2f 9d 00 00 	cmpwi   cr7,r29,0
+10022128 [file 0x00022128]:	41 be 01 94 	beq     cr7,100222bc <pivot_root@@Base-0x172c0>
+1002212c [file 0x0002212c]:	3c 60 10 04 	lis     r3,4100
+10022130 [file 0x00022130]:	38 63 63 ac 	addi    r3,r3,25516
+10022134 [file 0x00022134]:	48 03 7b 35 	bl      10059c68 <puts@plt>
+10022138 [file 0x00022138]:	88 01 00 10 	lbz     r0,16(r1)
+1002213c [file 0x0002213c]:	38 81 00 10 	addi    r4,r1,16
+10022140 [file 0x00022140]:	38 61 20 10 	addi    r3,r1,8208
+10022144 [file 0x00022144]:	2f 80 00 2f 	cmpwi   cr7,r0,47
+10022148 [file 0x00022148]:	41 9e 00 20 	beq     cr7,10022168 <pivot_root@@Base-0x17414>
+1002214c [file 0x0002214c]:	3c a0 10 04 	lis     r5,4100
+10022150 [file 0x00022150]:	7c 86 23 78 	mr      r6,r4
+10022154 [file 0x00022154]:	38 a5 63 dc 	addi    r5,r5,25564
+10022158 [file 0x00022158]:	38 80 00 c7 	li      r4,199
+1002215c [file 0x0002215c]:	4c c6 31 82 	crclr   4*cr1+eq
+10022160 [file 0x00022160]:	48 03 7e 71 	bl      10059fd0 <snprintf@plt>
+10022164 [file 0x00022164]:	48 00 00 0c 	b       10022170 <pivot_root@@Base-0x1740c>
+10022168 [file 0x00022168]:	38 a0 00 c7 	li      r5,199
+1002216c [file 0x0002216c]:	48 01 70 c9 	bl      10039234 <pivot_root@@Base-0x348>
+10022170 [file 0x00022170]:	3b e1 20 10 	addi    r31,r1,8208
+10022174 [file 0x00022174]:	38 a1 27 20 	addi    r5,r1,10016
+10022178 [file 0x00022178]:	38 60 00 03 	li      r3,3
+1002217c [file 0x0002217c]:	7f e4 fb 78 	mr      r4,r31
+10022180 [file 0x00022180]:	48 03 7b c1 	bl      10059d40 <__xstat@plt>
+10022184 [file 0x00022184]:	2f 83 00 00 	cmpwi   cr7,r3,0
+10022188 [file 0x00022188]:	40 9e 00 3c 	bne     cr7,100221c4 <pivot_root@@Base-0x173b8>
+1002218c [file 0x0002218c]:	38 60 00 03 	li      r3,3
+10022190 [file 0x00022190]:	38 80 00 00 	li      r4,0
+10022194 [file 0x00022194]:	38 a1 27 80 	addi    r5,r1,10112
+10022198 [file 0x00022198]:	48 03 7c 69 	bl      10059e00 <__fxstat@plt>
+1002219c [file 0x0002219c]:	2f 83 00 00 	cmpwi   cr7,r3,0
+100221a0 [file 0x000221a0]:	40 9e 00 24 	bne     cr7,100221c4 <pivot_root@@Base-0x173b8>
+100221a4 [file 0x000221a4]:	80 01 27 40 	lwz     r0,10048(r1)
+100221a8 [file 0x000221a8]:	81 21 27 a0 	lwz     r9,10144(r1)
+100221ac [file 0x000221ac]:	7f 80 48 00 	cmpw    cr7,r0,r9
+100221b0 [file 0x000221b0]:	40 be 00 14 	bne     cr7,100221c4 <pivot_root@@Base-0x173b8>
+100221b4 [file 0x000221b4]:	80 01 27 44 	lwz     r0,10052(r1)
+100221b8 [file 0x000221b8]:	81 21 27 a4 	lwz     r9,10148(r1)
+100221bc [file 0x000221bc]:	7f 80 48 00 	cmpw    cr7,r0,r9
+100221c0 [file 0x000221c0]:	41 9e 00 1c 	beq     cr7,100221dc <pivot_root@@Base-0x173a0>
+100221c4 [file 0x000221c4]:	3c 80 10 04 	lis     r4,4100
+100221c8 [file 0x000221c8]:	38 84 63 e4 	addi    r4,r4,25572
+100221cc [file 0x000221cc]:	7f e5 fb 78 	mr      r5,r31
+100221d0 [file 0x000221d0]:	38 60 00 03 	li      r3,3
+100221d4 [file 0x000221d4]:	4c c6 31 82 	crclr   4*cr1+eq
+100221d8 [file 0x000221d8]:	48 03 7b 41 	bl      10059d18 <syslog@plt>
+100221dc [file 0x000221dc]:	80 be 00 0c 	lwz     r5,12(r30)
+100221e0 [file 0x000221e0]:	3b a1 20 10 	addi    r29,r1,8208
+100221e4 [file 0x000221e4]:	80 9e 00 08 	lwz     r4,8(r30)
+100221e8 [file 0x000221e8]:	7f a3 eb 78 	mr      r3,r29
+100221ec [file 0x000221ec]:	48 03 78 0d 	bl      100599f8 <chown@plt>
+100221f0 [file 0x000221f0]:	7f a3 eb 78 	mr      r3,r29
+100221f4 [file 0x000221f4]:	38 80 01 80 	li      r4,384
+100221f8 [file 0x000221f8]:	48 03 7a 59 	bl      10059c50 <chmod@plt>
+100221fc [file 0x000221fc]:	7f c3 f3 78 	mr      r3,r30
+10022200 [file 0x00022200]:	48 01 2a b5 	bl      10034cb4 <pivot_root@@Base-0x48c8>
+10022204 [file 0x00022204]:	83 be 00 18 	lwz     r29,24(r30)
+10022208 [file 0x00022208]:	2f 9d 00 00 	cmpwi   cr7,r29,0
+1002220c [file 0x0002220c]:	41 9e 00 10 	beq     cr7,1002221c <pivot_root@@Base-0x17360>
+10022210 [file 0x00022210]:	88 1d 00 00 	lbz     r0,0(r29)
+10022214 [file 0x00022214]:	2f 80 00 00 	cmpwi   cr7,r0,0
+10022218 [file 0x00022218]:	40 9e 00 10 	bne     cr7,10022228 <pivot_root@@Base-0x17354>
+1002221c [file 0x0002221c]:	3d 20 10 06 	lis     r9,4102
+10022220 [file 0x00022220]:	81 29 94 ec 	lwz     r9,-27412(r9)
+10022224 [file 0x00022224]:	3b a9 00 01 	addi    r29,r9,1
+10022228 [file 0x00022228]:	6b 05 00 01 	xori    r5,r24,1
+1002222c [file 0x0002222c]:	7f a3 eb 78 	mr      r3,r29
+10022230 [file 0x00022230]:	38 80 00 01 	li      r4,1
+10022234 [file 0x00022234]:	7f c6 f3 78 	mr      r6,r30
+10022238 [file 0x00022238]:	48 01 70 65 	bl      1003929c <pivot_root@@Base-0x2e0>
+1002223c [file 0x0002223c]:	3d 20 10 06 	lis     r9,4102
+10022240 [file 0x00022240]:	80 69 94 e0 	lwz     r3,-27424(r9)
+10022244 [file 0x00022244]:	3c 80 10 04 	lis     r4,4100
+10022248 [file 0x00022248]:	38 84 2c 5c 	addi    r4,r4,11356
+1002224c [file 0x0002224c]:	48 03 7e bd 	bl      1005a108 <fopen@plt>
+10022250 [file 0x00022250]:	7c 7f 1b 79 	mr.     r31,r3
+10022254 [file 0x00022254]:	41 82 00 24 	beq     10022278 <pivot_root@@Base-0x17304>
+10022258 [file 0x00022258]:	48 00 00 08 	b       10022260 <pivot_root@@Base-0x1731c>
+1002225c [file 0x0002225c]:	48 03 79 65 	bl      10059bc0 <putchar@plt>
+10022260 [file 0x00022260]:	7f e3 fb 78 	mr      r3,r31
+10022264 [file 0x00022264]:	48 03 7f 3d 	bl      1005a1a0 <_IO_getc@plt>
+10022268 [file 0x00022268]:	2f 83 ff ff 	cmpwi   cr7,r3,-1
+1002226c [file 0x0002226c]:	40 9e ff f0 	bne     cr7,1002225c <pivot_root@@Base-0x17320>
+10022270 [file 0x00022270]:	7f e3 fb 78 	mr      r3,r31
+10022274 [file 0x00022274]:	48 03 7c f5 	bl      10059f68 <fclose@plt>
+10022278 [file 0x00022278]:	38 60 00 0e 	li      r3,14
+1002227c [file 0x0002227c]:	38 80 00 00 	li      r4,0
+10022280 [file 0x00022280]:	48 03 78 a9 	bl      10059b28 <signal@plt>
+10022284 [file 0x00022284]:	80 1e 00 08 	lwz     r0,8(r30)
+10022288 [file 0x00022288]:	2f 80 00 00 	cmpwi   cr7,r0,0
+1002228c [file 0x0002228c]:	40 be 00 1c 	bne     cr7,100222a8 <pivot_root@@Base-0x172d4>
+10022290 [file 0x00022290]:	3c 80 10 04 	lis     r4,4100
+10022294 [file 0x00022294]:	38 84 64 0c 	addi    r4,r4,25612
+10022298 [file 0x00022298]:	38 60 00 06 	li      r3,6
+1002229c [file 0x0002229c]:	38 a1 20 e0 	addi    r5,r1,8416
+100222a0 [file 0x000222a0]:	4c c6 31 82 	crclr   4*cr1+eq
+100222a4 [file 0x000222a4]:	48 03 7a 75 	bl      10059d18 <syslog@plt>
+100222a8 [file 0x000222a8]:	7f a3 eb 78 	mr      r3,r29
+100222ac [file 0x000222ac]:	38 80 00 01 	li      r4,1
+100222b0 [file 0x000222b0]:	38 a0 00 00 	li      r5,0
+100222b4 [file 0x000222b4]:	38 c0 00 00 	li      r6,0
+100222b8 [file 0x000222b8]:	48 01 6d b9 	bl      10039070 <pivot_root@@Base-0x50c>
+100222bc [file 0x000222bc]:	80 01 28 14 	lwz     r0,10260(r1)
+100222c0 [file 0x000222c0]:	38 60 00 01 	li      r3,1
+100222c4 [file 0x000222c4]:	bb 01 27 f0 	lmw     r24,10224(r1)
+100222c8 [file 0x000222c8]:	7c 08 03 a6 	mtlr    r0
+100222cc [file 0x000222cc]:	38 21 28 10 	addi    r1,r1,10256

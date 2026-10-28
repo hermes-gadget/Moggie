@@ -1,0 +1,105 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x1001a594 --stop-address=0x1001a714 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/bin/busybox
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/bin/busybox:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+1001a594 <pivot_root@@Base-0x1efe8>:
+1001a594 [file 0x0001a594]:	80 7d 00 14 	lwz     r3,20(r29)
+1001a598 [file 0x0001a598]:	48 03 fa 81 	bl      1005a018 <getpwnam@plt>
+1001a59c [file 0x0001a59c]:	7c 7f 1b 79 	mr.     r31,r3
+1001a5a0 [file 0x0001a5a0]:	40 a2 00 18 	bne     1001a5b8 <pivot_root@@Base-0x1efc4>
+1001a5a4 [file 0x0001a5a4]:	3c 80 10 04 	lis     r4,4100
+1001a5a8 [file 0x0001a5a8]:	80 bd 00 14 	lwz     r5,20(r29)
+1001a5ac [file 0x0001a5ac]:	80 7d 00 04 	lwz     r3,4(r29)
+1001a5b0 [file 0x0001a5b0]:	38 84 4a 20 	addi    r4,r4,18976
+1001a5b4 [file 0x0001a5b4]:	48 00 01 58 	b       1001a70c <pivot_root@@Base-0x1ee70>
+1001a5b8 [file 0x0001a5b8]:	80 7d 00 18 	lwz     r3,24(r29)
+1001a5bc [file 0x0001a5bc]:	2f 83 00 00 	cmpwi   cr7,r3,0
+1001a5c0 [file 0x0001a5c0]:	41 9e 00 24 	beq     cr7,1001a5e4 <pivot_root@@Base-0x1ef98>
+1001a5c4 [file 0x0001a5c4]:	48 03 f4 0d 	bl      100599d0 <getgrnam@plt>
+1001a5c8 [file 0x0001a5c8]:	7c 79 1b 79 	mr.     r25,r3
+1001a5cc [file 0x0001a5cc]:	40 a2 00 18 	bne     1001a5e4 <pivot_root@@Base-0x1ef98>
+1001a5d0 [file 0x0001a5d0]:	3c 80 10 04 	lis     r4,4100
+1001a5d4 [file 0x0001a5d4]:	80 bd 00 18 	lwz     r5,24(r29)
+1001a5d8 [file 0x0001a5d8]:	80 7d 00 04 	lwz     r3,4(r29)
+1001a5dc [file 0x0001a5dc]:	38 84 4a 3c 	addi    r4,r4,19004
+1001a5e0 [file 0x0001a5e0]:	48 00 01 2c 	b       1001a70c <pivot_root@@Base-0x1ee70>
+1001a5e4 [file 0x0001a5e4]:	80 1f 00 08 	lwz     r0,8(r31)
+1001a5e8 [file 0x0001a5e8]:	2f 80 00 00 	cmpwi   cr7,r0,0
+1001a5ec [file 0x0001a5ec]:	80 1d 00 18 	lwz     r0,24(r29)
+1001a5f0 [file 0x0001a5f0]:	41 9e 00 34 	beq     cr7,1001a624 <pivot_root@@Base-0x1ef58>
+1001a5f4 [file 0x0001a5f4]:	2f 80 00 00 	cmpwi   cr7,r0,0
+1001a5f8 [file 0x0001a5f8]:	41 9e 00 0c 	beq     cr7,1001a604 <pivot_root@@Base-0x1ef78>
+1001a5fc [file 0x0001a5fc]:	80 19 00 08 	lwz     r0,8(r25)
+1001a600 [file 0x0001a600]:	90 1f 00 0c 	stw     r0,12(r31)
+1001a604 [file 0x0001a604]:	80 7f 00 0c 	lwz     r3,12(r31)
+1001a608 [file 0x0001a608]:	48 03 f6 01 	bl      10059c08 <setgid@plt>
+1001a60c [file 0x0001a60c]:	80 7f 00 00 	lwz     r3,0(r31)
+1001a610 [file 0x0001a610]:	80 9f 00 0c 	lwz     r4,12(r31)
+1001a614 [file 0x0001a614]:	48 03 f5 cd 	bl      10059be0 <initgroups@plt>
+1001a618 [file 0x0001a618]:	80 7f 00 08 	lwz     r3,8(r31)
+1001a61c [file 0x0001a61c]:	48 03 fb a5 	bl      1005a1c0 <setuid@plt>
+1001a620 [file 0x0001a620]:	48 00 00 20 	b       1001a640 <pivot_root@@Base-0x1ef3c>
+1001a624 [file 0x0001a624]:	2f 80 00 00 	cmpwi   cr7,r0,0
+1001a628 [file 0x0001a628]:	41 be 00 18 	beq     cr7,1001a640 <pivot_root@@Base-0x1ef3c>
+1001a62c [file 0x0001a62c]:	80 79 00 08 	lwz     r3,8(r25)
+1001a630 [file 0x0001a630]:	48 03 f5 d9 	bl      10059c08 <setgid@plt>
+1001a634 [file 0x0001a634]:	38 99 00 08 	addi    r4,r25,8
+1001a638 [file 0x0001a638]:	38 60 00 01 	li      r3,1
+1001a63c [file 0x0001a63c]:	48 03 f5 2d 	bl      10059b68 <setgroups@plt>
+1001a640 [file 0x0001a640]:	38 80 00 00 	li      r4,0
+1001a644 [file 0x0001a644]:	7f c3 f3 78 	mr      r3,r30
+1001a648 [file 0x0001a648]:	48 03 f8 d1 	bl      10059f18 <dup2@plt>
+1001a64c [file 0x0001a64c]:	7f c3 f3 78 	mr      r3,r30
+1001a650 [file 0x0001a650]:	48 03 f4 91 	bl      10059ae0 <close@plt>
+1001a654 [file 0x0001a654]:	38 80 00 01 	li      r4,1
+1001a658 [file 0x0001a658]:	38 60 00 00 	li      r3,0
+1001a65c [file 0x0001a65c]:	48 03 f8 bd 	bl      10059f18 <dup2@plt>
+1001a660 [file 0x0001a660]:	38 80 00 02 	li      r4,2
+1001a664 [file 0x0001a664]:	38 60 00 00 	li      r3,0
+1001a668 [file 0x0001a668]:	48 03 f8 b1 	bl      10059f18 <dup2@plt>
+1001a66c [file 0x0001a66c]:	3d 20 10 06 	lis     r9,4102
+1001a670 [file 0x0001a670]:	81 7a 96 dc 	lwz     r11,-26916(r26)
+1001a674 [file 0x0001a674]:	38 9a 96 dc 	addi    r4,r26,-26916
+1001a678 [file 0x0001a678]:	80 09 90 cc 	lwz     r0,-28468(r9)
+1001a67c [file 0x0001a67c]:	7f 8b 00 00 	cmpw    cr7,r11,r0
+1001a680 [file 0x0001a680]:	41 9e 00 24 	beq     cr7,1001a6a4 <pivot_root@@Base-0x1eed8>
+1001a684 [file 0x0001a684]:	38 60 00 07 	li      r3,7
+1001a688 [file 0x0001a688]:	48 03 f4 c1 	bl      10059b48 <setrlimit@plt>
+1001a68c [file 0x0001a68c]:	2f 83 00 00 	cmpwi   cr7,r3,0
+1001a690 [file 0x0001a690]:	40 bc 00 14 	bge     cr7,1001a6a4 <pivot_root@@Base-0x1eed8>
+1001a694 [file 0x0001a694]:	3c 80 10 04 	lis     r4,4100
+1001a698 [file 0x0001a698]:	38 84 48 bc 	addi    r4,r4,18620
+1001a69c [file 0x0001a69c]:	38 60 00 03 	li      r3,3
+1001a6a0 [file 0x0001a6a0]:	48 03 f6 79 	bl      10059d18 <syslog@plt>
+1001a6a4 [file 0x0001a6a4]:	3d 20 10 06 	lis     r9,4102
+1001a6a8 [file 0x0001a6a8]:	81 29 90 cc 	lwz     r9,-28468(r9)
+1001a6ac [file 0x0001a6ac]:	3b c9 ff fe 	addi    r30,r9,-2
+1001a6b0 [file 0x0001a6b0]:	2f 9e 00 02 	cmpwi   cr7,r30,2
+1001a6b4 [file 0x0001a6b4]:	40 9d 00 14 	ble     cr7,1001a6c8 <pivot_root@@Base-0x1eeb4>
+1001a6b8 [file 0x0001a6b8]:	7f c3 f3 78 	mr      r3,r30
+1001a6bc [file 0x0001a6bc]:	3b de ff ff 	addi    r30,r30,-1
+1001a6c0 [file 0x0001a6c0]:	48 03 f4 21 	bl      10059ae0 <close@plt>
+1001a6c4 [file 0x0001a6c4]:	4b ff ff ec 	b       1001a6b0 <pivot_root@@Base-0x1eecc>
+1001a6c8 [file 0x0001a6c8]:	38 80 00 00 	li      r4,0
+1001a6cc [file 0x0001a6cc]:	38 a0 00 8c 	li      r5,140
+1001a6d0 [file 0x0001a6d0]:	7f 63 db 78 	mr      r3,r27
+1001a6d4 [file 0x0001a6d4]:	48 03 f9 dd 	bl      1005a0b0 <memset@plt>
+1001a6d8 [file 0x0001a6d8]:	38 a0 00 00 	li      r5,0
+1001a6dc [file 0x0001a6dc]:	38 00 00 00 	li      r0,0
+1001a6e0 [file 0x0001a6e0]:	7f 64 db 78 	mr      r4,r27
+1001a6e4 [file 0x0001a6e4]:	90 01 00 10 	stw     r0,16(r1)
+1001a6e8 [file 0x0001a6e8]:	38 60 00 0d 	li      r3,13
+1001a6ec [file 0x0001a6ec]:	48 03 f3 25 	bl      10059a10 <sigaction@plt>
+1001a6f0 [file 0x0001a6f0]:	80 7d 00 20 	lwz     r3,32(r29)
+1001a6f4 [file 0x0001a6f4]:	38 9d 00 24 	addi    r4,r29,36
+1001a6f8 [file 0x0001a6f8]:	48 03 f6 69 	bl      10059d60 <execv@plt>
+1001a6fc [file 0x0001a6fc]:	3c 80 10 04 	lis     r4,4100
+1001a700 [file 0x0001a700]:	80 bd 00 20 	lwz     r5,32(r29)
+1001a704 [file 0x0001a704]:	38 84 4a 58 	addi    r4,r4,19032
+1001a708 [file 0x0001a708]:	80 7d 00 04 	lwz     r3,4(r29)
+1001a70c [file 0x0001a70c]:	4c c6 31 82 	crclr   4*cr1+eq
+1001a710 [file 0x0001a710]:	4b ff e8 e1 	bl      10018ff0 <pivot_root@@Base-0x2058c>

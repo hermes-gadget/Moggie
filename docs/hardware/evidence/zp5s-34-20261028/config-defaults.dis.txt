@@ -1,0 +1,57 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x101c8984 --stop-address=0x101c8a44 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+101c8984 <strlcpy@@Base+0x37288>:
+101c8984 [file 0x001c8984]:	7c 08 02 a6 	mflr    r0
+101c8988 [file 0x001c8988]:	3c 60 10 34 	lis     r3,4148
+101c898c [file 0x001c898c]:	94 21 ff e0 	stwu    r1,-32(r1)
+101c8990 [file 0x001c8990]:	38 63 74 d0 	addi    r3,r3,29904
+101c8994 [file 0x001c8994]:	90 01 00 24 	stw     r0,36(r1)
+101c8998 [file 0x001c8998]:	bf a1 00 14 	stmw    r29,20(r1)
+101c899c [file 0x001c899c]:	48 22 d5 25 	bl      103f5ec0 <strdup@plt>
+101c89a0 [file 0x001c89a0]:	3d 20 10 3f 	lis     r9,4159
+101c89a4 [file 0x001c89a4]:	90 69 5b ec 	stw     r3,23532(r9)
+101c89a8 [file 0x001c89a8]:	3c 60 10 31 	lis     r3,4145
+101c89ac [file 0x001c89ac]:	38 63 46 00 	addi    r3,r3,17920
+101c89b0 [file 0x001c89b0]:	48 22 d5 11 	bl      103f5ec0 <strdup@plt>
+101c89b4 [file 0x001c89b4]:	3f a0 10 31 	lis     r29,4145
+101c89b8 [file 0x001c89b8]:	3d 20 10 3f 	lis     r9,4159
+101c89bc [file 0x001c89bc]:	90 69 5b e8 	stw     r3,23528(r9)
+101c89c0 [file 0x001c89c0]:	38 7d 3e 04 	addi    r3,r29,15876
+101c89c4 [file 0x001c89c4]:	48 22 d4 fd 	bl      103f5ec0 <strdup@plt>
+101c89c8 [file 0x001c89c8]:	3d 20 10 3f 	lis     r9,4159
+101c89cc [file 0x001c89cc]:	90 69 5b e4 	stw     r3,23524(r9)
+101c89d0 [file 0x001c89d0]:	38 7d 3e 04 	addi    r3,r29,15876
+101c89d4 [file 0x001c89d4]:	48 22 d4 ed 	bl      103f5ec0 <strdup@plt>
+101c89d8 [file 0x001c89d8]:	3d 20 10 3f 	lis     r9,4159
+101c89dc [file 0x001c89dc]:	90 69 5b e0 	stw     r3,23520(r9)
+101c89e0 [file 0x001c89e0]:	38 7d 3e 04 	addi    r3,r29,15876
+101c89e4 [file 0x001c89e4]:	48 22 d4 dd 	bl      103f5ec0 <strdup@plt>
+101c89e8 [file 0x001c89e8]:	3d 20 10 3f 	lis     r9,4159
+101c89ec [file 0x001c89ec]:	90 69 5b dc 	stw     r3,23516(r9)
+101c89f0 [file 0x001c89f0]:	3c 60 10 34 	lis     r3,4148
+101c89f4 [file 0x001c89f4]:	38 63 74 d8 	addi    r3,r3,29912
+101c89f8 [file 0x001c89f8]:	48 22 d4 c9 	bl      103f5ec0 <strdup@plt>
+101c89fc [file 0x001c89fc]:	3d 20 10 3f 	lis     r9,4159
+101c8a00 [file 0x001c8a00]:	90 69 5b d8 	stw     r3,23512(r9)
+101c8a04 [file 0x001c8a04]:	3c 60 10 34 	lis     r3,4148
+101c8a08 [file 0x001c8a08]:	38 63 74 e8 	addi    r3,r3,29928
+101c8a0c [file 0x001c8a0c]:	48 22 d4 b5 	bl      103f5ec0 <strdup@plt>
+101c8a10 [file 0x001c8a10]:	80 01 00 24 	lwz     r0,36(r1)
+101c8a14 [file 0x001c8a14]:	3d 20 10 3f 	lis     r9,4159
+101c8a18 [file 0x001c8a18]:	bb a1 00 14 	lmw     r29,20(r1)
+101c8a1c [file 0x001c8a1c]:	7c 08 03 a6 	mtlr    r0
+101c8a20 [file 0x001c8a20]:	38 21 00 20 	addi    r1,r1,32
+101c8a24 [file 0x001c8a24]:	90 69 5b d4 	stw     r3,23508(r9)
+101c8a28 [file 0x001c8a28]:	4e 80 00 20 	blr
+101c8a2c [file 0x001c8a2c]:	3d 20 10 34 	lis     r9,4148
+101c8a30 [file 0x001c8a30]:	7c 08 02 a6 	mflr    r0
+101c8a34 [file 0x001c8a34]:	39 29 6b c0 	addi    r9,r9,27584
+101c8a38 [file 0x001c8a38]:	94 21 ff f0 	stwu    r1,-16(r1)
+101c8a3c [file 0x001c8a3c]:	91 23 00 00 	stw     r9,0(r3)
+101c8a40 [file 0x001c8a40]:	90 01 00 14 	stw     r0,20(r1)

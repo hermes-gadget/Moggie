@@ -1,0 +1,37 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x101d04d0 --stop-address=0x101d0540 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+101d04d0 <strlcpy@@Base+0x3edd4>:
+101d04d0 [file 0x001d04d0]:	94 21 ff e0 	stwu    r1,-32(r1)
+101d04d4 [file 0x001d04d4]:	7c 08 02 a6 	mflr    r0
+101d04d8 [file 0x001d04d8]:	3c c0 10 35 	lis     r6,4149
+101d04dc [file 0x001d04dc]:	3c e0 10 35 	lis     r7,4149
+101d04e0 [file 0x001d04e0]:	90 01 00 24 	stw     r0,36(r1)
+101d04e4 [file 0x001d04e4]:	bf 81 00 10 	stmw    r28,16(r1)
+101d04e8 [file 0x001d04e8]:	39 20 00 01 	li      r9,1
+101d04ec [file 0x001d04ec]:	7c 9c 23 78 	mr      r28,r4
+101d04f0 [file 0x001d04f0]:	38 c6 83 44 	addi    r6,r6,-31932
+101d04f4 [file 0x001d04f4]:	7c a4 2b 78 	mr      r4,r5
+101d04f8 [file 0x001d04f8]:	38 e7 83 54 	addi    r7,r7,-31916
+101d04fc [file 0x001d04fc]:	38 a0 00 04 	li      r5,4
+101d0500 [file 0x001d0500]:	39 00 00 00 	li      r8,0
+101d0504 [file 0x001d0504]:	7c 7d 1b 78 	mr      r29,r3
+101d0508 [file 0x001d0508]:	4b ff ea 2d 	bl      101cef34 <strlcpy@@Base+0x3d838>
+101d050c [file 0x001d050c]:	3d 20 10 35 	lis     r9,4149
+101d0510 [file 0x001d0510]:	80 01 00 24 	lwz     r0,36(r1)
+101d0514 [file 0x001d0514]:	39 29 80 d0 	addi    r9,r9,-32560
+101d0518 [file 0x001d0518]:	93 9d 00 f8 	stw     r28,248(r29)
+101d051c [file 0x001d051c]:	91 3d 00 00 	stw     r9,0(r29)
+101d0520 [file 0x001d0520]:	3d 20 10 35 	lis     r9,4149
+101d0524 [file 0x001d0524]:	39 29 81 14 	addi    r9,r9,-32492
+101d0528 [file 0x001d0528]:	7c 08 03 a6 	mtlr    r0
+101d052c [file 0x001d052c]:	91 3d 00 0c 	stw     r9,12(r29)
+101d0530 [file 0x001d0530]:	bb 81 00 10 	lmw     r28,16(r1)
+101d0534 [file 0x001d0534]:	38 21 00 20 	addi    r1,r1,32
+101d0538 [file 0x001d0538]:	4e 80 00 20 	blr
+101d053c [file 0x001d053c]:	7c 08 02 a6 	mflr    r0

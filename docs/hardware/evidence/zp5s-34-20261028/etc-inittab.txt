@@ -1,0 +1,9 @@
+# Source: /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/etc/inittab
+# Display only: trailing whitespace stripped; hash covers original bytes.
+   1: ::sysinit:/etc/Configure
+   2: null::respawn:/wifi/netstartd
+   3: null::respawn:/etc/runanacapa
+   4: ::askfirst:/bin/sh
+   5: ::ctrlaltdel:/sbin/reboot
+   6: ::shutdown:/etc/init.d/rcK
+   7: ::restart:/sbin/init

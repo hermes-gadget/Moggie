@@ -1,0 +1,171 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x5368 --stop-address=0x55e0 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/lib/libsonoscrypto.so.1
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/lib/libsonoscrypto.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00005368 <ZZ0062@@Base>:
+    5368 [file 0x00005368]:	94 21 ff e0 	stwu    r1,-32(r1)
+    536c [file 0x0000536c]:	7c 08 02 a6 	mflr    r0
+    5370 [file 0x00005370]:	93 e1 00 1c 	stw     r31,28(r1)
+    5374 [file 0x00005374]:	38 a0 00 70 	li      r5,112
+    5378 [file 0x00005378]:	7c 9f 23 78 	mr      r31,r4
+    537c [file 0x0000537c]:	93 61 00 0c 	stw     r27,12(r1)
+    5380 [file 0x00005380]:	38 80 00 00 	li      r4,0
+    5384 [file 0x00005384]:	93 81 00 10 	stw     r28,16(r1)
+    5388 [file 0x00005388]:	93 a1 00 14 	stw     r29,20(r1)
+    538c [file 0x0000538c]:	7c 7d 1b 78 	mr      r29,r3
+    5390 [file 0x00005390]:	93 c1 00 18 	stw     r30,24(r1)
+    5394 [file 0x00005394]:	3b 9d 00 04 	addi    r28,r29,4
+    5398 [file 0x00005398]:	90 01 00 24 	stw     r0,36(r1)
+    539c [file 0x0000539c]:	48 01 73 51 	bl      1c6ec <memset@plt>
+    53a0 [file 0x000053a0]:	2f 9f 00 02 	cmpwi   cr7,r31,2
+    53a4 [file 0x000053a4]:	9b fd 00 00 	stb     r31,0(r29)
+    53a8 [file 0x000053a8]:	2f 1f 00 03 	cmpwi   cr6,r31,3
+    53ac [file 0x000053ac]:	7f 83 e3 78 	mr      r3,r28
+    53b0 [file 0x000053b0]:	3b 60 00 01 	li      r27,1
+    53b4 [file 0x000053b4]:	41 9e 00 4c 	beq     cr7,5400 <ZZ0062@@Base+0x98>
+    53b8 [file 0x000053b8]:	2f 9f 00 01 	cmpwi   cr7,r31,1
+    53bc [file 0x000053bc]:	3b fd 00 04 	addi    r31,r29,4
+    53c0 [file 0x000053c0]:	7f e3 fb 78 	mr      r3,r31
+    53c4 [file 0x000053c4]:	41 9a 00 70 	beq     cr6,5434 <ZZ0062@@Base+0xcc>
+    53c8 [file 0x000053c8]:	3b fd 00 04 	addi    r31,r29,4
+    53cc [file 0x000053cc]:	7f e3 fb 78 	mr      r3,r31
+    53d0 [file 0x000053d0]:	41 9e 00 98 	beq     cr7,5468 <ZZ0062@@Base+0x100>
+    53d4 [file 0x000053d4]:	80 01 00 24 	lwz     r0,36(r1)
+    53d8 [file 0x000053d8]:	3b 60 00 00 	li      r27,0
+    53dc [file 0x000053dc]:	7f 63 db 78 	mr      r3,r27
+    53e0 [file 0x000053e0]:	83 81 00 10 	lwz     r28,16(r1)
+    53e4 [file 0x000053e4]:	83 61 00 0c 	lwz     r27,12(r1)
+    53e8 [file 0x000053e8]:	7c 08 03 a6 	mtlr    r0
+    53ec [file 0x000053ec]:	83 a1 00 14 	lwz     r29,20(r1)
+    53f0 [file 0x000053f0]:	83 c1 00 18 	lwz     r30,24(r1)
+    53f4 [file 0x000053f4]:	83 e1 00 1c 	lwz     r31,28(r1)
+    53f8 [file 0x000053f8]:	38 21 00 20 	addi    r1,r1,32
+    53fc [file 0x000053fc]:	4e 80 00 20 	blr
+    5400 [file 0x00005400]:	48 01 72 35 	bl      1c634 <mbedtls_md5_init@plt>
+    5404 [file 0x00005404]:	7f 83 e3 78 	mr      r3,r28
+    5408 [file 0x00005408]:	48 01 71 c5 	bl      1c5cc <mbedtls_md5_starts@plt>
+    540c [file 0x0000540c]:	80 01 00 24 	lwz     r0,36(r1)
+    5410 [file 0x00005410]:	7f 63 db 78 	mr      r3,r27
+    5414 [file 0x00005414]:	83 81 00 10 	lwz     r28,16(r1)
+    5418 [file 0x00005418]:	83 61 00 0c 	lwz     r27,12(r1)
+    541c [file 0x0000541c]:	7c 08 03 a6 	mtlr    r0
+    5420 [file 0x00005420]:	83 a1 00 14 	lwz     r29,20(r1)
+    5424 [file 0x00005424]:	83 c1 00 18 	lwz     r30,24(r1)
+    5428 [file 0x00005428]:	83 e1 00 1c 	lwz     r31,28(r1)
+    542c [file 0x0000542c]:	38 21 00 20 	addi    r1,r1,32
+    5430 [file 0x00005430]:	4e 80 00 20 	blr
+    5434 [file 0x00005434]:	48 01 6e f9 	bl      1c32c <mbedtls_sha1_init@plt>
+    5438 [file 0x00005438]:	7f e3 fb 78 	mr      r3,r31
+    543c [file 0x0000543c]:	48 01 6f 21 	bl      1c35c <mbedtls_sha1_starts@plt>
+    5440 [file 0x00005440]:	80 01 00 24 	lwz     r0,36(r1)
+    5444 [file 0x00005444]:	7f 63 db 78 	mr      r3,r27
+    5448 [file 0x00005448]:	83 81 00 10 	lwz     r28,16(r1)
+    544c [file 0x0000544c]:	83 61 00 0c 	lwz     r27,12(r1)
+    5450 [file 0x00005450]:	7c 08 03 a6 	mtlr    r0
+    5454 [file 0x00005454]:	83 a1 00 14 	lwz     r29,20(r1)
+    5458 [file 0x00005458]:	83 c1 00 18 	lwz     r30,24(r1)
+    545c [file 0x0000545c]:	83 e1 00 1c 	lwz     r31,28(r1)
+    5460 [file 0x00005460]:	38 21 00 20 	addi    r1,r1,32
+    5464 [file 0x00005464]:	4e 80 00 20 	blr
+    5468 [file 0x00005468]:	48 01 6e 45 	bl      1c2ac <mbedtls_sha256_init@plt>
+    546c [file 0x0000546c]:	7f e3 fb 78 	mr      r3,r31
+    5470 [file 0x00005470]:	38 80 00 00 	li      r4,0
+    5474 [file 0x00005474]:	48 01 6f 31 	bl      1c3a4 <mbedtls_sha256_starts@plt>
+    5478 [file 0x00005478]:	80 01 00 24 	lwz     r0,36(r1)
+    547c [file 0x0000547c]:	7f 63 db 78 	mr      r3,r27
+    5480 [file 0x00005480]:	83 81 00 10 	lwz     r28,16(r1)
+    5484 [file 0x00005484]:	83 61 00 0c 	lwz     r27,12(r1)
+    5488 [file 0x00005488]:	7c 08 03 a6 	mtlr    r0
+    548c [file 0x0000548c]:	83 a1 00 14 	lwz     r29,20(r1)
+    5490 [file 0x00005490]:	83 c1 00 18 	lwz     r30,24(r1)
+    5494 [file 0x00005494]:	83 e1 00 1c 	lwz     r31,28(r1)
+    5498 [file 0x00005498]:	38 21 00 20 	addi    r1,r1,32
+    549c [file 0x0000549c]:	4e 80 00 20 	blr
+
+000054a0 <ZZ0064@@Base>:
+    54a0 [file 0x000054a0]:	7c 08 02 a6 	mflr    r0
+    54a4 [file 0x000054a4]:	94 21 ff f0 	stwu    r1,-16(r1)
+    54a8 [file 0x000054a8]:	7c 69 1b 78 	mr      r9,r3
+    54ac [file 0x000054ac]:	90 01 00 14 	stw     r0,20(r1)
+    54b0 [file 0x000054b0]:	88 03 00 00 	lbz     r0,0(r3)
+    54b4 [file 0x000054b4]:	38 63 00 04 	addi    r3,r3,4
+    54b8 [file 0x000054b8]:	2f 80 00 02 	cmpwi   cr7,r0,2
+    54bc [file 0x000054bc]:	2f 00 00 03 	cmpwi   cr6,r0,3
+    54c0 [file 0x000054c0]:	41 9e 00 2c 	beq     cr7,54ec <ZZ0064@@Base+0x4c>
+    54c4 [file 0x000054c4]:	2f 80 00 01 	cmpwi   cr7,r0,1
+    54c8 [file 0x000054c8]:	38 69 00 04 	addi    r3,r9,4
+    54cc [file 0x000054cc]:	41 9a 00 34 	beq     cr6,5500 <ZZ0064@@Base+0x60>
+    54d0 [file 0x000054d0]:	38 69 00 04 	addi    r3,r9,4
+    54d4 [file 0x000054d4]:	40 9e 00 40 	bne     cr7,5514 <ZZ0064@@Base+0x74>
+    54d8 [file 0x000054d8]:	48 01 6e d5 	bl      1c3ac <mbedtls_sha256_update@plt>
+    54dc [file 0x000054dc]:	80 01 00 14 	lwz     r0,20(r1)
+    54e0 [file 0x000054e0]:	38 21 00 10 	addi    r1,r1,16
+    54e4 [file 0x000054e4]:	7c 08 03 a6 	mtlr    r0
+    54e8 [file 0x000054e8]:	4e 80 00 20 	blr
+    54ec [file 0x000054ec]:	48 01 6e e9 	bl      1c3d4 <mbedtls_md5_update@plt>
+    54f0 [file 0x000054f0]:	80 01 00 14 	lwz     r0,20(r1)
+    54f4 [file 0x000054f4]:	38 21 00 10 	addi    r1,r1,16
+    54f8 [file 0x000054f8]:	7c 08 03 a6 	mtlr    r0
+    54fc [file 0x000054fc]:	4e 80 00 20 	blr
+    5500 [file 0x00005500]:	48 01 70 6d 	bl      1c56c <mbedtls_sha1_update@plt>
+    5504 [file 0x00005504]:	80 01 00 14 	lwz     r0,20(r1)
+    5508 [file 0x00005508]:	38 21 00 10 	addi    r1,r1,16
+    550c [file 0x0000550c]:	7c 08 03 a6 	mtlr    r0
+    5510 [file 0x00005510]:	4e 80 00 20 	blr
+    5514 [file 0x00005514]:	48 01 6f a1 	bl      1c4b4 <abort@plt>
+
+00005518 <ZZ0061@@Base>:
+    5518 [file 0x00005518]:	7c 08 02 a6 	mflr    r0
+    551c [file 0x0000551c]:	94 21 ff e0 	stwu    r1,-32(r1)
+    5520 [file 0x00005520]:	93 e1 00 1c 	stw     r31,28(r1)
+    5524 [file 0x00005524]:	3b e3 00 04 	addi    r31,r3,4
+    5528 [file 0x00005528]:	93 a1 00 14 	stw     r29,20(r1)
+    552c [file 0x0000552c]:	7c 69 1b 78 	mr      r9,r3
+    5530 [file 0x00005530]:	93 c1 00 18 	stw     r30,24(r1)
+    5534 [file 0x00005534]:	90 01 00 24 	stw     r0,36(r1)
+    5538 [file 0x00005538]:	88 03 00 00 	lbz     r0,0(r3)
+    553c [file 0x0000553c]:	7f e3 fb 78 	mr      r3,r31
+    5540 [file 0x00005540]:	2f 80 00 02 	cmpwi   cr7,r0,2
+    5544 [file 0x00005544]:	2f 00 00 03 	cmpwi   cr6,r0,3
+    5548 [file 0x00005548]:	41 9e 00 44 	beq     cr7,558c <ZZ0061@@Base+0x74>
+    554c [file 0x0000554c]:	3b a9 00 04 	addi    r29,r9,4
+    5550 [file 0x00005550]:	2f 80 00 01 	cmpwi   cr7,r0,1
+    5554 [file 0x00005554]:	7f a3 eb 78 	mr      r3,r29
+    5558 [file 0x00005558]:	41 9a 00 5c 	beq     cr6,55b4 <ZZ0061@@Base+0x9c>
+    555c [file 0x0000555c]:	7f a3 eb 78 	mr      r3,r29
+    5560 [file 0x00005560]:	40 9e 00 7c 	bne     cr7,55dc <ZZ0061@@Base+0xc4>
+    5564 [file 0x00005564]:	48 01 6d a1 	bl      1c304 <mbedtls_sha256_finish@plt>
+    5568 [file 0x00005568]:	7f a3 eb 78 	mr      r3,r29
+    556c [file 0x0000556c]:	48 01 70 71 	bl      1c5dc <mbedtls_sha256_free@plt>
+    5570 [file 0x00005570]:	80 01 00 24 	lwz     r0,36(r1)
+    5574 [file 0x00005574]:	83 a1 00 14 	lwz     r29,20(r1)
+    5578 [file 0x00005578]:	83 c1 00 18 	lwz     r30,24(r1)
+    557c [file 0x0000557c]:	7c 08 03 a6 	mtlr    r0
+    5580 [file 0x00005580]:	83 e1 00 1c 	lwz     r31,28(r1)
+    5584 [file 0x00005584]:	38 21 00 20 	addi    r1,r1,32
+    5588 [file 0x00005588]:	4e 80 00 20 	blr
+    558c [file 0x0000558c]:	48 01 71 71 	bl      1c6fc <mbedtls_md5_finish@plt>
+    5590 [file 0x00005590]:	7f e3 fb 78 	mr      r3,r31
+    5594 [file 0x00005594]:	48 01 6e e9 	bl      1c47c <mbedtls_md5_free@plt>
+    5598 [file 0x00005598]:	80 01 00 24 	lwz     r0,36(r1)
+    559c [file 0x0000559c]:	83 a1 00 14 	lwz     r29,20(r1)
+    55a0 [file 0x000055a0]:	83 c1 00 18 	lwz     r30,24(r1)
+    55a4 [file 0x000055a4]:	7c 08 03 a6 	mtlr    r0
+    55a8 [file 0x000055a8]:	83 e1 00 1c 	lwz     r31,28(r1)
+    55ac [file 0x000055ac]:	38 21 00 20 	addi    r1,r1,32
+    55b0 [file 0x000055b0]:	4e 80 00 20 	blr
+    55b4 [file 0x000055b4]:	48 01 6d 11 	bl      1c2c4 <mbedtls_sha1_finish@plt>
+    55b8 [file 0x000055b8]:	7f a3 eb 78 	mr      r3,r29
+    55bc [file 0x000055bc]:	48 01 70 f1 	bl      1c6ac <mbedtls_sha1_free@plt>
+    55c0 [file 0x000055c0]:	80 01 00 24 	lwz     r0,36(r1)
+    55c4 [file 0x000055c4]:	83 a1 00 14 	lwz     r29,20(r1)
+    55c8 [file 0x000055c8]:	83 c1 00 18 	lwz     r30,24(r1)
+    55cc [file 0x000055cc]:	7c 08 03 a6 	mtlr    r0
+    55d0 [file 0x000055d0]:	83 e1 00 1c 	lwz     r31,28(r1)
+    55d4 [file 0x000055d4]:	38 21 00 20 	addi    r1,r1,32
+    55d8 [file 0x000055d8]:	4e 80 00 20 	blr
+    55dc [file 0x000055dc]:	48 01 6e d9 	bl      1c4b4 <abort@plt>
