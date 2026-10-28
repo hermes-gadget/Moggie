@@ -183,6 +183,9 @@ def main():
         ('ssh-publickey', 'D', 0x13588, 0x13b28),
         ('ssh-publickey-match', 'D', 0x12570, 0x126c8),
         ('ssh-signature-dispatch', 'D', 0x124a0, 0x12570),
+        ('ssh-signature-names', 'D', 0x11de0, 0x11e64),
+        ('ssh-signature-kind', 'D', 0xba78, 0xba90),
+        ('ssh-signature-key-slot', 'D', 0x12000, 0x12038),
         ('telnet-default-login', 'B', 0x10011f84, 0x10012010),
         ('telnet-login-exec', 'B', 0x10011c80, 0x10011eb8),
         ('busybox-applet-dispatch', 'B', 0x10003d60, 0x10004008),
@@ -223,7 +226,8 @@ def main():
               0x1051d8e4, 0x1046641c, 0x104b5694, 0x10475e3c),
         'U': (0x87b8,),
         'F': (0x3724,),
-        'D': (0x2add9, 0x2ae4f, 0x2aef0, 0x2afb0, 0x2b3c6),
+        'D': (0x2add9, 0x2ae4f, 0x2aef0, 0x2afb0, 0x2b3c6,
+              0x295ad, 0x295c1, 0x295d5),
         'B': (0x1005e280, 0x1005e3a9, 0x10063c39, 0x10061990,
               0x100619bf, 0x10068dde),
     }
@@ -273,7 +277,8 @@ def main():
                 'U': {0x190b0}, 'F': {0x138a4},
                 'C': {0x1cfb0, 0x1cfb4, 0x1cfb8, 0x1cfbc, 0x1cfc0, 0x1cfd4},
                 'D': {0x3f9bc, 0x3f9c8, 0x3f9e4, 0x3fa08,
-                      0x3f97c, 0x3fbac, 0x3fbdc, 0x3f9f0}}
+                      0x3f97c, 0x3fbac, 0x3fbdc, 0x3f9f0,
+                      0x3f928, 0x3eedc, 0x3eee0, 0x3eee4}}
     for key, offsets in selected.items():
         image = images[key]
         for section in image.elf.iter_sections():

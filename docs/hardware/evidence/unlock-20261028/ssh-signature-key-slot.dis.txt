@@ -1,0 +1,23 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x12000 --stop-address=0x12038 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+00012000 <.text+0xd350>:
+   12000 [file 0x00012000]:	2b 84 00 01 	cmplwi  cr7,r4,1
+   12004 [file 0x00012004]:	94 21 ff f0 	stwu    r1,-16(r1)
+   12008 [file 0x00012008]:	41 9e 00 24 	beq     cr7,1202c <_IO_stdin_used@@Base-0x171fc>
+   1200c [file 0x0001200c]:	41 9c 00 18 	blt     cr7,12024 <_IO_stdin_used@@Base-0x17204>
+   12010 [file 0x00012010]:	2b 84 00 02 	cmplwi  cr7,r4,2
+   12014 [file 0x00012014]:	38 63 00 14 	addi    r3,r3,20
+   12018 [file 0x00012018]:	41 9e 00 18 	beq     cr7,12030 <_IO_stdin_used@@Base-0x171f8>
+   1201c [file 0x0001201c]:	38 60 00 00 	li      r3,0
+   12020 [file 0x00012020]:	48 00 00 10 	b       12030 <_IO_stdin_used@@Base-0x171f8>
+   12024 [file 0x00012024]:	38 63 00 0c 	addi    r3,r3,12
+   12028 [file 0x00012028]:	48 00 00 08 	b       12030 <_IO_stdin_used@@Base-0x171f8>
+   1202c [file 0x0001202c]:	38 63 00 10 	addi    r3,r3,16
+   12030 [file 0x00012030]:	38 21 00 10 	addi    r1,r1,16
+   12034 [file 0x00012034]:	4e 80 00 20 	blr

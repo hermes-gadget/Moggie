@@ -122,6 +122,46 @@
   {
     "image": "D",
     "section": ".rela.dyn",
+    "entry_file": "0x1934",
+    "target_va": "0x3eedc",
+    "target_file": "0x2eedc",
+    "type": 22,
+    "symbol": "",
+    "addend": "0x295ad"
+  },
+  {
+    "image": "D",
+    "section": ".rela.dyn",
+    "entry_file": "0x1940",
+    "target_va": "0x3eee0",
+    "target_file": "0x2eee0",
+    "type": 22,
+    "symbol": "",
+    "addend": "0x295c1"
+  },
+  {
+    "image": "D",
+    "section": ".rela.dyn",
+    "entry_file": "0x194c",
+    "target_va": "0x3eee4",
+    "target_file": "0x2eee4",
+    "type": 22,
+    "symbol": "",
+    "addend": "0x295d5"
+  },
+  {
+    "image": "D",
+    "section": ".rela.dyn",
+    "entry_file": "0x3020",
+    "target_va": "0x3f928",
+    "target_file": "0x2f928",
+    "type": 22,
+    "symbol": "",
+    "addend": "0x3eedc"
+  },
+  {
+    "image": "D",
+    "section": ".rela.dyn",
     "entry_file": "0x311c",
     "target_va": "0x3f97c",
     "target_file": "0x2f97c",
