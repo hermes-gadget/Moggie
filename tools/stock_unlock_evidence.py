@@ -173,6 +173,8 @@ def main():
         ('devmode-hash-callback', 'C', 0x53e8, 0x5494),
         ('devmode-key-release', 'C', 0x5734, 0x5738),
         ('mfg-envelope', 'C', 0xc170, 0xc2f8),
+        ('mfg-nested-envelope', 'C', 0xc028, 0xc170),
+        ('mfg-hal-write', 'F', 0x2410, 0x2694),
         ('jffs-root-setter', 'U', 0x3c40, 0x3ca4),
         ('ssh-account-loader', 'D', 0x9738, 0x9848),
         ('ssh-account-policy', 'D', 0x12f4c, 0x133e8),
@@ -216,6 +218,7 @@ def main():
               0x1046d8f4, 0x1045b0e8, 0x1051d298, 0x1045b390,
               0x1051d8e4, 0x1046641c, 0x104b5694, 0x10475e3c),
         'U': (0x87b8,),
+        'F': (0x3724,),
         'D': (0x2add9, 0x2ae4f, 0x2aef0, 0x2afb0, 0x2b3c6),
         'B': (0x1005e280, 0x1005e3a9, 0x10063c39, 0x10061990,
               0x100619bf, 0x10068dde),
@@ -247,8 +250,9 @@ def main():
         indent=2) + '\n')
 
     relocations = []
-    selected = {'A': {0x1057200c}, 'U': {0x190b0},
-                'C': {0x1cfb0, 0x1cfb4, 0x1cfb8, 0x1cfbc, 0x1cfc0},
+    selected = {'A': {0x1057200c, 0x10570040, 0x105703c8, 0x10570438},
+                'U': {0x190b0}, 'F': {0x138a4},
+                'C': {0x1cfb0, 0x1cfb4, 0x1cfb8, 0x1cfbc, 0x1cfc0, 0x1cfd4},
                 'D': {0x3f9bc, 0x3f9c8, 0x3f9e4, 0x3fa08}}
     for key, offsets in selected.items():
         image = images[key]

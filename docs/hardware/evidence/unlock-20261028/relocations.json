@@ -10,6 +10,36 @@
     "addend": "0x0"
   },
   {
+    "image": "A",
+    "section": ".rela.plt",
+    "entry_file": "0x5990",
+    "target_va": "0x10570040",
+    "target_file": null,
+    "type": 21,
+    "symbol": "ZZ0110",
+    "addend": "0x0"
+  },
+  {
+    "image": "A",
+    "section": ".rela.plt",
+    "entry_file": "0x5edc",
+    "target_va": "0x105703c8",
+    "target_file": null,
+    "type": 21,
+    "symbol": "ZZ0063",
+    "addend": "0x0"
+  },
+  {
+    "image": "A",
+    "section": ".rela.plt",
+    "entry_file": "0x5f84",
+    "target_va": "0x10570438",
+    "target_file": null,
+    "type": 21,
+    "symbol": "ZZ0078",
+    "addend": "0x0"
+  },
+  {
     "image": "U",
     "section": ".rela.dyn",
     "entry_file": "0x26e8",
@@ -18,6 +48,16 @@
     "type": 22,
     "symbol": "",
     "addend": "0x87b8"
+  },
+  {
+    "image": "F",
+    "section": ".rela.dyn",
+    "entry_file": "0xd20",
+    "target_va": "0x138a4",
+    "target_file": "0x38a4",
+    "type": 22,
+    "symbol": "",
+    "addend": "0x3724"
   },
   {
     "image": "C",
@@ -38,6 +78,16 @@
     "type": 22,
     "symbol": "",
     "addend": "0xa390"
+  },
+  {
+    "image": "C",
+    "section": ".rela.dyn",
+    "entry_file": "0x2f80",
+    "target_va": "0x1cfd4",
+    "target_file": "0xcfd4",
+    "type": 22,
+    "symbol": "",
+    "addend": "0xce74"
   },
   {
     "image": "C",
