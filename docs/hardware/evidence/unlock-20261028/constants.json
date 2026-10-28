@@ -99,6 +99,26 @@
       "va": "0x1045b390",
       "file": "0x45b390",
       "value": "%s/settings"
+    },
+    {
+      "va": "0x1051d8e4",
+      "file": "0x51d8e4",
+      "value": "%s/%s.%s"
+    },
+    {
+      "va": "0x1046641c",
+      "file": "0x46641c",
+      "value": "private"
+    },
+    {
+      "va": "0x104b5694",
+      "file": "0x4b5694",
+      "value": "key"
+    },
+    {
+      "va": "0x10475e3c",
+      "file": "0x475e3c",
+      "value": "rb"
     }
   ],
   "U": [

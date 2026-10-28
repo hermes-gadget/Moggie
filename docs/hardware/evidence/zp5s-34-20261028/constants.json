@@ -129,6 +129,26 @@
       "va": "0x10385de0",
       "file": "0x385de0",
       "value": "/dev/mtd/0"
+    },
+    {
+      "va": "0x1035a22c",
+      "file": "0x35a22c",
+      "value": "%s/%s.%s"
+    },
+    {
+      "va": "0x1035a238",
+      "file": "0x35a238",
+      "value": "private"
+    },
+    {
+      "va": "0x1034b548",
+      "file": "0x34b548",
+      "value": "key"
+    },
+    {
+      "va": "0x1035a240",
+      "file": "0x35a240",
+      "value": "rb"
     }
   ],
   "ZU": [

@@ -35,7 +35,7 @@ git log --oneline main..burn/moggie-unlock-20261028
 git status --short --branch
 ```
 
-The commits explain why each evidence/report addition was needed. Initial evidence is in `0d0a2e5`, the Fenway trace in `3775ffd`, its initial byte audit in `055b46f`, and the recovered `-1-16` packet in `0de5e2d`; subsequent commits retain the version-specific conclusions and final verification. Nothing was pushed or published. Shared git exclude rules ignore `docs/hardware/`, so only the requested artifact paths were explicitly force-added; the shared excludes were not changed.
+The commits explain why each evidence/report addition was needed. Initial evidence is in `0d0a2e5`, the Fenway trace in `3775ffd`, its initial byte audit in `055b46f`, and the recovered `-1-16` packet in `0de5e2d`; subsequent commits retain the version-specific conclusions and final verification. The continuation pushed this branch to `origin`; a PR and final remote-head check are pending. Shared git exclude rules ignore `docs/hardware/`, so only the requested artifact paths were explicitly force-added; the shared excludes were not changed.
 
 ## Verification executed
 
@@ -64,7 +64,7 @@ No device or network-to-speaker access, credential submission/cracking, flash/GP
 
 The 57.23 `-1-16` UPD has a parsed outer container, but its flags-4 inner envelope remains undecoded (report applicability section; current-package.json). A magic-search miss, high entropy or a filename is not a proof that device access is required for extraction. Matching installed 57.10 userspace is still absent from the reviewed evidence.
 
-Open static questions include Z34's complete shared peer/Host/TLS trust policy; initialization of the normal unlock runtime key slot; DevMode's callback-selected trust chain; A57 manufacturing's nested verifier/HAL commit semantics; Dropbear's complete public-key chain; and downstream consumers of changed debug/settings properties. Runtime account/TTY contents, process identity, service health, actual persistence and physical rollback were deliberately not exercised. Each scope limit is kept beside its corresponding report claim.
+Open static questions include Z34's complete shared peer/Host policy and TLS credential callbacks; DevMode's callback-selected trust chain; A57 manufacturing's nested verifier/HAL commit semantics; Dropbear's complete public-key chain; and downstream consumers of changed debug/settings properties. Runtime account/TTY contents, process identity, service health, actual persistence and physical rollback were deliberately not exercised. Each scope limit is kept beside its corresponding report claim.
 
 TokenSave context lookup was attempted before direct code analysis and did not return; `.tokensave/tokensave.db` is absent in this worktree. Existing host PPC objdump, pyelftools and unsquashfs supplied the bounded fallback. The SuperH capture was identified using its real ELF machine/endianness and was not disassembled as PPC (report version inventory).
 
@@ -88,10 +88,10 @@ The final audit used the current committed branch, source manifests, generated e
 
 ## Ranked follow-ups
 
-Continuation checkpoint: the ordered queue's first item remains unavailable from the recorded captures. Item 2 now has the Z2a accepted-address, connection, request-target and TLS configuration traces, with seven reproducible excerpts. They narrow the network-policy question; complete Host/interface policy and verifier initialization remain queued. The request-target syntax parser must not be mislabeled as the later Fenway Host authorization helper.
+Continuation checkpoint: the ordered queue's first item remains unavailable from the recorded captures. Item 2 now has the Z2a accepted-address, connection, request-target and TLS configuration traces, with seven reproducible excerpts. They narrow the network-policy question; complete Host/interface policy and DevMode trust initialization remain queued. Z3a/U3a now independently trace normal-unlock slot initialization to a 708-byte manufacturing object or a size-checked 836-byte fallback key file; actual key contents and the runtime-selected branch remain uninspected. The request-target syntax parser must not be mislabeled as the later Fenway Host authorization helper.
 
 1. **Close installed-build applicability:** supply already-captured matching ZP5S 57.10 `-1-16` userspace/provenance. Repeat handler, policy, crypto and storage traces against those exact hashes. Preserve the distinction between the extracted older family image, Fenway's same-number version, and actual installed code.
-2. **Finish shared network policy and trust provenance offline:** follow Z34 accepted-peer/Host/TLS policy and both builds' key-slot/DevMode verifier initialization. Classify source/format without reading account records or disclosing key material.
+2. **Finish shared network policy and trust provenance offline:** finish Z34 header/Host/interface policy, TLS credential callbacks and both builds' DevMode verifier trust chain. Normal key-slot source paths are traced in Z3a/U3a; do not inspect key contents. Classify source/format without reading account records or disclosing key material.
 3. **Finish indirect/persistent effects:** trace A57 manufacturing `ZZ0160` and HAL behavior, DevMode/TestEnv consumers, and Dropbear public-key/option initialization from captured code. Do not represent a configuration write as successful firmware installation or service health.
 4. **Physical work requires a separate task:** any future operation requiring a speaker, credentials, flashing or GPIO lies outside this lane. Stop at that boundary; this handoff authorizes no such operation (brief's task envelope/hard limits).
 
