@@ -1,0 +1,35 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x101dee78 --stop-address=0x101deee0 /home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/Moggie-wt/sonosd/build/unlock-analysis/zp5s-34/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+101dee78 <strlcpy@@Base+0x4d77c>:
+101dee78 [file 0x001dee78]:	7c 08 02 a6 	mflr    r0
+101dee7c [file 0x001dee7c]:	94 21 ff e0 	stwu    r1,-32(r1)
+101dee80 [file 0x001dee80]:	bf a1 00 14 	stmw    r29,20(r1)
+101dee84 [file 0x001dee84]:	90 01 00 24 	stw     r0,36(r1)
+101dee88 [file 0x001dee88]:	7c 7d 1b 78 	mr      r29,r3
+101dee8c [file 0x001dee8c]:	48 05 a5 b1 	bl      1023943c <strlcpy@@Base+0xa7d40>
+101dee90 [file 0x001dee90]:	3c 80 10 35 	lis     r4,4149
+101dee94 [file 0x001dee94]:	3c c0 10 35 	lis     r6,4149
+101dee98 [file 0x001dee98]:	3d 00 10 35 	lis     r8,4149
+101dee9c [file 0x001dee9c]:	3d 40 10 1e 	lis     r10,4126
+101deea0 [file 0x001deea0]:	38 84 a4 a8 	addi    r4,r4,-23384
+101deea4 [file 0x001deea4]:	38 c6 a7 f8 	addi    r6,r6,-22536
+101deea8 [file 0x001deea8]:	39 08 ac c8 	addi    r8,r8,-21304
+101deeac [file 0x001deeac]:	39 4a ee e0 	addi    r10,r10,-4384
+101deeb0 [file 0x001deeb0]:	38 a0 03 50 	li      r5,848
+101deeb4 [file 0x001deeb4]:	38 e0 04 d0 	li      r7,1232
+101deeb8 [file 0x001deeb8]:	39 20 02 b0 	li      r9,688
+101deebc [file 0x001deebc]:	48 05 a5 cd 	bl      10239488 <strlcpy@@Base+0xa7d8c>
+101deec0 [file 0x001deec0]:	48 05 a5 7d 	bl      1023943c <strlcpy@@Base+0xa7d40>
+101deec4 [file 0x001deec4]:	7f a4 eb 78 	mr      r4,r29
+101deec8 [file 0x001deec8]:	48 05 a5 e1 	bl      102394a8 <strlcpy@@Base+0xa7dac>
+101deecc [file 0x001deecc]:	80 01 00 24 	lwz     r0,36(r1)
+101deed0 [file 0x001deed0]:	bb a1 00 14 	lmw     r29,20(r1)
+101deed4 [file 0x001deed4]:	7c 08 03 a6 	mtlr    r0
+101deed8 [file 0x001deed8]:	38 21 00 20 	addi    r1,r1,32
+101deedc [file 0x001deedc]:	4e 80 00 20 	blr

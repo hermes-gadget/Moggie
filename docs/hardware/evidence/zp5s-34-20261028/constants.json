@@ -154,6 +154,21 @@
       "va": "0x103272e4",
       "file": "0x3272e4",
       "value": "host"
+    },
+    {
+      "va": "0x10329fd0",
+      "file": "0x329fd0",
+      "value": "%s/%s/%s"
+    },
+    {
+      "va": "0x10346e30",
+      "file": "0x346e30",
+      "value": "regdevicecert"
+    },
+    {
+      "va": "0x103455ec",
+      "file": "0x3455ec",
+      "value": "cert.xml"
     }
   ],
   "ZU": [
