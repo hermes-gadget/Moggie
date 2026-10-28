@@ -1,0 +1,44 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x1025a084 --stop-address=0x1025a110 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+1025a084 <strlcpy@@Base+0xc8988>:
+1025a084:	7c 08 02 a6 	mflr    r0  # file 0x25a084
+1025a088:	94 21 ff e0 	stwu    r1,-32(r1)  # file 0x25a088
+1025a08c:	bf 81 00 10 	stmw    r28,16(r1)  # file 0x25a08c
+1025a090:	90 01 00 24 	stw     r0,36(r1)  # file 0x25a090
+1025a094:	7c 7f 1b 78 	mr      r31,r3  # file 0x25a094
+1025a098:	83 a3 05 c4 	lwz     r29,1476(r3)  # file 0x25a098
+1025a09c:	38 60 00 00 	li      r3,0  # file 0x25a09c
+1025a0a0:	7c 9c 23 78 	mr      r28,r4  # file 0x25a0a0
+1025a0a4:	48 19 c2 65 	bl      103f6308 <time@plt>  # file 0x25a0a4
+1025a0a8:	2f 9d 00 00 	cmpwi   cr7,r29,0  # file 0x25a0a8
+1025a0ac:	7c 1d 18 50 	subf    r0,r29,r3  # file 0x25a0ac
+1025a0b0:	3c a0 10 36 	lis     r5,4150  # file 0x25a0b0
+1025a0b4:	3c 60 10 32 	lis     r3,4146  # file 0x25a0b4
+1025a0b8:	2c 9c 00 00 	cmpwi   cr1,r28,0  # file 0x25a0b8
+1025a0bc:	2f 00 00 b3 	cmpwi   cr6,r0,179  # file 0x25a0bc
+1025a0c0:	7c 08 03 78 	mr      r8,r0  # file 0x25a0c0
+1025a0c4:	38 63 5a 10 	addi    r3,r3,23056  # file 0x25a0c4
+1025a0c8:	38 a5 98 b0 	addi    r5,r5,-26448  # file 0x25a0c8
+1025a0cc:	38 80 00 00 	li      r4,0  # file 0x25a0cc
+1025a0d0:	3b a0 ff ff 	li      r29,-1  # file 0x25a0d0
+1025a0d4:	41 9e 00 08 	beq     cr7,1025a0dc <strlcpy@@Base+0xc89e0>  # file 0x25a0d4
+1025a0d8:	41 99 00 0c 	bgt     cr6,1025a0e4 <strlcpy@@Base+0xc89e8>  # file 0x25a0d8
+1025a0dc:	3b a0 00 00 	li      r29,0  # file 0x25a0dc
+1025a0e0:	41 86 00 14 	beq     cr1,1025a0f4 <strlcpy@@Base+0xc89f8>  # file 0x25a0e0
+1025a0e4:	80 ff 05 c8 	lwz     r7,1480(r31)  # file 0x25a0e4
+1025a0e8:	80 df 05 14 	lwz     r6,1300(r31)  # file 0x25a0e8
+1025a0ec:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x25a0ec
+1025a0f0:	48 08 c1 ed 	bl      102e62dc <modff@@Base+0x1b338>  # file 0x25a0f0
+1025a0f4:	80 01 00 24 	lwz     r0,36(r1)  # file 0x25a0f4
+1025a0f8:	7f a3 eb 78 	mr      r3,r29  # file 0x25a0f8
+1025a0fc:	bb 81 00 10 	lmw     r28,16(r1)  # file 0x25a0fc
+1025a100:	7c 08 03 a6 	mtlr    r0  # file 0x25a100
+1025a104:	38 21 00 20 	addi    r1,r1,32  # file 0x25a104
+1025a108:	4e 80 00 20 	blr  # file 0x25a108
+1025a10c:	4b ff ff 78 	b       1025a084 <strlcpy@@Base+0xc8988>  # file 0x25a10c

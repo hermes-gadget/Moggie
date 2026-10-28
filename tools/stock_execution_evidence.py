@@ -353,8 +353,9 @@ def legacy_signature(data, records, crypto, anchor):
                 boundary='Offline cryptographic validity of these bytes; no device acceptance, model compatibility or complete caller proof.')
 
 
-def direct_calls(path):
-    targets = {0x1000778c: 'parser', 0x100057b0: 'install'}
+def direct_calls(path, targets=None):
+    if targets is None:
+        targets = {0x1000778c: 'parser', 0x100057b0: 'install'}
     calls = []
     with path.open('rb') as stream:
         elf = ELFFile(stream)
@@ -552,12 +553,30 @@ def main():
         ('watchdog-action', 0x102e3d64, 0x102e3fe4),
         ('watchdog-supervision', 0x102e4258, 0x102e4360),
         ('watchdog-setup', 0x102e4808, 0x102e4950),
+        ('watchdog-register', 0x102e4ab4, 0x102e4bcc),
+        ('watchdog-chsnk-site', 0x100aa210, 0x100aa254),
+        ('watchdog-chsrc-site', 0x100bd050, 0x100bd090),
+        ('watchdog-ddt-site', 0x101ba17c, 0x101ba1b0),
+        ('watchdog-upnpeventing-site', 0x101deb9c, 0x101debd0),
+        ('watchdog-dynamic-site', 0x10259d98, 0x10259dd4),
+        ('watchdog-anacapa-site', 0x102e3734, 0x102e3778),
+        ('watchdog-chsnk', 0x100a72f4, 0x100a73b4),
+        ('watchdog-chsrc', 0x100ac8a4, 0x100ac964),
+        ('watchdog-ddt', 0x101b9fc0, 0x101ba060),
+        ('watchdog-upnpeventing', 0x101deaf8, 0x101deb9c),
+        ('watchdog-dynamic', 0x1025a084, 0x1025a110),
+        ('watchdog-anacapa', 0x102e38f8, 0x102e3a6c),
     ), out, 'anacapa')
+    write_json(out / 'watchdog-direct-callers.json', direct_calls(
+        cache / 'rootfs/opt/bin/anacapad', {
+            0x102e4ab4: 'watchdog-register', 0x102e4808: 'watchdog-setup',
+            0x102e3d64: 'watchdog-action'}))
     literals = []
     app = (cache / 'rootfs/opt/bin/anacapad').read_bytes()
     for needle in (b'/dev/chk', b'RDM watchdog handler triggering reset',
                    b'RDM watchdog triggering reset', b'%s/watchdog.log',
-                   b'%s/watchdog.dmesg', b'/sbin/reboot', b'WATCHDOG: %s unresponsive! (UTC %s)'):
+                   b'%s/watchdog.dmesg', b'/sbin/reboot', b'WATCHDOG: %s unresponsive! (UTC %s)',
+                   b'chsnk', b'chsrc', b'ddt', b'upnpeventing', b'anacapa'):
         position = app.index(needle + b'\0')
         literals.append(dict(source='anacapa', file=hex(position), value=needle.decode()))
     write_json(out / 'supervision-literals.json', literals)

@@ -121,6 +121,30 @@ These are concrete application reset requests. Registered client coverage,
 all triggers, any separate hardware watchdog and successful-boot/rollback
 coupling remain unknown; a `watchdog` string alone cannot establish them.
 
+The [direct-call inventory](evidence/execution-20261028/watchdog-direct-callers.json)
+now identifies six calls to the
+[registration function](evidence/execution-20261028/anacapa-watchdog-register.dis.txt).
+It stores callback/name/data triples in 12-byte entries and accepts at most
+eight entries (`A@0x2e4b3c–0x2e4bc4`), subject to its enabled-state gate.
+These are static direct sites, not proof that all six are reached or registered
+successfully on the speaker, or an inventory of indirect calls.
+
+| Passed name | Registration call / callback file offset | Captured callback check |
+|---|---|---|
+| `chsnk` | [site](evidence/execution-20261028/anacapa-watchdog-chsnk-site.dis.txt) `A@0xaa250`; thunk `0xa73b0` | [callback](evidence/execution-20261028/anacapa-watchdog-chsnk.dis.txt) returns `-1` if a nonzero timestamp is at least 180 seconds old; otherwise 0 |
+| `chsrc` | [site](evidence/execution-20261028/anacapa-watchdog-chsrc-site.dis.txt) `A@0xbd08c`; thunk `0xac960` | [callback](evidence/execution-20261028/anacapa-watchdog-chsrc.dis.txt) uses the same 180-second threshold and 0/`-1` results |
+| `ddt` | [site](evidence/execution-20261028/anacapa-watchdog-ddt-site.dis.txt) `A@0x1ba1ac`; thunk `0x1ba05c` | [callback](evidence/execution-20261028/anacapa-watchdog-ddt.dis.txt) uses a nonzero timestamp and at least 60 seconds, returning 0/`-1` |
+| `upnpeventing` | [site](evidence/execution-20261028/anacapa-watchdog-upnpeventing-site.dis.txt) `A@0x1debcc`; thunk `0x1deb98` | [callback](evidence/execution-20261028/anacapa-watchdog-upnpeventing.dis.txt) uses a nonzero timestamp and at least 180 seconds, returning 0/`-1` |
+| Object-supplied name | [site](evidence/execution-20261028/anacapa-watchdog-dynamic-site.dis.txt) `A@0x259dd0`; thunk `0x25a10c` | [callback](evidence/execution-20261028/anacapa-watchdog-dynamic.dis.txt) uses a nonzero timestamp and at least 180 seconds, returning 0/`-1` |
+| `anacapa` | [site](evidence/execution-20261028/anacapa-watchdog-anacapa-site.dis.txt) `A@0x2e3774`; callback `0x2e38f8` | [callback](evidence/execution-20261028/anacapa-watchdog-anacapa.dis.txt) has compound object/thread-list checks and 0/`-1` results; complete state-writer semantics remain open |
+
+**A failed callback here is not itself a reboot instruction.** All six preserved
+callbacks return only 0 or `-1`. The common action routine writes diagnostics for
+`-1` and returns; its signal-9 and reboot branches require `-2` and `-3`.
+The separate RDM paths above explicitly call a reboot helper. Neither this
+direct inventory nor its timeout constants establishes a successful-boot
+acknowledgement, attempt counter, or slot rollback policy.
+
 ## Updater verification and installation boundaries
 
 This section describes **only the extracted older updater**. `U@offset` means a

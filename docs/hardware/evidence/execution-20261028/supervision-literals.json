@@ -33,5 +33,30 @@
     "file": "0x38ac1c",
     "source": "anacapa",
     "value": "WATCHDOG: %s unresponsive! (UTC %s)"
+  },
+  {
+    "file": "0x324212",
+    "source": "anacapa",
+    "value": "chsnk"
+  },
+  {
+    "file": "0x326494",
+    "source": "anacapa",
+    "value": "chsrc"
+  },
+  {
+    "file": "0x3456f4",
+    "source": "anacapa",
+    "value": "ddt"
+  },
+  {
+    "file": "0x349f9c",
+    "source": "anacapa",
+    "value": "upnpeventing"
+  },
+  {
+    "file": "0x346cf4",
+    "source": "anacapa",
+    "value": "anacapa"
   }
 ]

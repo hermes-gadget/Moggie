@@ -154,14 +154,16 @@ def main():
         offset = int(record['file'], 16)
         assert tuple(int(word, 16) for word in record['words']) == struct.unpack_from(
             '>4I', sources['upgrade'], offset)
-    for call in read('direct-callers.json')['calls']:
-        start = int(call['caller_file'], 16)
-        word = struct.unpack_from('>I', sources['upgrade'], start)[0]
-        assert f'{word:08x}' == call['bytes'] and word & 0xfc000003 == 0x48000001
-        displacement = word & 0x03fffffc
-        if displacement & 0x02000000:
-            displacement -= 0x04000000
-        assert (int(call['caller_va'], 16) + displacement) & 0xffffffff == int(call['target_va'], 16)
+    for filename, label in (('direct-callers.json', 'upgrade'),
+                            ('watchdog-direct-callers.json', 'anacapa')):
+        for call in read(filename)['calls']:
+            start = int(call['caller_file'], 16)
+            word = struct.unpack_from('>I', sources[label], start)[0]
+            assert f'{word:08x}' == call['bytes'] and word & 0xfc000003 == 0x48000001
+            displacement = word & 0x03fffffc
+            if displacement & 0x02000000:
+                displacement -= 0x04000000
+            assert (int(call['caller_va'], 16) + displacement) & 0xffffffff == int(call['target_va'], 16)
     anchor = read('legacy-public-anchor.json')
     start = int(anchor['der_file'], 16)
     assert sha(sources['crypto'][start:start + anchor['der_size']]) == anchor['sha256']
