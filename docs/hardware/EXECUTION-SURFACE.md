@@ -28,8 +28,9 @@ extracted. Firmware payloads and executables remain in ignored build output.
 
 Hashes, all UPD record boundaries and payload hashes are in [packages.json](evidence/execution-20261028/packages.json).
 Framing is a 16-byte little-endian four-word header, magic `0x35167f49`, length
-including the header; both streams end exactly at EOF. This validates framing,
-**not vendor signatures**. The old type-4 record starts at `0xadd3f`, payload
+including the header; both streams end exactly at EOF. Framing alone does not validate signatures. A separate host verification of
+the older package under its captured public key succeeds, as detailed below;
+signer identity/provenance and device acceptance are separate questions. The old type-4 record starts at `0xadd3f`, payload
 `0xadd4f`, length 4,014,080; its hash is
 `4c69dda984a91729933ec8525793135b3acbcb19f0c68e2bad4cb431e26600b9`.
 Host inspection identifies big-endian SquashFS 3.0 ([filesystem.txt](evidence/execution-20261028/filesystem.txt)).
@@ -125,16 +126,33 @@ Nearest-symbol labels in stripped code are not recovered function names.
    records identifiers, offsets and DER hashes. This is a bounded static
    selection trace, not proof of runtime trust state, all envelope callers or
    installed-build applicability. The legacy 1024-bit key is a separate anchor.
-5. **Hash coverage boundary.** [Stream helper](evidence/execution-20261028/upgrade-hash-stream.dis.txt)
+5. **Hash coverage and verified older-package range.** [Stream helper](evidence/execution-20261028/upgrade-hash-stream.dis.txt)
    `U@0x5614–0x5664` updates active digest contexts. The [reader](evidence/execution-20261028/upgrade-payload-reader.dis.txt)
    `U@0x607c,0x6110–0x6114` gates hashing on its argument. The legacy handler
-   reads signature bytes with a zero hash argument. Full authenticated ranges,
-   optional-record handling, compatibility/downgrade gates and all callers have
-   not yet been audited end-to-end. No verify-before-every-write claim is made.
+   reads signature bytes with a zero hash argument. The
+   [header reader](evidence/execution-20261028/upgrade-header-reader.dis.txt)
+   `U@0x638c–0x63f4` excludes signature headers by flags/type, then hashes ordinary
+   original headers. The [unknown-record handler](evidence/execution-20261028/upgrade-unknown-record.dis.txt)
+   `U@0x6ad4–0x6af0` consumes ordinary unknown sections through the same reader.
+   A host cryptographic check verifies the old package's 128-byte signature at
+   `0x482190` over exactly **`[0,0x482180)`**, using the recovered legacy public
+   key and RSASSA-PKCS1-v1_5/MD5. Prefix MD5 is
+   `08b5d59c20f82c96bfaf264b7ce4ac63`; altering its first byte is rejected
+   ([signature validation](evidence/execution-20261028/legacy-signature-validation.json)).
+   This proves that signature/range relationship for the pinned package, not
+   model compatibility, independent signer attribution or a full runtime audit.
+   Optional-record handling, compatibility/downgrade gates and all callers have
+   not been audited end-to-end. No verify-before-every-write claim is made.
 6. **Validation before the inspected local install call.** [Local wrapper](evidence/execution-20261028/upgrade-validate-install.dis.txt)
    `U@0x7ca8–0x7ccc` calls the parser and branches on a nonzero result before
-   calling the install routine. This is one traced caller; it does not certify
-   every coordinator/network path or time-of-check behavior.
+   calling the install routine. The
+   [direct-call inventory](evidence/execution-20261028/direct-callers.json) finds
+   parser calls at `U@0x3094,0x7ca8` and installer calls at
+   `U@0x3134,0x7ccc`. The [network phase functions](evidence/execution-20261028/upgrade-network-phases.dis.txt)
+   keep parsing and installation separate. Their virtual/state-machine
+   orchestration is not yet fully traced. These are all matching direct BL
+   encodings in executable sections, not an exhaustive indirect-call inventory
+   or proof of every coordinator/network path and time-of-check behavior.
 7. **Slot/generation and writes.** [Installer](evidence/execution-20261028/upgrade-install.dis.txt)
    `U@0x5888–0x5924` reads bootsection and bootgeneration using fopen/fscanf,
    then reports destination `1 - section` and `generation + 1`. The strings
@@ -260,7 +278,7 @@ is justified as zero-write by this report.
 
 - **High, version-bounded:** old init instructions, persistent write sites,
   package boundaries, kernel identities, FDT properties, legacy public-key
-  location/parameters and preserved signature call sites. Evidence is static
+  location/parameters, the older offline signature/range and preserved call sites. Evidence is static
   and bound to the exact hashes above; no runtime outcome is implied.
 - **High, capture-bounded:** ZP5S banner and S0/S1/KP/G/handoff messages exist in
   the extended log. No firmware version, Linux health or rollback policy follows
@@ -312,7 +330,7 @@ For deterministic comparison, rerun the generator with the same cache and
 `--out build/stock-execution/reproduced`, then add
 `--compare build/stock-execution/reproduced` to the checker. The saved
 [validation receipt](evidence/execution-validation-20261028.txt) records results.
-Evidence-integrity checks verify source bytes, deterministic output and cited
-locations. They cannot prove RE semantics, full signature-chain coverage or
-anything on the speaker. Current results and remaining queue are in the
+The checks verify source bytes, deterministic output, cited locations and the
+explicit older-package signature/range above. They cannot prove RE semantics,
+full signature-chain coverage, later-package signatures or anything on the speaker. Current results and remaining queue are in the
 [handoff](../reviews/2026-10-28-l2-moggie-execution-surface.md).

@@ -14,7 +14,9 @@ Worktree `/home/ben/Moggie-wt/ota`; branch
 Initial custom-source report commits: `b75e217`, `54d3832`.
 Stock-init increment: `49218b6`, already pushed. Stock updater/kernel evidence
 and replacement of the obsolete access-gated report: `8458e4e`. The next commit
-adds independent evidence checks and their receipt.
+adds independent evidence checks and their receipt. Envelope framing/key
+selection is committed in `adf46de`; later commits preserve the validated legacy
+signed range and direct-call inventory.
 
 Primary deliverable: [EXECUTION-SURFACE.md](../hardware/EXECUTION-SURFACE.md).
 Reproduction tool: [stock_execution_evidence.py](../../tools/stock_execution_evidence.py).
@@ -58,28 +60,30 @@ RSA-2048 public DER anchors with deny-mask selection; it is separate from the
 legacy RSA-1024 anchor (envelope-public-anchors.json). Full caller/coverage and
 installed-build claims remain incomplete.
 
+## Completed coverage increment
+
+The old UPD signature now verifies on the host under the captured legacy public
+key over exact prefix `[0,0x482180)`, with signature bytes at `0x482190`.
+A changed prefix is rejected. Direct executable-section BL decoding identifies
+two parser and two install call sites; the network phase functions are preserved,
+but virtual/state-machine orchestration remains unproved. This validates one
+package/range and does not establish later signatures or device acceptance.
+
 ## Verification executed so far
 
-The report's reproduction command was run with existing host tools; no packages
-were installed and no target software executed. Current result:
-
-```text
-PASS: 2 pinned UPDs parsed to exact EOF; 14 allowlisted files extracted; 7 absent
-PASS: 3184 disassembly rows match ELF file bytes
-```
-
-The generator checks source package hashes, framing bounds, gzip EOF, ELF
-identity/mappings and every saved disassembly row's bytes. These are integrity
-checks, not signature validation, complete RE review or hardware tests.
-`git diff --check` passed for the report/tool edits. Independent verification and deterministic regeneration passed; see the
+The report's generation and independent-check commands were executed with
+existing host tools. A second generation uses the same cache and a separate
+output directory, then the checker compares every file. Current commands,
+counts, negative checks and report hash are preserved in the
 [validation receipt](../hardware/evidence/execution-validation-20261028.txt).
-Actual results: 2 source packages, 20 records, 14 extracted hashes, 3,184
-disassembly rows, 44 document links and 32 cited offset starts checked; all 49
-regenerated files identical. Five malformed framing cases and a deliberately
-modified disassembly byte and envelope boundary were rejected. Report SHA-256:
-`77fbb8a061024111bc1d0acc7fd7f4456f49c002852937baeaf1a3fb44d6c6e6`.
-Verification commit `59af893` is pushed. Draft PR:
-https://github.com/hermes-gadget/Moggie/pull/63 (OPEN, draft; no CI checks reported).
+This includes source hashes, disassembly bytes, public-anchor/record/header
+metadata, document links/offsets, and the explicit older RSA/MD5 verification.
+
+Five malformed framing cases, altered instruction bytes, changed envelope
+boundaries and an altered signed prefix were rejected. These checks do not
+certify complete RE semantics, current-device applicability or hardware behavior.
+Draft PR: https://github.com/hermes-gadget/Moggie/pull/63 (OPEN, draft;
+no CI checks reported at the last inspection). No merge was performed.
 
 ## Requirement audit
 
@@ -95,8 +99,9 @@ https://github.com/hermes-gadget/Moggie/pull/63 (OPEN, draft; no CI checks repor
 
 ## Ordered remaining queue
 
-1. Finish older updater authenticated-byte coverage, complete caller inventory,
-   envelope trust callbacks and inline flash/OOB commit ordering.
+1. Finish older updater virtual/network phase orchestration, remaining
+   authenticated-range cases, and inline flash/OOB commit ordering. The pinned
+   legacy prefix is verified; other paths must retain their own evidence limits.
 2. Trace watchdog/reset ownership and remaining kernel boot-selection logic from
    existing captures. Keep unknown physical layout and U-Boot semantics explicit.
 3. To close installed-build claims, obtain the path/provenance of an

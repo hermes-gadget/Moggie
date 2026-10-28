@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Independently check the saved execution evidence against original source bytes.
 
-This checks transcription/provenance, not reverse-engineering conclusions,
-vendor signatures or device behavior. No target code is executed.
+This checks transcription/provenance and one captured legacy signature, not
+reverse-engineering conclusions or device behavior. No target code is executed.
 """
 
 import argparse
@@ -13,6 +13,9 @@ import re
 import struct
 
 from elftools.elf.elffile import ELFFile
+from cryptography.hazmat.primitives.serialization import load_der_public_key
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives import hashes
 
 
 def sha(data):
@@ -112,9 +115,27 @@ def main():
         offset = int(record['file'], 16)
         assert tuple(int(word, 16) for word in record['words']) == struct.unpack_from(
             '>4I', sources['upgrade'], offset)
+    for call in read('direct-callers.json')['calls']:
+        start = int(call['caller_file'], 16)
+        word = struct.unpack_from('>I', sources['upgrade'], start)[0]
+        assert f'{word:08x}' == call['bytes'] and word & 0xfc000003 == 0x48000001
+        displacement = word & 0x03fffffc
+        if displacement & 0x02000000:
+            displacement -= 0x04000000
+        assert (int(call['caller_va'], 16) + displacement) & 0xffffffff == int(call['target_va'], 16)
     anchor = read('legacy-public-anchor.json')
     start = int(anchor['der_file'], 16)
     assert sha(sources['crypto'][start:start + anchor['der_size']]) == anchor['sha256']
+    signature_check = read('legacy-signature-validation.json')
+    older = Path(packages['34.16-37101-1-16']['path']).read_bytes()
+    prefix_end = int(signature_check['prefix_end'], 16)
+    signature_start = int(signature_check['signature_file'], 16)
+    assert prefix_end == int(packages['34.16-37101-1-16']['records'][-1]['offset'], 16)
+    assert signature_start == prefix_end + 16
+    assert sha(older[:prefix_end]) == signature_check['prefix_sha256']
+    assert hashlib.md5(older[:prefix_end]).hexdigest() == signature_check['prefix_md5']
+    key = load_der_public_key(sources['crypto'][start:start + anchor['der_size']])
+    key.verify(older[signature_start:], older[:prefix_end], padding.PKCS1v15(), hashes.MD5())
     for anchor in read('envelope-public-anchors.json')['anchors']:
         start = int(anchor['der_file'], 16)
         assert sha(sources['crypto'][start:start + anchor['der_size']]) == anchor['sha256']
@@ -160,7 +181,8 @@ def main():
             compared += 1
     print(f'PASS: {len(packages)} source packages; {record_count} records; {len(extraction["files"])} extracted hashes; {rows} disassembly rows')
     print(f'PASS: {links} document links; {offsets} cited offset starts in bounds; {compared} regenerated files identical')
-    print('LIMIT: integrity checks do not validate signatures, RE semantics, complete control-flow coverage or hardware behavior')
+    print('PASS: offline legacy RSA/MD5 signature validates the older package prefix')
+    print('LIMIT: byte checks and one legacy signature do not prove later signatures, RE semantics, complete control flow or hardware behavior')
 
 
 if __name__ == '__main__':

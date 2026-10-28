@@ -16,6 +16,9 @@ import zlib
 
 from elftools.elf.elffile import ELFFile
 from cryptography.hazmat.primitives.serialization import load_der_public_key
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives import hashes
+from cryptography.exceptions import InvalidSignature
 
 
 PACKAGES = {
@@ -237,6 +240,54 @@ def envelope_anchors(path):
                 table_file=hex(offset(table)), anchors=anchors)
 
 
+def legacy_signature(data, records, crypto, anchor):
+    footer = records[-1]
+    if footer['type'] != '0xffffffff' or footer['payload_size'] != 128:
+        raise ValueError('unexpected legacy signature record')
+    end, signature_start = int(footer['offset'], 16), int(footer['payload_offset'], 16)
+    offset = int(anchor['der_file'], 16)
+    key = load_der_public_key(crypto[offset:offset + anchor['der_size']])
+    signature = data[signature_start:]
+    key.verify(signature, data[:end], padding.PKCS1v15(), hashes.MD5())
+    altered = bytes([data[0] ^ 1]) + data[1:end]
+    try:
+        key.verify(signature, altered, padding.PKCS1v15(), hashes.MD5())
+    except InvalidSignature:
+        pass
+    else:
+        raise ValueError('altered signed prefix accepted')
+    return dict(package_sha256=digest(data), prefix_start=0, prefix_end=hex(end),
+                prefix_sha256=digest(data[:end]), prefix_md5=hashlib.md5(data[:end]).hexdigest(),
+                signature_file=hex(signature_start), signature_size=len(signature),
+                scheme='RSASSA-PKCS1-v1_5 / MD5', public_der_sha256=anchor['sha256'],
+                verified=True, altered_prefix_rejected=True,
+                boundary='Offline cryptographic validity of these bytes; no device acceptance, model compatibility or complete caller proof.')
+
+
+def direct_calls(path):
+    targets = {0x1000778c: 'parser', 0x100057b0: 'install'}
+    calls = []
+    with path.open('rb') as stream:
+        elf = ELFFile(stream)
+        for section in elf.iter_sections():
+            if not section['sh_flags'] & 4:
+                continue
+            data = section.data()
+            for position in range(0, len(data) - 3, 4):
+                word = struct.unpack_from('>I', data, position)[0]
+                if word & 0xfc000003 != 0x48000001:
+                    continue
+                delta = word & 0x03fffffc
+                if delta & 0x02000000:
+                    delta -= 0x04000000
+                va = section['sh_addr'] + position
+                target = (va + delta) & 0xffffffff
+                if target in targets:
+                    calls.append(dict(caller_va=hex(va), caller_file=hex(section['sh_offset'] + position),
+                                      target_va=hex(target), target=targets[target], bytes=f'{word:08x}'))
+    return dict(calls=calls, boundary='Direct relative BL encodings in executable ELF sections only; indirect and virtual orchestration excluded.')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--older-package', type=Path, required=True)
@@ -364,9 +415,12 @@ def main():
     images['upgrade'] = elf_evidence(cache / 'rootfs/bin/upgrade', args.objdump, (
         ('key-setup', 0x10004890, 0x10004b30),
         ('constructor', 0x10002dbc, 0x10002e14),
+        ('network-phases', 0x10003038, 0x100031e4),
         ('install', 0x100057b0, 0x10005dec),
         ('hash-stream', 0x100055d0, 0x10005668),
         ('payload-reader', 0x10006028, 0x100061d4),
+        ('header-reader', 0x1000626c, 0x100063fc),
+        ('unknown-record', 0x10006a64, 0x10006b2c),
         ('encrypted-payload', 0x100063fc, 0x100069b0),
         ('legacy-signature', 0x100074e4, 0x100075c8),
         ('envelope-signature', 0x100075c8, 0x1000778c),
@@ -387,12 +441,16 @@ def main():
         ('rsa-decrypt', 0x5ac4, 0x5c18),
     ), out, 'crypto')
     write_json(out / 'images.json', images)
-    write_json(out / 'legacy-public-anchor.json', public_anchor(
-        cache / 'rootfs/lib/libsonoscrypto.so.1'))
+    anchor = public_anchor(cache / 'rootfs/lib/libsonoscrypto.so.1')
+    write_json(out / 'legacy-public-anchor.json', anchor)
     write_json(out / 'envelope-public-anchors.json', envelope_anchors(
         cache / 'rootfs/lib/libsonoscrypto.so.1'))
     write_json(out / 'encrypted-headers.json', encrypted_headers(current_data,
         packages['57.23-74170-1-16']['records']))
+    write_json(out / 'legacy-signature-validation.json', legacy_signature(older_data,
+        packages['34.16-37101-1-16']['records'],
+        (cache / 'rootfs/lib/libsonoscrypto.so.1').read_bytes(), anchor))
+    write_json(out / 'direct-callers.json', direct_calls(cache / 'rootfs/bin/upgrade'))
     upgrade_data = (cache / 'rootfs/bin/upgrade').read_bytes()
     write_json(out / 'record-handlers.json', [dict(file=hex(offset),
         words=[hex(value) for value in struct.unpack_from('>4I', upgrade_data, offset)])
@@ -406,6 +464,7 @@ def main():
                boundary='Host unsquashfs only; no account data, devices or target execution.'))
     print(f'PASS: 2 pinned UPDs parsed to exact EOF; {len(manifest)} allowlisted files extracted; {len(missing)} absent')
     print(f'PASS: {sum(im["checked_disassembly_rows"] for im in images.values())} disassembly rows match ELF file bytes')
+    print('PASS: older UPD legacy RSA/MD5 signature verifies exact prefix; altered prefix rejected')
 
 
 if __name__ == '__main__':

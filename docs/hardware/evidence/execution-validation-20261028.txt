@@ -3,12 +3,13 @@ Execution-surface evidence verification — 2026-10-28
 Generation: tools/stock_execution_evidence.py, exact command in EXECUTION-SURFACE.md.
 Second generation: same command/cache, --out build/stock-execution/reproduced.
 PASS: 2 pinned UPDs parsed to exact EOF; 14 allowlisted files extracted; 7 absent
-PASS: 3184 disassembly rows match ELF file bytes
+PASS: 3441 disassembly rows match ELF file bytes
+PASS: older UPD legacy RSA/MD5 signature verifies exact prefix; altered prefix rejected
 
 Independent check:
 python3 tools/check_stock_execution_evidence.py --evidence docs/hardware/evidence/execution-20261028 --cache build/stock-execution/34.16 --compare build/stock-execution/reproduced --document docs/hardware/EXECUTION-SURFACE.md
-PASS: 2 source packages; 20 records; 14 extracted hashes; 3184 disassembly rows
-PASS: 44 document links; 32 cited offset starts in bounds; 49 regenerated files identical
+PASS: 2 source packages; 20 records; 14 extracted hashes; 3441 disassembly rows
+PASS: 49 document links; 36 cited offset starts in bounds; 54 regenerated files identical
 
 Framing negative cases: empty stream, 15-byte header, wrong magic,
 header-inclusive size 15, size extending one byte beyond EOF.
@@ -23,8 +24,9 @@ Envelope negative check: changed data_size by one in a fresh copied packet; chec
 git diff --check: exit 0
 
 Report SHA-256:
-77fbb8a061024111bc1d0acc7fd7f4456f49c002852937baeaf1a3fb44d6c6e6  docs/hardware/EXECUTION-SURFACE.md
+c7eeadf71441f2ea7398dc1d51b56b2b15c31332e395092a694797342ae84d04  docs/hardware/EXECUTION-SURFACE.md
 
-LIMIT: integrity/transcription checks do not validate vendor signatures,
-reverse-engineering semantics, exhaustive control flow or hardware behavior.
+PASS: offline legacy RSA/MD5 signature validates the older package prefix
+LIMIT: byte checks and one legacy signature do not prove later signatures,
+independent signer attribution, RE semantics, complete control flow or hardware behavior.
 No firmware program/script was executed; no speaker or hardware was accessed.
