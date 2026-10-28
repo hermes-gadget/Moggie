@@ -14,3 +14,71 @@ inflated_offset=0x2615c4 <3>cramfs: wrong endianess
 inflated_offset=0x2615e0 <3>cramfs: wrong magic
 inflated_offset=0x2e30cc fsl,mpc8315erdb
 literal_squashfs_count=0
+$ /home/ben/Moggie/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -D -b binary -m powerpc:common -EB --start-address=0x65758 --stop-address=0x65844 /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/kernel-inflated.bin
+
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/kernel-inflated.bin:     file format binary
+
+
+Disassembly of section .data:
+
+00065758 <.data+0x65758>:
+   65758:	a0 1e 00 1c 	lhz     r0,28(r30)
+   6575c:	3d 20 c0 06 	lis     r9,-16378
+   65760:	39 29 2f bc 	addi    r9,r9,12220
+   65764:	2f 80 00 01 	cmpwi   cr7,r0,1
+   65768:	91 3e 01 04 	stw     r9,260(r30)
+   6576c:	3d 20 c0 06 	lis     r9,-16378
+   65770:	39 29 63 b0 	addi    r9,r9,25520
+   65774:	91 3e 01 08 	stw     r9,264(r30)
+   65778:	3d 20 c0 06 	lis     r9,-16378
+   6577c:	39 29 4c c4 	addi    r9,r9,19652
+   65780:	91 3e 01 0c 	stw     r9,268(r30)
+   65784:	40 be 00 24 	bne     cr7,0x657a8
+   65788:	2f 99 00 00 	cmpwi   cr7,r25,0
+   6578c:	40 be 04 f4 	bne     cr7,0x65c80
+   65790:	3c 60 c0 13 	lis     r3,-16365
+   65794:	38 63 ca 08 	addi    r3,r3,-13816
+   65798:	4b fa df 81 	bl      0x13718
+   6579c:	3c 60 c0 13 	lis     r3,-16365
+   657a0:	38 63 ca 5c 	addi    r3,r3,-13732
+   657a4:	48 00 00 38 	b       0x657dc
+   657a8:	2f 80 00 02 	cmpwi   cr7,r0,2
+   657ac:	40 be 00 38 	bne     cr7,0x657e4
+   657b0:	7f c3 f3 78 	mr      r3,r30
+   657b4:	48 00 49 ed 	bl      0x6a1a0
+   657b8:	2f 83 00 00 	cmpwi   cr7,r3,0
+   657bc:	40 9e 00 84 	bne     cr7,0x65840
+   657c0:	2f 99 00 00 	cmpwi   cr7,r25,0
+   657c4:	40 be 04 bc 	bne     cr7,0x65c80
+   657c8:	3c 60 c0 13 	lis     r3,-16365
+   657cc:	38 63 ca a4 	addi    r3,r3,-13660
+   657d0:	4b fa df 49 	bl      0x13718
+   657d4:	3c 60 c0 13 	lis     r3,-16365
+   657d8:	38 63 ca f8 	addi    r3,r3,-13576
+   657dc:	4b fa df 3d 	bl      0x13718
+   657e0:	48 00 04 a0 	b       0x65c80
+   657e4:	2f 80 00 03 	cmpwi   cr7,r0,3
+   657e8:	40 be 00 18 	bne     cr7,0x65800
+   657ec:	88 1e 00 1e 	lbz     r0,30(r30)
+   657f0:	89 3e 00 1f 	lbz     r9,31(r30)
+   657f4:	54 00 40 2e 	slwi    r0,r0,8
+   657f8:	7d 2b 03 79 	or.     r11,r9,r0
+   657fc:	41 82 00 44 	beq     0x65840
+   65800:	2f 99 00 00 	cmpwi   cr7,r25,0
+   65804:	40 be 04 7c 	bne     cr7,0x65c80
+   65808:	88 9e 00 1c 	lbz     r4,28(r30)
+   6580c:	3c 60 c0 13 	lis     r3,-16365
+   65810:	88 be 00 1e 	lbz     r5,30(r30)
+   65814:	38 63 cb 40 	addi    r3,r3,-13504
+   65818:	88 1e 00 1d 	lbz     r0,29(r30)
+   6581c:	54 84 40 2e 	slwi    r4,r4,8
+   65820:	89 3e 00 1f 	lbz     r9,31(r30)
+   65824:	54 a5 40 2e 	slwi    r5,r5,8
+   65828:	7c 04 23 78 	or      r4,r0,r4
+   6582c:	7d 25 2b 78 	or      r5,r9,r5
+   65830:	4b fa de e9 	bl      0x13718
+   65834:	3c 60 c0 13 	lis     r3,-16365
+   65838:	38 63 cb 94 	addi    r3,r3,-13420
+   6583c:	4b ff ff a0 	b       0x657dc
+   65840:	80 1a 00 30 	lwz     r0,48(r26)
+[exit 0]

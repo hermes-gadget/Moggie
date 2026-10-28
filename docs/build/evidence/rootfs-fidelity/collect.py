@@ -93,6 +93,11 @@ with (DEST / "containers.txt").open("w") as log:
             log.write(f"prefix_matches={tail[:len(raw)] == raw} "
                       f"padding_bytes={len(tail)-len(raw)} "
                       f"padding_values={sorted(set(tail[len(raw):]))}\n\n")
+    cap = int(re.search(r"^ROOTFS_MAX_BYTES=(\d+)", (ROOT / "buildroot.lock").read_text(), re.M)[1])
+    for label in ("buildroot", "tc26"):
+        padded_size = images[label].with_name("rootfs.nand.img").stat().st_size
+        log.write(f"DECLARED_CAP_CHECK {label} cap={cap} padded={padded_size} "
+                  f"headroom={cap-padded_size} fits_declared_cap={padded_size <= cap} actual_stock_slot=UNVERIFIED\n")
 
 manifests = {}
 pattern = re.compile(r"^(\S+)\s+(\d+/\d+)\s+(.+?)\s+\d{4}-\d\d-\d\d\s+\d\d:\d\d\s+squashfs-root(?:/(.*))?$")
@@ -230,6 +235,10 @@ with (DEST / "stock-kernel.txt").open("w") as log:
                 if re.search(rb"Linux version 2|fsl,mpc8315erdb|cramfs: wrong|squashfs", string.group()):
                     log.write(f"inflated_offset=0x{string.start():x} {string.group().decode()}\n")
             log.write(f"literal_squashfs_count={kernel.lower().count(b'squashfs')}\n")
+    capture(log, [BOOTLIN / "bin/powerpc-buildroot-linux-gnu-objdump", "-D",
+                  "-b", "binary", "-m", "powerpc:common", "-EB",
+                  "--start-address=0x65758", "--stop-address=0x65844",
+                  SCRATCH / "stock16/kernel-inflated.bin"])
 
 with (DEST / "elf-closure.txt").open("w") as log:
     for label in ("buildroot", "tc26"):

@@ -105,3 +105,6 @@ Number of xattr ids 0
 
 PADDED /home/ben/Moggie-wt/tc26/out/rootfs.nand.img bytes=4456448 sha256=783c95c9ee270582fa0c3dc66c5b57d3f7440fb48bc265c47e707fdde8344d4a
 prefix_matches=True padding_bytes=19160 padding_values=[0]
+
+DECLARED_CAP_CHECK buildroot cap=7864320 padded=4194304 headroom=3670016 fits_declared_cap=True actual_stock_slot=UNVERIFIED
+DECLARED_CAP_CHECK tc26 cap=7864320 padded=4456448 headroom=3407872 fits_declared_cap=True actual_stock_slot=UNVERIFIED
