@@ -1,0 +1,6 @@
+drwxrwxr-x root/root               244 2017-01-10 21:24 squashfs-root
+drwxrwxr-x root/root                 3 2017-01-10 21:24 squashfs-root/dev
+drwxrwxr-x root/root               176 2017-01-10 21:24 squashfs-root/sbin
+lrwxrwxrwx root/root                14 2017-01-10 21:24 squashfs-root/sbin/init -> ../bin/busybox
+lrwxrwxrwx root/root                12 2017-01-10 21:24 squashfs-root/tmp -> /ramdisk/tmp
+lrwxrwxrwx root/root                12 2017-01-10 21:24 squashfs-root/var -> /ramdisk/var

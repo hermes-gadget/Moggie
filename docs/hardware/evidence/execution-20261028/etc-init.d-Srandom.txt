@@ -1,0 +1,15 @@
+# Stock file: etc/init.d/Srandom; display strips trailing whitespace; hashes cover original bytes
+   1: #!/bin/sh
+   2: echo "Initializing random number generator..."
+   3: random_seed=/jffs/random-seed
+   4: # Carry a random seed from start-up to start-up
+   5: # Load and then save the whole entropy pool
+   6: if [ -f $random_seed ]; then
+   7:     cat $random_seed >/dev/urandom
+   8: else
+   9:     touch $random_seed
+  10: fi
+  11: chmod 600 $random_seed
+  12: poolfile=/proc/sys/kernel/random/poolsize
+  13: [ -r $poolfile ] && bytes=`cat $poolfile` || bytes=512
+  14: dd if=/dev/urandom of=$random_seed count=1 bs=$bytes 2> /dev/null

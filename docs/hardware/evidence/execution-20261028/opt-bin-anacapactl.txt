@@ -1,0 +1,127 @@
+# Stock file: opt/bin/anacapactl; display strips trailing whitespace; hashes cover original bytes
+   1: #! /bin/sh
+   2: anacapaHome=/opt
+   3: anacapaPidFile=$anacapaHome/log/anacapa.pid
+   4: anacapaBin="$anacapaHome/bin/anacapad"
+   5: anacapaStart="$anacapaBin -c $anacapaHome/conf/anacapa.conf"
+   6:
+   7: PATH=/usr/bin:/bin:/usr/sbin:/sbin:$anacapaHome/bin
+   8: export PATH
+   9: SWF_FONT_PATH=$anacapaHome/../../../../hh-os/gui/swift-player/fonts
+  10: export SWF_FONT_PATH
+  11: LD_LIBRARY_PATH=$anacapaHome/lib
+  12: export LD_LIBRARY_PATH
+  13: ANACAPA_LIBDIR=$anacapaHome/lib
+  14: export ANACAPA_LIBDIR
+  15:
+  16: arch=`uname -m`
+  17: #
+  18: # CheckRunning
+  19: # Check to see if Anacapa is running, and if so, set the "pid" var.
+  20: #
+  21: CheckRunning() {
+  22: 	pid=""
+  23: 	if [ -f $anacapaPidFile ]; then
+  24: 		pid=`cat $anacapaPidFile 2> /dev/null`
+  25: 	fi
+  26:
+  27: 	if [ -n "$pid" ]; then
+  28: 		kill -0 $pid 2> /dev/null
+  29: 		if [ $? != 0 ]; then
+  30: 			rm -f $anacapaPidFile
+  31: 			pid=""
+  32: 		fi
+  33: 	else
+  34: 		rm -f $anacapaPidFile
+  35: 		pid=""
+  36: 	fi
+  37: }
+  38:
+  39: #
+  40: # Stop
+  41: # Stop the anacapa and wait until the primary process is dead.
+  42: #
+  43: Stop() {
+  44: 	kill -15 $pid
+  45: 	CheckRunning
+  46: 	while [ -n "$pid" ]; do
+  47: 		sleep 1
+  48: 		CheckRunning
+  49: 	done
+  50: }
+  51:
+  52: CheckRunning
+  53:
+  54: #
+  55: # Hup
+  56: # Hup the anacapa
+  57: #
+  58: Hup() {
+  59: 	kill -HUP $pid
+  60: }
+  61:
+  62: case "$1" in
+  63: 	'start')
+  64: 		if [ -n "$pid" ]; then
+  65: 			echo "anacapad is already running (pid $pid)"
+  66: 			exit 1
+  67: 		fi
+  68: 		if [ "$arch" = "sh4" ]; then
+  69: 			/sbin/gdbserver 10.10.1.237:1234 $anacapaStart -d 10
+  70: 		else
+  71: 			gdb $SONOS_GDB_ARGS --args $anacapaStart -d 10
+  72: 		fi
+  73: 		exit $?
+  74: 		;;
+  75:
+  76: 	'start-demo')
+  77: 		if [ -n "$pid" ]; then
+  78: 			echo "anacapad is already running (pid $pid)"
+  79: 			exit 1
+  80: 		fi
+  81:
+  82: 		    exec $anacapaStart
+  83:
+  84:
+  85: 		;;
+  86:
+  87: 	'restart')
+  88: 		if [ -n "$pid" ]; then
+  89: 			Stop
+  90: 		fi
+  91: 		if [ "$arch" = "sh4" ]; then
+  92: 			/sbin/gdbserver 10.10.1.237:1234 $anacapaStart -d 10
+  93: 		else
+  94: 			gdb $SONOS_GDB_ARGS --args $anacapaStart -d 10
+  95: 		fi
+  96: 		exit $?
+  97: 		;;
+  98:
+  99: 	'restart-demo')
+ 100: 		if [ -n "$pid" ]; then
+ 101: 			Stop
+ 102: 		fi
+ 103:
+ 104: 		$anacapaStart
+ 105: 		exit $?
+ 106: 		;;
+ 107:
+ 108: 	'stop')
+ 109: 		if [ -n "$pid" ]; then
+ 110: 			Stop
+ 111: 		fi
+ 112: 		exit 0
+ 113: 		;;
+ 114:
+ 115: 	'hup')
+ 116: 		if [ -n "$pid" ]; then
+ 117: 			Hup
+ 118: 		fi
+ 119: 		exit 0
+ 120: 		;;
+ 121:
+ 122: 	*)
+ 123: 		echo "Usage: $0 { start | start-demo | stop | restart | restart-demo | hup }"
+ 124: 		exit 1
+ 125: 		;;
+ 126: esac

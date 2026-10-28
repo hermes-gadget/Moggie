@@ -1,0 +1,8 @@
+# Stock file: etc/fstab; display strips trailing whitespace; hashes cover original bytes
+   1: # /etc/fstab: static file system information.
+   2: #
+   3: # <file system> <mount point>   <type>  <options>               <dump>  <pass>
+   4: #/dev/root       /               auto    defaults,errors=remount-ro      0 0
+   5: /dev/mapper/crroot	/	auto	noatime,nodiratime,defaults     0 0
+   6: proc            /proc           proc    defaults                        0 0
+   7: none            /dev/pts        devpts  gid=5,mode=620                  0 0

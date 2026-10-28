@@ -1,0 +1,8 @@
+# Stock file: etc/inittab; display strips trailing whitespace; hashes cover original bytes
+   1: ::sysinit:/etc/Configure
+   2: null::respawn:/wifi/netstartd
+   3: null::respawn:/etc/runanacapa
+   4: ::askfirst:/bin/sh
+   5: ::ctrlaltdel:/sbin/reboot
+   6: ::shutdown:/etc/init.d/rcK
+   7: ::restart:/sbin/init

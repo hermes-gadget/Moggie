@@ -1,4 +1,34 @@
-# ZP5S execution surface — offline evidence boundary
+# ZP5S execution surface — offline evidence
+
+**Current checkpoint: captured older-family init reconstructed; installed-build boot/update chain incomplete.**
+The continuation instruction authorizes proceeding through the handoff's named
+read-only evidence queue. The earlier directory-access gate below is historical;
+it is superseded by this checkpoint, not a request for more permission.
+
+The host extraction in `tools/stock_execution_evidence.py` pins and parses two
+already-captured UPDs to exact EOF. The evidence packet is
+[`evidence/execution-20261028/`](evidence/execution-20261028/packages.json).
+`34.16-37101-1-16` has a plain big-endian SquashFS 3.0 rootfs;
+`57.23-74170-1-16` has flags-4 type-3/4/6 payloads whose inner envelope has not
+been decoded. Neither is the exact installed 57.10 `-1-16` userspace.
+
+The older init's `/sbin/init` points to BusyBox (`aliases.txt`); `inittab` runs
+`/etc/Configure`, respawns netstartd and runanacapa, and requests an askfirst shell
+(`etc-inittab.txt`, original lines 1–7). Configure attempts repartition before
+mounting JFFS (original lines 16–18), invokes formatjffs after mount failure
+(lines 20–28), saves random seed (line 30; `etc-init.d-Srandom.txt:3–14`), then
+executes `/jffs/Configure` if present (lines 37–40). Those pre-hook paths include
+persistent writes; this is not a zero-write boot route. These findings apply to
+the pinned older package, not automatically to installed firmware.
+
+The five named recon reports have now been read; reconciliation and updater
+instruction tracing are in progress. Previous unknowns below are retained here
+only as the initial, source-only checkpoint and will be replaced by versioned
+stock findings in the next increment. No target program or package script ran.
+
+---
+
+## Historical source-only checkpoint (superseded access status)
 
 **Status: BLOCKED. The stock boot/init and updater reconstruction is incomplete.**
 No stock owner-code execution route is proved by the evidence inspected here. This

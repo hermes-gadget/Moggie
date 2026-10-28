@@ -1,3 +1,34 @@
+# L2 execution surface — continuation checkpoint
+
+Stock analysis is in progress. The previous access gate is superseded by the
+user's instruction to continue the named read-only queue. Host-only extraction
+has parsed both pinned `-1-16` packages and recovered 14 allowlisted files from
+34.16, with 7 explicitly absent paths. No credentials or target programs were
+read/executed; firmware binaries remain in ignored `build/stock-execution/`.
+
+First coherent increment: `tools/stock_execution_evidence.py`, generated
+`docs/hardware/evidence/execution-20261028/`, and the report's current checkpoint.
+Run the generator using the command in its forthcoming reproduction section;
+actual result: `PASS: 2 pinned UPDs parsed to exact EOF; 14 allowlisted files extracted; 7 absent`.
+
+Ordered remaining queue:
+1. Trace each available captured updater's actual verification calls and flash
+   path, keeping 34.16 `-1-16` and 57.10 Fenway distinct.
+2. Inspect the older kernel and captured boot logs; reconcile the prior map,
+   especially family attribution, writable hooks and unsupported rollback claims.
+3. Replace the historical report with versioned findings, explicit CONFIDENCE
+   and UNKNOWN-OFFLINE, route ranking and safest next experiment.
+4. Regenerate evidence, verify bytes/citations, commit, push this branch and open
+   a PR; update this handoff with exact proof hashes and remaining evidence gaps.
+
+No hardware access, flash/bootloader writes, power cycles, service/config changes
+or target execution are authorized. Missing exact installed-build evidence must
+remain unknown; it is not a reason to repeat device probes.
+
+---
+
+## Initial handoff (historical)
+
 # L2 Moggie execution surface handoff — 2026-10-28
 
 **Verdict: BLOCKED; stock analysis incomplete.** The report is a verified partial

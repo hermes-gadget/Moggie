@@ -1,0 +1,81 @@
+# Stock file: etc/Configure; display strips trailing whitespace; hashes cover original bytes
+   1: #!/bin/sh
+   2:
+   3: mount -t proc proc proc
+   4:
+   5: /sbin/ifconfig lo 127.0.0.1 up
+   6:
+   7: mount -t ramfs ramfs /ramdisk
+   8: mkdir -m 777 /ramdisk/var
+   9: mkdir -m 777 /ramdisk/var/run
+  10: mkdir -m 777 /ramdisk/var/log
+  11: mkdir -m 777 /ramdisk/tmp
+  12: mkdir -m 777 /ramdisk/tmp/pub
+  13: mkdir -m 777 /ramdisk/optlog
+  14: mkdir -m 777 /ramdisk/smb
+  15:
+  16: if [ -f /bin/repartition.sh ]; then
+  17:   sh /bin/repartition.sh
+  18: fi
+  19:
+  20: mount -t jffs2 -o noatime /dev/nandjffs /jffs
+  21: if [ $? -ne 0 ]
+  22: then
+  23:     if [ -f /bin/formatjffs ]; then
+  24:         echo "Reformat jffs" >> /opt/log/repartition.log
+  25:         /bin/formatjffs
+  26:         mount -t jffs2 -o noatime /dev/nandjffs /jffs
+  27:     fi
+  28: fi
+  29:
+  30: /etc/init.d/Srandom
+  31:
+  32: /sbin/insmod /modules/chk_driver.o
+  33: /sbin/insmod /modules/audiodev.o
+  34:
+  35: /wifi/netstartd --resetcheckonly
+  36:
+  37: if [ -f /jffs/Configure ]; then
+  38:   echo "Running custom Configure..."
+  39:   exec /jffs/Configure
+  40: fi
+  41:
+  42: echo 262143 > /proc/sys/net/core/rmem_max
+  43: echo 0 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+  44:
+  45: echo 32768 36863 > /proc/sys/net/ipv4/ip_local_port_range
+  46:
+  47: /bin/mdputil -B
+  48:
+  49: wifiType=N
+  50:
+  51: /sbin/insmod /wifi/$wifiType/ath_hal.o
+  52: /sbin/insmod /wifi/$wifiType/ath_driver.o
+  53:
+  54: if [ -e /wifi/bridge-ppc.o ]; then
+  55:     /sbin/insmod /wifi/bridge-ppc.o
+  56: fi
+  57:
+  58: /usr/sbin/setmac
+  59:
+  60: touch /var/run/waitforip
+  61:
+  62: if [ -f /etc/unlocked_build_flag -o -e /jffs/system/Configure.dev ]; then
+  63:     /usr/sbin/inetd
+  64:
+  65:     ln -s /opt/htdocs_locked /tmp/htdocs_locked
+  66:
+  67:     touch /tmp/device_unlocked_flag
+  68: fi
+  69:
+  70: if [ -f /jffs/system/Configure.dev ]; then
+  71:     sh /jffs/system/Configure.dev
+  72: fi
+  73:
+  74: if [ -f /jffs/hosts ]; then
+  75:     touch /jffs/hosts
+  76: else
+  77:     cp /etc/hosts.orig /jffs/hosts
+  78: fi
+  79:
+  80: echo "Configure script complete."

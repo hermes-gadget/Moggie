@@ -1,0 +1,144 @@
+{
+  "allowlist": [
+    "etc/Configure",
+    "etc/inittab",
+    "etc/fstab",
+    "etc/arch",
+    "etc/arch_attrs",
+    "etc/soc_arch",
+    "etc/runanacapa",
+    "etc/runmdns",
+    "etc/runchrony",
+    "etc/runsddp",
+    "etc/init.d/Srandom",
+    "etc/init.d/Krandom",
+    "etc/init.d/rcK",
+    "opt/bin/anacapactl",
+    "build.properties",
+    "bin/repartition.sh",
+    "bin/upgrade",
+    "lib/libflash.so.1",
+    "lib/libsonoscrypto.so.1",
+    "bin/busybox",
+    "bin/formatjffs"
+  ],
+  "boundary": "Host unsquashfs only; no account data, devices or target execution.",
+  "files": {
+    "bin/busybox": {
+      "sha256": "62bce872ce1e75d16d77b5edeaee7c2de86b2df231ff3bdc5d6b6a7ec3603d1c",
+      "size": 301664
+    },
+    "bin/formatjffs": {
+      "sha256": "5ad37c9029db9352fc2fcdd98b61ff70b1fa7981a4e9cffc4faa17085b803cf8",
+      "size": 7228
+    },
+    "bin/repartition.sh": {
+      "sha256": "a0cc6781e00e20359ec01f8693e089d70e91f183033745b5f9f21ca318f896f8",
+      "size": 564
+    },
+    "bin/upgrade": {
+      "sha256": "d17809f33003856d66f5406e080081ca8f0e3954a8d5536bb8f541010b8cce1a",
+      "size": 124384
+    },
+    "build.properties": {
+      "sha256": "b30c646259c67f039d829634b70d2f9af261f38eba3f854e772b885303f21898",
+      "size": 238
+    },
+    "etc/Configure": {
+      "sha256": "941fd3fe324c66f2a08222165d47700dccae6df06b83e7caff1ec099b4c206db",
+      "size": 1611
+    },
+    "etc/fstab": {
+      "sha256": "46893db063701e58a3c8f67b4bf2a89c0365d3c68a45bf348bd016ccf377a122",
+      "size": 418
+    },
+    "etc/init.d/Krandom": {
+      "sha256": "1569696ba888f96e5b5ca9ec2da19c0030a44d36f1643fa773e9eb4fbe2f5896",
+      "size": 274
+    },
+    "etc/init.d/Srandom": {
+      "sha256": "f3fb4b1a61539e3b593dadfdcb854588f95b58accbee61a1b3ba8bc49dab85e6",
+      "size": 460
+    },
+    "etc/init.d/rcK": {
+      "sha256": "f9e1f26843f32e06f7a833c5e3537a8f7473db03e5ac84028d4f761c94ae4c04",
+      "size": 64
+    },
+    "etc/inittab": {
+      "sha256": "5cb7759351f7e0c41d89776337b7c4966ef5a07fc29e9fcfe7ce54b8f8662591",
+      "size": 178
+    },
+    "etc/runanacapa": {
+      "sha256": "66bf159d4c3c4779b1b93406ea9bce48402b0aa3c7b8b7df90067168b13741cf",
+      "size": 563
+    },
+    "lib/libsonoscrypto.so.1": {
+      "sha256": "03653fc9205ff23ad583506684f93387c444ac2b726a01bfa1ff18b6d7594c6c",
+      "size": 51628
+    },
+    "opt/bin/anacapactl": {
+      "sha256": "027c3335c56b41079e117d0ed30eced7e11ac054c395ab558dee0c5996a8a390",
+      "size": 1988
+    }
+  },
+  "kernel_record": {
+    "flags": "0x0",
+    "offset": "0xd2f",
+    "payload_offset": "0xd3f",
+    "payload_size": 708608,
+    "prefix": "480000057c6802a67fa4eb783863fffc",
+    "sha256": "d86680f7b4059475541890ed2d1d1cd3013f53d83d9bb17cd76b86e3299729cb",
+    "size": 708624,
+    "type": "0x6"
+  },
+  "missing": [
+    {
+      "error": "Reading a different endian SQUASHFS filesystem on /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs.section\ncat: no matches for /etc/arch",
+      "path": "etc/arch"
+    },
+    {
+      "error": "Reading a different endian SQUASHFS filesystem on /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs.section\ncat: no matches for /etc/arch_attrs",
+      "path": "etc/arch_attrs"
+    },
+    {
+      "error": "Reading a different endian SQUASHFS filesystem on /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs.section\ncat: no matches for /etc/soc_arch",
+      "path": "etc/soc_arch"
+    },
+    {
+      "error": "Reading a different endian SQUASHFS filesystem on /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs.section\ncat: no matches for /etc/runmdns",
+      "path": "etc/runmdns"
+    },
+    {
+      "error": "Reading a different endian SQUASHFS filesystem on /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs.section\ncat: no matches for /etc/runchrony",
+      "path": "etc/runchrony"
+    },
+    {
+      "error": "Reading a different endian SQUASHFS filesystem on /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs.section\ncat: no matches for /etc/runsddp",
+      "path": "etc/runsddp"
+    },
+    {
+      "error": "Reading a different endian SQUASHFS filesystem on /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs.section\ncat: no matches for /lib/libflash.so.1",
+      "path": "lib/libflash.so.1"
+    }
+  ],
+  "rootfs_record": {
+    "flags": "0x0",
+    "offset": "0xadd3f",
+    "payload_offset": "0xadd4f",
+    "payload_size": 4014080,
+    "prefix": "737173680000012c0000000000000000",
+    "sha256": "4c69dda984a91729933ec8525793135b3acbcb19f0c68e2bad4cb431e26600b9",
+    "size": 4014096,
+    "type": "0x4"
+  },
+  "script_record": {
+    "flags": "0x0",
+    "offset": "0x74",
+    "payload_offset": "0x84",
+    "payload_size": 3243,
+    "prefix": "23212f62696e2f73680a6b696c6c5f61",
+    "sha256": "fcfacd4af5e19e8bdd4890e4f5cdd5e19bc6e24d51204e384a898ef1df4cedc7",
+    "size": 3259,
+    "type": "0x3"
+  }
+}
