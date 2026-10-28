@@ -3,13 +3,13 @@ Execution-surface evidence verification — 2026-10-28
 Generation: tools/stock_execution_evidence.py, exact command in EXECUTION-SURFACE.md.
 Second generation: same command/cache, --out build/stock-execution/reproduced.
 PASS: 2 pinned UPDs parsed to exact EOF; 14 allowlisted files extracted; 7 absent
-PASS: 6047 disassembly rows match source image bytes
+PASS: 7440 disassembly rows match source image bytes
 PASS: older UPD legacy RSA/MD5 signature verifies exact prefix; altered prefix rejected
 
 Independent check:
 python3 tools/check_stock_execution_evidence.py --evidence docs/hardware/evidence/execution-20261028 --cache build/stock-execution/34.16 --compare build/stock-execution/reproduced --document docs/hardware/EXECUTION-SURFACE.md
-PASS: 2 source packages; 20 records; 14 extracted hashes; 6047 disassembly rows
-PASS: 70 document links; 80 cited offset starts in bounds; 75 regenerated files identical
+PASS: 2 source packages; 20 records; 14 extracted hashes; 7440 disassembly rows
+PASS: 83 document links; 92 cited offset starts in bounds; 87 regenerated files identical
 
 Framing negative cases: empty stream, 15-byte header, wrong magic,
 header-inclusive size 15, size extending one byte beyond EOF.
@@ -25,7 +25,7 @@ Envelope negative check: changed data_size by one in a fresh copied packet; chec
 git diff --check: exit 0
 
 Report SHA-256:
-adfde11ac06a554c66e2f1fe10e773ea73612f547673569e3085902178d45793  docs/hardware/EXECUTION-SURFACE.md
+dc5f4b3ac2948a17909aa7262bfb1756a07e9481162076689dae088ff51b3f6d  docs/hardware/EXECUTION-SURFACE.md
 
 PASS: offline legacy RSA/MD5 signature validates the older package prefix
 LIMIT: byte checks and one legacy signature do not prove later signatures,

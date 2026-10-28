@@ -1,4 +1,4 @@
-# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -D -b binary -m powerpc:common -EB --adjust-vma=0xc0000000 --start-address=0xc00be490 --stop-address=0xc00be530 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -D -b binary -m powerpc:common -EB --adjust-vma=0xc0000000 --start-address=0xc00be490 --stop-address=0xc00be598 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed
 # VA, raw instruction bytes, instruction; file offset appended
 
 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed:     file format binary
@@ -47,3 +47,29 @@ c00be520:	91 3e 01 64 	stw     r9,356(r30)  # file 0xbe520
 c00be524:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe524
 c00be528:	39 29 d6 4c 	addi    r9,r9,-10676  # file 0xbe528
 c00be52c:	91 3e 01 68 	stw     r9,360(r30)  # file 0xbe52c
+c00be530:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe530
+c00be534:	38 00 00 04 	li      r0,4  # file 0xbe534
+c00be538:	39 29 d6 b4 	addi    r9,r9,-10572  # file 0xbe538
+c00be53c:	98 1e 00 00 	stb     r0,0(r30)  # file 0xbe53c
+c00be540:	91 3e 01 6c 	stw     r9,364(r30)  # file 0xbe540
+c00be544:	38 00 00 c5 	li      r0,197  # file 0xbe544
+c00be548:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe548
+c00be54c:	90 1e 00 04 	stw     r0,4(r30)  # file 0xbe54c
+c00be550:	39 29 d9 18 	addi    r9,r9,-9960  # file 0xbe550
+c00be554:	38 00 00 02 	li      r0,2  # file 0xbe554
+c00be558:	91 3e 01 70 	stw     r9,368(r30)  # file 0xbe558
+c00be55c:	90 1e 00 1c 	stw     r0,28(r30)  # file 0xbe55c
+c00be560:	38 a0 00 c8 	li      r5,200  # file 0xbe560
+c00be564:	80 9f 00 a8 	lwz     r4,168(r31)  # file 0xbe564
+c00be568:	38 7e 00 2c 	addi    r3,r30,44  # file 0xbe568
+c00be56c:	4b f5 0d fd 	bl      0xc000f368  # file 0xbe56c
+c00be570:	93 be 01 78 	stw     r29,376(r30)  # file 0xbe570
+c00be574:	83 ff 00 50 	lwz     r31,80(r31)  # file 0xbe574
+c00be578:	7f c3 f3 78 	mr      r3,r30  # file 0xbe578
+c00be57c:	7f e9 03 a6 	mtctr   r31  # file 0xbe57c
+c00be580:	4e 80 04 21 	bctrl  # file 0xbe580
+c00be584:	80 01 00 54 	lwz     r0,84(r1)  # file 0xbe584
+c00be588:	ba e1 00 2c 	lmw     r23,44(r1)  # file 0xbe588
+c00be58c:	38 21 00 50 	addi    r1,r1,80  # file 0xbe58c
+c00be590:	7c 08 03 a6 	mtlr    r0  # file 0xbe590
+c00be594:	4e 80 00 20 	blr  # file 0xbe594

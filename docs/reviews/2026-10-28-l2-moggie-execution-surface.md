@@ -24,6 +24,7 @@ Committed increments (all pushed before the final handoff update):
 | `aa01191` | Normal sequential phase gate and bounded NAND-writer evidence |
 | `d4d4791` | Published evidence/audit checkpoint |
 | `e0f7481` | Matching older OOB writer, kernel consumer and raw-image checks |
+| `56540e9` | Board NAND setup, table replacement and Linux section choice |
 
 Draft PR: [#63](https://github.com/hermes-gadget/Moggie/pull/63), based on main.
 The final handoff update follows these commits on the same branch. Nothing was
@@ -119,6 +120,15 @@ tie selects section 0. Its stores match the captured bootsection/bootgeneration
 sysctl table. This is Linux partition selection after kernel entry, not proof
 of U-Boot selection, wrap handling or successful userspace-health rollback.
 
+## Kernel data-readback and partition ioctl increment
+
+The payload write now traces through character MTD offset 0x114 to the NAND
+page programmer, status gate and device-buffer comparison before completion.
+The partition vendor ioctls are also bound: 0x20 snapshots partition reads into
+RAM, 0x21 frees that cache and 0x22 updates in-memory offset/size. The root
+partition snapshot request precedes root programming. These mechanisms do not
+authenticate payloads or make table/OOB/data writes atomic.
+
 ## Verification executed so far
 
 The report's generation and independent-check commands were executed with
@@ -135,11 +145,11 @@ certify complete RE semantics, current-device applicability or hardware behavior
 Draft PR: https://github.com/hermes-gadget/Moggie/pull/63 (OPEN, draft;
 no CI checks reported at the last inspection). No merge was performed.
 
-Final receipt: 20 UPD records, 14 extracted hashes, 6,047 source-matching
-disassembly rows; 62 document links and 66 cited offset starts checked; all 75
+Final receipt: 20 UPD records, 14 extracted hashes, 7,440 source-matching
+disassembly rows; 62 document links and 66 cited offset starts checked; all 87
 regenerated files identical. Older legacy signature validates the exact prefix
 and rejects alteration. Latest report SHA-256:
-`adfde11ac06a554c66e2f1fe10e773ea73612f547673569e3085902178d45793`.
+`dc5f4b3ac2948a17909aa7262bfb1756a07e9481162076689dae088ff51b3f6d`.
 
 ## Requirement audit
 
@@ -155,12 +165,13 @@ and rejects alteration. Latest report SHA-256:
 
 ## Ordered remaining queue
 
-1. Finish data-write verification, vendor partition-ioctl callbacks and remaining
-   partition-wrapper binding, now that board NAND setup, table replacement
-   order and Linux section comparison are recovered. Preserve the normal sequential gate;
+1. Trace watchdog/reset ownership and updater failure paths, now that data/OOB
+   readback and vendor partition RAM callbacks join the recovered board/table
+   sequence. Preserve the normal sequential gate;
    asynchronous/virtual variants and complete state writers remain unclosed.
-2. Trace watchdog/reset ownership and remaining kernel boot-selection logic from
-   existing captures. Keep unknown physical layout and U-Boot semantics explicit.
+2. Close remaining indirect/asynchronous verification and state-writer coverage
+   where the captured bytes support it. Keep unknown physical layout and U-Boot
+   semantics explicit.
 3. To close installed-build claims, obtain the path/provenance of an
    already-captured exact matching 57.10 `-1-16` image. Do not repeat device probes
    or substitute Fenway/34.16 evidence for absent target bytes.

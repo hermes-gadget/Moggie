@@ -251,14 +251,14 @@ registers that object with `add_mtd_device`, runs partition discovery, then
 calls `add_mtd_partitions` (`K@0x16c288–0x16c2ec`). The partition checker loads
 the same global object. This binds the generic OOB setup to this captured board
 path; it does not measure the speaker's current MTD aliases or close every
-partition wrapper, data-page verification and error/retry path.
+error/retry path.
 
 **Commit-order limit:** the partition writer issues the OOB-write ioctl at
 `U@0x8774` before the associated 512-byte payload write at `U@0x887c`.
 The end marker is selected before that ioctl. This source order is insufficient
 to claim an atomic payload-plus-marker commit or power-cut-safe installation.
-Data-page verification, complete error/retry behavior and bootloader validation
-remain open. No flash operation was executed.
+Complete error/retry behavior and bootloader validation remain open. No flash
+operation was executed.
 
 **Partition-table replacement precedes partition programming in the changing-table
 branch.** The expanded [commit sequence](evidence/execution-20261028/upgrade-commit-sequence.dis.txt)
@@ -283,6 +283,46 @@ magic. Existing bad blocks are skipped. The equal-table branch skips that
 table-replacement/invalidation sequence. These ordered calls establish a
 non-atomic source sequence, not a complete power-cut outcome model; exact
 on-device tables and bootloader consumers remain unknown.
+
+**The vendor ioctls above manipulate partition RAM state.** The
+[partition callback setup](evidence/execution-20261028/kernel-partition-callbacks.dis.txt)
+installs callbacks at offsets `0x158/0x15c/0x160`
+(`K@0xb6898–0xb68b8`), reached by the saved
+[ioctl dispatch](evidence/execution-20261028/kernel-vendor-ioctls.dis.txt):
+
+| Ioctl | Captured callback effect |
+|---|---|
+| `0x20004d20` | [Allocate buffers and read the partition into RAM](evidence/execution-20261028/kernel-partition-snapshot.dis.txt), publishing the cache pointer only after successful complete reads (`K@0xb58d8–0xb5a08`) |
+| `0x20004d21` | [Free cached blocks and clear the cache pointer](evidence/execution-20261028/kernel-partition-free-adjust.dis.txt) (`K@0xb5608–0xb5680`) |
+| `0x80084d22` | Store the supplied size and offset in the partition object (`K@0xb5694–0xb56a4`); this callback contains no flash operation |
+
+[Partition reads](evidence/execution-20261028/kernel-partition-read-cache.dis.txt)
+copy from that RAM cache when present (`K@0xb573c–0xb5844`); otherwise they
+forward to the parent MTD read callback. The updater's
+[adjust helper](evidence/execution-20261028/upgrade-partition-adjust.dis.txt)
+submits the offset/size ioctl at `U@0x97d8–0x97f0`, and its commit path requests
+the root partition snapshot at `U@0x9f58–0x9f70` before writing it. These are
+in-memory snapshot/remapping mechanisms, not an extra on-flash commit marker.
+
+**Data verification occurs in the matching kernel.** The captured
+[character-device write](evidence/execution-20261028/kernel-char-write.dis.txt)
+calls MTD offset `0x114` (`K@0xb71c0–0xb71e4`). The NAND setup points that
+field to the [write wrapper](evidence/execution-20261028/kernel-nand-write-wrapper.dis.txt),
+which calls the [data writer](evidence/execution-20261028/kernel-nand-data-write.dis.txt).
+That writer programs pages through the
+[page primitive](evidence/execution-20261028/kernel-nand-page-program.dis.txt)
+and invokes the [readback verifier](evidence/execution-20261028/kernel-nand-data-verify.dis.txt)
+before reporting completion (`K@0xbcba4,0xbcc08–0xbcc10,0xbccdc–0xbcce4`).
+The primitive issues program command `0x10` and checks status
+(`K@0xbbaa0–0xbbaec`); the verifier issues read command 0 and compares expected
+data through chip callback `0x20` (`K@0xbbb54–0xbbbac`).
+[NAND defaults](evidence/execution-20261028/kernel-nand-defaults.dis.txt)
+bind that callback to an 8-bit or 16-bit
+[device-buffer comparison](evidence/execution-20261028/kernel-nand-verify-buffer.dis.txt)
+(`K@0xbdd08–0xbdd2c,0xbaa18–0xbaa9c,0xbab14–0xbab60`).
+This establishes a captured kernel readback path behind the userspace write.
+It neither authenticates the payload nor makes separate OOB/table/data writes
+atomic, and it does not prove current-device execution of this code.
 
 ## Older kernel boot-section choice
 
@@ -399,11 +439,12 @@ risk, not measured success probabilities.
 | Exclude as stock proof | Moggie chooser/updater | Custom source with persistent metadata and image writes | Already requires replacement-firmware execution |
 
 **Single safest next supervised experiment:** host-only completion of the
-older updater's remaining data-write verification and vendor partition-ioctl
-callbacks, using the preserved writer and original captured bytes.
-Expected result: a source-bound sequence of validity/generation transitions,
-or a precise missing-kernel-code boundary. Table replacement order, board NAND
-setup and Linux-side section comparison are now evidenced. The legacy prefix signature and
+older image's watchdog/reset ownership and updater failure paths, using
+the original captured bytes and preserved init/service evidence.
+Expected result: concrete supervising callers and their write/reset effects,
+or a precise missing-component boundary. Table replacement order, board NAND
+setup, data/OOB readback, partition RAM ioctls and Linux-side section comparison
+are now evidenced. The legacy prefix signature and
 normal sequential phase gate are now evidenced; asynchronous paths remain open. The later-envelope framing experiment above is
 complete within its stated bounds; decoding remains open. Do not execute any
 package program, script or device operation to close a gap. No live experiment

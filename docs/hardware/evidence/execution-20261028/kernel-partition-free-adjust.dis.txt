@@ -1,0 +1,56 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -D -b binary -m powerpc:common -EB --adjust-vma=0xc0000000 --start-address=0xc00b5608 --stop-address=0xc00b56c4 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed:     file format binary
+
+
+Disassembly of section .data:
+
+c00b5608 <.data+0xb5608>:
+c00b5608:	7c 08 02 a6 	mflr    r0  # file 0xb5608
+c00b560c:	94 21 ff f0 	stwu    r1,-16(r1)  # file 0xb560c
+c00b5610:	bf c1 00 08 	stmw    r30,8(r1)  # file 0xb5610
+c00b5614:	90 01 00 14 	stw     r0,20(r1)  # file 0xb5614
+c00b5618:	7c 7f 1b 78 	mr      r31,r3  # file 0xb5618
+c00b561c:	80 03 01 98 	lwz     r0,408(r3)  # file 0xb561c
+c00b5620:	2f 80 00 00 	cmpwi   cr7,r0,0  # file 0xb5620
+c00b5624:	41 9e 00 4c 	beq     cr7,0xc00b5670  # file 0xb5624
+c00b5628:	80 03 00 08 	lwz     r0,8(r3)  # file 0xb5628
+c00b562c:	3b c0 00 00 	li      r30,0  # file 0xb562c
+c00b5630:	81 23 00 0c 	lwz     r9,12(r3)  # file 0xb5630
+c00b5634:	7c 00 4b 96 	divwu   r0,r0,r9  # file 0xb5634
+c00b5638:	7f 9e 00 40 	cmplw   cr7,r30,r0  # file 0xb5638
+c00b563c:	40 9c 00 24 	bge     cr7,0xc00b5660  # file 0xb563c
+c00b5640:	81 7f 01 98 	lwz     r11,408(r31)  # file 0xb5640
+c00b5644:	57 c9 10 3a 	slwi    r9,r30,2  # file 0xb5644
+c00b5648:	3b de 00 01 	addi    r30,r30,1  # file 0xb5648
+c00b564c:	7c 69 58 2e 	lwzx    r3,r9,r11  # file 0xb564c
+c00b5650:	4b f7 72 1d 	bl      0xc002c86c  # file 0xb5650
+c00b5654:	80 1f 00 08 	lwz     r0,8(r31)  # file 0xb5654
+c00b5658:	81 3f 00 0c 	lwz     r9,12(r31)  # file 0xb5658
+c00b565c:	4b ff ff d8 	b       0xc00b5634  # file 0xb565c
+c00b5660:	80 7f 01 98 	lwz     r3,408(r31)  # file 0xb5660
+c00b5664:	4b f7 72 09 	bl      0xc002c86c  # file 0xb5664
+c00b5668:	38 00 00 00 	li      r0,0  # file 0xb5668
+c00b566c:	90 1f 01 98 	stw     r0,408(r31)  # file 0xb566c
+c00b5670:	80 01 00 14 	lwz     r0,20(r1)  # file 0xb5670
+c00b5674:	bb c1 00 08 	lmw     r30,8(r1)  # file 0xb5674
+c00b5678:	38 21 00 10 	addi    r1,r1,16  # file 0xb5678
+c00b567c:	7c 08 03 a6 	mtlr    r0  # file 0xb567c
+c00b5680:	4e 80 00 20 	blr  # file 0xb5680
+c00b5684:	7c 08 02 a6 	mflr    r0  # file 0xb5684
+c00b5688:	94 21 ff f0 	stwu    r1,-16(r1)  # file 0xb5688
+c00b568c:	7c 69 1b 78 	mr      r9,r3  # file 0xb568c
+c00b5690:	90 01 00 14 	stw     r0,20(r1)  # file 0xb5690
+c00b5694:	80 a4 00 04 	lwz     r5,4(r4)  # file 0xb5694
+c00b5698:	90 a3 00 08 	stw     r5,8(r3)  # file 0xb5698
+c00b569c:	80 c4 00 00 	lwz     r6,0(r4)  # file 0xb569c
+c00b56a0:	7d 24 4b 78 	mr      r4,r9  # file 0xb56a0
+c00b56a4:	90 c3 01 84 	stw     r6,388(r3)  # file 0xb56a4
+c00b56a8:	3c 60 c0 14 	lis     r3,-16364  # file 0xb56a8
+c00b56ac:	38 63 bd 54 	addi    r3,r3,-17068  # file 0xb56ac
+c00b56b0:	4b f5 e0 69 	bl      0xc0013718  # file 0xb56b0
+c00b56b4:	80 01 00 14 	lwz     r0,20(r1)  # file 0xb56b4
+c00b56b8:	38 21 00 10 	addi    r1,r1,16  # file 0xb56b8
+c00b56bc:	7c 08 03 a6 	mtlr    r0  # file 0xb56bc
+c00b56c0:	4e 80 00 20 	blr  # file 0xb56c0

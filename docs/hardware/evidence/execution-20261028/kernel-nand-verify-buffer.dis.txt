@@ -1,0 +1,92 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -D -b binary -m powerpc:common -EB --adjust-vma=0xc0000000 --start-address=0xc00baa18 --stop-address=0xc00bab64 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed:     file format binary
+
+
+Disassembly of section .data:
+
+c00baa18 <.data+0xbaa18>:
+c00baa18:	94 21 ff e0 	stwu    r1,-32(r1)  # file 0xbaa18
+c00baa1c:	7c 08 02 a6 	mflr    r0  # file 0xbaa1c
+c00baa20:	bf 81 00 10 	stmw    r28,16(r1)  # file 0xbaa20
+c00baa24:	3b e0 00 00 	li      r31,0  # file 0xbaa24
+c00baa28:	90 01 00 24 	stw     r0,36(r1)  # file 0xbaa28
+c00baa2c:	7f 9f 28 00 	cmpw    cr7,r31,r5  # file 0xbaa2c
+c00baa30:	83 a3 01 74 	lwz     r29,372(r3)  # file 0xbaa30
+c00baa34:	7c be 2b 78 	mr      r30,r5  # file 0xbaa34
+c00baa38:	7c 9c 23 78 	mr      r28,r4  # file 0xbaa38
+c00baa3c:	40 bc 00 4c 	bge     cr7,0xc00baa88  # file 0xbaa3c
+c00baa40:	3d 20 c0 16 	lis     r9,-16362  # file 0xbaa40
+c00baa44:	80 09 a0 d0 	lwz     r0,-24368(r9)  # file 0xbaa44
+c00baa48:	38 60 13 88 	li      r3,5000  # file 0xbaa48
+c00baa4c:	1c 00 00 05 	mulli   r0,r0,5  # file 0xbaa4c
+c00baa50:	7c 63 00 16 	mulhwu  r3,r3,r0  # file 0xbaa50
+c00baa54:	4b f4 c3 6d 	bl      0xc0006dc0  # file 0xbaa54
+c00baa58:	7d 7c f8 ae 	lbzx    r11,r28,r31  # file 0xbaa58
+c00baa5c:	81 3d 00 00 	lwz     r9,0(r29)  # file 0xbaa5c
+c00baa60:	88 09 00 00 	lbz     r0,0(r9)  # file 0xbaa60
+c00baa64:	0c 00 00 00 	twi     0,r0,0  # file 0xbaa64
+c00baa68:	4c 00 01 2c 	isync  # file 0xbaa68
+c00baa6c:	7f 8b 00 00 	cmpw    cr7,r11,r0  # file 0xbaa6c
+c00baa70:	3b ff 00 01 	addi    r31,r31,1  # file 0xbaa70
+c00baa74:	7f 1f f0 00 	cmpw    cr6,r31,r30  # file 0xbaa74
+c00baa78:	41 be 00 0c 	beq     cr7,0xc00baa84  # file 0xbaa78
+c00baa7c:	38 60 ff f2 	li      r3,-14  # file 0xbaa7c
+c00baa80:	48 00 00 0c 	b       0xc00baa8c  # file 0xbaa80
+c00baa84:	41 98 ff bc 	blt     cr6,0xc00baa40  # file 0xbaa84
+c00baa88:	38 60 00 00 	li      r3,0  # file 0xbaa88
+c00baa8c:	80 01 00 24 	lwz     r0,36(r1)  # file 0xbaa8c
+c00baa90:	bb 81 00 10 	lmw     r28,16(r1)  # file 0xbaa90
+c00baa94:	38 21 00 20 	addi    r1,r1,32  # file 0xbaa94
+c00baa98:	7c 08 03 a6 	mtlr    r0  # file 0xbaa98
+c00baa9c:	4e 80 00 20 	blr  # file 0xbaa9c
+c00baaa0:	7c a5 0e 70 	srawi   r5,r5,1  # file 0xbaaa0
+c00baaa4:	81 43 01 74 	lwz     r10,372(r3)  # file 0xbaaa4
+c00baaa8:	39 60 00 00 	li      r11,0  # file 0xbaaa8
+c00baaac:	7f 8b 28 00 	cmpw    cr7,r11,r5  # file 0xbaaac
+c00baab0:	4c 9c 00 20 	bgelr   cr7  # file 0xbaab0
+c00baab4:	7c a9 03 a6 	mtctr   r5  # file 0xbaab4
+c00baab8:	55 60 08 3c 	slwi    r0,r11,1  # file 0xbaab8
+c00baabc:	81 2a 00 04 	lwz     r9,4(r10)  # file 0xbaabc
+c00baac0:	7c 04 02 2e 	lhzx    r0,r4,r0  # file 0xbaac0
+c00baac4:	7c 00 4f 2c 	sthbrx  r0,0,r9  # file 0xbaac4
+c00baac8:	7c 00 06 ac 	eieio  # file 0xbaac8
+c00baacc:	39 6b 00 01 	addi    r11,r11,1  # file 0xbaacc
+c00baad0:	42 00 ff e8 	bdnz    0xc00baab8  # file 0xbaad0
+c00baad4:	4e 80 00 20 	blr  # file 0xbaad4
+c00baad8:	7c a5 0e 70 	srawi   r5,r5,1  # file 0xbaad8
+c00baadc:	81 43 01 74 	lwz     r10,372(r3)  # file 0xbaadc
+c00baae0:	39 60 00 00 	li      r11,0  # file 0xbaae0
+c00baae4:	7f 8b 28 00 	cmpw    cr7,r11,r5  # file 0xbaae4
+c00baae8:	4c 9c 00 20 	bgelr   cr7  # file 0xbaae8
+c00baaec:	7c a9 03 a6 	mtctr   r5  # file 0xbaaec
+c00baaf0:	55 60 08 3c 	slwi    r0,r11,1  # file 0xbaaf0
+c00baaf4:	81 2a 00 00 	lwz     r9,0(r10)  # file 0xbaaf4
+c00baaf8:	7d 20 4e 2c 	lhbrx   r9,0,r9  # file 0xbaaf8
+c00baafc:	0c 09 00 00 	twi     0,r9,0  # file 0xbaafc
+c00bab00:	4c 00 01 2c 	isync  # file 0xbab00
+c00bab04:	7d 24 03 2e 	sthx    r9,r4,r0  # file 0xbab04
+c00bab08:	39 6b 00 01 	addi    r11,r11,1  # file 0xbab08
+c00bab0c:	42 00 ff e4 	bdnz    0xc00baaf0  # file 0xbab0c
+c00bab10:	4e 80 00 20 	blr  # file 0xbab10
+c00bab14:	7c a5 0e 70 	srawi   r5,r5,1  # file 0xbab14
+c00bab18:	81 23 01 74 	lwz     r9,372(r3)  # file 0xbab18
+c00bab1c:	39 40 00 00 	li      r10,0  # file 0xbab1c
+c00bab20:	7f 8a 28 00 	cmpw    cr7,r10,r5  # file 0xbab20
+c00bab24:	40 9c 00 38 	bge     cr7,0xc00bab5c  # file 0xbab24
+c00bab28:	81 69 00 00 	lwz     r11,0(r9)  # file 0xbab28
+c00bab2c:	55 40 08 3c 	slwi    r0,r10,1  # file 0xbab2c
+c00bab30:	7d 24 02 2e 	lhzx    r9,r4,r0  # file 0xbab30
+c00bab34:	7c 00 5e 2c 	lhbrx   r0,0,r11  # file 0xbab34
+c00bab38:	0c 00 00 00 	twi     0,r0,0  # file 0xbab38
+c00bab3c:	4c 00 01 2c 	isync  # file 0xbab3c
+c00bab40:	7f 89 00 00 	cmpw    cr7,r9,r0  # file 0xbab40
+c00bab44:	39 4a 00 01 	addi    r10,r10,1  # file 0xbab44
+c00bab48:	7f 0a 28 00 	cmpw    cr6,r10,r5  # file 0xbab48
+c00bab4c:	41 be 00 0c 	beq     cr7,0xc00bab58  # file 0xbab4c
+c00bab50:	38 60 ff f2 	li      r3,-14  # file 0xbab50
+c00bab54:	4e 80 00 20 	blr  # file 0xbab54
+c00bab58:	41 98 ff d4 	blt     cr6,0xc00bab2c  # file 0xbab58
+c00bab5c:	38 60 00 00 	li      r3,0  # file 0xbab5c
+c00bab60:	4e 80 00 20 	blr  # file 0xbab60
