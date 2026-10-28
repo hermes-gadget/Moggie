@@ -149,8 +149,16 @@ Nearest-symbol labels in stripped code are not recovered function names.
    [direct-call inventory](evidence/execution-20261028/direct-callers.json) finds
    parser calls at `U@0x3094,0x7ca8` and installer calls at
    `U@0x3134,0x7ccc`. The [network phase functions](evidence/execution-20261028/upgrade-network-phases.dis.txt)
-   keep parsing and installation separate. Their virtual/state-machine
-   orchestration is not yet fully traced. These are all matching direct BL
+   keep parsing and installation separate. The
+   [phase-state gate](evidence/execution-20261028/upgrade-phase-state.dis.txt)
+   `U@0x2f68–0x2f90` permits action 3 only with state 4 and result zero;
+   [network gating](evidence/execution-20261028/upgrade-network-phase-gates.dis.txt)
+   `U@0x4288–0x42b4` checks that result before action 3 dispatch. The
+   [dispatcher](evidence/execution-20261028/upgrade-phase-dispatch.dis.txt)
+   `U@0x3298–0x329c` then selects the install phase. Completion handling at
+   `U@0x2ff0–0x3008` stores action-2 result and advances state 3 to state 4.
+   This narrows the normal sequential protocol gate; asynchronous/private-key
+   variants, virtual dispatch, cancellation and every state writer remain open. These are all matching direct BL
    encodings in executable sections, not an exhaustive indirect-call inventory
    or proof of every coordinator/network path and time-of-check behavior.
 7. **Slot/generation and writes.** [Installer](evidence/execution-20261028/upgrade-install.dis.txt)
@@ -160,8 +168,15 @@ Nearest-symbol labels in stripped code are not recovered function names.
    `U@0x59d0`; [destination builder](evidence/execution-20261028/upgrade-slot-destination.dis.txt)
    `U@0x99f8` computes `1 - section`. This older rootfs lacks the requested
    `lib/libflash.so.1` path (extraction.json); the later Fenway library's offsets
-   cannot describe this inline implementation. Complete OOB commit ordering,
-   readback coverage, physical layout and power-loss behavior remain open.
+   cannot describe this inline implementation. The
+   [inline NAND writer](evidence/execution-20261028/upgrade-nand-writer.dis.txt)
+   `U@0x8f94–0x8fa4` opens its supplied device O_RDWR, queries geometry through
+   ioctl, and `U@0x9218–0x9220` checks the write return count. Its full preserved
+   function range `U@0x8f10–0x952f` has no direct `read`/`memcmp` call, so the
+   later-family userspace readback guarantee cannot be transferred to it.
+   OOB-reading ioctls and possible kernel verification are separate; this is
+   not proof that no verification exists. Complete OOB commit ordering,
+   physical layout and power-loss behavior remain open.
 
 The [package installation script](evidence/execution-20261028/package-install-script.txt)
 is data only and was never run. Original lines 6–37 can remount JFFS, restore
@@ -266,10 +281,11 @@ risk, not measured success probabilities.
 | Exclude as stock proof | Moggie chooser/updater | Custom source with persistent metadata and image writes | Already requires replacement-firmware execution |
 
 **Single safest next supervised experiment:** host-only completion of the
-older updater's authenticated-byte-range and caller inventory, using the
-preserved dispatch/hash/read helpers and original captured bytes. Expected
-result: an explicit record/range and verify-before-install map, or a precisely
-bounded indirect-call gap. The later-envelope framing experiment above is
+older updater's inline OOB/partition-table commit ordering and its kernel
+ioctl consumers, using the preserved writer and original captured bytes.
+Expected result: a source-bound sequence of validity/generation transitions,
+or a precise missing-kernel-code boundary. The legacy prefix signature and
+normal sequential phase gate are now evidenced; asynchronous paths remain open. The later-envelope framing experiment above is
 complete within its stated bounds; decoding remains open. Do not execute any
 package program, script or device operation to close a gap. No live experiment
 is justified as zero-write by this report.

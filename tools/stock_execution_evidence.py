@@ -415,7 +415,10 @@ def main():
     images['upgrade'] = elf_evidence(cache / 'rootfs/bin/upgrade', args.objdump, (
         ('key-setup', 0x10004890, 0x10004b30),
         ('constructor', 0x10002dbc, 0x10002e14),
+        ('phase-state', 0x10002eb8, 0x10003038),
         ('network-phases', 0x10003038, 0x100031e4),
+        ('phase-dispatch', 0x100031e4, 0x100032b0),
+        ('network-phase-gates', 0x10004248, 0x100042c0),
         ('install', 0x100057b0, 0x10005dec),
         ('hash-stream', 0x100055d0, 0x10005668),
         ('payload-reader', 0x10006028, 0x100061d4),
@@ -427,6 +430,7 @@ def main():
         ('record-dispatch', 0x1000778c, 0x10007c80),
         ('validate-install', 0x10007c68, 0x10007d38),
         ('slot-destination', 0x10009878, 0x10009a28),
+        ('nand-writer', 0x10008f10, 0x10009530),
     ), out, 'upgrade')
     images['crypto'] = elf_evidence(cache / 'rootfs/lib/libsonoscrypto.so.1', args.objdump, (
         ('hash', 0x5368, 0x55e0), ('rsa', 0x6a0c, 0x6b5c),

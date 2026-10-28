@@ -69,6 +69,15 @@ two parser and two install call sites; the network phase functions are preserved
 but virtual/state-machine orchestration remains unproved. This validates one
 package/range and does not establish later signatures or device acceptance.
 
+## Completed phase/write-boundary increment
+
+The normal network action-3 path now has a traced state-4/result-zero gate
+before install dispatch. Completion stores the action-2 result. Asynchronous
+variants and complete state-writer coverage remain open. The complete older
+inline NAND writer has no direct read/memcmp call; geometry/OOB ioctls and any
+kernel verification still need their own trace. A later-family userspace
+readback guarantee must not be copied to this function (report updater section).
+
 ## Verification executed so far
 
 The report's generation and independent-check commands were executed with
@@ -99,9 +108,9 @@ no CI checks reported at the last inspection). No merge was performed.
 
 ## Ordered remaining queue
 
-1. Finish older updater virtual/network phase orchestration, remaining
-   authenticated-range cases, and inline flash/OOB commit ordering. The pinned
-   legacy prefix is verified; other paths must retain their own evidence limits.
+1. Trace inline flash/OOB/partition-table commit ordering through the matching
+   kernel ioctl consumers. Preserve the newly traced normal sequential gate;
+   asynchronous/virtual variants and complete state writers remain unclosed.
 2. Trace watchdog/reset ownership and remaining kernel boot-selection logic from
    existing captures. Keep unknown physical layout and U-Boot semantics explicit.
 3. To close installed-build claims, obtain the path/provenance of an
