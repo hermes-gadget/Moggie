@@ -1,0 +1,14 @@
+$ python3 docs/build/evidence/rootfs-fidelity/verify.py
+PASS: 24 input hashes, 3 manifests, 2 exhaustive diffs, kernel version gate, ELF closure and 77 citation targets; no builds
+[exit 0]
+
+$ git merge-base HEAD 3ff0a53814e6f7ba33cf4c8e8b56a9202d3af5db
+3ff0a53814e6f7ba33cf4c8e8b56a9202d3af5db
+[exit 0]
+
+$ git diff --check 3ff0a53814e6f7ba33cf4c8e8b56a9202d3af5db HEAD
+[exit 0]
+
+$ git branch --show-current
+burn/moggie-buildroot-20261028
+[exit 0]
