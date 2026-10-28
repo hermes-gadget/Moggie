@@ -1,0 +1,381 @@
+[
+  {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/16.6-00002-diag/opt/bin/anacapad",
+    "size": 4006500,
+    "sha256": "52b5c06a75c28af89bac0c9f7172cabb6ef648d9b7f2caf91a8b95f92d845b76",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 268435456,
+        "p_filesz": 3867108,
+        "p_memsz": 3867108,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 3867108,
+        "p_vaddr": 272368100,
+        "p_filesz": 122900,
+        "p_memsz": 279484,
+        "p_flags": 7
+      }
+    ],
+    "run_sshd_exists": false,
+    "strings": [
+      {
+        "value": "/unlock",
+        "file": "0x2fe610",
+        "va": "0x102fe610",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x3b110c",
+            "va": "0x103c110c",
+            "following_words": [
+              "0x1019fe18",
+              "0x0"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/18.0-50150/opt/bin/anacapad",
+    "size": 4003860,
+    "sha256": "69966f9140fdaca0158ef4ae4be321c53ad9364433233ea8da6e2de67db66938",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 268435456,
+        "p_filesz": 3864428,
+        "p_memsz": 3864428,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 3864428,
+        "p_vaddr": 272365420,
+        "p_filesz": 122924,
+        "p_memsz": 279476,
+        "p_flags": 7
+      }
+    ],
+    "run_sshd_exists": false,
+    "strings": [
+      {
+        "value": "/unlock",
+        "file": "0x2fdde8",
+        "va": "0x102fdde8",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x3b0694",
+            "va": "0x103c0694",
+            "following_words": [
+              "0x101a03fc",
+              "0x0"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/28.1-83040/opt/bin/anacapad",
+    "size": 3649528,
+    "sha256": "fbcdbc10843d9d3c77349ab49a3c43b77104aca413458c84c67c3104ee37a6d6",
+    "elf_class": 32,
+    "little_endian": true,
+    "machine": "EM_SH",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 4194304,
+        "p_filesz": 3453916,
+        "p_memsz": 3453916,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 3453916,
+        "p_vaddr": 7713756,
+        "p_filesz": 179376,
+        "p_memsz": 299324,
+        "p_flags": 6
+      }
+    ],
+    "run_sshd_exists": false,
+    "strings": [
+      {
+        "value": "/unlock",
+        "file": "0x2a65e4",
+        "va": "0x6a65e4",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x21e84c",
+            "va": "0x61e84c",
+            "following_words": [
+              "0x619fe0",
+              "0x6f1e78"
+            ]
+          },
+          {
+            "file": "0x34b80c",
+            "va": "0x75b80c",
+            "following_words": [
+              "0x5ab1c0",
+              "0x0"
+            ]
+          }
+        ]
+      },
+      {
+        "value": "/unlock.htm",
+        "file": "0x2a65ec",
+        "va": "0x6a65ec",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x34b820",
+            "va": "0x75b820",
+            "following_words": [
+              "0x5ab1c0",
+              "0x0"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/34.16-37101/opt/bin/anacapad",
+    "size": 4503524,
+    "sha256": "a3e3518cbd7ab5dd1cfa358491a04dca3f0e99a4c95a098000734fb3313d76a4",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 268435456,
+        "p_filesz": 4480524,
+        "p_memsz": 4480524,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 4481024,
+        "p_vaddr": 272982016,
+        "p_filesz": 20140,
+        "p_memsz": 254820,
+        "p_flags": 7
+      }
+    ],
+    "run_sshd_exists": false,
+    "strings": [
+      {
+        "value": "/unlock",
+        "file": "0x36f00c",
+        "va": "0x1036f00c",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x447b38",
+            "va": "0x10457b38",
+            "following_words": [
+              "0x102866ac",
+              "0x1"
+            ]
+          }
+        ]
+      },
+      {
+        "value": "/unlock.htm",
+        "file": "0x36f014",
+        "va": "0x1036f014",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x447b50",
+            "va": "0x10457b50",
+            "following_words": [
+              "0x102866ac",
+              "0x1"
+            ]
+          }
+        ]
+      },
+      {
+        "value": "/devunlock",
+        "file": "0x36f020",
+        "va": "0x1036f020",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x447b68",
+            "va": "0x10457b68",
+            "following_words": [
+              "0x102866a4",
+              "0x1"
+            ]
+          }
+        ]
+      },
+      {
+        "value": "/mfgunlock",
+        "file": "0x36f02c",
+        "va": "0x1036f02c",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x447b80",
+            "va": "0x10457b80",
+            "following_words": [
+              "0x102866a4",
+              "0x1"
+            ]
+          }
+        ]
+      },
+      {
+        "value": "/devmode",
+        "file": "0x36f038",
+        "va": "0x1036f038",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x447b98",
+            "va": "0x10457b98",
+            "following_words": [
+              "0x10287618",
+              "0x0"
+            ]
+          }
+        ]
+      },
+      {
+        "value": "/testenv",
+        "file": "0x36f044",
+        "va": "0x1036f044",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x447bb0",
+            "va": "0x10457bb0",
+            "following_words": [
+              "0x101c5d54",
+              "0x0"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad",
+    "size": 5636472,
+    "sha256": "2a0e6adb831d995a2863f4307077e2c14c59afc52a43815865f0bc09f8580962",
+    "elf_class": 32,
+    "little_endian": false,
+    "machine": "EM_PPC",
+    "type": "ET_EXEC",
+    "load_segments": [
+      {
+        "p_offset": 0,
+        "p_vaddr": 268435456,
+        "p_filesz": 5616753,
+        "p_memsz": 5616753,
+        "p_flags": 5
+      },
+      {
+        "p_offset": 5616756,
+        "p_vaddr": 274117748,
+        "p_filesz": 17052,
+        "p_memsz": 1116592,
+        "p_flags": 7
+      }
+    ],
+    "run_sshd_exists": true,
+    "strings": [
+      {
+        "value": "/unlock",
+        "file": "0x45d364",
+        "va": "0x1045d364",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x55cf6c",
+            "va": "0x1056cf6c",
+            "following_words": [
+              "0x102a0bb0",
+              "0x10"
+            ]
+          }
+        ]
+      },
+      {
+        "value": "/unlock.htm",
+        "file": "0x45d36c",
+        "va": "0x1045d36c",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x55cf88",
+            "va": "0x1056cf88",
+            "following_words": [
+              "0x102a0bb0",
+              "0x10"
+            ]
+          }
+        ]
+      },
+      {
+        "value": "/devunlock",
+        "file": "0x4b9ffc",
+        "va": "0x104b9ffc",
+        "aligned_pointer_candidates": []
+      },
+      {
+        "value": "/mfgunlock",
+        "file": "0x45d378",
+        "va": "0x1045d378",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x55cfa4",
+            "va": "0x1056cfa4",
+            "following_words": [
+              "0x102a0ba8",
+              "0x10"
+            ]
+          }
+        ]
+      },
+      {
+        "value": "/devmode",
+        "file": "0x45d384",
+        "va": "0x1045d384",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x55cfc0",
+            "va": "0x1056cfc0",
+            "following_words": [
+              "0x1027bdf0",
+              "0x0"
+            ]
+          }
+        ]
+      },
+      {
+        "value": "/testenv",
+        "file": "0x45d390",
+        "va": "0x1045d390",
+        "aligned_pointer_candidates": [
+          {
+            "file": "0x55cfdc",
+            "va": "0x1056cfdc",
+            "following_words": [
+              "0x1027d4f4",
+              "0x0"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

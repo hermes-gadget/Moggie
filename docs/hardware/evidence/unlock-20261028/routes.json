@@ -1,0 +1,1365 @@
+{
+  "source": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad",
+  "stride": 28,
+  "module_root": {
+    "va": "0x1056f410",
+    "file": "0x55f410",
+    "words": [
+      "0x1056c9ac",
+      "0x0"
+    ]
+  },
+  "module": {
+    "va": "0x1056c9ac",
+    "file": "0x55c9ac",
+    "words": [
+      "0x1310730",
+      "0xa",
+      "0xffffffff",
+      "0x1045cef8",
+      "0x0",
+      "0x0",
+      "0x41503133",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x1056d548",
+      "0x1056cae4",
+      "0x1056ca20"
+    ]
+  },
+  "routes": [
+    {
+      "va": "0x1056cae4",
+      "file": "0x55cae4",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045cf24",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/AlarmClock/Control"
+    },
+    {
+      "va": "0x1056cb00",
+      "file": "0x55cb00",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045cf38",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/AudioIn/Control"
+    },
+    {
+      "va": "0x1056cb1c",
+      "file": "0x55cb1c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045cf4c",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/DeviceProperties/Control"
+    },
+    {
+      "va": "0x1056cb38",
+      "file": "0x55cb38",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045cf68",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/GroupManagement/Control"
+    },
+    {
+      "va": "0x1056cb54",
+      "file": "0x55cb54",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045cf84",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/HTControl/Control"
+    },
+    {
+      "va": "0x1056cb70",
+      "file": "0x55cb70",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045cf98",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MusicServices/Control"
+    },
+    {
+      "va": "0x1056cb8c",
+      "file": "0x55cb8c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045cfb0",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/SystemProperties/Control"
+    },
+    {
+      "va": "0x1056cba8",
+      "file": "0x55cba8",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045cfcc",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/ZoneGroupTopology/Control"
+    },
+    {
+      "va": "0x1056cbc4",
+      "file": "0x55cbc4",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045cfe8",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/QPlay/Control"
+    },
+    {
+      "va": "0x1056cbe0",
+      "file": "0x55cbe0",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045cff8",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaServer/ConnectionManager/Control"
+    },
+    {
+      "va": "0x1056cbfc",
+      "file": "0x55cbfc",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d020",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaServer/ContentDirectory/Control"
+    },
+    {
+      "va": "0x1056cc18",
+      "file": "0x55cc18",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d048",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/ConnectionManager/Control"
+    },
+    {
+      "va": "0x1056cc34",
+      "file": "0x55cc34",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d074",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/RenderingControl/Control"
+    },
+    {
+      "va": "0x1056cc50",
+      "file": "0x55cc50",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d09c",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/AVTransport/Control"
+    },
+    {
+      "va": "0x1056cc6c",
+      "file": "0x55cc6c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d0c0",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/GroupRenderingControl/Control"
+    },
+    {
+      "va": "0x1056cc88",
+      "file": "0x55cc88",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d0f0",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/Queue/Control"
+    },
+    {
+      "va": "0x1056cca4",
+      "file": "0x55cca4",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d110",
+        "0x1027b69c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/VirtualLineIn/Control"
+    },
+    {
+      "va": "0x1056ccc0",
+      "file": "0x55ccc0",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d138",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/AlarmClock/Event"
+    },
+    {
+      "va": "0x1056ccdc",
+      "file": "0x55ccdc",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d14c",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/AudioIn/Event"
+    },
+    {
+      "va": "0x1056ccf8",
+      "file": "0x55ccf8",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d15c",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/DeviceProperties/Event"
+    },
+    {
+      "va": "0x1056cd14",
+      "file": "0x55cd14",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d174",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/GroupManagement/Event"
+    },
+    {
+      "va": "0x1056cd30",
+      "file": "0x55cd30",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d18c",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/HTControl/Event"
+    },
+    {
+      "va": "0x1056cd4c",
+      "file": "0x55cd4c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d1a0",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MusicServices/Event"
+    },
+    {
+      "va": "0x1056cd68",
+      "file": "0x55cd68",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d1b8",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/SystemProperties/Event"
+    },
+    {
+      "va": "0x1056cd84",
+      "file": "0x55cd84",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d1d0",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/ZoneGroupTopology/Event"
+    },
+    {
+      "va": "0x1056cda0",
+      "file": "0x55cda0",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d1ec",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaServer/ConnectionManager/Event"
+    },
+    {
+      "va": "0x1056cdbc",
+      "file": "0x55cdbc",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d214",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaServer/ContentDirectory/Event"
+    },
+    {
+      "va": "0x1056cdd8",
+      "file": "0x55cdd8",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d238",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/ConnectionManager/Event"
+    },
+    {
+      "va": "0x1056cdf4",
+      "file": "0x55cdf4",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d260",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/RenderingControl/Event"
+    },
+    {
+      "va": "0x1056ce10",
+      "file": "0x55ce10",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d288",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/AVTransport/Event"
+    },
+    {
+      "va": "0x1056ce2c",
+      "file": "0x55ce2c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d2ac",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/GroupRenderingControl/Event"
+    },
+    {
+      "va": "0x1056ce48",
+      "file": "0x55ce48",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d2d8",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/Queue/Event"
+    },
+    {
+      "va": "0x1056ce64",
+      "file": "0x55ce64",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d2f4",
+        "0x1027b6ac",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/MediaRenderer/VirtualLineIn/Event"
+    },
+    {
+      "va": "0x1056ce80",
+      "file": "0x55ce80",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045be08",
+        "0x1027b6cc",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/notify"
+    },
+    {
+      "va": "0x1056ce9c",
+      "file": "0x55ce9c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d318",
+        "0x1027c748",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/xml/device_description.xml"
+    },
+    {
+      "va": "0x1056ceb8",
+      "file": "0x55ceb8",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045b434",
+        "0x1000b968",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/xml/group_description.xml"
+    },
+    {
+      "va": "0x1056ced4",
+      "file": "0x55ced4",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d334",
+        "0x10008d08",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/getaa"
+    },
+    {
+      "va": "0x1056cef0",
+      "file": "0x55cef0",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d33c",
+        "0x1027b6bc",
+        "0x1",
+        "0x0"
+      ],
+      "path": "/getrs"
+    },
+    {
+      "va": "0x1056cf0c",
+      "file": "0x55cf0c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d344",
+        "0x1027b6c4",
+        "0x63211",
+        "0x3"
+      ],
+      "path": "/getsetting"
+    },
+    {
+      "va": "0x1056cf28",
+      "file": "0x55cf28",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d350",
+        "0x10008b04",
+        "0x63011",
+        "0x0"
+      ],
+      "path": "/indexrepl"
+    },
+    {
+      "va": "0x1056cf44",
+      "file": "0x55cf44",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d35c",
+        "0x100089e8",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/msprox"
+    },
+    {
+      "va": "0x1056cf60",
+      "file": "0x55cf60",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d364",
+        "0x102a0bb0",
+        "0x10",
+        "0x0"
+      ],
+      "path": "/unlock"
+    },
+    {
+      "va": "0x1056cf7c",
+      "file": "0x55cf7c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d36c",
+        "0x102a0bb0",
+        "0x10",
+        "0x0"
+      ],
+      "path": "/unlock.htm"
+    },
+    {
+      "va": "0x1056cf98",
+      "file": "0x55cf98",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d378",
+        "0x102a0ba8",
+        "0x10",
+        "0x0"
+      ],
+      "path": "/mfgunlock"
+    },
+    {
+      "va": "0x1056cfb4",
+      "file": "0x55cfb4",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d384",
+        "0x1027bdf0",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/devmode"
+    },
+    {
+      "va": "0x1056cfd0",
+      "file": "0x55cfd0",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d390",
+        "0x1027d4f4",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/testenv"
+    },
+    {
+      "va": "0x1056cfec",
+      "file": "0x55cfec",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d39c",
+        "0x1013e538",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/customsd"
+    },
+    {
+      "va": "0x1056d008",
+      "file": "0x55d008",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d3a8",
+        "0x1013e538",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/customsd.htm"
+    },
+    {
+      "va": "0x1056d024",
+      "file": "0x55d024",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d3b8",
+        "0x1000b310",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/audio_dsp"
+    },
+    {
+      "va": "0x1056d040",
+      "file": "0x55d040",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d3c4",
+        "0x1005c03c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/tools"
+    },
+    {
+      "va": "0x1056d05c",
+      "file": "0x55d05c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d3cc",
+        "0x1005c03c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/tools.htm"
+    },
+    {
+      "va": "0x1056d078",
+      "file": "0x55d078",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d3d8",
+        "0x1005c024",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/ping"
+    },
+    {
+      "va": "0x1056d094",
+      "file": "0x55d094",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1046bd44",
+        "0x1005c030",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/traceroute"
+    },
+    {
+      "va": "0x1056d0b0",
+      "file": "0x55d0b0",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d3e0",
+        "0x100088a0",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/mdnsannounce"
+    },
+    {
+      "va": "0x1056d0cc",
+      "file": "0x55d0cc",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d3f0",
+        "0x1005c108",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/pcap"
+    },
+    {
+      "va": "0x1056d0e8",
+      "file": "0x55d0e8",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d3f8",
+        "0x10190f0c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/udplog"
+    },
+    {
+      "va": "0x1056d104",
+      "file": "0x55d104",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d400",
+        "0x10008608",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/save_eq_presets"
+    },
+    {
+      "va": "0x1056d120",
+      "file": "0x55d120",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d414",
+        "0x1000a41c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/getDSP"
+    },
+    {
+      "va": "0x1056d13c",
+      "file": "0x55d13c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d41c",
+        "0x1000cd84",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/putDSP"
+    },
+    {
+      "va": "0x1056d158",
+      "file": "0x55d158",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d424",
+        "0x1000b374",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/audio_tap"
+    },
+    {
+      "va": "0x1056d174",
+      "file": "0x55d174",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d430",
+        "0x1028afd8",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/region"
+    },
+    {
+      "va": "0x1056d190",
+      "file": "0x55d190",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d438",
+        "0x1028afd8",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/region.htm"
+    },
+    {
+      "va": "0x1056d1ac",
+      "file": "0x55d1ac",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d444",
+        "0x1027b848",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/advconfig"
+    },
+    {
+      "va": "0x1056d1c8",
+      "file": "0x55d1c8",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d450",
+        "0x1027b848",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/advconfig.htm"
+    },
+    {
+      "va": "0x1056d1e4",
+      "file": "0x55d1e4",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d460",
+        "0x100085a8",
+        "0x40",
+        "0x0"
+      ],
+      "path": "/testpoint"
+    },
+    {
+      "va": "0x1056d200",
+      "file": "0x55d200",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d46c",
+        "0x1027bde0",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/diaglevel"
+    },
+    {
+      "va": "0x1056d21c",
+      "file": "0x55d21c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d478",
+        "0x1027bdf4",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/diagmsg"
+    },
+    {
+      "va": "0x1056d238",
+      "file": "0x55d238",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d484",
+        "0x10356760",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/jobs"
+    },
+    {
+      "va": "0x1056d254",
+      "file": "0x55d254",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d48c",
+        "0x100084a0",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/set-cr-netstart-dest-mac"
+    },
+    {
+      "va": "0x1056d270",
+      "file": "0x55d270",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x104695f4",
+        "0x1027c180",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/reboot"
+    },
+    {
+      "va": "0x1056d28c",
+      "file": "0x55d28c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d4a8",
+        "0x1027c1fc",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/reset"
+    },
+    {
+      "va": "0x1056d2a8",
+      "file": "0x55d2a8",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d4b0",
+        "0x10008334",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/sonarctl"
+    },
+    {
+      "va": "0x1056d2c4",
+      "file": "0x55d2c4",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d4bc",
+        "0x10007a60",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/wifictrl"
+    },
+    {
+      "va": "0x1056d2e0",
+      "file": "0x55d2e0",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d4c8",
+        "0x10008280",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/rdmping"
+    },
+    {
+      "va": "0x1056d2fc",
+      "file": "0x55d2fc",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d4d4",
+        "0x1027db94",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/rdmhhsetup"
+    },
+    {
+      "va": "0x1056d318",
+      "file": "0x55d318",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d4e0",
+        "0x1027e1f0",
+        "0x10",
+        "0x0"
+      ],
+      "path": "/rdmconfig"
+    },
+    {
+      "va": "0x1056d334",
+      "file": "0x55d334",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d4ec",
+        "0x1000aa94",
+        "0x10",
+        "0x0"
+      ],
+      "path": "/rdmbuttonfwd"
+    },
+    {
+      "va": "0x1056d350",
+      "file": "0x55d350",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d4fc",
+        "0x1000ba18",
+        "0x10",
+        "0x0"
+      ],
+      "path": "/rdmsharedhtsat"
+    },
+    {
+      "va": "0x1056d36c",
+      "file": "0x55d36c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d50c",
+        "0x1027e6b0",
+        "0x10",
+        "0x0"
+      ],
+      "path": "/mtmhhsetup"
+    },
+    {
+      "va": "0x1056d388",
+      "file": "0x55d388",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d518",
+        "0x1027c364",
+        "0x11",
+        "0x0"
+      ],
+      "path": "/ssh/fingerprints"
+    },
+    {
+      "va": "0x1056d3a4",
+      "file": "0x55d3a4",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d52c",
+        "0x1000cb6c",
+        "0x40",
+        "0x0"
+      ],
+      "path": "/cloudqueuepoll"
+    },
+    {
+      "va": "0x1056d3c0",
+      "file": "0x55d3c0",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d53c",
+        "0x1000cb20",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/info"
+    },
+    {
+      "va": "0x1056d3dc",
+      "file": "0x55d3dc",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d544",
+        "0x1005a988",
+        "0x20",
+        "0x0"
+      ],
+      "path": "/websocket/api"
+    },
+    {
+      "va": "0x1056d3f8",
+      "file": "0x55d3f8",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d554",
+        "0x10082e44",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/spotifyzc"
+    },
+    {
+      "va": "0x1056d414",
+      "file": "0x55d414",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d560",
+        "0x1000816c",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/spotdbg"
+    },
+    {
+      "va": "0x1056d430",
+      "file": "0x55d430",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d56c",
+        "0x10008000",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/spotresetnts"
+    },
+    {
+      "va": "0x1056d44c",
+      "file": "0x55d44c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d57c",
+        "0x100097dc",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/sethostip"
+    },
+    {
+      "va": "0x1056d468",
+      "file": "0x55d468",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d588",
+        "0x10007ff0",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/nslookup"
+    },
+    {
+      "va": "0x1056d484",
+      "file": "0x55d484",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d594",
+        "0x100098f0",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/forcegtkrekey"
+    },
+    {
+      "va": "0x1056d4a0",
+      "file": "0x55d4a0",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d5a4",
+        "0x10007d08",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/setstring"
+    },
+    {
+      "va": "0x1056d4bc",
+      "file": "0x55d4bc",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d5b0",
+        "0x10007a90",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/removestring"
+    },
+    {
+      "va": "0x1056d4d8",
+      "file": "0x55d4d8",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d5c0",
+        "0x1027c9b4",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/support/directsubmit"
+    },
+    {
+      "va": "0x1056d4f4",
+      "file": "0x55d4f4",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d5d8",
+        "0x1027d6d0",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/support/review"
+    },
+    {
+      "va": "0x1056d510",
+      "file": "0x55d510",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x1045d5e8",
+        "0x1027cc40",
+        "0x0",
+        "0x0"
+      ],
+      "path": "/support/aggregate"
+    },
+    {
+      "va": "0x1056d52c",
+      "file": "0x55d52c",
+      "words": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x0"
+      ],
+      "path": null
+    }
+  ]
+}

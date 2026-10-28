@@ -1,0 +1,61 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x1042b488 --stop-address=0x1042b558 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+1042b488 <modff@@Base+0x1b6d4>:
+1042b488 [file 0x0042b488]:	94 21 ff e0 	stwu    r1,-32(r1)
+1042b48c [file 0x0042b48c]:	7c 08 02 a6 	mflr    r0
+1042b490 [file 0x0042b490]:	93 c1 00 18 	stw     r30,24(r1)
+1042b494 [file 0x0042b494]:	37 c3 00 3c 	addic.  r30,r3,60
+1042b498 [file 0x0042b498]:	93 e1 00 1c 	stw     r31,28(r1)
+1042b49c [file 0x0042b49c]:	7c 7f 1b 78 	mr      r31,r3
+1042b4a0 [file 0x0042b4a0]:	90 01 00 24 	stw     r0,36(r1)
+1042b4a4 [file 0x0042b4a4]:	93 a1 00 14 	stw     r29,20(r1)
+1042b4a8 [file 0x0042b4a8]:	41 82 00 2c 	beq     1042b4d4 <modff@@Base+0x1b720>
+1042b4ac [file 0x0042b4ac]:	39 20 00 00 	li      r9,0
+1042b4b0 [file 0x0042b4b0]:	91 23 00 3c 	stw     r9,60(r3)
+1042b4b4 [file 0x0042b4b4]:	91 23 00 40 	stw     r9,64(r3)
+1042b4b8 [file 0x0042b4b8]:	91 23 00 44 	stw     r9,68(r3)
+1042b4bc [file 0x0042b4bc]:	99 23 00 48 	stb     r9,72(r3)
+1042b4c0 [file 0x0042b4c0]:	99 23 00 49 	stb     r9,73(r3)
+1042b4c4 [file 0x0042b4c4]:	99 23 00 4a 	stb     r9,74(r3)
+1042b4c8 [file 0x0042b4c8]:	99 23 00 63 	stb     r9,99(r3)
+1042b4cc [file 0x0042b4cc]:	99 23 00 84 	stb     r9,132(r3)
+1042b4d0 [file 0x0042b4d0]:	91 23 00 98 	stw     r9,152(r3)
+1042b4d4 [file 0x0042b4d4]:	80 7f 00 24 	lwz     r3,36(r31)
+1042b4d8 [file 0x0042b4d8]:	4b ff fa 19 	bl      1042aef0 <modff@@Base+0x1b13c>
+1042b4dc [file 0x0042b4dc]:	2f 83 00 00 	cmpwi   cr7,r3,0
+1042b4e0 [file 0x0042b4e0]:	90 7f 00 44 	stw     r3,68(r31)
+1042b4e4 [file 0x0042b4e4]:	41 9e 00 68 	beq     cr7,1042b54c <modff@@Base+0x1b798>
+1042b4e8 [file 0x0042b4e8]:	38 60 00 c0 	li      r3,192
+1042b4ec [file 0x0042b4ec]:	48 14 48 7d 	bl      1056fd68 <malloc@plt>
+1042b4f0 [file 0x0042b4f0]:	2f 83 00 00 	cmpwi   cr7,r3,0
+1042b4f4 [file 0x0042b4f4]:	90 7f 00 40 	stw     r3,64(r31)
+1042b4f8 [file 0x0042b4f8]:	41 9e 00 54 	beq     cr7,1042b54c <modff@@Base+0x1b798>
+1042b4fc [file 0x0042b4fc]:	48 14 46 4d 	bl      1056fb48 <mbedtls_ssl_init@plt>
+1042b500 [file 0x0042b500]:	81 3f 00 44 	lwz     r9,68(r31)
+1042b504 [file 0x0042b504]:	80 89 00 04 	lwz     r4,4(r9)
+1042b508 [file 0x0042b508]:	2f 84 00 00 	cmpwi   cr7,r4,0
+1042b50c [file 0x0042b50c]:	41 9e 00 40 	beq     cr7,1042b54c <modff@@Base+0x1b798>
+1042b510 [file 0x0042b510]:	81 24 00 6c 	lwz     r9,108(r4)
+1042b514 [file 0x0042b514]:	80 7f 00 40 	lwz     r3,64(r31)
+1042b518 [file 0x0042b518]:	55 3d 27 be 	rlwinm  r29,r9,4,30,31
+1042b51c [file 0x0042b51c]:	48 14 4c 0d 	bl      10570128 <mbedtls_ssl_setup@plt>
+1042b520 [file 0x0042b520]:	2c 03 00 00 	cmpwi   r3,0
+1042b524 [file 0x0042b524]:	41 82 00 50 	beq     1042b574 <modff@@Base+0x1b7c0>
+1042b528 [file 0x0042b528]:	7c e3 00 d0 	neg     r7,r3
+1042b52c [file 0x0042b52c]:	3c a0 10 55 	lis     r5,4181
+1042b530 [file 0x0042b530]:	3c 60 10 55 	lis     r3,4181
+1042b534 [file 0x0042b534]:	38 df 00 e4 	addi    r6,r31,228
+1042b538 [file 0x0042b538]:	38 a5 d0 88 	addi    r5,r5,-12152
+1042b53c [file 0x0042b53c]:	38 80 00 00 	li      r4,0
+1042b540 [file 0x0042b540]:	38 63 d0 68 	addi    r3,r3,-12184
+1042b544 [file 0x0042b544]:	4c c6 31 82 	crclr   4*cr1+eq
+1042b548 [file 0x0042b548]:	48 00 21 25 	bl      1042d66c <modff@@Base+0x1d8b8>
+1042b54c [file 0x0042b54c]:	7f c3 f3 78 	mr      r3,r30
+1042b550 [file 0x0042b550]:	4b ff fe ad 	bl      1042b3fc <modff@@Base+0x1b648>
+1042b554 [file 0x0042b554]:	80 01 00 24 	lwz     r0,36(r1)

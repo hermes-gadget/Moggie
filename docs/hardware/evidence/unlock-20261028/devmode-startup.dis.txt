@@ -1,0 +1,36 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10346b40 --stop-address=0x10346bac /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10346b40 <strlcpy@@Base+0x123068>:
+10346b40 [file 0x00346b40]:	94 21 ff e0 	stwu    r1,-32(r1)
+10346b44 [file 0x00346b44]:	7c 08 02 a6 	mflr    r0
+10346b48 [file 0x00346b48]:	2f 86 00 00 	cmpwi   cr7,r6,0
+10346b4c [file 0x00346b4c]:	93 a1 00 14 	stw     r29,20(r1)
+10346b50 [file 0x00346b50]:	7c 7d 1b 78 	mr      r29,r3
+10346b54 [file 0x00346b54]:	93 c1 00 18 	stw     r30,24(r1)
+10346b58 [file 0x00346b58]:	7c 9e 23 78 	mr      r30,r4
+10346b5c [file 0x00346b5c]:	90 01 00 24 	stw     r0,36(r1)
+10346b60 [file 0x00346b60]:	93 e1 00 1c 	stw     r31,28(r1)
+10346b64 [file 0x00346b64]:	41 9e 00 90 	beq     cr7,10346bf4 <strlcpy@@Base+0x12311c>
+10346b68 [file 0x00346b68]:	7c a3 2b 78 	mr      r3,r5
+10346b6c [file 0x00346b6c]:	38 80 00 14 	li      r4,20
+10346b70 [file 0x00346b70]:	3f e0 10 67 	lis     r31,4199
+10346b74 [file 0x00346b74]:	93 bf 62 f0 	stw     r29,25328(r31)
+10346b78 [file 0x00346b78]:	4b ff 9f 55 	bl      10340acc <strlcpy@@Base+0x11cff4>
+10346b7c [file 0x00346b7c]:	38 60 00 04 	li      r3,4
+10346b80 [file 0x00346b80]:	48 10 48 c5 	bl      1044b444 <modff@@Base+0x3b690>
+10346b84 [file 0x00346b84]:	3d 20 10 51 	lis     r9,4177
+10346b88 [file 0x00346b88]:	39 29 64 0c 	addi    r9,r9,25612
+10346b8c [file 0x00346b8c]:	91 23 00 00 	stw     r9,0(r3)
+10346b90 [file 0x00346b90]:	3d 20 10 57 	lis     r9,4183
+10346b94 [file 0x00346b94]:	90 69 f8 cc 	stw     r3,-1844(r9)
+10346b98 [file 0x00346b98]:	48 03 70 cd 	bl      1037dc64 <strlcpy@@Base+0x15a18c>
+10346b9c [file 0x00346b9c]:	38 80 00 00 	li      r4,0
+10346ba0 [file 0x00346ba0]:	38 60 00 0a 	li      r3,10
+10346ba4 [file 0x00346ba4]:	48 02 29 49 	bl      103694ec <strlcpy@@Base+0x145a14>
+10346ba8 [file 0x00346ba8]:	80 7f 62 f0 	lwz     r3,25328(r31)

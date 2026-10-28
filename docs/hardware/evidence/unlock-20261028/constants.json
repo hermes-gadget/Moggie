@@ -1,0 +1,192 @@
+{
+  "A": [
+    {
+      "va": "0x104b9f2c",
+      "file": "0x4b9f2c",
+      "value": "/tmp/device_unlocked_flag"
+    },
+    {
+      "va": "0x104b9f48",
+      "file": "0x4b9f48",
+      "value": "/tmp/htdocs_locked"
+    },
+    {
+      "va": "0x104b9f5c",
+      "file": "0x4b9f5c",
+      "value": "/opt/htdocs_locked"
+    },
+    {
+      "va": "0x104b9f70",
+      "file": "0x4b9f70",
+      "value": "/etc/scripts/run_sshd.sh"
+    },
+    {
+      "va": "0x104b9f8c",
+      "file": "0x4b9f8c",
+      "value": "confirm="
+    },
+    {
+      "va": "0x104ba03c",
+      "file": "0x4ba03c",
+      "value": "<html><head></head><body>Serial: %s<br />%s %s<br /><form action=\"%s\" method=\"POST\"><label for=\"confirm\">Code: </label><br /><textarea rows=\"11\" cols=\"80\" name=\"confirm\" id=\"confirm\" ></textarea><br /><br /><button type=\"submit\">Submit</button></form></body></html>"
+    },
+    {
+      "va": "0x104b9ffc",
+      "file": "0x4b9ffc",
+      "value": "/devunlock"
+    },
+    {
+      "va": "0x1051df6c",
+      "file": "0x51df6c",
+      "value": "%s/debug/devmode.bin"
+    },
+    {
+      "va": "0x1051df90",
+      "file": "0x51df90",
+      "value": "/tmp/devmode.tmp.bin"
+    },
+    {
+      "va": "0x1051e164",
+      "file": "0x51e164",
+      "value": "statement"
+    },
+    {
+      "va": "0x1045ad0c",
+      "file": "0x45ad0c",
+      "value": "csrfToken"
+    },
+    {
+      "va": "0x1051a234",
+      "file": "0x51a234",
+      "value": "O_SONOS_CLOUD_API_TEST_ENV"
+    },
+    {
+      "va": "0x1045d610",
+      "file": "0x45d610",
+      "value": "OnlineUpdateBaseURL"
+    },
+    {
+      "va": "0x104b7468",
+      "file": "0x4b7468",
+      "value": "SystemSettings"
+    },
+    {
+      "va": "0x104b7478",
+      "file": "0x4b7478",
+      "value": "syssettings.xml"
+    },
+    {
+      "va": "0x104b5508",
+      "file": "0x4b5508",
+      "value": "/jffs/settings"
+    },
+    {
+      "va": "0x1046d8f4",
+      "file": "0x46d8f4",
+      "value": "%s/%s"
+    },
+    {
+      "va": "0x1045b0e8",
+      "file": "0x45b0e8",
+      "value": "%s.tmp"
+    },
+    {
+      "va": "0x1051d298",
+      "file": "0x51d298",
+      "value": "%s"
+    },
+    {
+      "va": "0x1045b390",
+      "file": "0x45b390",
+      "value": "%s/settings"
+    }
+  ],
+  "U": [
+    {
+      "va": "0x87b8",
+      "file": "0x87b8",
+      "value": "/jffs"
+    }
+  ],
+  "D": [
+    {
+      "va": "0x2add9",
+      "file": "0x2add9",
+      "value": "root login rejected"
+    },
+    {
+      "va": "0x2ae4f",
+      "file": "0x2ae4f",
+      "value": "User '%s' has invalid shell, rejected"
+    },
+    {
+      "va": "0x2aef0",
+      "file": "0x2aef0",
+      "value": "User '%s' has blank password, rejected"
+    },
+    {
+      "va": "0x2afb0",
+      "file": "0x2afb0",
+      "value": "/jffs/sys/debug/ssh/authorized_keys"
+    },
+    {
+      "va": "0x2b3c6",
+      "file": "0x2b3c6",
+      "value": "/jffs/persist/ssh/dropbear_ecdsa_host_key"
+    }
+  ],
+  "A_float32": [
+    {
+      "va": "0x104979c0",
+      "file": "0x4979c0",
+      "bytes": "40400000",
+      "value": 3.0
+    },
+    {
+      "va": "0x104983e0",
+      "file": "0x4983e0",
+      "bytes": "44160000",
+      "value": 600.0
+    }
+  ],
+  "A_vtables": [
+    {
+      "va": "0x104b7250",
+      "file": "0x4b7250",
+      "words": [
+        "0x1028c790",
+        "0x1028c870",
+        "0x1028c8a8",
+        "0x1028dae4",
+        "0x10289430",
+        "0x10289438",
+        "0x1028941c",
+        "0x1028ccf0",
+        "0x1028c924",
+        "0x1028e330",
+        "0x1028c678",
+        "0x1028e0d8",
+        "0x1028c634",
+        "0x1028dfc8",
+        "0x1028cbc8",
+        "0xfffffff8",
+        "0x0",
+        "0x1028c7d8",
+        "0x1028c8a0",
+        "0x1028cdb8",
+        "0x1028caf0",
+        "0x0"
+      ]
+    },
+    {
+      "va": "0x104b7294",
+      "file": "0x4b7294",
+      "words": [
+        "0x1028c7d8",
+        "0x1028c8a0",
+        "0x1028cdb8",
+        "0x1028caf0"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,402 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0xa050 --stop-address=0xa634 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libsonoscrypto.so.1
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libsonoscrypto.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+0000a050 <ZZ0126@@Base>:
+    a050 [file 0x0000a050]:	94 21 ff 80 	stwu    r1,-128(r1)
+    a054 [file 0x0000a054]:	7c 08 02 a6 	mflr    r0
+    a058 [file 0x0000a058]:	92 c1 00 58 	stw     r22,88(r1)
+    a05c [file 0x0000a05c]:	7c b6 2b 78 	mr      r22,r5
+    a060 [file 0x0000a060]:	92 e1 00 5c 	stw     r23,92(r1)
+    a064 [file 0x0000a064]:	7d 57 53 78 	mr      r23,r10
+    a068 [file 0x0000a068]:	93 01 00 60 	stw     r24,96(r1)
+    a06c [file 0x0000a06c]:	7d 38 4b 78 	mr      r24,r9
+    a070 [file 0x0000a070]:	93 21 00 64 	stw     r25,100(r1)
+    a074 [file 0x0000a074]:	39 20 00 20 	li      r9,32
+    a078 [file 0x0000a078]:	93 41 00 68 	stw     r26,104(r1)
+    a07c [file 0x0000a07c]:	7c 99 23 78 	mr      r25,r4
+    a080 [file 0x0000a080]:	93 61 00 6c 	stw     r27,108(r1)
+    a084 [file 0x0000a084]:	7d 1a 43 78 	mr      r26,r8
+    a088 [file 0x0000a088]:	93 81 00 70 	stw     r28,112(r1)
+    a08c [file 0x0000a08c]:	7c db 33 78 	mr      r27,r6
+    a090 [file 0x0000a090]:	93 a1 00 74 	stw     r29,116(r1)
+    a094 [file 0x0000a094]:	7c 7d 1b 78 	mr      r29,r3
+    a098 [file 0x0000a098]:	90 01 00 84 	stw     r0,132(r1)
+    a09c [file 0x0000a09c]:	7c fc 3b 78 	mr      r28,r7
+    a0a0 [file 0x0000a0a0]:	92 a1 00 54 	stw     r21,84(r1)
+    a0a4 [file 0x0000a0a4]:	93 c1 00 78 	stw     r30,120(r1)
+    a0a8 [file 0x0000a0a8]:	93 e1 00 7c 	stw     r31,124(r1)
+    a0ac [file 0x0000a0ac]:	91 21 00 38 	stw     r9,56(r1)
+    a0b0 [file 0x0000a0b0]:	88 63 10 9c 	lbz     r3,4252(r3)
+    a0b4 [file 0x0000a0b4]:	2b 83 00 01 	cmplwi  cr7,r3,1
+    a0b8 [file 0x0000a0b8]:	41 9e 01 4c 	beq     cr7,a204 <ZZ0126@@Base+0x1b4>
+    a0bc [file 0x0000a0bc]:	7c 69 1b 78 	mr      r9,r3
+    a0c0 [file 0x0000a0c0]:	3b e0 00 00 	li      r31,0
+    a0c4 [file 0x0000a0c4]:	48 00 00 08 	b       a0cc <ZZ0126@@Base+0x7c>
+    a0c8 [file 0x0000a0c8]:	89 3d 10 9c 	lbz     r9,4252(r29)
+    a0cc [file 0x0000a0cc]:	1c bf 09 10 	mulli   r5,r31,2320
+    a0d0 [file 0x0000a0d0]:	7f 89 f8 40 	cmplw   cr7,r9,r31
+    a0d4 [file 0x0000a0d4]:	7f 83 e3 78 	mr      r3,r28
+    a0d8 [file 0x0000a0d8]:	7d 5d 2a 14 	add     r10,r29,r5
+    a0dc [file 0x0000a0dc]:	7f f5 fb 78 	mr      r21,r31
+    a0e0 [file 0x0000a0e0]:	38 aa 10 a5 	addi    r5,r10,4261
+    a0e4 [file 0x0000a0e4]:	40 9d 00 68 	ble     cr7,a14c <ZZ0126@@Base+0xfc>
+    a0e8 [file 0x0000a0e8]:	80 ca 10 a0 	lwz     r6,4256(r10)
+    a0ec [file 0x0000a0ec]:	7f 69 03 a6 	mtctr   r27
+    a0f0 [file 0x0000a0f0]:	88 8a 10 a4 	lbz     r4,4260(r10)
+    a0f4 [file 0x0000a0f4]:	3b ff 00 01 	addi    r31,r31,1
+    a0f8 [file 0x0000a0f8]:	57 ff 06 3e 	clrlwi  r31,r31,24
+    a0fc [file 0x0000a0fc]:	4e 80 04 21 	bctrl
+    a100 [file 0x0000a100]:	2f 83 00 00 	cmpwi   cr7,r3,0
+    a104 [file 0x0000a104]:	41 9e ff c4 	beq     cr7,a0c8 <ZZ0126@@Base+0x78>
+    a108 [file 0x0000a108]:	1e b5 09 10 	mulli   r21,r21,2320
+    a10c [file 0x0000a10c]:	2f 9a 00 00 	cmpwi   cr7,r26,0
+    a110 [file 0x0000a110]:	7e bd aa 14 	add     r21,r29,r21
+    a114 [file 0x0000a114]:	8b f5 18 a4 	lbz     r31,6308(r21)
+    a118 [file 0x0000a118]:	41 9e 00 0c 	beq     cr7,a124 <ZZ0126@@Base+0xd4>
+    a11c [file 0x0000a11c]:	7f 49 03 a6 	mtctr   r26
+    a120 [file 0x0000a120]:	4e 80 04 21 	bctrl
+    a124 [file 0x0000a124]:	3a a1 00 18 	addi    r21,r1,24
+    a128 [file 0x0000a128]:	38 e1 00 38 	addi    r7,r1,56
+    a12c [file 0x0000a12c]:	7e a6 ab 78 	mr      r6,r21
+    a130 [file 0x0000a130]:	7e e5 bb 78 	mr      r5,r23
+    a134 [file 0x0000a134]:	7f 04 c3 78 	mr      r4,r24
+    a138 [file 0x0000a138]:	7f e3 fb 78 	mr      r3,r31
+    a13c [file 0x0000a13c]:	7f 29 03 a6 	mtctr   r25
+    a140 [file 0x0000a140]:	4e 80 04 21 	bctrl
+    a144 [file 0x0000a144]:	2f 83 00 00 	cmpwi   cr7,r3,0
+    a148 [file 0x0000a148]:	40 9e 00 44 	bne     cr7,a18c <ZZ0126@@Base+0x13c>
+    a14c [file 0x0000a14c]:	80 01 00 84 	lwz     r0,132(r1)
+    a150 [file 0x0000a150]:	38 60 00 00 	li      r3,0
+    a154 [file 0x0000a154]:	82 a1 00 54 	lwz     r21,84(r1)
+    a158 [file 0x0000a158]:	7c 08 03 a6 	mtlr    r0
+    a15c [file 0x0000a15c]:	82 c1 00 58 	lwz     r22,88(r1)
+    a160 [file 0x0000a160]:	82 e1 00 5c 	lwz     r23,92(r1)
+    a164 [file 0x0000a164]:	83 01 00 60 	lwz     r24,96(r1)
+    a168 [file 0x0000a168]:	83 21 00 64 	lwz     r25,100(r1)
+    a16c [file 0x0000a16c]:	83 41 00 68 	lwz     r26,104(r1)
+    a170 [file 0x0000a170]:	83 61 00 6c 	lwz     r27,108(r1)
+    a174 [file 0x0000a174]:	83 81 00 70 	lwz     r28,112(r1)
+    a178 [file 0x0000a178]:	83 a1 00 74 	lwz     r29,116(r1)
+    a17c [file 0x0000a17c]:	83 c1 00 78 	lwz     r30,120(r1)
+    a180 [file 0x0000a180]:	83 e1 00 7c 	lwz     r31,124(r1)
+    a184 [file 0x0000a184]:	38 21 00 80 	addi    r1,r1,128
+    a188 [file 0x0000a188]:	4e 80 00 20 	blr
+    a18c [file 0x0000a18c]:	81 21 00 8c 	lwz     r9,140(r1)
+    a190 [file 0x0000a190]:	7e aa ab 78 	mr      r10,r21
+    a194 [file 0x0000a194]:	7f 48 d3 78 	mr      r8,r26
+    a198 [file 0x0000a198]:	91 21 00 10 	stw     r9,16(r1)
+    a19c [file 0x0000a19c]:	7f 87 e3 78 	mr      r7,r28
+    a1a0 [file 0x0000a1a0]:	81 21 00 88 	lwz     r9,136(r1)
+    a1a4 [file 0x0000a1a4]:	7f 66 db 78 	mr      r6,r27
+    a1a8 [file 0x0000a1a8]:	7e c5 b3 78 	mr      r5,r22
+    a1ac [file 0x0000a1ac]:	91 21 00 0c 	stw     r9,12(r1)
+    a1b0 [file 0x0000a1b0]:	7f 24 cb 78 	mr      r4,r25
+    a1b4 [file 0x0000a1b4]:	81 21 00 38 	lwz     r9,56(r1)
+    a1b8 [file 0x0000a1b8]:	7f a3 eb 78 	mr      r3,r29
+    a1bc [file 0x0000a1bc]:	91 21 00 08 	stw     r9,8(r1)
+    a1c0 [file 0x0000a1c0]:	7f e9 fb 78 	mr      r9,r31
+    a1c4 [file 0x0000a1c4]:	48 01 30 f9 	bl      1d2bc <ZZ0125@plt>
+    a1c8 [file 0x0000a1c8]:	80 01 00 84 	lwz     r0,132(r1)
+    a1cc [file 0x0000a1cc]:	82 a1 00 54 	lwz     r21,84(r1)
+    a1d0 [file 0x0000a1d0]:	7c 08 03 a6 	mtlr    r0
+    a1d4 [file 0x0000a1d4]:	82 c1 00 58 	lwz     r22,88(r1)
+    a1d8 [file 0x0000a1d8]:	82 e1 00 5c 	lwz     r23,92(r1)
+    a1dc [file 0x0000a1dc]:	83 01 00 60 	lwz     r24,96(r1)
+    a1e0 [file 0x0000a1e0]:	83 21 00 64 	lwz     r25,100(r1)
+    a1e4 [file 0x0000a1e4]:	83 41 00 68 	lwz     r26,104(r1)
+    a1e8 [file 0x0000a1e8]:	83 61 00 6c 	lwz     r27,108(r1)
+    a1ec [file 0x0000a1ec]:	83 81 00 70 	lwz     r28,112(r1)
+    a1f0 [file 0x0000a1f0]:	83 a1 00 74 	lwz     r29,116(r1)
+    a1f4 [file 0x0000a1f4]:	83 c1 00 78 	lwz     r30,120(r1)
+    a1f8 [file 0x0000a1f8]:	83 e1 00 7c 	lwz     r31,124(r1)
+    a1fc [file 0x0000a1fc]:	38 21 00 80 	addi    r1,r1,128
+    a200 [file 0x0000a200]:	4e 80 00 20 	blr
+    a204 [file 0x0000a204]:	8b fd 18 a4 	lbz     r31,6308(r29)
+    a208 [file 0x0000a208]:	3a a1 00 18 	addi    r21,r1,24
+    a20c [file 0x0000a20c]:	38 e1 00 38 	addi    r7,r1,56
+    a210 [file 0x0000a210]:	7e a6 ab 78 	mr      r6,r21
+    a214 [file 0x0000a214]:	7e e5 bb 78 	mr      r5,r23
+    a218 [file 0x0000a218]:	7f 04 c3 78 	mr      r4,r24
+    a21c [file 0x0000a21c]:	7f e3 fb 78 	mr      r3,r31
+    a220 [file 0x0000a220]:	7f 29 03 a6 	mtctr   r25
+    a224 [file 0x0000a224]:	4e 80 04 21 	bctrl
+    a228 [file 0x0000a228]:	2f 83 00 00 	cmpwi   cr7,r3,0
+    a22c [file 0x0000a22c]:	41 9e ff 20 	beq     cr7,a14c <ZZ0126@@Base+0xfc>
+    a230 [file 0x0000a230]:	4b ff ff 5c 	b       a18c <ZZ0126@@Base+0x13c>
+
+0000a234 <ZZ0123@@Base>:
+    a234 [file 0x0000a234]:	94 21 ff f0 	stwu    r1,-16(r1)
+    a238 [file 0x0000a238]:	39 60 00 00 	li      r11,0
+    a23c [file 0x0000a23c]:	7c 08 02 a6 	mflr    r0
+    a240 [file 0x0000a240]:	91 61 00 0c 	stw     r11,12(r1)
+    a244 [file 0x0000a244]:	81 61 00 18 	lwz     r11,24(r1)
+    a248 [file 0x0000a248]:	90 01 00 14 	stw     r0,20(r1)
+    a24c [file 0x0000a24c]:	91 61 00 08 	stw     r11,8(r1)
+    a250 [file 0x0000a250]:	48 01 33 fd 	bl      1d64c <ZZ0126@plt>
+    a254 [file 0x0000a254]:	80 01 00 14 	lwz     r0,20(r1)
+    a258 [file 0x0000a258]:	7c 08 03 a6 	mtlr    r0
+    a25c [file 0x0000a25c]:	38 21 00 10 	addi    r1,r1,16
+    a260 [file 0x0000a260]:	4e 80 00 20 	blr
+
+0000a264 <ZZ0124@@Base>:
+    a264 [file 0x0000a264]:	94 21 ff e0 	stwu    r1,-32(r1)
+    a268 [file 0x0000a268]:	39 60 00 00 	li      r11,0
+    a26c [file 0x0000a26c]:	7c 08 02 a6 	mflr    r0
+    a270 [file 0x0000a270]:	91 61 00 10 	stw     r11,16(r1)
+    a274 [file 0x0000a274]:	81 61 00 2c 	lwz     r11,44(r1)
+    a278 [file 0x0000a278]:	90 01 00 24 	stw     r0,36(r1)
+    a27c [file 0x0000a27c]:	91 61 00 0c 	stw     r11,12(r1)
+    a280 [file 0x0000a280]:	81 61 00 28 	lwz     r11,40(r1)
+    a284 [file 0x0000a284]:	91 61 00 08 	stw     r11,8(r1)
+    a288 [file 0x0000a288]:	48 01 30 35 	bl      1d2bc <ZZ0125@plt>
+    a28c [file 0x0000a28c]:	80 01 00 24 	lwz     r0,36(r1)
+    a290 [file 0x0000a290]:	7c 08 03 a6 	mtlr    r0
+    a294 [file 0x0000a294]:	38 21 00 20 	addi    r1,r1,32
+    a298 [file 0x0000a298]:	4e 80 00 20 	blr
+
+0000a29c <ZZ0116@@Base>:
+    a29c [file 0x0000a29c]:	38 c0 00 01 	li      r6,1
+    a2a0 [file 0x0000a2a0]:	38 a0 00 04 	li      r5,4
+    a2a4 [file 0x0000a2a4]:	4b ff f5 ec 	b       9890 <ZZ0112@@Base+0x100>
+
+0000a2a8 <ZZ0180@@Base>:
+    a2a8 [file 0x0000a2a8]:	94 21 ff f0 	stwu    r1,-16(r1)
+    a2ac [file 0x0000a2ac]:	7c 08 02 a6 	mflr    r0
+    a2b0 [file 0x0000a2b0]:	90 01 00 14 	stw     r0,20(r1)
+    a2b4 [file 0x0000a2b4]:	81 24 08 50 	lwz     r9,2128(r4)
+    a2b8 [file 0x0000a2b8]:	2f 89 00 00 	cmpwi   cr7,r9,0
+    a2bc [file 0x0000a2bc]:	41 9e 00 40 	beq     cr7,a2fc <ZZ0180@@Base+0x54>
+    a2c0 [file 0x0000a2c0]:	81 44 08 54 	lwz     r10,2132(r4)
+    a2c4 [file 0x0000a2c4]:	55 4a 00 7e 	clrlwi  r10,r10,1
+    a2c8 [file 0x0000a2c8]:	2b 8a 00 05 	cmplwi  cr7,r10,5
+    a2cc [file 0x0000a2cc]:	41 9e 00 44 	beq     cr7,a310 <ZZ0180@@Base+0x68>
+    a2d0 [file 0x0000a2d0]:	39 44 09 5c 	addi    r10,r4,2396
+    a2d4 [file 0x0000a2d4]:	39 00 00 00 	li      r8,0
+    a2d8 [file 0x0000a2d8]:	7d 29 03 a6 	mtctr   r9
+    a2dc [file 0x0000a2dc]:	48 00 00 18 	b       a2f4 <ZZ0180@@Base+0x4c>
+    a2e0 [file 0x0000a2e0]:	81 2a 00 00 	lwz     r9,0(r10)
+    a2e4 [file 0x0000a2e4]:	39 4a 01 08 	addi    r10,r10,264
+    a2e8 [file 0x0000a2e8]:	55 29 00 7e 	clrlwi  r9,r9,1
+    a2ec [file 0x0000a2ec]:	2b 89 00 05 	cmplwi  cr7,r9,5
+    a2f0 [file 0x0000a2f0]:	41 9e 00 24 	beq     cr7,a314 <ZZ0180@@Base+0x6c>
+    a2f4 [file 0x0000a2f4]:	39 08 00 01 	addi    r8,r8,1
+    a2f8 [file 0x0000a2f8]:	42 00 ff e8 	bdnz    a2e0 <ZZ0180@@Base+0x38>
+    a2fc [file 0x0000a2fc]:	80 01 00 14 	lwz     r0,20(r1)
+    a300 [file 0x0000a300]:	38 60 00 00 	li      r3,0
+    a304 [file 0x0000a304]:	7c 08 03 a6 	mtlr    r0
+    a308 [file 0x0000a308]:	38 21 00 10 	addi    r1,r1,16
+    a30c [file 0x0000a30c]:	4e 80 00 20 	blr
+    a310 [file 0x0000a310]:	39 00 00 00 	li      r8,0
+    a314 [file 0x0000a314]:	55 09 18 38 	slwi    r9,r8,3
+    a318 [file 0x0000a318]:	55 08 40 2e 	slwi    r8,r8,8
+    a31c [file 0x0000a31c]:	7d 09 42 14 	add     r8,r9,r8
+    a320 [file 0x0000a320]:	38 a0 00 28 	li      r5,40
+    a324 [file 0x0000a324]:	7c 84 42 14 	add     r4,r4,r8
+    a328 [file 0x0000a328]:	38 84 08 5c 	addi    r4,r4,2140
+    a32c [file 0x0000a32c]:	48 01 2f 59 	bl      1d284 <memcpy@plt>
+    a330 [file 0x0000a330]:	80 01 00 14 	lwz     r0,20(r1)
+    a334 [file 0x0000a334]:	7c 08 03 a6 	mtlr    r0
+    a338 [file 0x0000a338]:	38 60 00 01 	li      r3,1
+    a33c [file 0x0000a33c]:	38 21 00 10 	addi    r1,r1,16
+    a340 [file 0x0000a340]:	4e 80 00 20 	blr
+
+0000a344 <ZZ0191@@Base>:
+    a344 [file 0x0000a344]:	38 c0 00 04 	li      r6,4
+    a348 [file 0x0000a348]:	38 a0 00 06 	li      r5,6
+    a34c [file 0x0000a34c]:	4b ff f5 44 	b       9890 <ZZ0112@@Base+0x100>
+    a350 [file 0x0000a350]:	00 01 ac 50 	.long 0x1ac50
+
+0000a354 <ZZ0080@@Base>:
+    a354 [file 0x0000a354]:	94 21 ff f0 	stwu    r1,-16(r1)
+    a358 [file 0x0000a358]:	7c 08 02 a6 	mflr    r0
+    a35c [file 0x0000a35c]:	42 9f 00 05 	bcl     20,4*cr7+so,a360 <ZZ0080@@Base+0xc>
+    a360 [file 0x0000a360]:	38 80 01 26 	li      r4,294
+    a364 [file 0x0000a364]:	93 c1 00 08 	stw     r30,8(r1)
+    a368 [file 0x0000a368]:	7f c8 02 a6 	mflr    r30
+    a36c [file 0x0000a36c]:	90 01 00 14 	stw     r0,20(r1)
+    a370 [file 0x0000a370]:	80 1e ff f0 	lwz     r0,-16(r30)
+    a374 [file 0x0000a374]:	7f c0 f2 14 	add     r30,r0,r30
+    a378 [file 0x0000a378]:	80 01 00 14 	lwz     r0,20(r1)
+    a37c [file 0x0000a37c]:	80 7e 80 00 	lwz     r3,-32768(r30)
+    a380 [file 0x0000a380]:	83 c1 00 08 	lwz     r30,8(r1)
+    a384 [file 0x0000a384]:	7c 08 03 a6 	mtlr    r0
+    a388 [file 0x0000a388]:	38 21 00 10 	addi    r1,r1,16
+    a38c [file 0x0000a38c]:	48 01 32 f8 	b       1d684 <ZZ0101@plt>
+    a390 [file 0x0000a390]:	94 21 ff c0 	stwu    r1,-64(r1)
+    a394 [file 0x0000a394]:	7c 08 02 a6 	mflr    r0
+    a398 [file 0x0000a398]:	39 20 00 14 	li      r9,20
+    a39c [file 0x0000a39c]:	2f 84 00 03 	cmpwi   cr7,r4,3
+    a3a0 [file 0x0000a3a0]:	90 01 00 44 	stw     r0,68(r1)
+    a3a4 [file 0x0000a3a4]:	93 81 00 30 	stw     r28,48(r1)
+    a3a8 [file 0x0000a3a8]:	93 a1 00 34 	stw     r29,52(r1)
+    a3ac [file 0x0000a3ac]:	93 c1 00 38 	stw     r30,56(r1)
+    a3b0 [file 0x0000a3b0]:	93 e1 00 3c 	stw     r31,60(r1)
+    a3b4 [file 0x0000a3b4]:	91 21 00 1c 	stw     r9,28(r1)
+    a3b8 [file 0x0000a3b8]:	40 9e 00 84 	bne     cr7,a43c <ZZ0080@@Base+0xe8>
+    a3bc [file 0x0000a3bc]:	2b 86 00 14 	cmplwi  cr7,r6,20
+    a3c0 [file 0x0000a3c0]:	40 9e 00 7c 	bne     cr7,a43c <ZZ0080@@Base+0xe8>
+    a3c4 [file 0x0000a3c4]:	80 63 00 00 	lwz     r3,0(r3)
+    a3c8 [file 0x0000a3c8]:	7c bc 2b 78 	mr      r28,r5
+    a3cc [file 0x0000a3cc]:	48 01 33 59 	bl      1d724 <ZZ0080@plt>
+    a3d0 [file 0x0000a3d0]:	7c 7f 1b 79 	mr.     r31,r3
+    a3d4 [file 0x0000a3d4]:	41 82 00 68 	beq     a43c <ZZ0080@@Base+0xe8>
+    a3d8 [file 0x0000a3d8]:	3b a1 00 08 	addi    r29,r1,8
+    a3dc [file 0x0000a3dc]:	7f e5 fb 78 	mr      r5,r31
+    a3e0 [file 0x0000a3e0]:	38 81 00 1c 	addi    r4,r1,28
+    a3e4 [file 0x0000a3e4]:	7f a3 eb 78 	mr      r3,r29
+    a3e8 [file 0x0000a3e8]:	48 01 32 f5 	bl      1d6dc <ZZ0072@plt>
+    a3ec [file 0x0000a3ec]:	2f 83 00 00 	cmpwi   cr7,r3,0
+    a3f0 [file 0x0000a3f0]:	41 9e 00 20 	beq     cr7,a410 <ZZ0080@@Base+0xbc>
+    a3f4 [file 0x0000a3f4]:	38 a0 00 14 	li      r5,20
+    a3f8 [file 0x0000a3f8]:	7f a4 eb 78 	mr      r4,r29
+    a3fc [file 0x0000a3fc]:	7f 83 e3 78 	mr      r3,r28
+    a400 [file 0x0000a400]:	48 01 2e e5 	bl      1d2e4 <memcmp@plt>
+    a404 [file 0x0000a404]:	2f 83 00 00 	cmpwi   cr7,r3,0
+    a408 [file 0x0000a408]:	7f e3 fb 78 	mr      r3,r31
+    a40c [file 0x0000a40c]:	41 be 00 10 	beq     cr7,a41c <ZZ0080@@Base+0xc8>
+    a410 [file 0x0000a410]:	7f e3 fb 78 	mr      r3,r31
+    a414 [file 0x0000a414]:	48 01 2f 31 	bl      1d344 <ZZ0077@plt>
+    a418 [file 0x0000a418]:	38 60 00 00 	li      r3,0
+    a41c [file 0x0000a41c]:	80 01 00 44 	lwz     r0,68(r1)
+    a420 [file 0x0000a420]:	83 81 00 30 	lwz     r28,48(r1)
+    a424 [file 0x0000a424]:	7c 08 03 a6 	mtlr    r0
+    a428 [file 0x0000a428]:	83 a1 00 34 	lwz     r29,52(r1)
+    a42c [file 0x0000a42c]:	83 c1 00 38 	lwz     r30,56(r1)
+    a430 [file 0x0000a430]:	83 e1 00 3c 	lwz     r31,60(r1)
+    a434 [file 0x0000a434]:	38 21 00 40 	addi    r1,r1,64
+    a438 [file 0x0000a438]:	4e 80 00 20 	blr
+    a43c [file 0x0000a43c]:	3b e0 00 00 	li      r31,0
+    a440 [file 0x0000a440]:	4b ff ff d0 	b       a410 <ZZ0080@@Base+0xbc>
+    a444 [file 0x0000a444]:	00 01 ab 60 	.long 0x1ab60
+
+0000a448 <ZZ0137@@Base>:
+    a448 [file 0x0000a448]:	94 21 dd 00 	stwu    r1,-8960(r1)
+    a44c [file 0x0000a44c]:	7c 08 02 a6 	mflr    r0
+    a450 [file 0x0000a450]:	42 9f 00 05 	bcl     20,4*cr7+so,a454 <ZZ0137@@Base+0xc>
+    a454 [file 0x0000a454]:	2b 84 00 03 	cmplwi  cr7,r4,3
+    a458 [file 0x0000a458]:	93 c1 22 f8 	stw     r30,8952(r1)
+    a45c [file 0x0000a45c]:	7f c8 02 a6 	mflr    r30
+    a460 [file 0x0000a460]:	90 01 23 04 	stw     r0,8964(r1)
+    a464 [file 0x0000a464]:	80 1e ff f0 	lwz     r0,-16(r30)
+    a468 [file 0x0000a468]:	93 21 22 e4 	stw     r25,8932(r1)
+    a46c [file 0x0000a46c]:	93 41 22 e8 	stw     r26,8936(r1)
+    a470 [file 0x0000a470]:	7f c0 f2 14 	add     r30,r0,r30
+    a474 [file 0x0000a474]:	93 61 22 ec 	stw     r27,8940(r1)
+    a478 [file 0x0000a478]:	93 81 22 f0 	stw     r28,8944(r1)
+    a47c [file 0x0000a47c]:	93 a1 22 f4 	stw     r29,8948(r1)
+    a480 [file 0x0000a480]:	93 e1 22 fc 	stw     r31,8956(r1)
+    a484 [file 0x0000a484]:	90 a1 22 d0 	stw     r5,8912(r1)
+    a488 [file 0x0000a488]:	40 9d 00 14 	ble     cr7,a49c <ZZ0137@@Base+0x54>
+    a48c [file 0x0000a48c]:	81 63 00 00 	lwz     r11,0(r3)
+    a490 [file 0x0000a490]:	6d 60 28 72 	xoris   r0,r11,10354
+    a494 [file 0x0000a494]:	2f 80 1e 71 	cmpwi   cr7,r0,7793
+    a498 [file 0x0000a498]:	41 9e 00 34 	beq     cr7,a4cc <ZZ0137@@Base+0x84>
+    a49c [file 0x0000a49c]:	38 60 00 00 	li      r3,0
+    a4a0 [file 0x0000a4a0]:	80 01 23 04 	lwz     r0,8964(r1)
+    a4a4 [file 0x0000a4a4]:	83 21 22 e4 	lwz     r25,8932(r1)
+    a4a8 [file 0x0000a4a8]:	7c 08 03 a6 	mtlr    r0
+    a4ac [file 0x0000a4ac]:	83 41 22 e8 	lwz     r26,8936(r1)
+    a4b0 [file 0x0000a4b0]:	83 61 22 ec 	lwz     r27,8940(r1)
+    a4b4 [file 0x0000a4b4]:	83 81 22 f0 	lwz     r28,8944(r1)
+    a4b8 [file 0x0000a4b8]:	83 a1 22 f4 	lwz     r29,8948(r1)
+    a4bc [file 0x0000a4bc]:	83 c1 22 f8 	lwz     r30,8952(r1)
+    a4c0 [file 0x0000a4c0]:	83 e1 22 fc 	lwz     r31,8956(r1)
+    a4c4 [file 0x0000a4c4]:	38 21 23 00 	addi    r1,r1,8960
+    a4c8 [file 0x0000a4c8]:	4e 80 00 20 	blr
+    a4cc [file 0x0000a4cc]:	2b 84 00 07 	cmplwi  cr7,r4,7
+    a4d0 [file 0x0000a4d0]:	40 bd ff cc 	ble     cr7,a49c <ZZ0137@@Base+0x54>
+    a4d4 [file 0x0000a4d4]:	81 63 00 04 	lwz     r11,4(r3)
+    a4d8 [file 0x0000a4d8]:	7f 8b 28 00 	cmpw    cr7,r11,r5
+    a4dc [file 0x0000a4dc]:	40 9e ff c0 	bne     cr7,a49c <ZZ0137@@Base+0x54>
+    a4e0 [file 0x0000a4e0]:	2b 84 00 1b 	cmplwi  cr7,r4,27
+    a4e4 [file 0x0000a4e4]:	40 bd ff b8 	ble     cr7,a49c <ZZ0137@@Base+0x54>
+    a4e8 [file 0x0000a4e8]:	81 63 00 18 	lwz     r11,24(r3)
+    a4ec [file 0x0000a4ec]:	3c a0 00 39 	lis     r5,57
+    a4f0 [file 0x0000a4f0]:	60 a5 00 0a 	ori     r5,r5,10
+    a4f4 [file 0x0000a4f4]:	7f 8b 28 40 	cmplw   cr7,r11,r5
+    a4f8 [file 0x0000a4f8]:	41 bd ff a4 	bgt     cr7,a49c <ZZ0137@@Base+0x54>
+    a4fc [file 0x0000a4fc]:	2f 8a 00 00 	cmpwi   cr7,r10,0
+    a500 [file 0x0000a500]:	41 9e 00 08 	beq     cr7,a508 <ZZ0137@@Base+0xc0>
+    a504 [file 0x0000a504]:	91 6a 00 00 	stw     r11,0(r10)
+    a508 [file 0x0000a508]:	2b 84 00 1f 	cmplwi  cr7,r4,31
+    a50c [file 0x0000a50c]:	40 bd ff 90 	ble     cr7,a49c <ZZ0137@@Base+0x54>
+    a510 [file 0x0000a510]:	80 a3 00 1c 	lwz     r5,28(r3)
+    a514 [file 0x0000a514]:	3d 40 00 39 	lis     r10,57
+    a518 [file 0x0000a518]:	61 4a 00 09 	ori     r10,r10,9
+    a51c [file 0x0000a51c]:	7f 85 50 40 	cmplw   cr7,r5,r10
+    a520 [file 0x0000a520]:	40 bd ff 7c 	ble     cr7,a49c <ZZ0137@@Base+0x54>
+    a524 [file 0x0000a524]:	81 41 23 08 	lwz     r10,8968(r1)
+    a528 [file 0x0000a528]:	2f 8a 00 00 	cmpwi   cr7,r10,0
+    a52c [file 0x0000a52c]:	41 9e 00 08 	beq     cr7,a534 <ZZ0137@@Base+0xec>
+    a530 [file 0x0000a530]:	90 aa 00 00 	stw     r5,0(r10)
+    a534 [file 0x0000a534]:	2b 84 00 20 	cmplwi  cr7,r4,32
+    a538 [file 0x0000a538]:	41 be ff 64 	beq     cr7,a49c <ZZ0137@@Base+0x54>
+    a53c [file 0x0000a53c]:	89 43 00 20 	lbz     r10,32(r3)
+    a540 [file 0x0000a540]:	3b 6a 00 21 	addi    r27,r10,33
+    a544 [file 0x0000a544]:	7f 84 d8 40 	cmplw   cr7,r4,r27
+    a548 [file 0x0000a548]:	41 bc ff 54 	blt     cr7,a49c <ZZ0137@@Base+0x54>
+    a54c [file 0x0000a54c]:	7f 8a 38 40 	cmplw   cr7,r10,r7
+    a550 [file 0x0000a550]:	40 9e ff 4c 	bne     cr7,a49c <ZZ0137@@Base+0x54>
+    a554 [file 0x0000a554]:	7c 7d 1b 78 	mr      r29,r3
+    a558 [file 0x0000a558]:	7c 9f 23 78 	mr      r31,r4
+    a55c [file 0x0000a55c]:	7c e5 3b 78 	mr      r5,r7
+    a560 [file 0x0000a560]:	7c c4 33 78 	mr      r4,r6
+    a564 [file 0x0000a564]:	38 63 00 21 	addi    r3,r3,33
+    a568 [file 0x0000a568]:	7d 3c 4b 78 	mr      r28,r9
+    a56c [file 0x0000a56c]:	7d 1a 43 78 	mr      r26,r8
+    a570 [file 0x0000a570]:	7c f9 3b 78 	mr      r25,r7
+    a574 [file 0x0000a574]:	48 01 2d 71 	bl      1d2e4 <memcmp@plt>
+    a578 [file 0x0000a578]:	2f 83 00 00 	cmpwi   cr7,r3,0
+    a57c [file 0x0000a57c]:	40 be ff 20 	bne     cr7,a49c <ZZ0137@@Base+0x54>
+    a580 [file 0x0000a580]:	39 39 00 22 	addi    r9,r25,34
+    a584 [file 0x0000a584]:	7f 9f 48 40 	cmplw   cr7,r31,r9
+    a588 [file 0x0000a588]:	41 bc ff 14 	blt     cr7,a49c <ZZ0137@@Base+0x54>
+    a58c [file 0x0000a58c]:	7c fd d8 ae 	lbzx    r7,r29,r27
+    a590 [file 0x0000a590]:	7f 69 3a 14 	add     r27,r9,r7
+    a594 [file 0x0000a594]:	7f 9f d8 40 	cmplw   cr7,r31,r27
+    a598 [file 0x0000a598]:	41 bc ff 04 	blt     cr7,a49c <ZZ0137@@Base+0x54>
+    a59c [file 0x0000a59c]:	2f 9a 00 00 	cmpwi   cr7,r26,0
+    a5a0 [file 0x0000a5a0]:	41 9e 00 14 	beq     cr7,a5b4 <ZZ0137@@Base+0x16c>
+    a5a4 [file 0x0000a5a4]:	2f 9c 00 00 	cmpwi   cr7,r28,0
+    a5a8 [file 0x0000a5a8]:	41 9e 00 0c 	beq     cr7,a5b4 <ZZ0137@@Base+0x16c>
+    a5ac [file 0x0000a5ac]:	90 fc 00 00 	stw     r7,0(r28)
+    a5b0 [file 0x0000a5b0]:	91 3a 00 00 	stw     r9,0(r26)
+    a5b4 [file 0x0000a5b4]:	3b 81 00 10 	addi    r28,r1,16
+    a5b8 [file 0x0000a5b8]:	7c bb f8 50 	subf    r5,r27,r31
+    a5bc [file 0x0000a5bc]:	7c 9d da 14 	add     r4,r29,r27
+    a5c0 [file 0x0000a5c0]:	7f 83 e3 78 	mr      r3,r28
+    a5c4 [file 0x0000a5c4]:	48 01 2f 11 	bl      1d4d4 <ZZ0121@plt>
+    a5c8 [file 0x0000a5c8]:	2f 83 00 00 	cmpwi   cr7,r3,0
+    a5cc [file 0x0000a5cc]:	41 9e fe d0 	beq     cr7,a49c <ZZ0137@@Base+0x54>
+    a5d0 [file 0x0000a5d0]:	39 20 00 00 	li      r9,0
+    a5d4 [file 0x0000a5d4]:	81 1e 80 00 	lwz     r8,-32768(r30)
+    a5d8 [file 0x0000a5d8]:	91 21 00 08 	stw     r9,8(r1)
+    a5dc [file 0x0000a5dc]:	7f 6a db 78 	mr      r10,r27
+    a5e0 [file 0x0000a5e0]:	80 de 80 04 	lwz     r6,-32764(r30)
+    a5e4 [file 0x0000a5e4]:	7f a9 eb 78 	mr      r9,r29
+    a5e8 [file 0x0000a5e8]:	80 be 80 08 	lwz     r5,-32760(r30)
+    a5ec [file 0x0000a5ec]:	38 e1 22 d0 	addi    r7,r1,8912
+    a5f0 [file 0x0000a5f0]:	80 9e 80 0c 	lwz     r4,-32756(r30)
+    a5f4 [file 0x0000a5f4]:	7f 83 e3 78 	mr      r3,r28
+    a5f8 [file 0x0000a5f8]:	48 01 2c 4d 	bl      1d244 <ZZ0123@plt>
+    a5fc [file 0x0000a5fc]:	4b ff fe a4 	b       a4a0 <ZZ0137@@Base+0x58>
+
+0000a600 <ZZ0018@@Base>:
+    a600 [file 0x0000a600]:	54 89 18 38 	slwi    r9,r4,3
+    a604 [file 0x0000a604]:	7f 89 28 40 	cmplw   cr7,r9,r5
+    a608 [file 0x0000a608]:	40 9d 00 24 	ble     cr7,a62c <ZZ0018@@Base+0x2c>
+    a60c [file 0x0000a60c]:	54 a9 e8 fe 	srwi    r9,r5,3
+    a610 [file 0x0000a610]:	38 84 ff ff 	addi    r4,r4,-1
+    a614 [file 0x0000a614]:	7c 89 20 50 	subf    r4,r9,r4
+    a618 [file 0x0000a618]:	7d 23 20 ae 	lbzx    r9,r3,r4
+    a61c [file 0x0000a61c]:	54 a3 07 7e 	clrlwi  r3,r5,29
+    a620 [file 0x0000a620]:	7d 23 1e 30 	sraw    r3,r9,r3
+    a624 [file 0x0000a624]:	54 63 07 fe 	clrlwi  r3,r3,31
+    a628 [file 0x0000a628]:	4e 80 00 20 	blr
+    a62c [file 0x0000a62c]:	38 60 00 00 	li      r3,0
+    a630 [file 0x0000a630]:	4e 80 00 20 	blr

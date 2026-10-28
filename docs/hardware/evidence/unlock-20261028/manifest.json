@@ -128,6 +128,12 @@
     "objdump": "/home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump",
     "version": "GNU objdump (GNU Binutils) 2.45.1"
   },
+  "symlinks": {
+    "tmp": "/ramdisk/tmp",
+    "var": "/ramdisk/var",
+    "bin/login": "busybox",
+    "usr/sbin/telnetd": "../../bin/busybox"
+  },
   "etc/Configure": {
     "path": "/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/etc/Configure",
     "size": 2179,
