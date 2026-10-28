@@ -1,0 +1,853 @@
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/busybox bytes=301664 sha256=62bce872ce1e75d16d77b5edeaee7c2de86b2df231ff3bdc5d6b6a7ec3603d1c
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/busybox
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/busybox: ELF 32-bit MSB executable, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 2.4.3, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/busybox
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x10003664
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          300504 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         29
+  Section header string table index: 28
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 2.4.3
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/busybox (INTERP lines)
+  INTERP         0x000154 0x10000154 0x10000154 0x0000d 0x0000d R   0x1
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/busybox (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [libcrypt.so.1]
+ 0x00000001 (NEEDED)                     Shared library: [libc.so.6]
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/busybox (version identity only)
+
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libc-2.3.5.so bytes=1264992 sha256=8097fdad1153e3eca34f16def25779c0f9412edd9911535b98db19ca94b04bf7
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libc-2.3.5.so
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libc-2.3.5.so: ELF 32-bit MSB shared object, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 2.4.3, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libc-2.3.5.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x1d380
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          1262192 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         70
+  Section header string table index: 69
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 2.4.3
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libc-2.3.5.so (INTERP lines)
+  INTERP         0x1248f8 0x001248f8 0x001248f8 0x00010 0x00010 R   0x4
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libc-2.3.5.so (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [ld.so.1]
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libc-2.3.5.so (version identity only)
+ 10ba58 GNU C Library stable release version 2.3.5, by Roland McGrath et al.
+ 10bb65 Compiled by GNU CC version 3.4.4.
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/ld-2.3.5.so bytes=95464 sha256=9f5a4ae4546e519fbb70d56633dc31632fb5db6206541ddb035e831a8a6bf6c4
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/ld-2.3.5.so
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/ld-2.3.5.so: ELF 32-bit MSB shared object, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/ld-2.3.5.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0xfc00
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          94584 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         5
+  Size of section headers:           40 (bytes)
+  Number of section headers:         22
+  Section header string table index: 21
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/ld-2.3.5.so (INTERP lines)
+
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/ld-2.3.5.so (NEEDED lines)
+
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/ld-2.3.5.so (version identity only)
+
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libm-2.3.5.so bytes=499308 sha256=6e02a7303c34ba92871d394caefbd9986aeab6b4aab15c9cbe63f3d126f4293d
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libm-2.3.5.so
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libm-2.3.5.so: ELF 32-bit MSB shared object, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 2.4.3, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libm-2.3.5.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0xa2e0
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          498108 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         7
+  Size of section headers:           40 (bytes)
+  Number of section headers:         30
+  Section header string table index: 29
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 2.4.3
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libm-2.3.5.so (INTERP lines)
+  INTERP         0x075c48 0x00075c48 0x00075c48 0x00010 0x00010 R   0x4
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libm-2.3.5.so (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [ld.so.1]
+ 0x00000001 (NEEDED)                     Shared library: [libc.so.6]
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libm-2.3.5.so (version identity only)
+
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/modules/audiodev.o bytes=76456 sha256=181a848a7613d75ea3016ab1103feb23ed14661e305340fea89609db5cf0140f
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/modules/audiodev.o
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/modules/audiodev.o: ELF 32-bit MSB relocatable, PowerPC or cisco 4500, version 1 (SYSV), not stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/modules/audiodev.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          44736 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         20
+  Section header string table index: 17
+[exit 1]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/modules/audiodev.o (INTERP lines)
+
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/modules/audiodev.o (NEEDED lines)
+
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/modules/audiodev.o (version identity only)
+
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/upgrade bytes=124384 sha256=d17809f33003856d66f5406e080081ca8f0e3954a8d5536bb8f541010b8cce1a
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/upgrade
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/upgrade: ELF 32-bit MSB executable, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 2.4.3, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/upgrade
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x10002b7c
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          123184 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         30
+  Section header string table index: 29
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 2.4.3
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/upgrade (INTERP lines)
+  INTERP         0x000154 0x10000154 0x10000154 0x0000d 0x0000d R   0x1
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/upgrade (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [libsonoscrypto.so.1]
+ 0x00000001 (NEEDED)                     Shared library: [libmbedtls.so.10]
+ 0x00000001 (NEEDED)                     Shared library: [libmbedx509.so.0]
+ 0x00000001 (NEEDED)                     Shared library: [libmbedcrypto.so.0]
+ 0x00000001 (NEEDED)                     Shared library: [libsonosutils.so.1]
+ 0x00000001 (NEEDED)                     Shared library: [libcrypt.so.1]
+ 0x00000001 (NEEDED)                     Shared library: [libc.so.6]
+ 0x00000001 (NEEDED)                     Shared library: [ld.so.1]
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/bin/upgrade (version identity only)
+
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/bin/busybox bytes=1050412 sha256=3eda299214482ca220d7a824b5236290b0af919ee74e87dccc78a127b7fdfb1f
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/bin/busybox
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/bin/busybox: ELF 32-bit MSB pie executable, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 3.2.0, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/bin/busybox
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x17920
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          1049212 (bytes into file)
+  Flags:                             0x8000, relocatable-lib
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         9
+  Size of section headers:           40 (bytes)
+  Number of section headers:         30
+  Section header string table index: 29
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 3.2.0
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, 128-bit IBM long double
+  Tag_GNU_Power_ABI_Struct_Return: memory
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/bin/busybox (INTERP lines)
+  INTERP         0x000154 0x00000154 0x00000154 0x0000d 0x0000d R   0x1
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/bin/busybox (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [libresolv.so.2]
+ 0x00000001 (NEEDED)                     Shared library: [libc.so.6]
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/bin/busybox (version identity only)
+
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/libc.so.6 bytes=2236568 sha256=ab3f366dbef65223b1b4c5cfe81d2863246621ebd44d63a5f0209e72da06dc49
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/libc.so.6
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/libc.so.6: ELF 32-bit MSB shared object, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 3.2.0, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/libc.so.6
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x30a80
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          2234248 (bytes into file)
+  Flags:                             0x8000, relocatable-lib
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         10
+  Size of section headers:           40 (bytes)
+  Number of section headers:         58
+  Section header string table index: 57
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 3.2.0
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, 128-bit IBM long double
+  Tag_GNU_Power_ABI_Struct_Return: memory
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/libc.so.6 (INTERP lines)
+  INTERP         0x1ceba8 0x001ceba8 0x001ceba8 0x0000d 0x0000d R   0x4
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/libc.so.6 (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [ld.so.1]
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/libc.so.6 (version identity only)
+ 1c54f8 GNU C Library (Buildroot) stable release version 2.44.
+ 1c55f7 Compiled by GNU CC version 15.3.0.
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/ld.so.1 bytes=264428 sha256=ecc91157f3c19eb2d620606d4fd42379f633e8e4e70f5034362d842a8852b0c7
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/ld.so.1
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/ld.so.1: ELF 32-bit MSB shared object, PowerPC or cisco 4500, version 1 (SYSV), static-pie linked, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/ld.so.1
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x2543c
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          263588 (bytes into file)
+  Flags:                             0x8000, relocatable-lib
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         6
+  Size of section headers:           40 (bytes)
+  Number of section headers:         21
+  Section header string table index: 20
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, unspecified long double
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/ld.so.1 (INTERP lines)
+
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/ld.so.1 (NEEDED lines)
+
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/lib/ld.so.1 (version identity only)
+  2e464 ld.so (Buildroot) stable release version 2.44.
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/usr/sbin/sonosd bytes=67564 sha256=fcc633bd14674a59966b06105246dc21f43e1e6f4f23d9996ca79d66805db489
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/usr/sbin/sonosd
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/usr/sbin/sonosd: ELF 32-bit MSB pie executable, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 3.2.0, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/usr/sbin/sonosd
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x2f3c
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          66444 (bytes into file)
+  Flags:                             0x8000, relocatable-lib
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         9
+  Size of section headers:           40 (bytes)
+  Number of section headers:         28
+  Section header string table index: 27
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 3.2.0
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, unspecified long double
+  Tag_GNU_Power_ABI_Struct_Return: memory
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/usr/sbin/sonosd (INTERP lines)
+  INTERP         0x000154 0x00000154 0x00000154 0x0000d 0x0000d R   0x1
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/usr/sbin/sonosd (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [libmosquitto.so.1]
+ 0x00000001 (NEEDED)                     Shared library: [libc.so.6]
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/buildroot/usr/sbin/sonosd (version identity only)
+
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/bin/busybox bytes=984884 sha256=d818bfa3b35054877200e0d01f6af26c1d1f44009cb419a7360ba7e595914bf9
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/bin/busybox
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/bin/busybox: ELF 32-bit MSB pie executable, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 2.6.35, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/bin/busybox
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x173fc
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          983684 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         9
+  Size of section headers:           40 (bytes)
+  Number of section headers:         30
+  Section header string table index: 29
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 2.6.35
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, unspecified long double
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/bin/busybox (INTERP lines)
+  INTERP         0x000154 0x00000154 0x00000154 0x0000d 0x0000d R   0x1
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/bin/busybox (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [libresolv.so.2]
+ 0x00000001 (NEEDED)                     Shared library: [libc.so.6]
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/bin/busybox (version identity only)
+
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/libc-2.23.so bytes=1527504 sha256=d8d838fc39767843a511e2a4efab1a499750f937d22ba0fcb253ae7ff059af23
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/libc-2.23.so
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/libc-2.23.so: ELF 32-bit MSB shared object, PowerPC or cisco 4500, version 1 (GNU/Linux), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 2.6.35, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/libc-2.23.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 03 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - GNU
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x21b60
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          1524384 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         10
+  Size of section headers:           40 (bytes)
+  Number of section headers:         78
+  Section header string table index: 77
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 2.6.35
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, unspecified long double
+  Tag_GNU_Power_ABI_Struct_Return: memory
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/libc-2.23.so (INTERP lines)
+  INTERP         0x153558 0x00153558 0x00153558 0x0000d 0x0000d R   0x4
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/libc-2.23.so (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [ld.so.1]
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/libc-2.23.so (version identity only)
+ 14b8e0 GNU C Library (crosstool-NG 1.26.0) stable release version 2.23, by Roland McGrath et al.
+ 14ba02 Compiled by GNU CC version 5.5.0.
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/ld-2.23.so bytes=216276 sha256=70d614c04c39248da12deb675e1789e0cdc1d52b7494351da20916bf4867f0dd
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/ld-2.23.so
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/ld-2.23.so: ELF 32-bit MSB shared object, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, not stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/ld-2.23.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x19c9c
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          215316 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         6
+  Size of section headers:           40 (bytes)
+  Number of section headers:         24
+  Section header string table index: 21
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, unspecified long double
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/ld-2.23.so (INTERP lines)
+
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/ld-2.23.so (NEEDED lines)
+
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/lib/ld-2.23.so (version identity only)
+
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/sonosd bytes=67572 sha256=c73dbbd84afd25b6e4d71302b690df985e01d2a17d1aaf9d3b951bb55c78d623
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/sonosd
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/sonosd: ELF 32-bit MSB pie executable, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 2.6.35, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/sonosd
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x30d4
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          66452 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         9
+  Size of section headers:           40 (bytes)
+  Number of section headers:         28
+  Section header string table index: 27
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 2.6.35
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, unspecified long double
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/sonosd (INTERP lines)
+  INTERP         0x000154 0x00000154 0x00000154 0x0000d 0x0000d R   0x1
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/sonosd (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [libmosquitto.so.1]
+ 0x00000001 (NEEDED)                     Shared library: [libpthread.so.0]
+ 0x00000001 (NEEDED)                     Shared library: [libc.so.6]
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/sonosd (version identity only)
+
+
+BINARY /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/dlna-renderer bytes=132580 sha256=700f1368526d32a8280f6dfe3009f89202149bfbb4e468c69bc2926f9aba50e5
+$ file /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/dlna-renderer
+/home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/dlna-renderer: ELF 32-bit MSB pie executable, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 2.6.35, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/dlna-renderer
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x2980
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          131460 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         9
+  Size of section headers:           40 (bytes)
+  Number of section headers:         28
+  Section header string table index: 27
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 2.6.35
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, unspecified long double
+[exit 0]
+
+$ readelf -l /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/dlna-renderer (INTERP lines)
+  INTERP         0x000154 0x00000154 0x00000154 0x0000d 0x0000d R   0x1
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/dlna-renderer (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [libc.so.6]
+$ strings -t x /home/ben/Moggie-wt/buildroot/out/fidelity-audit/tc26/usr/sbin/dlna-renderer (version identity only)
+
+
+BINARY /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libc.so.6 bytes=1527732 sha256=46d9786b162cce79ca4ae9d7da891bfe6a179e2f6c0d5f57b515de1b8d84be78
+$ file /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libc.so.6
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libc.so.6: ELF 32-bit MSB shared object, PowerPC or cisco 4500, version 1 (GNU/Linux), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 2.6.32, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libc.so.6
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 03 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - GNU
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x21bc4
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          1524492 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         10
+  Size of section headers:           40 (bytes)
+  Number of section headers:         81
+  Section header string table index: 80
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 2.6.32
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, unspecified long double
+  Tag_GNU_Power_ABI_Struct_Return: memory
+[exit 0]
+
+$ readelf -l /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libc.so.6 (INTERP lines)
+  INTERP         0x153998 0x00153998 0x00153998 0x0000d 0x0000d R   0x4
+      [Requesting program interpreter: /lib/ld.so.1]
+$ readelf -d /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libc.so.6 (NEEDED lines)
+ 0x00000001 (NEEDED)                     Shared library: [ld.so.1]
+$ strings -t x /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/libc.so.6 (version identity only)
+ 14bd10 GNU C Library (crosstool-NG crosstool-ng-1.22.0 - allen.antony@sonos.com) stable release version 2.23, by Roland McGrath et al.
+ 14be58 Compiled by GNU CC version 5.2.0.
+
+BINARY /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/ld.so.1 bytes=202024 sha256=f7e1162d68e4bf54da10c0944bafe71482add492503ef034f766b38fac3d3f7c
+$ file /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/ld.so.1
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/ld.so.1: ELF 32-bit MSB shared object, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/ld.so.1
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x19d54
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          201104 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         6
+  Size of section headers:           40 (bytes)
+  Number of section headers:         23
+  Section header string table index: 22
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, unspecified long double
+[exit 0]
+
+$ readelf -l /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/ld.so.1 (INTERP lines)
+
+$ readelf -d /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/ld.so.1 (NEEDED lines)
+
+$ strings -t x /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/lib/ld.so.1 (version identity only)
+
+
+BINARY /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/modules/audiodev.ko bytes=97412 sha256=ff9741e5a3f01d4401b190b7da7c4508073f54582d7c52b6425fb019651b3fd5
+$ file /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/modules/audiodev.ko
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/modules/audiodev.ko: ELF 32-bit MSB relocatable, PowerPC or cisco 4500, version 1 (SYSV), not stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/modules/audiodev.ko
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          96412 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         25
+  Section header string table index: 22
+[exit 0]
+
+$ readelf -l /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/modules/audiodev.ko (INTERP lines)
+
+$ readelf -d /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/modules/audiodev.ko (NEEDED lines)
+
+$ strings -t x /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/modules/audiodev.ko (version identity only)
+   a208 vermagic=2.6.35-dirty mod_unload
+
+BINARY /home/ben/Moggie/out/audiodev.ko bytes=120720 sha256=54ebc0c3826a0279cb379a2170f1c5eb516643dc3dac095272d26305ce4b860f
+$ file /home/ben/Moggie/out/audiodev.ko
+/home/ben/Moggie/out/audiodev.ko: ELF 32-bit MSB relocatable, PowerPC or cisco 4500, version 1 (SYSV), not stripped
+[exit 0]
+
+$ readelf -h -n -A /home/ben/Moggie/out/audiodev.ko
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          119320 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         35
+  Section header string table index: 34
+[exit 0]
+
+$ readelf -l /home/ben/Moggie/out/audiodev.ko (INTERP lines)
+
+$ readelf -d /home/ben/Moggie/out/audiodev.ko (NEEDED lines)
+
+$ strings -t x /home/ben/Moggie/out/audiodev.ko (version identity only)
+   c1e8 vermagic=2.6.35-g384384d-dirty mod_unload
+
+COMPILER Bootlin
+$ /home/ben/Moggie/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-gcc -v
+[stderr]
+Using built-in specs.
+COLLECT_GCC=/home/ben/Moggie/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-gcc.br_real
+COLLECT_LTO_WRAPPER=/home/ben/Moggie/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/../libexec/gcc/powerpc-buildroot-linux-gnu/15.3.0/lto-wrapper
+Target: powerpc-buildroot-linux-gnu
+Configured with: ./configure --prefix=/builds/buildroot.org/toolchains-builder/build/powerpc-e300c3--glibc--stable-2026.08-1 --sysconfdir=/builds/buildroot.org/toolchains-builder/build/powerpc-e300c3--glibc--stable-2026.08-1/etc --enable-static --target=powerpc-buildroot-linux-gnu --with-sysroot=/builds/buildroot.org/toolchains-builder/build/powerpc-e300c3--glibc--stable-2026.08-1/powerpc-buildroot-linux-gnu/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --enable-plugins --enable-lto --with-gmp=/builds/buildroot.org/toolchains-builder/build/powerpc-e300c3--glibc--stable-2026.08-1 --with-mpc=/builds/buildroot.org/toolchains-builder/build/powerpc-e300c3--glibc--stable-2026.08-1 --with-mpfr=/builds/buildroot.org/toolchains-builder/build/powerpc-e300c3--glibc--stable-2026.08-1 --with-pkgversion='toolchains.bootlin.com 2026.08-1' --with-bugurl=https://github.com/bootlin/toolchains-builder/issues --without-zstd --disable-decimal-float --disable-libquadmath --disable-libquadmath-support --enable-tls --enable-threads --without-isl --without-cloog --with-cpu-32=e300c3 --enable-secureplt --enable-languages=c,c++ --with-build-time-tools=/builds/buildroot.org/toolchains-builder/build/powerpc-e300c3--glibc--stable-2026.08-1/powerpc-buildroot-linux-gnu/bin --enable-shared --enable-libgomp
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 15.3.0 (toolchains.bootlin.com 2026.08-1)
+[exit 0]
+
+SYSROOT /home/ben/Moggie/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/powerpc-buildroot-linux-gnu/sysroot libc_sha256=38e3feff54c2b5dfa75bf345c26f3ba2d7253c50e0d8845918ed2648dc47d3f2
+$ readelf -n -A /home/ben/Moggie/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/powerpc-buildroot-linux-gnu/sysroot/lib/libc.so.6
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 3.2.0
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, 128-bit IBM long double
+  Tag_GNU_Power_ABI_Struct_Return: memory
+[exit 0]
+
+COMPILER tc26
+$ /home/ben/Moggie-tc/toolchain/powerpc-buildroot-linux-gnu/bin/powerpc-buildroot-linux-gnu-gcc -v
+[stderr]
+Using built-in specs.
+COLLECT_GCC=/home/ben/Moggie-tc/toolchain/powerpc-buildroot-linux-gnu/bin/powerpc-buildroot-linux-gnu-gcc
+COLLECT_LTO_WRAPPER=/home/ben/Moggie-tc/toolchain/powerpc-buildroot-linux-gnu/bin/../libexec/gcc/powerpc-buildroot-linux-gnu/5.5.0/lto-wrapper
+Target: powerpc-buildroot-linux-gnu
+Configured with: /work/build/ctng/.build/powerpc-buildroot-linux-gnu/src/gcc/configure --build=x86_64-build_pc-linux-gnu --host=x86_64-build_pc-linux-gnu --target=powerpc-buildroot-linux-gnu --prefix=/work/toolchain/powerpc-buildroot-linux-gnu --exec_prefix=/work/toolchain/powerpc-buildroot-linux-gnu --with-sysroot=/work/toolchain/powerpc-buildroot-linux-gnu/powerpc-buildroot-linux-gnu/sysroot --enable-languages=c,c++ --with-cpu=e300c3 --with-float=hard --with-pkgversion='crosstool-NG 1.26.0' --enable-__cxa_atexit --disable-tm-clone-registry --disable-libmudflap --disable-libgomp --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libsanitizer --disable-libmpx --with-gmp=/work/build/ctng/.build/powerpc-buildroot-linux-gnu/buildtools --with-mpfr=/work/build/ctng/.build/powerpc-buildroot-linux-gnu/buildtools --with-mpc=/work/build/ctng/.build/powerpc-buildroot-linux-gnu/buildtools --with-isl=/work/build/ctng/.build/powerpc-buildroot-linux-gnu/buildtools --enable-lto --without-zstd --with-host-libstdcxx='-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm' --enable-threads=posix --disable-plugin --disable-nls --disable-multilib --with-local-prefix=/work/toolchain/powerpc-buildroot-linux-gnu/powerpc-buildroot-linux-gnu/sysroot --enable-long-long
+Thread model: posix
+gcc version 5.5.0 (crosstool-NG 1.26.0)
+[exit 0]
+
+SYSROOT /home/ben/Moggie-tc/toolchain/powerpc-buildroot-linux-gnu/bin/../powerpc-buildroot-linux-gnu/sysroot libc_sha256=ce725642d81e5faa46b7f3fb70532d5be2784f120bffd8e16ad6c54c5c26b568
+$ readelf -n -A /home/ben/Moggie-tc/toolchain/powerpc-buildroot-linux-gnu/bin/../powerpc-buildroot-linux-gnu/sysroot/lib/libc.so.6
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 2.6.35
+Attribute Section: gnu
+File Attributes
+  Tag_GNU_Power_ABI_FP: hard float, unspecified long double
+  Tag_GNU_Power_ABI_Struct_Return: memory
+[exit 0]
+
+$ /home/ben/Moggie/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d /home/ben/Moggie-wt/buildroot/out/fidelity-audit/stock16/lib/libm-2.3.5.so (first eight FPU instructions)
+    a480:	db e1 00 48 	stfd    f31,72(r1)
+    a4a0:	d8 21 00 18 	stfd    f1,24(r1)
+    a4a4:	d8 41 00 20 	stfd    f2,32(r1)
+    a504:	c8 09 00 00 	lfd     f0,0(r9)
+    a508:	d8 01 00 28 	stfd    f0,40(r1)
+    a514:	c8 09 00 00 	lfd     f0,0(r9)
+    a518:	d8 01 00 28 	stfd    f0,40(r1)
+    a5c0:	c8 09 00 00 	lfd     f0,0(r9)
