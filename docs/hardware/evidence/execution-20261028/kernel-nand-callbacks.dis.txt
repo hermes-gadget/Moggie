@@ -1,0 +1,49 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -D -b binary -m powerpc:common -EB --adjust-vma=0xc0000000 --start-address=0xc00be490 --stop-address=0xc00be530 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed:     file format binary
+
+
+Disassembly of section .data:
+
+c00be490 <.data+0xbe490>:
+c00be490:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe490
+c00be494:	39 29 c4 b8 	addi    r9,r9,-15176  # file 0xbe494
+c00be498:	93 be 01 08 	stw     r29,264(r30)  # file 0xbe498
+c00be49c:	91 3e 01 10 	stw     r9,272(r30)  # file 0xbe49c
+c00be4a0:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe4a0
+c00be4a4:	39 29 cd 0c 	addi    r9,r9,-13044  # file 0xbe4a4
+c00be4a8:	93 be 01 0c 	stw     r29,268(r30)  # file 0xbe4a8
+c00be4ac:	91 3e 01 14 	stw     r9,276(r30)  # file 0xbe4ac
+c00be4b0:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe4b0
+c00be4b4:	39 29 bd 4c 	addi    r9,r9,-17076  # file 0xbe4b4
+c00be4b8:	93 be 01 34 	stw     r29,308(r30)  # file 0xbe4b8
+c00be4bc:	91 3e 01 18 	stw     r9,280(r30)  # file 0xbe4bc
+c00be4c0:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe4c0
+c00be4c4:	39 29 c9 c0 	addi    r9,r9,-13888  # file 0xbe4c4
+c00be4c8:	93 be 01 48 	stw     r29,328(r30)  # file 0xbe4c8
+c00be4cc:	91 3e 01 1c 	stw     r9,284(r30)  # file 0xbe4cc
+c00be4d0:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe4d0
+c00be4d4:	39 29 c4 e4 	addi    r9,r9,-15132  # file 0xbe4d4
+c00be4d8:	93 be 01 4c 	stw     r29,332(r30)  # file 0xbe4d8
+c00be4dc:	91 3e 01 20 	stw     r9,288(r30)  # file 0xbe4dc
+c00be4e0:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe4e0
+c00be4e4:	39 29 b2 68 	addi    r9,r9,-19864  # file 0xbe4e4
+c00be4e8:	93 be 01 50 	stw     r29,336(r30)  # file 0xbe4e8
+c00be4ec:	91 3e 01 24 	stw     r9,292(r30)  # file 0xbe4ec
+c00be4f0:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe4f0
+c00be4f4:	39 29 d1 58 	addi    r9,r9,-11944  # file 0xbe4f4
+c00be4f8:	93 be 01 54 	stw     r29,340(r30)  # file 0xbe4f8
+c00be4fc:	91 3e 01 3c 	stw     r9,316(r30)  # file 0xbe4fc
+c00be500:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe500
+c00be504:	39 29 cd 38 	addi    r9,r9,-13000  # file 0xbe504
+c00be508:	91 3e 01 40 	stw     r9,320(r30)  # file 0xbe508
+c00be50c:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe50c
+c00be510:	39 29 d4 e0 	addi    r9,r9,-11040  # file 0xbe510
+c00be514:	91 3e 01 44 	stw     r9,324(r30)  # file 0xbe514
+c00be518:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe518
+c00be51c:	39 29 d6 1c 	addi    r9,r9,-10724  # file 0xbe51c
+c00be520:	91 3e 01 64 	stw     r9,356(r30)  # file 0xbe520
+c00be524:	3d 20 c0 0c 	lis     r9,-16372  # file 0xbe524
+c00be528:	39 29 d6 4c 	addi    r9,r9,-10676  # file 0xbe528
+c00be52c:	91 3e 01 68 	stw     r9,360(r30)  # file 0xbe52c

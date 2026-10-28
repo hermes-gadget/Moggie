@@ -83,10 +83,25 @@ package/range and does not establish later signatures or device acceptance.
 
 The normal network action-3 path now has a traced state-4/result-zero gate
 before install dispatch. Completion stores the action-2 result. Asynchronous
-variants and complete state-writer coverage remain open. The complete older
-inline NAND writer has no direct read/memcmp call; geometry/OOB ioctls and any
+variants and complete state-writer coverage remain open. The previously inspected alternate
+userspace writer at `0x8f10` has no direct read/memcmp call; geometry/OOB ioctls and any
 kernel verification still need their own trace. A later-family userspace
 readback guarantee must not be copied to this function (report updater section).
+
+## Matching older kernel/OOB increment
+
+The older partition-table path uses a different writer, at `U@0x85c8`, rather
+than the alternate writer at `0x8f10`. Its OOB magic occupies bytes 8–9 and its
+generation bytes 10–11 are low-byte first. The matching captured 2.4 kernel
+partition checker consumes exactly those fields and has a final-marker path;
+this directly invalidates transfer of the Fenway OOB offsets/endianness.
+
+Raw-kernel link labels are supported by three export-table pointer pairs.
+MTD OOB ioctl dispatch is traced through the generic NAND callback and its
+status/readback-verification sequence. Exact board/partition binding remains
+open. OOB metadata is submitted before the associated data page; atomic commit,
+table replacement and U-Boot rules remain unproved. See the new report section
+and kernel/partition-program evidence, all checked against original file bytes.
 
 ## Verification executed so far
 
@@ -104,11 +119,11 @@ certify complete RE semantics, current-device applicability or hardware behavior
 Draft PR: https://github.com/hermes-gadget/Moggie/pull/63 (OPEN, draft;
 no CI checks reported at the last inspection). No merge was performed.
 
-Final receipt: 20 UPD records, 14 extracted hashes, 4,010 source-matching
-disassembly rows; 53 document links and 43 cited offset starts checked; all 58
+Final receipt: 20 UPD records, 14 extracted hashes, 5,062 source-matching
+disassembly rows; 62 document links and 66 cited offset starts checked; all 68
 regenerated files identical. Older legacy signature validates the exact prefix
 and rejects alteration. Latest report SHA-256:
-`09bcf17a7060b08296391af66243d2f23b12ddc495f5601dc5b25f9608677778`.
+`1cf56c587ae8b19824bf227e5e29a4d8a3ccd559b72c9abb6d684aa1e8573ff4`.
 
 ## Requirement audit
 
@@ -124,8 +139,9 @@ and rejects alteration. Latest report SHA-256:
 
 ## Ordered remaining queue
 
-1. Trace inline flash/OOB/partition-table commit ordering through the matching
-   kernel ioctl consumers. Preserve the newly traced normal sequential gate;
+1. Finish exact board/partition callback binding and partition-table replacement
+   ordering, now that the matching generic MTD/OOB path and kernel partition
+   metadata checker are recovered. Preserve the normal sequential gate;
    asynchronous/virtual variants and complete state writers remain unclosed.
 2. Trace watchdog/reset ownership and remaining kernel boot-selection logic from
    existing captures. Keep unknown physical layout and U-Boot semantics explicit.

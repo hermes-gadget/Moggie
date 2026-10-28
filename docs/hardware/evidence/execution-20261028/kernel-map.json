@@ -1,0 +1,27 @@
+{
+  "anchors": [
+    {
+      "function_va": "0xc00b53e8",
+      "name": "default_mtd_readv",
+      "name_file": "0x1456c4",
+      "name_va": "0xc01456c4",
+      "pair_file": "0x15ca48"
+    },
+    {
+      "function_va": "0xc00b5304",
+      "name": "default_mtd_writev",
+      "name_file": "0x1456d8",
+      "name_va": "0xc01456d8",
+      "pair_file": "0x15ca50"
+    },
+    {
+      "function_va": "0xc00b5114",
+      "name": "get_mtd_device",
+      "name_file": "0x145724",
+      "name_va": "0xc0145724",
+      "pair_file": "0x15ca70"
+    }
+  ],
+  "base": "0xc0000000",
+  "boundary": "Consistent link labels recovered from raw export pointers; no ELF headers or live load address asserted."
+}

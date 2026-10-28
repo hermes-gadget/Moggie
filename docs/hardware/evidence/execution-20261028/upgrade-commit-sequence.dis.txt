@@ -1,0 +1,77 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10009ca8 --stop-address=0x10009db8 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10009ca8 <__frame_state_for@@Base-0xb780>:
+10009ca8:	40 88 03 70 	bge     cr2,1000a018 <_init@@Base+0x74c4>  # file 0x9ca8
+10009cac:	1f b6 00 0c 	mulli   r29,r22,12  # file 0x9cac
+10009cb0:	80 bb 00 04 	lwz     r5,4(r27)  # file 0x9cb0
+10009cb4:	7f bd da 14 	add     r29,r29,r27  # file 0x9cb4
+10009cb8:	54 a5 07 fe 	clrlwi  r5,r5,31  # file 0x9cb8
+10009cbc:	7e c3 b3 78 	mr      r3,r22  # file 0x9cbc
+10009cc0:	38 9d 00 08 	addi    r4,r29,8  # file 0x9cc0
+10009cc4:	4b ff fa 85 	bl      10009748 <_init@@Base+0x6bf4>  # file 0x9cc4
+10009cc8:	80 d3 dd a8 	lwz     r6,-8792(r19)  # file 0x9cc8
+10009ccc:	3c 60 10 02 	lis     r3,4098  # file 0x9ccc
+10009cd0:	38 80 00 01 	li      r4,1  # file 0x9cd0
+10009cd4:	38 a0 00 12 	li      r5,18  # file 0x9cd4
+10009cd8:	38 63 a8 b0 	addi    r3,r3,-22352  # file 0x9cd8
+10009cdc:	48 02 44 a5 	bl      1002e180 <fwrite@plt>  # file 0x9cdc
+10009ce0:	80 7d 00 0c 	lwz     r3,12(r29)  # file 0x9ce0
+10009ce4:	80 9d 00 10 	lwz     r4,16(r29)  # file 0x9ce4
+10009ce8:	80 bb 00 04 	lwz     r5,4(r27)  # file 0x9ce8
+10009cec:	7c 83 22 14 	add     r4,r3,r4  # file 0x9cec
+10009cf0:	54 a5 07 fe 	clrlwi  r5,r5,31  # file 0x9cf0
+10009cf4:	4b ff ef 95 	bl      10008c88 <_init@@Base+0x6134>  # file 0x9cf4
+10009cf8:	40 90 01 c8 	bge     cr4,10009ec0 <_init@@Base+0x736c>  # file 0x9cf8
+10009cfc:	40 8c 02 04 	bge     cr3,10009f00 <_init@@Base+0x73ac>  # file 0x9cfc
+10009d00:	2f 94 00 00 	cmpwi   cr7,r20,0  # file 0x9d00
+10009d04:	41 9c 00 40 	blt     cr7,10009d44 <_init@@Base+0x71f0>  # file 0x9d04
+10009d08:	80 7a dd a8 	lwz     r3,-8792(r26)  # file 0x9d08
+10009d0c:	3c 80 10 02 	lis     r4,4098  # file 0x9d0c
+10009d10:	38 84 a8 c4 	addi    r4,r4,-22332  # file 0x9d10
+10009d14:	7e 85 a3 78 	mr      r5,r20  # file 0x9d14
+10009d18:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x9d18
+10009d1c:	48 02 41 c5 	bl      1002dee0 <fprintf@plt>  # file 0x9d1c
+10009d20:	80 c1 02 a8 	lwz     r6,680(r1)  # file 0x9d20
+10009d24:	7f 63 db 78 	mr      r3,r27  # file 0x9d24
+10009d28:	7e 84 a3 78 	mr      r4,r20  # file 0x9d28
+10009d2c:	7d c5 73 78 	mr      r5,r14  # file 0x9d2c
+10009d30:	38 f5 00 01 	addi    r7,r21,1  # file 0x9d30
+10009d34:	4b ff e8 95 	bl      100085c8 <_init@@Base+0x5a74>  # file 0x9d34
+10009d38:	39 20 ff ff 	li      r9,-1  # file 0x9d38
+10009d3c:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x9d3c
+10009d40:	40 9e 00 b0 	bne     cr7,10009df0 <_init@@Base+0x729c>  # file 0x9d40
+10009d44:	80 a1 02 b0 	lwz     r5,688(r1)  # file 0x9d44
+10009d48:	7e e0 b8 f8 	not     r0,r23  # file 0x9d48
+10009d4c:	54 00 0f fe 	srwi    r0,r0,31  # file 0x9d4c
+10009d50:	31 45 ff ff 	addic   r10,r5,-1  # file 0x9d50
+10009d54:	7d 2a 29 10 	subfe   r9,r10,r5  # file 0x9d54
+10009d58:	7c 0b 48 39 	and.    r11,r0,r9  # file 0x9d58
+10009d5c:	41 82 00 40 	beq     10009d9c <_init@@Base+0x7248>  # file 0x9d5c
+10009d60:	80 7a dd a8 	lwz     r3,-8792(r26)  # file 0x9d60
+10009d64:	3c 80 10 02 	lis     r4,4098  # file 0x9d64
+10009d68:	38 84 a8 e4 	addi    r4,r4,-22300  # file 0x9d68
+10009d6c:	7e e5 bb 78 	mr      r5,r23  # file 0x9d6c
+10009d70:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x9d70
+10009d74:	48 02 41 6d 	bl      1002dee0 <fprintf@plt>  # file 0x9d74
+10009d78:	80 a1 02 ac 	lwz     r5,684(r1)  # file 0x9d78
+10009d7c:	80 c1 02 b0 	lwz     r6,688(r1)  # file 0x9d7c
+10009d80:	7f 63 db 78 	mr      r3,r27  # file 0x9d80
+10009d84:	7e e4 bb 78 	mr      r4,r23  # file 0x9d84
+10009d88:	38 f5 00 01 	addi    r7,r21,1  # file 0x9d88
+10009d8c:	4b ff e8 3d 	bl      100085c8 <_init@@Base+0x5a74>  # file 0x9d8c
+10009d90:	39 20 ff ff 	li      r9,-1  # file 0x9d90
+10009d94:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x9d94
+10009d98:	40 9e 00 58 	bne     cr7,10009df0 <_init@@Base+0x729c>  # file 0x9d98
+10009d9c:	80 9e 00 04 	lwz     r4,4(r30)  # file 0x9d9c
+10009da0:	80 7e 00 00 	lwz     r3,0(r30)  # file 0x9da0
+10009da4:	4b ff f8 91 	bl      10009634 <_init@@Base+0x6ae0>  # file 0x9da4
+10009da8:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x9da8
+10009dac:	40 9e 01 f8 	bne     cr7,10009fa4 <_init@@Base+0x7450>  # file 0x9dac
+10009db0:	39 20 00 00 	li      r9,0  # file 0x9db0
+10009db4:	48 00 00 3c 	b       10009df0 <_init@@Base+0x729c>  # file 0x9db4

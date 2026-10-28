@@ -77,14 +77,23 @@ def elf_evidence(path, objdump, ranges, out, label):
             raise ValueError('expected PPC32 big-endian ELF')
         loads = [dict(va=s['p_vaddr'], offset=s['p_offset'], size=s['p_filesz'])
                  for s in elf.iter_segments() if s['p_type'] == 'PT_LOAD']
+    count = disassembly_evidence(path, objdump, ranges, loads, out, label)
+    return dict(path=str(path), sha256=digest(data), size=len(data),
+                loads=loads, checked_disassembly_rows=count)
+
+
+def disassembly_evidence(path, objdump, ranges, loads, out, label, raw_base=None):
+    data = path.read_bytes()
     def offset(va):
         for segment in loads:
-            if segment['va'] <= va < segment['va'] + segment['size']:
+            if segment['va'] <= va and va + 4 <= segment['va'] + segment['size']:
                 return segment['offset'] + va - segment['va']
-        raise ValueError(f'VA {va:#x} has no file backing')
+        raise ValueError(f'VA {va:#x} has no four-byte file backing')
     count = 0
     for name, start, end in ranges:
-        command = [str(objdump), '-d', f'--start-address={start:#x}',
+        options = ['-d'] if raw_base is None else [
+            '-D', '-b', 'binary', '-m', 'powerpc:common', '-EB', f'--adjust-vma={raw_base:#x}']
+        command = [str(objdump), *options, f'--start-address={start:#x}',
                    f'--stop-address={end:#x}', str(path)]
         lines = run(command).decode().splitlines()
         annotated = ['# Command: ' + ' '.join(command),
@@ -100,8 +109,40 @@ def elf_evidence(path, objdump, ranges, out, label):
                 count += 1
             annotated.append(line.rstrip())
         (out / f'{label}-{name}.dis.txt').write_text('\n'.join(annotated) + '\n')
-    return dict(path=str(path), sha256=digest(data), size=len(data),
-                loads=loads, checked_disassembly_rows=count)
+    return count
+
+
+def raw_kernel_evidence(path, objdump, out):
+    data = path.read_bytes()
+    anchors, bases = [], set()
+    for pair_offset, name in ((0x15ca48, 'default_mtd_readv'),
+                              (0x15ca50, 'default_mtd_writev'),
+                              (0x15ca70, 'get_mtd_device')):
+        function_va, name_va = struct.unpack_from('>II', data, pair_offset)
+        name_offset = data.index(name.encode() + b'\0')
+        base = name_va - name_offset
+        if base != 0xc0000000 or not base <= function_va < base + len(data):
+            raise ValueError('inconsistent raw-kernel export anchor')
+        bases.add(base)
+        anchors.append(dict(pair_file=hex(pair_offset), function_va=hex(function_va),
+                            name_va=hex(name_va), name_file=hex(name_offset), name=name))
+    if len(bases) != 1:
+        raise ValueError('raw-kernel anchors disagree')
+    base = bases.pop()
+    loads = [dict(va=base, offset=0, size=len(data))]
+    rows = disassembly_evidence(path, objdump, (
+        ('ioctl-dispatch', base + 0xb7318, base + 0xb748c),
+        ('oob-write', base + 0xb7728, base + 0xb78dc),
+        ('oob-read', base + 0xb78dc, base + 0xb7aa8),
+        ('vendor-ioctls', base + 0xb7bf0, base + 0xb7cb4),
+        ('nand-callbacks', base + 0xbe490, base + 0xbe530),
+        ('nand-oob-program', base + 0xbb268, base + 0xbb4a0),
+        ('rincon-partition', base + 0xc0178, base + 0xc036c),
+    ), loads, out, 'kernel', raw_base=base)
+    write_json(out / 'kernel-map.json', dict(base=hex(base), anchors=anchors,
+        boundary='Consistent link labels recovered from raw export pointers; no ELF headers or live load address asserted.'))
+    return dict(path=str(path), sha256=digest(data), size=len(data), loads=loads,
+                format='raw', checked_disassembly_rows=rows)
 
 
 def public_anchor(path):
@@ -430,6 +471,8 @@ def main():
         ('record-dispatch', 0x1000778c, 0x10007c80),
         ('validate-install', 0x10007c68, 0x10007d38),
         ('slot-destination', 0x10009878, 0x10009a28),
+        ('slot-program', 0x100085c8, 0x10008aa4),
+        ('commit-sequence', 0x10009ca8, 0x10009db8),
         ('nand-writer', 0x10008f10, 0x10009530),
     ), out, 'upgrade')
     images['crypto'] = elf_evidence(cache / 'rootfs/lib/libsonoscrypto.so.1', args.objdump, (
@@ -444,6 +487,7 @@ def main():
         ('encrypted-setup', 0xad5c, 0xaeec),
         ('rsa-decrypt', 0x5ac4, 0x5c18),
     ), out, 'crypto')
+    images['kernel'] = raw_kernel_evidence(cache / 'kernel.decompressed', args.objdump, out)
     write_json(out / 'images.json', images)
     anchor = public_anchor(cache / 'rootfs/lib/libsonoscrypto.so.1')
     write_json(out / 'legacy-public-anchor.json', anchor)
@@ -467,7 +511,7 @@ def main():
                script_record=r, kernel_record=r_kernel,
                boundary='Host unsquashfs only; no account data, devices or target execution.'))
     print(f'PASS: 2 pinned UPDs parsed to exact EOF; {len(manifest)} allowlisted files extracted; {len(missing)} absent')
-    print(f'PASS: {sum(im["checked_disassembly_rows"] for im in images.values())} disassembly rows match ELF file bytes')
+    print(f'PASS: {sum(im["checked_disassembly_rows"] for im in images.values())} disassembly rows match source image bytes')
     print('PASS: older UPD legacy RSA/MD5 signature verifies exact prefix; altered prefix rejected')
 
 

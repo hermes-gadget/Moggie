@@ -93,10 +93,22 @@ def main():
         data = path.read_bytes()
         sources[label] = data
         assert len(data) == entry['size'] and sha(data) == entry['sha256']
-        with path.open('rb') as stream:
-            elf = ELFFile(stream)
-            loads = [(s['p_vaddr'], s['p_offset'], s['p_filesz'])
-                     for s in elf.iter_segments() if s['p_type'] == 'PT_LOAD']
+        if entry.get('format') == 'raw':
+            mapping = read('kernel-map.json')
+            base = int(mapping['base'], 16)
+            for anchor in mapping['anchors']:
+                pair = struct.unpack_from('>II', data, int(anchor['pair_file'], 16))
+                assert pair == (int(anchor['function_va'], 16), int(anchor['name_va'], 16))
+                name_offset = int(anchor['name_file'], 16)
+                assert data[name_offset:data.index(b'\0', name_offset)].decode() == anchor['name']
+                assert pair[1] - name_offset == base
+                assert base <= pair[0] < base + len(data)
+            loads = [(base, 0, len(data))]
+        else:
+            with path.open('rb') as stream:
+                elf = ELFFile(stream)
+                loads = [(s['p_vaddr'], s['p_offset'], s['p_filesz'])
+                         for s in elf.iter_segments() if s['p_type'] == 'PT_LOAD']
         count = 0
         for excerpt in sorted(root.glob(label + '-*.dis.txt')):
             for line in excerpt.read_text().splitlines():
@@ -168,8 +180,9 @@ def main():
         assert (args.document.parent / target).is_file(), target
         links += 1
     offsets = 0
-    for label, value in re.findall(r'\b([UC])@(?:`)?(0x[0-9a-f]+)', document):
-        assert int(value, 16) < len(sources['upgrade' if label == 'U' else 'crypto'])
+    for label, value in re.findall(r'\b([UCK])@(?:`)?(0x[0-9a-f]+)', document):
+        key = {'U': 'upgrade', 'C': 'crypto', 'K': 'kernel'}[label]
+        assert int(value, 16) < len(sources[key])
         offsets += 1
     compared = 0
     if args.compare:

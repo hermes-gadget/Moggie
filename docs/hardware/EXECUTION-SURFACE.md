@@ -169,14 +169,16 @@ Nearest-symbol labels in stripped code are not recovered function names.
    `U@0x99f8` computes `1 - section`. This older rootfs lacks the requested
    `lib/libflash.so.1` path (extraction.json); the later Fenway library's offsets
    cannot describe this inline implementation. The
-   [inline NAND writer](evidence/execution-20261028/upgrade-nand-writer.dis.txt)
+   [alternate userspace writer](evidence/execution-20261028/upgrade-nand-writer.dis.txt)
    `U@0x8f94–0x8fa4` opens its supplied device O_RDWR, queries geometry through
    ioctl, and `U@0x9218–0x9220` checks the write return count. Its full preserved
    function range `U@0x8f10–0x952f` has no direct `read`/`memcmp` call, so the
    later-family userspace readback guarantee cannot be transferred to it.
-   OOB-reading ioctls and possible kernel verification are separate; this is
-   not proof that no verification exists. Complete OOB commit ordering,
-   physical layout and power-loss behavior remain open.
+   That function is called on a different installer branch (`U@0x5b0c,0x5b50`);
+   it is not the complete partition-table installation path. The latter calls
+   the separate `U@0x85c8` writer, traced next. This distinction narrows the
+   earlier handoff's wording. Kernel verification, physical layout and
+   power-loss behavior require their own evidence.
 
 The [package installation script](evidence/execution-20261028/package-install-script.txt)
 is data only and was never run. Original lines 6–37 can remount JFFS, restore
@@ -190,6 +192,67 @@ Moggie's own updater uses a separate RSA-2048/SHA-256 scheme
 (`firmware/bootchooser/init:192–223,298–339`). Moggie's `bootslot`, `running_slot`,
 `boot_ok`, two-attempt rule and custom A/B dimensions are **not stock findings**.
 No stock `boot_ok` producer/consumer or health rollback rule is established here.
+
+## Older partition writer and matching kernel metadata consumer
+
+`K@offset` is a file offset in the decompressed **older** kernel, SHA-256
+`c0a562fa670d1f620c249c8e5857388a575d85fa4fe3f5ce587720719509bf51`.
+The [raw-kernel map](evidence/execution-20261028/kernel-map.json) recovers the
+consistent `0xc0000000` link-label base from three export function/name pairs,
+including `default_mtd_readv` at pair file `0x15ca48`. This is not an ELF header
+or observation of a live load address. Each saved raw disassembly row is
+checked against file bytes, separately from the ELF mappings.
+
+**The actual partition-table writer is separate from `U@0x8f10`.** The
+[destination commit sequence](evidence/execution-20261028/upgrade-commit-sequence.dis.txt)
+`U@0x9d20–0x9d34,0x9d78–0x9d8c` passes `generation + 1` to VA `0x100085c8`.
+The [partition writer](evidence/execution-20261028/upgrade-slot-program.dis.txt)
+opens `/dev/mtd/0` (`U@0x8654–0x8668`, literal `U@0x1a4dc`), checks bad-block
+markers through OOB-read ioctl `0xc00c4d04`, and erases 16 KiB at block boundaries
+(`U@0x88d4–0x89dc`). Existing partition-table fields determine the start/end;
+these are not a measured physical map for the speaker.
+
+For the ordinary branch with table flag bit 0 clear, the OOB bytes built at
+`U@0x870c–0x8754` are:
+
+| OOB byte(s) | Captured writer value | Matching captured kernel check |
+|---|---|---|
+| 8–9 | `19 74`, or `74 19` at the final allocated partition page (`U@0x8838–0x8844`) | `K@0xc0254–0xc027c` accepts those two byte sequences |
+| 10–11 | Generation, **low byte first** (`U@0x8724–0x873c`) | `K@0xc0290–0xc02a0` reconstructs byte 10 OR byte 11 shifted left 8 and rejects zero |
+| 12–14 | Payload/page count expression, least-significant byte first (`U@0x8728–0x874c`) | Full semantics not reconstructed here; do not substitute Fenway LBLOCK fields |
+| 15 | Zero (`U@0x8748–0x8754`) | Not assigned a boot-policy meaning here |
+
+This is concrete counter-evidence to carrying the Fenway OOB map into this older
+family: its magic/generation positions and generation endianness differ. The
+captured kernel's [partition checker](evidence/execution-20261028/kernel-rincon-partition.dis.txt)
+rejects read failure, bad magic, zero generation, generation mismatch and an
+unfinished partition; its diagnostic strings name `nand_rincon_check_partition`
+(`K@0x13cdf0–0x13cee0`). It accepts a `74 19` marker after consistent generation
+checks (`K@0xc02b0–0xc0314`). For a valid partition-table magic, the ordinary
+`19 74` path also checks the end page (`K@0xc02f8–0xc0338`); a separate legacy
+branch can accept earlier. This is a **kernel** routine, not a disassembly of
+U-Boot or proof of its fallback rules.
+
+The matching [MTD dispatcher](evidence/execution-20261028/kernel-ioctl-dispatch.dis.txt)
+recognizes `0xc00c4d03/04` at `K@0xb7440–0xb7478` and dispatches OOB writes and
+reads to [write](evidence/execution-20261028/kernel-oob-write.dis.txt) and
+[read](evidence/execution-20261028/kernel-oob-read.dis.txt) handlers.
+The write handler copies the 12-byte descriptor and data, then calls the
+MTD callback at object offset `0x124` (`K@0xb7870–0xb7890`). The
+[NAND setup](evidence/execution-20261028/kernel-nand-callbacks.dis.txt)
+`K@0xbe4e0–0xbe4ec` installs VA `0xc00bb268` into that field in the generic NAND
+scan path. Its [OOB primitive](evidence/execution-20261028/kernel-nand-oob-program.dis.txt)
+issues command `0x80`, writes the bytes, issues `0x10`, waits/checks status, then
+issues `0x50` and invokes the verification callback (`K@0xbb368–0xbb47c`).
+This proves a generic captured OOB verification path; exact device/partition
+callback binding and every error/retry path remain to be closed.
+
+**Commit-order limit:** the partition writer issues the OOB-write ioctl at
+`U@0x8774` before the associated 512-byte payload write at `U@0x887c`.
+The end marker is selected before that ioctl. This source order is insufficient
+to claim an atomic payload-plus-marker commit or power-cut-safe installation.
+Full callback binding, data-page verification, table replacement ordering and
+bootloader validation remain open. No flash operation was executed.
 
 ## Later encrypted envelope: completed host-only framing experiment
 
