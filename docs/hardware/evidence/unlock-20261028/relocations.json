@@ -122,6 +122,16 @@
   {
     "image": "D",
     "section": ".rela.dyn",
+    "entry_file": "0x311c",
+    "target_va": "0x3f97c",
+    "target_file": "0x2f97c",
+    "type": 22,
+    "symbol": "",
+    "addend": "0x41080"
+  },
+  {
+    "image": "D",
+    "section": ".rela.dyn",
     "entry_file": "0x31dc",
     "target_va": "0x3f9bc",
     "target_file": "0x2f9bc",
@@ -152,11 +162,41 @@
   {
     "image": "D",
     "section": ".rela.dyn",
+    "entry_file": "0x3278",
+    "target_va": "0x3f9f0",
+    "target_file": "0x2f9f0",
+    "type": 22,
+    "symbol": "",
+    "addend": "0x40f20"
+  },
+  {
+    "image": "D",
+    "section": ".rela.dyn",
     "entry_file": "0x32c0",
     "target_va": "0x3fa08",
     "target_file": "0x2fa08",
     "type": 22,
     "symbol": "",
     "addend": "0x2afb0"
+  },
+  {
+    "image": "D",
+    "section": ".rela.dyn",
+    "entry_file": "0x3794",
+    "target_va": "0x3fbac",
+    "target_file": "0x2fbac",
+    "type": 22,
+    "symbol": "",
+    "addend": "0x41080"
+  },
+  {
+    "image": "D",
+    "section": ".rela.dyn",
+    "entry_file": "0x3824",
+    "target_va": "0x3fbdc",
+    "target_file": "0x2fbdc",
+    "type": 22,
+    "symbol": "",
+    "addend": "0x2b558"
   }
 ]

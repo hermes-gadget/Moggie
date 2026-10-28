@@ -1,0 +1,61 @@
+$ /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x124a0 --stop-address=0x12570 /home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear
+# Each instruction: VA [file offset] bytes mnemonic
+
+/home/ben/sonos-bench/sonos-fenway/firmware/rootfs/57.10-25140/usr/bin/dropbear:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+000124a0 <.text+0xd7f0>:
+   124a0 [file 0x000124a0]:	94 21 ff c0 	stwu    r1,-64(r1)
+   124a4 [file 0x000124a4]:	7c 08 02 a6 	mflr    r0
+   124a8 [file 0x000124a8]:	42 9f 00 05 	bcl     20,4*cr7+so,124ac <_IO_stdin_used@@Base-0x16d7c>
+   124ac [file 0x000124ac]:	bf 41 00 28 	stmw    r26,40(r1)
+   124b0 [file 0x000124b0]:	7f c8 02 a6 	mflr    r30
+   124b4 [file 0x000124b4]:	90 01 00 44 	stw     r0,68(r1)
+   124b8 [file 0x000124b8]:	3b e1 00 20 	addi    r31,r1,32
+   124bc [file 0x000124bc]:	80 1e ff f0 	lwz     r0,-16(r30)
+   124c0 [file 0x000124c0]:	7c 7d 1b 78 	mr      r29,r3
+   124c4 [file 0x000124c4]:	81 22 8f f8 	lwz     r9,-28680(r2)
+   124c8 [file 0x000124c8]:	91 21 00 1c 	stw     r9,28(r1)
+   124cc [file 0x000124cc]:	39 20 00 00 	li      r9,0
+   124d0 [file 0x000124d0]:	95 3f ff f8 	stwu    r9,-8(r31)
+   124d4 [file 0x000124d4]:	7f c0 f2 14 	add     r30,r0,r30
+   124d8 [file 0x000124d8]:	7c bc 2b 78 	mr      r28,r5
+   124dc [file 0x000124dc]:	7c 9b 23 78 	mr      r27,r4
+   124e0 [file 0x000124e0]:	4b ff 32 c9 	bl      57a8 <_IO_stdin_used@@Base-0x23a80>
+   124e4 [file 0x000124e4]:	7f e4 fb 78 	mr      r4,r31
+   124e8 [file 0x000124e8]:	7f a3 eb 78 	mr      r3,r29
+   124ec [file 0x000124ec]:	4b ff 32 f9 	bl      57e4 <_IO_stdin_used@@Base-0x23a44>
+   124f0 [file 0x000124f0]:	80 81 00 18 	lwz     r4,24(r1)
+   124f4 [file 0x000124f4]:	7c 7a 1b 78 	mr      r26,r3
+   124f8 [file 0x000124f8]:	4b ff f8 ed 	bl      11de4 <_IO_stdin_used@@Base-0x17444>
+   124fc [file 0x000124fc]:	7c 7f 1b 78 	mr      r31,r3
+   12500 [file 0x00012500]:	7f 43 d3 78 	mr      r3,r26
+   12504 [file 0x00012504]:	48 02 dd e1 	bl      402e4 <free@plt>
+   12508 [file 0x00012508]:	7f e3 fb 78 	mr      r3,r31
+   1250c [file 0x0001250c]:	4b ff 95 6d 	bl      ba78 <_IO_stdin_used@@Base-0x1d7b0>
+   12510 [file 0x00012510]:	2f 83 00 00 	cmpwi   cr7,r3,0
+   12514 [file 0x00012514]:	41 9e 00 48 	beq     cr7,1255c <_IO_stdin_used@@Base-0x16ccc>
+   12518 [file 0x00012518]:	7f e4 fb 78 	mr      r4,r31
+   1251c [file 0x0001251c]:	7f 63 db 78 	mr      r3,r27
+   12520 [file 0x00012520]:	4b ff fa e1 	bl      12000 <_IO_stdin_used@@Base-0x17228>
+   12524 [file 0x00012524]:	2c 03 00 00 	cmpwi   r3,0
+   12528 [file 0x00012528]:	41 82 00 34 	beq     1255c <_IO_stdin_used@@Base-0x16ccc>
+   1252c [file 0x0001252c]:	80 83 00 00 	lwz     r4,0(r3)
+   12530 [file 0x00012530]:	2f 84 00 00 	cmpwi   cr7,r4,0
+   12534 [file 0x00012534]:	41 9e 00 28 	beq     cr7,1255c <_IO_stdin_used@@Base-0x16ccc>
+   12538 [file 0x00012538]:	7f 85 e3 78 	mr      r5,r28
+   1253c [file 0x0001253c]:	7f a3 eb 78 	mr      r3,r29
+   12540 [file 0x00012540]:	4b ff 9c 41 	bl      c180 <_IO_stdin_used@@Base-0x1d0a8>
+   12544 [file 0x00012544]:	81 41 00 1c 	lwz     r10,28(r1)
+   12548 [file 0x00012548]:	81 22 8f f8 	lwz     r9,-28680(r2)
+   1254c [file 0x0001254c]:	7d 4a 4a 79 	xor.    r10,r10,r9
+   12550 [file 0x00012550]:	39 20 00 00 	li      r9,0
+   12554 [file 0x00012554]:	41 a2 00 14 	beq     12568 <_IO_stdin_used@@Base-0x16cc0>
+   12558 [file 0x00012558]:	48 02 dd ed 	bl      40344 <__stack_chk_fail@plt>
+   1255c [file 0x0001255c]:	80 7e 80 14 	lwz     r3,-32748(r30)
+   12560 [file 0x00012560]:	4c c6 31 82 	crclr   4*cr1+eq
+   12564 [file 0x00012564]:	4b ff 80 9d 	bl      a600 <_IO_stdin_used@@Base-0x1ec28>
+   12568 [file 0x00012568]:	39 61 00 40 	addi    r11,r1,64
+   1256c [file 0x0001256c]:	48 01 6b 0c 	b       29078 <_IO_stdin_used@@Base-0x1b0>

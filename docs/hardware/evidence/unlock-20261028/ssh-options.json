@@ -1,0 +1,41 @@
+{
+  "table_va": "0x2b558",
+  "table_file": "0x2b558",
+  "options": [
+    {
+      "option": "-R",
+      "entry_file": "0x2b598",
+      "relative_delta": -87696,
+      "target_va": "0x15ec8",
+      "target_file": "0x15ec8"
+    },
+    {
+      "option": "-s",
+      "entry_file": "0x2b61c",
+      "relative_delta": -87608,
+      "target_va": "0x15f20",
+      "target_file": "0x15f20"
+    },
+    {
+      "option": "-w",
+      "entry_file": "0x2b62c",
+      "relative_delta": -87656,
+      "target_va": "0x15ef0",
+      "target_file": "0x15ef0"
+    },
+    {
+      "option": "-g",
+      "entry_file": "0x2b5ec",
+      "relative_delta": -87600,
+      "target_va": "0x15f28",
+      "target_file": "0x15f28"
+    },
+    {
+      "option": "-B",
+      "entry_file": "0x2b558",
+      "relative_delta": -87592,
+      "target_va": "0x15f30",
+      "target_file": "0x15f30"
+    }
+  ]
+}

@@ -179,6 +179,10 @@ def main():
         ('ssh-account-loader', 'D', 0x9738, 0x9848),
         ('ssh-account-policy', 'D', 0x12f4c, 0x133e8),
         ('ssh-password', 'D', 0x133ec, 0x1358c),
+        ('ssh-options', 'D', 0x15d68, 0x16328),
+        ('ssh-publickey', 'D', 0x13588, 0x13b28),
+        ('ssh-publickey-match', 'D', 0x12570, 0x126c8),
+        ('ssh-signature-dispatch', 'D', 0x124a0, 0x12570),
         ('telnet-default-login', 'B', 0x10011f84, 0x10012010),
         ('telnet-login-exec', 'B', 0x10011c80, 0x10011eb8),
         ('busybox-applet-dispatch', 'B', 0x10003d60, 0x10004008),
@@ -249,11 +253,27 @@ def main():
         names_file=hex(name_start), function_table_file='0x5ba90', applets=applets),
         indent=2) + '\n')
 
+    # Non-secret CLI dispatch metadata; never open an authorized_keys file.
+    d = images['D']
+    option_table = 0x2b558
+    options = []
+    for option in 'RswgB':
+        slot = option_table + 4 * (ord(option) - ord('B'))
+        delta = struct.unpack_from('>i', d.data, d.offset(slot))[0]
+        target = option_table + delta
+        options.append(dict(option='-' + option, entry_file=hex(d.offset(slot)),
+                            relative_delta=delta, target_va=hex(target),
+                            target_file=hex(d.offset(target))))
+    (out / 'ssh-options.json').write_text(json.dumps(dict(
+        table_va=hex(option_table), table_file=hex(d.offset(option_table)),
+        options=options), indent=2) + '\n')
+
     relocations = []
     selected = {'A': {0x1057200c, 0x10570040, 0x105703c8, 0x10570438},
                 'U': {0x190b0}, 'F': {0x138a4},
                 'C': {0x1cfb0, 0x1cfb4, 0x1cfb8, 0x1cfbc, 0x1cfc0, 0x1cfd4},
-                'D': {0x3f9bc, 0x3f9c8, 0x3f9e4, 0x3fa08}}
+                'D': {0x3f9bc, 0x3f9c8, 0x3f9e4, 0x3fa08,
+                      0x3f97c, 0x3fbac, 0x3fbdc, 0x3f9f0}}
     for key, offsets in selected.items():
         image = images[key]
         for section in image.elf.iter_sections():
