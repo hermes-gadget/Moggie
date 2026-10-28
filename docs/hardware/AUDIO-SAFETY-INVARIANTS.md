@@ -10,7 +10,7 @@ the local stock `34.16-37101-1-16` userspace and its audio module, with correspo
 GPL source. The bench is reported as 57.10-25140; equivalence to that build is
 unproven. Source identities, hashes, extraction commands and address conventions
 are in the [stock evidence ledger](evidence/2026-10-28-stock-audio.md#source-identities-and-address-conventions).
-References `E01`–`E11` below refer to that ledger's evidence index, each with exact
+References `E01`–`E12` below refer to that ledger's evidence index, each with exact
 file offsets, instruction addresses or source lines. Proposed requirements are
 marked **MUST**; they must not be mistaken for recovered stock behavior.
 
@@ -28,7 +28,7 @@ marked **MUST**; they must not be mistaken for recovered stock behavior.
 | Warnings / faults | Userspace distinguishes warning and fault masks and latches a hardware fault state. One warning path logs a 75% clamp while setting an internal level to 73. | E08. Those values do not establish a safe dB curve, thermal threshold, or half-power coefficient. |
 | Fault recovery | ZPS5 chip `SRC_UNLOCK` (`0x2a & 0x80`) triggers full chip initialization and restores current mute state. UV14 latching/mute and clearing a latch on unmute also exist in other model branches. | E09–E10. ZPS5 has a distinct IRQ path; Wembley UV14/36 V fault handling must not be assumed to protect ZPS5. |
 
-The older `docs/AUDIO.md:138–208` conclusions about low/high rail switching,
+The older `docs/AUDIO.md:147–217` conclusions about low/high rail switching,
 half-power derating and fault-clear retries are based largely on Fenway strings.
 `F57` contains those names, but this does **not** establish their electrical or
 algorithmic meaning on ZP5S (E11). Its diagnostics are at file offsets `0x4763e0`,
@@ -115,7 +115,7 @@ userspace owner stops responding (requirements 5, 13 and 15).
    word format, crossover/high-pass, limiter/excursion protection and calibration
    data with known provenance. Unknown, missing or failed configuration MUST keep
    mute asserted. Tone/filter ioctl acceptance cannot stand in for this graph.
-   Basis: `docs/AUDIO.md:24–55,95–108` identifies filter/limiter surfaces but lacks
+   Basis: `docs/AUDIO.md:33–64,104–117` identifies filter/limiter surfaces but lacks
    coefficients; `firmware/sonosd/dsp_linux.c:196–236` cannot read filters and marks
    payload layout assumed. This requirement is conservative engineering policy;
    the full ZP5S graph was not recovered in this lane.
@@ -125,7 +125,7 @@ userspace owner stops responding (requirements 5, 13 and 15).
     verified board's total gain/limiter envelope, including the thermal ceiling.
     User volume changes cannot clear a safety mute or fault latch. No unknown
     readback may cause a configured nonzero gain to be applied. Basis: E08's
-    warning clamp and `docs/AUDIO.md:57–67` gain/clamp evidence; current
+    warning clamp and `docs/AUDIO.md:66–76` gain/clamp evidence; current
     `firmware/sonosd/volume.c:60–63` clears user mute on nonzero volume, and
     `dsp.c:82–96` falls back to initial volume on read failure. Their user-facing
     behavior needs a separate, stronger safety latch.
@@ -135,10 +135,10 @@ userspace owner stops responding (requirements 5, 13 and 15).
     hardware protection for every relevant thermal domain. Warning triggers the
     validated derating envelope; fault or invalid/stale coverage triggers mute/off
     and a latch. Do not substitute 75% volume, internal 73, a guessed “half-power”
-    gain, seeded 30°C, or sibling 75/80°C thresholds for a measured ZP5S policy.
+    gain, seeded 30°C, or newer-source 75/80°C thresholds for a measured ZP5S policy.
     Recovery needs verified hysteresis/cooldown. If those values or sensor coverage
     are unavailable, custom output remains disabled. Basis: E08–E09 and E11;
-    `G/audioctl.h:282–287` defines 75/80°C, but E09 limits how it is used.
+    `G/audioctl.h:282–287` defines 75/80°C, but E09/E12 limit its applicability.
 
 12. **Monitor amplifier, supply and clock faults throughout every transition.**
     Before enable/unmute, during waits and during playback, require a fresh health
@@ -218,7 +218,7 @@ this document authorizes no hardware access or test execution.
 | H2 — electrical map | Determine exactly what C20/C25/C10/A11 drive, polarities, reset defaults, enable/rail relationship, rail levels/discharge and any low/high-rail control. Separate physical rails from cached/events-only `AMP_*` states (E04/E06). | 2–7, 12, 15 |
 | H3 — timing/completion | Capture reset, lock, post-lock setup, mute and enable waveforms on stock. Validate tick rate/scheduler behavior and minimum settle; define finite `T_init_max`, per-I/O/transition deadlines, health ages and maximum fault latency. No unresolved timing field may have an enabling default (E02–E05). | 3–8, 12, 15 |
 | H4 — full signal protection | Recover stock graph, channel routing/polarity, PCM format, gain law, limiter/crossover and factory calibration; identify any DSP firmware dependencies. Prior `/getDSP` request returned HTTP 500 (`/home/ben/.hermes/plans/2026-10-28-moggie-recon-output/RESEARCH-REPORT.md:96–100`); do not promise this endpoint will supply coefficients. | 9–10 |
-| H5 — thermal | Establish real sensors and/or on-chip protection, freshness/validity reporting, warning/fault thresholds, actual derating curve and recovery hysteresis. Resolve P34 disabled acquisition, the 73/75% discrepancy, and whether F57 half-power labels apply at all (E08–E11). | 11–13 |
+| H5 — thermal | Establish real sensors and/or on-chip protection, freshness/validity reporting, warning/fault thresholds, actual derating curve and recovery hysteresis. Resolve acquisition validity across reset, P34 raw-counter versus newer-source temperature conversion (E12), the 73/75% discrepancy, and whether F57 half-power labels apply at all (E08–E11). | 11–13 |
 | H6 — faults/recovery | Establish actual ZP5S amp/current/UV/clock fault sources, chip status meanings, latch-clear side effects, independent emergency disable and safe re-arm procedure. Wembley UV14/36 V code and sibling diagnostics cannot substitute (E09–E11). | 5, 12–13, 15 |
 | H7 — bypasses/output modes | Verify all clients and direct device/ioctl/debug paths, speaker/headphone masks, plugs/unplugs, fixed/line output and physical fail-safe behavior on crashes/reset. Until mapped and constrained, these modes remain barred (E04–E05). | 2, 7, 14–15 |
 

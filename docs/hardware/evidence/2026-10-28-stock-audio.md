@@ -108,9 +108,10 @@ interpretation; it does not establish physical pin wiring or elapsed wall time.
 | E06 | **Observed userspace request ordering:** `A:0x100663d8–0x10066518` uses stack values 1 and 0, requests `0x8004fc1c` (amp power 1) then `0x8004fc0c` (amp mute 0), except model-specific branches. Off path `A:0x10065ad0–0x10065d00` requests amp mute 1 before amp power 0. Names/numbers: `G/audioctl.h` definitions of `AUDIODEV_CTL_AMP_PWR` (28) and `AUDIODEV_CTL_AMP_MUTE` (12). **ZPS5 qualification:** `G/audioctl.c:79–98,1078–1084` gives generic amp-power MIO no ZPS5 pin; its cached power state cannot prove a physical rail. The ZPS5 worker in E04 provides the concrete C20 transition. |
 | E07 | **Observed idle policy:** `A:0x10065e74–0x10065e80` and `0x10065f1c–0x10065f28` initialize amp manager field `+0x138` to 120. `AmpOffTimerSec` string is at file `0x31dda4`, referenced at `A:0x10058fd8–0x10058fec`; its setter `0x10059240–0x10059278` calls `0x10066208`, which stores the parsed value to `+0x138` at `0x10066234`. `A:0x100662a0–0x100662b4` forms `time(NULL)+field`; `0x10066358–0x100663a4` waits for the deadline and rechecks eligibility before calling the off routine at `0x100663c8`. Thus **120 seconds is a default in P34, configurable, not a universal measured timeout**. |
 | E08 | **Observed thermal/fault distinction in userspace:** `A:0x10056884–0x100568b4` applies warning mask `0x010a000a` and fault mask `0x00f50005`; `0x100568c4–0x10056920` latches/reports entry to hardware fault state. The warning clamp path compares a stored level with 73 and sets 73 (`0x10056d9c–0x10056db8`), while its message says “75%” (file `0x31eb3c`, xref `0x10056f1c–0x10056f30`). **Do not interpret 73 or 75% as output power or a measured gain.** |
-| E09 | **Observed model-specific protection:** `G/audioctl.c:644–649` disables temperature acquisition initially for ZPS5/Eden and seeds temperature values; `:884–905` uses validity bits before CPU threshold checks, but the audio/CPU2 hard mute + 36 V shutdown path is Wembley-only. `:747–751` installs ZPS5 amp interrupt, whereas UV14 IRQ is Wembley-only at `:742–746`. `K:0x5db4–0x5df8` latches UV14 (`0x00400000`) and calls MIO mute; this does not prove the ZPS5 branch can receive that IRQ. **Generic protection names do not prove board coverage.** |
+| E09 | **Observed model-specific protection:** `G/audioctl.c:644–649` disables temperature acquisition initially for ZPS5/Eden and seeds temperature values; this is **not permanent disable**: `G/workerthread.c:150–151` calls `audioctl_tm_enable`, whose `G/audioctl.c:275–280` clears the flag, corroborated by `K:0x89b8,0x4b7c–0x4b84`; `:884–905` uses validity bits before CPU threshold checks, but the audio/CPU2 hard mute + 36 V shutdown path is Wembley-only. `:747–751` installs ZPS5 amp interrupt, whereas UV14 IRQ is Wembley-only at `:742–746`. `K:0x5db4–0x5df8` latches UV14 (`0x00400000`) and calls MIO mute; this does not prove the ZPS5 branch can receive that IRQ. **Generic protection names do not prove board coverage.** |
 | E10 | **Observed clock fault recovery:** `G/workerthread.c:190–203` describes read `0x2a`, bit `0x80` (`SRC_UNLOCK`), followed by full initialization and resetting current state to muted. `K:0x8cec–0x8d64` actually tests the request flag, reads the register and reinitializes. **Source caveat:** the published `G` source tests local `req.bInterrupt` before assigning `req` at line 207; do not copy this source verbatim or claim it exactly matches K. |
-| E11 | **Observed sibling evidence only:** `F57` strings include `HalfPowerOverTemp`, failed mute/unmute and fault-clear diagnostics, and `AMP_OFF`/`AMP_LO_RAIL`/`AMP_HI_RAIL` (locate with `strings -tx F57`). These do not establish ZPS5 low/high rail control, a half-power coefficient, recovery retry bounds, or thermal thresholds. Earlier `docs/AUDIO.md:138–208` extrapolates such behavior from strings. E04/E09 provide the narrower, model-specific evidence. |
+| E11 | **Observed sibling evidence only:** `F57` strings include `HalfPowerOverTemp` (file `0x4b0a0c`), failed mute/unmute and fault-clear diagnostics (`0x4763e0,0x4765b0,0x47664c`), and `AMP_HI_RAIL`/`AMP_LO_RAIL`/`AMP_OFF` (`0x4b3e84,0x4b3e90,0x4b3e9c`). These do not establish ZPS5 low/high rail control, a half-power coefficient, recovery retry bounds, or thermal thresholds. Earlier `docs/AUDIO.md:147–217` extrapolates such behavior from strings. E04/E09 provide the narrower, model-specific evidence. |
+| E12 | **Observed thermal source drift:** `K:0x5514–0x551c` skips acquisition while disabled; `0x554c–0x5584,0x5790–0x57c0` updates/clamps a counter at `audioctlpriv+0x38` and sends it to PWM. Once validity bits are both set (`0x4c40–0x4c4c`), `0x4db0–0x4dc8` compares that same counter with **44 and 49**, setting CPU fault for `<=44` (branch `0x4fac`) and CPU warning for `45..49`. These are counter units, **not degrees Celsius**. In contrast, `G/audioctl.c:303–312` converts raw values to temperatures, then `:884–887` compares them with 75/80°C constants from `G/audioctl.h:282–287`. The source and packaged module therefore cannot be treated as interchangeable threshold implementations; board calibration and installed-build matching are mandatory. |
 
 CS44800 initialization register writes, in observed order (E02; values hexadecimal):
 
@@ -135,4 +136,82 @@ dedbd2626078936f46783f1e2293cee0800f54c3b711da9119c53cc7ee11cef7  audioctl.h
 60a9df551fea570f694775d974668a603aed0c6192c2708c0ac907a2d55a5259  workerthread.c
 ba836110a3971130f673c0710ad2cd2f44f80e8e1ca03f8f1e214f87cc81b41f  workerthread.h
 04555f77843addca1731e2afe4fec83336c03497a5bbfe6c53c4cfa9fa2dbfb0  M (mdp.h)
+```
+
+## Offline integrity check
+
+After extraction, run this Python block from the repository root. It verifies the
+input hashes, selected literal PPC instructions/strings behind the principal
+findings, and document coverage/links. It **does not** test runtime safety, infer
+physical wiring, or establish exact correspondence between GPL source and module.
+The full addresses in the index still require disassembly review.
+
+```python
+from pathlib import Path
+import hashlib
+import re
+import struct
+
+ledger = Path('docs/hardware/evidence/2026-10-28-stock-audio.md')
+body = ledger.read_text()
+inputs = {}
+for ident, path, size, digest in re.findall(
+    r'^\| (\w+) \| `([^`]+)` \| (\d+) \| `([0-9a-f]{64})` \|$', body, re.M
+):
+    data = Path(path).read_bytes()
+    assert len(data) == int(size), ident
+    assert hashlib.sha256(data).hexdigest() == digest, ident
+    inputs[ident] = data
+assert set(inputs) == {'P34', 'R34', 'A', 'K', 'P57', 'F57'}
+gpl = Path('/home/ben/sonos-bench/gpl/drivers/audiodev-connectx')
+for digest, name in re.findall(r'^([0-9a-f]{64})  (.+)$', body, re.M):
+    path = (Path('/home/ben/sonos-bench/sonos-fenway/includes/mdp.h')
+            if name == 'M (mdp.h)' else gpl / name)
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == digest, name
+
+def word(ident, addr, expected):
+    offset = addr - 0x10000000 if ident == 'A' else addr + 0x34
+    assert inputs[ident][offset:offset+4].hex() == expected, (ident, hex(addr))
+
+# A: default 120, store +0x138, configurable setter, warning/fault masks, clamp 73.
+for addr, expected in {
+    0x10065e74: '38000078', 0x10065e80: '901d0138',
+    0x10065f1c: '38000078', 0x10065f28: '901d0138',
+    0x10066234: '939d0138', 0x10056888: '3c00010a',
+    0x1005688c: '6000000a', 0x100568a8: '3d2000f5',
+    0x100568ac: '61290005', 0x10056db4: '38c00049',
+}.items():
+    word('A', addr, expected)
+# K: reset/register mute, lock mask, post-lock waits, mute/enable waits,
+# SRC-unlock mask, thermal raw-counter warning/fault comparisons.
+for addr, expected in {
+    0x8834: '38800019', 0x88f8: '388000ff', 0x88fc: '38600013',
+    0x89d0: '70090040', 0x89e0: '38600064', 0x8a48: '386003e8',
+    0x8a64: '38600064', 0x8bc4: '38600014', 0x8e08: '38800014',
+    0x8e0c: '38a00004', 0x8e20: '38600021', 0x8e28: '388000e0',
+    0x8e2c: '38600013', 0x8d0c: '70090080',
+    0x4db4: '2f80002c', 0x4dbc: '2f800031',
+}.items():
+    word('K', addr, expected)
+for ident, offset, literal in [
+    ('A', 0x31dda4, b'AmpOffTimerSec'),
+    ('A', 0x31eb3c, b'Hardware warning; clamping volume to 75%%'),
+    ('F57', 0x47664c, b'failed to unmute amps to clear fault (%d)'),
+    ('F57', 0x4b0a0c, b'HalfPowerOverTemp'),
+]:
+    assert inputs[ident][offset:offset+len(literal)] == literal
+assert struct.unpack_from('<III', inputs['P57'], 0xfca7b) == (4, 4571498, 4)
+assert inputs['P57'][0xfca87:0xfca8b] == bytes.fromhex('886499ca')
+
+spec = Path('docs/hardware/AUDIO-SAFETY-INVARIANTS.md')
+text = spec.read_text()
+assert [int(n) for n in re.findall(r'^(\d+)\. \*\*', text, re.M)] == list(range(1, 16))
+assert [int(n) for n in re.findall(r'^\| (\d+) \|', text, re.M)] == list(range(1, 16))
+assert set(re.findall(r'^\| (H\d+) —', text, re.M)) == {f'H{i}' for i in range(1, 8)}
+assert set(re.findall(r'^\| (E\d+) \|', body, re.M)) == {f'E{i:02}' for i in range(1, 13)}
+for doc in (ledger, spec, Path('docs/AUDIO.md')):
+    for target in re.findall(r'\]\(([^)]+)\)', doc.read_text()):
+        if not target.startswith(('https:', 'http:', '#')):
+            assert (doc.parent / target.split('#')[0]).is_file(), (doc, target)
+print('PASS: 6 input hashes, 5 source hashes, 26 PPC words, strings/records; 15 invariants + maps, 7 gates, 12 evidence rows, local links')
 ```
