@@ -1,0 +1,33 @@
+{
+  "boundary": "Direct relative BL encodings in executable ELF sections only; indirect and virtual orchestration excluded.",
+  "calls": [
+    {
+      "bytes": "480046f9",
+      "caller_file": "0x3094",
+      "caller_va": "0x10003094",
+      "target": "parser",
+      "target_va": "0x1000778c"
+    },
+    {
+      "bytes": "4800267d",
+      "caller_file": "0x3134",
+      "caller_va": "0x10003134",
+      "target": "install",
+      "target_va": "0x100057b0"
+    },
+    {
+      "bytes": "4bfffae5",
+      "caller_file": "0x7ca8",
+      "caller_va": "0x10007ca8",
+      "target": "parser",
+      "target_va": "0x1000778c"
+    },
+    {
+      "bytes": "4bffdae5",
+      "caller_file": "0x7ccc",
+      "caller_va": "0x10007ccc",
+      "target": "install",
+      "target_va": "0x100057b0"
+    }
+  ]
+}

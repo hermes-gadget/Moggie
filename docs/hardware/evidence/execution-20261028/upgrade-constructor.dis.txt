@@ -1,0 +1,31 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10002dbc --stop-address=0x10002e14 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10002dbc <__frame_state_for@@Base-0x1266c>:
+10002dbc:	7c 08 02 a6 	mflr    r0  # file 0x2dbc
+10002dc0:	94 21 ff f0 	stwu    r1,-16(r1)  # file 0x2dc0
+10002dc4:	3d 20 10 02 	lis     r9,4098  # file 0x2dc4
+10002dc8:	90 01 00 14 	stw     r0,20(r1)  # file 0x2dc8
+10002dcc:	39 29 8b f8 	addi    r9,r9,-29704  # file 0x2dcc
+10002dd0:	38 00 00 00 	li      r0,0  # file 0x2dd0
+10002dd4:	91 23 00 00 	stw     r9,0(r3)  # file 0x2dd4
+10002dd8:	90 03 00 30 	stw     r0,48(r3)  # file 0x2dd8
+10002ddc:	90 03 00 04 	stw     r0,4(r3)  # file 0x2ddc
+10002de0:	90 03 00 0c 	stw     r0,12(r3)  # file 0x2de0
+10002de4:	90 03 00 10 	stw     r0,16(r3)  # file 0x2de4
+10002de8:	90 03 00 14 	stw     r0,20(r3)  # file 0x2de8
+10002dec:	98 03 00 18 	stb     r0,24(r3)  # file 0x2dec
+10002df0:	90 a3 00 08 	stw     r5,8(r3)  # file 0x2df0
+10002df4:	90 83 00 1c 	stw     r4,28(r3)  # file 0x2df4
+10002df8:	90 c3 00 20 	stw     r6,32(r3)  # file 0x2df8
+10002dfc:	38 63 00 34 	addi    r3,r3,52  # file 0x2dfc
+10002e00:	48 00 28 75 	bl      10005674 <_init@@Base+0x2b20>  # file 0x2e00
+10002e04:	80 01 00 14 	lwz     r0,20(r1)  # file 0x2e04
+10002e08:	38 21 00 10 	addi    r1,r1,16  # file 0x2e08
+10002e0c:	7c 08 03 a6 	mtlr    r0  # file 0x2e0c
+10002e10:	4e 80 00 20 	blr  # file 0x2e10

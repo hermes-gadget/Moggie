@@ -1,0 +1,39 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10004248 --stop-address=0x100042c0 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10004248 <__frame_state_for@@Base-0x111e0>:
+10004248:	7f 83 e3 78 	mr      r3,r28  # file 0x4248
+1000424c:	38 80 00 02 	li      r4,2  # file 0x424c
+10004250:	4b ff ec 69 	bl      10002eb8 <_init@@Base+0x364>  # file 0x4250
+10004254:	7c 7e 1b 79 	mr.     r30,r3  # file 0x4254
+10004258:	40 a2 ff 3c 	bne     10004194 <_init@@Base+0x1640>  # file 0x4258
+1000425c:	38 a0 00 00 	li      r5,0  # file 0x425c
+10004260:	7f 83 e3 78 	mr      r3,r28  # file 0x4260
+10004264:	38 80 00 00 	li      r4,0  # file 0x4264
+10004268:	4b ff f0 49 	bl      100032b0 <_init@@Base+0x75c>  # file 0x4268
+1000426c:	7f 83 e3 78 	mr      r3,r28  # file 0x426c
+10004270:	38 80 00 02 	li      r4,2  # file 0x4270
+10004274:	4b ff ef 71 	bl      100031e4 <_init@@Base+0x690>  # file 0x4274
+10004278:	7c 7e 1b 78 	mr      r30,r3  # file 0x4278
+1000427c:	48 00 f5 91 	bl      1001380c <_init@@Base+0x10cb8>  # file 0x427c
+10004280:	7c 7b 1b 78 	mr      r27,r3  # file 0x4280
+10004284:	4b ff ff 18 	b       1000419c <_init@@Base+0x1648>  # file 0x4284
+10004288:	7f 83 e3 78 	mr      r3,r28  # file 0x4288
+1000428c:	38 80 00 03 	li      r4,3  # file 0x428c
+10004290:	4b ff ec 29 	bl      10002eb8 <_init@@Base+0x364>  # file 0x4290
+10004294:	7c 7e 1b 79 	mr.     r30,r3  # file 0x4294
+10004298:	40 a2 fe fc 	bne     10004194 <_init@@Base+0x1640>  # file 0x4298
+1000429c:	38 a0 00 00 	li      r5,0  # file 0x429c
+100042a0:	7f 83 e3 78 	mr      r3,r28  # file 0x42a0
+100042a4:	38 80 00 00 	li      r4,0  # file 0x42a4
+100042a8:	4b ff f0 09 	bl      100032b0 <_init@@Base+0x75c>  # file 0x42a8
+100042ac:	7f 83 e3 78 	mr      r3,r28  # file 0x42ac
+100042b0:	38 80 00 03 	li      r4,3  # file 0x42b0
+100042b4:	4b ff ef 31 	bl      100031e4 <_init@@Base+0x690>  # file 0x42b4
+100042b8:	7c 7e 1b 78 	mr      r30,r3  # file 0x42b8
+100042bc:	4b ff ff c0 	b       1000427c <_init@@Base+0x1728>  # file 0x42bc

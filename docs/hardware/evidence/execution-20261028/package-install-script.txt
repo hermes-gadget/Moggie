@@ -1,0 +1,109 @@
+# Data only; never executed. Source: UPD type 3
+   1: #!/bin/sh
+   2: kill_attempt () {
+   3:     echo "Killing $1"
+   4:     kill `ps | grep $1 | grep -v grep | cut -c 1-5`
+   5: }
+   6: if [ "$1" = "remountjffs" ]; then
+   7:     echo "Remounting /jffs..."
+   8:     ZP_MODEL=$(mdputil | grep -e ^MODEL | cut -d '=' -f 2)
+   9:     if [ $ZP_MODEL -eq 14 -o $ZP_MODEL -eq 13 ]; then
+  10:         mount -t ubifs /dev/nandjffs /jffs
+  11:     else
+  12:         mount -t jffs2 /dev/nandjffs /jffs
+  13:     fi
+  14:     echo "Copying stuff back to /jffs..."
+  15:     cp /tmp/jffs/* /jffs
+  16:     sync
+  17:     sync
+  18:     echo "ok"
+  19: fi
+  20: if [ "$1" = "remountjffs" -o "$1" = "postinst" ]; then
+  21:     echo "Doing post-install steps..."
+  22:     rm -f /jffs/upgrade_prev.log
+  23:     if [ -e /jffs/upgrade.log ]; then
+  24: 	cp /jffs/upgrade.log /jffs/upgrade_prev.log
+  25:     fi
+  26:     if [ -e /tmp/upgrade.log ]; then
+  27:         cp /tmp/upgrade.log /jffs/.
+  28:     else
+  29:         echo "Manual upgrade. No log to copy." > /jffs/upgrade.log
+  30:     fi
+  31:     if [ ! -e /jffs/upgrade_sys_report.log ]; then
+  32:         touch /jffs/upgrade_sys_report.log
+  33:     fi
+  34:     rm -f /jffs/*.stl
+  35:     sync
+  36:     sync
+  37:     while true; do sleep 2; grep "\(exiting select\)\|\(RESULT = 141\)" /tmp/upgrade.log && reboot; done&
+  38:     exit 0
+  39: fi
+  40: if [ -d /dev/mtd ]; then
+  41:     if [ -f /var/run/upgradeflag ]; then
+  42:         echo "Proceeding with upgrade..."
+  43:         exit 0
+  44:     fi
+  45:     if [ ! -f /opt/bin/wstk.anacapad ]; then
+  46:         echo -n "Checking to see if (hh.)anacapad is running..."
+  47:         ps | grep -v grep | grep anacapad > /dev/null
+  48:         if [ $? = 0 ]; then
+  49:             echo "Anacapa is running - please stop it and run upgrade again."
+  50:             exit 1
+  51:         fi
+  52:     else
+  53:         echo "No need to stop wstk.anacapad prior to upgrading"
+  54:     fi
+  55:     echo "Stopping ancillary processes..."
+  56:     if [ -f /opt/bin/hh.anacapactl ]; then
+  57:         kill_attempt udhcpc
+  58:         kill_attempt inetd
+  59:         if [ -x /wifi/G/athconfig ]; then
+  60:             echo "Turning off WiFi sleep mode..."
+  61:             /wifi/G/athconfig psenable ath0 0
+  62:         else
+  63:             if [ -x /wifi/athconfig ]; then
+  64:                 echo "Turning off WiFi sleep mode..."
+  65:                 /wifi/athconfig psenable ath0 0
+  66:             fi
+  67:         fi
+  68:     elif [ -f /opt/bin/wstk.anacapactl ]; then
+  69:         echo "Turning off WiFi sleep mode (Woodstock)..."
+  70: 	WMICONFIG=/wifi/host/.output/SANDGATEII_ARM-SDIO/image/wmiconfig
+  71: 	$WMICONFIG  -i ath0 --power maxperf
+  72:     else
+  73:         kill_attempt udhcpc
+  74:         kill_attempt smbscand
+  75:         kill_attempt inetd
+  76:         touch /var/run/stopnetstartd
+  77:         kill_attempt netstartd
+  78:     fi
+  79:     sleep 2
+  80:     if [ "$1" = "umountopt" -o "$1" = "umountall" -o "$1" = "" ]; then
+  81: 	echo "Unmounting /opt..."
+  82: 	/bin/umount /opt
+  83: 	sleep 2
+  84: 	if [ -d /opt/bin ]; then
+  85: 	    echo "Egads, /opt failed to umount"
+  86: 	fi
+  87:     fi
+  88:     if [ "$1" = "umountjffs" -o "$1" = "umountall" ]; then
+  89: 	echo "Saving critical configuration from /jffs..."
+  90: 	rm -rf /tmp/jffs
+  91: 	mkdir /tmp/jffs
+  92: 	cp /jffs/localsettings.txt /tmp/jffs
+  93: 	cp /jffs/wifi.txt /tmp/jffs
+  94: 	cp /jffs/netsettings.txt /tmp/jffs
+  95: 	cp /jffs/onlineupdate-inprogress.txt /tmp/jffs
+  96: 	cp /jffs/irconfig.txt /tmp/jffs
+  97: 	echo "ok"
+  98: 	echo "Unmounting /jffs..."
+  99: 	/bin/umount /jffs
+ 100: 	sleep 2
+ 101: 	grep jffs /proc/mounts > /dev/null
+ 102: 	if [ $? -eq 0 ]; then
+ 103: 	    echo "Looks like /jffs did not unmount"
+ 104: 	fi
+ 105:     fi
+ 106:     touch /var/run/upgradeflag
+ 107:     exit 0
+ 108: fi

@@ -1,0 +1,50 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x101deaf8 --stop-address=0x101deb9c /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+101deaf8 <strlcpy@@Base+0x4d3fc>:
+101deaf8:	7c 08 02 a6 	mflr    r0  # file 0x1deaf8
+101deafc:	94 21 ff e0 	stwu    r1,-32(r1)  # file 0x1deafc
+101deb00:	bf 81 00 10 	stmw    r28,16(r1)  # file 0x1deb00
+101deb04:	7d 80 00 26 	mfcr    r12  # file 0x1deb04
+101deb08:	7c 7d 1b 78 	mr      r29,r3  # file 0x1deb08
+101deb0c:	90 01 00 24 	stw     r0,36(r1)  # file 0x1deb0c
+101deb10:	83 fd 00 fc 	lwz     r31,252(r29)  # file 0x1deb10
+101deb14:	38 60 00 00 	li      r3,0  # file 0x1deb14
+101deb18:	91 81 00 0c 	stw     r12,12(r1)  # file 0x1deb18
+101deb1c:	7c 9e 23 78 	mr      r30,r4  # file 0x1deb1c
+101deb20:	2e 1f 00 00 	cmpwi   cr4,r31,0  # file 0x1deb20
+101deb24:	3b 80 ff ff 	li      r28,-1  # file 0x1deb24
+101deb28:	41 b2 00 14 	beq     cr4,101deb3c <strlcpy@@Base+0x4d440>  # file 0x1deb28
+101deb2c:	48 21 77 dd 	bl      103f6308 <time@plt>  # file 0x1deb2c
+101deb30:	7c 7f 18 50 	subf    r3,r31,r3  # file 0x1deb30
+101deb34:	2f 83 00 b3 	cmpwi   cr7,r3,179  # file 0x1deb34
+101deb38:	41 9d 00 10 	bgt     cr7,101deb48 <strlcpy@@Base+0x4d44c>  # file 0x1deb38
+101deb3c:	2f 9e 00 00 	cmpwi   cr7,r30,0  # file 0x1deb3c
+101deb40:	3b 80 00 00 	li      r28,0  # file 0x1deb40
+101deb44:	41 9e 00 34 	beq     cr7,101deb78 <strlcpy@@Base+0x4d47c>  # file 0x1deb44
+101deb48:	41 92 00 0c 	beq     cr4,101deb54 <strlcpy@@Base+0x4d458>  # file 0x1deb48
+101deb4c:	80 dd 01 00 	lwz     r6,256(r29)  # file 0x1deb4c
+101deb50:	48 00 00 0c 	b       101deb5c <strlcpy@@Base+0x4d460>  # file 0x1deb50
+101deb54:	3d 20 10 31 	lis     r9,4145  # file 0x1deb54
+101deb58:	38 c9 3e 04 	addi    r6,r9,15876  # file 0x1deb58
+101deb5c:	3c 60 10 32 	lis     r3,4146  # file 0x1deb5c
+101deb60:	3c a0 10 35 	lis     r5,4149  # file 0x1deb60
+101deb64:	38 80 00 00 	li      r4,0  # file 0x1deb64
+101deb68:	38 63 5a 10 	addi    r3,r3,23056  # file 0x1deb68
+101deb6c:	38 a5 a4 58 	addi    r5,r5,-23464  # file 0x1deb6c
+101deb70:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x1deb70
+101deb74:	48 10 77 69 	bl      102e62dc <modff@@Base+0x1b338>  # file 0x1deb74
+101deb78:	80 01 00 24 	lwz     r0,36(r1)  # file 0x1deb78
+101deb7c:	7f 83 e3 78 	mr      r3,r28  # file 0x1deb7c
+101deb80:	81 81 00 0c 	lwz     r12,12(r1)  # file 0x1deb80
+101deb84:	bb 81 00 10 	lmw     r28,16(r1)  # file 0x1deb84
+101deb88:	7c 08 03 a6 	mtlr    r0  # file 0x1deb88
+101deb8c:	38 21 00 20 	addi    r1,r1,32  # file 0x1deb8c
+101deb90:	7d 80 81 20 	mtcrf   8,r12  # file 0x1deb90
+101deb94:	4e 80 00 20 	blr  # file 0x1deb94
+101deb98:	4b ff ff 60 	b       101deaf8 <strlcpy@@Base+0x4d3fc>  # file 0x1deb98

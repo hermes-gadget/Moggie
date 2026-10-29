@@ -1,0 +1,59 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10006a64 --stop-address=0x10006b2c /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10006a64 <__frame_state_for@@Base-0xe9c4>:
+10006a64:	7c 08 02 a6 	mflr    r0  # file 0x6a64
+10006a68:	94 21 ff c0 	stwu    r1,-64(r1)  # file 0x6a68
+10006a6c:	93 e1 00 3c 	stw     r31,60(r1)  # file 0x6a6c
+10006a70:	3d 20 10 03 	lis     r9,4099  # file 0x6a70
+10006a74:	90 01 00 44 	stw     r0,68(r1)  # file 0x6a74
+10006a78:	3c 80 10 02 	lis     r4,4098  # file 0x6a78
+10006a7c:	83 e3 00 04 	lwz     r31,4(r3)  # file 0x6a7c
+10006a80:	38 84 9f 0c 	addi    r4,r4,-24820  # file 0x6a80
+10006a84:	93 c1 00 38 	stw     r30,56(r1)  # file 0x6a84
+10006a88:	7c 7e 1b 78 	mr      r30,r3  # file 0x6a88
+10006a8c:	80 bf 00 04 	lwz     r5,4(r31)  # file 0x6a8c
+10006a90:	80 69 dd a8 	lwz     r3,-8792(r9)  # file 0x6a90
+10006a94:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x6a94
+10006a98:	48 02 74 49 	bl      1002dee0 <fprintf@plt>  # file 0x6a98
+10006a9c:	80 1f 00 0c 	lwz     r0,12(r31)  # file 0x6a9c
+10006aa0:	38 81 00 10 	addi    r4,r1,16  # file 0x6aa0
+10006aa4:	70 09 00 02 	andi.   r9,r0,2  # file 0x6aa4
+10006aa8:	38 c0 00 00 	li      r6,0  # file 0x6aa8
+10006aac:	38 e0 00 00 	li      r7,0  # file 0x6aac
+10006ab0:	39 00 00 00 	li      r8,0  # file 0x6ab0
+10006ab4:	38 60 00 01 	li      r3,1  # file 0x6ab4
+10006ab8:	41 82 00 1c 	beq     10006ad4 <_init@@Base+0x3f80>  # file 0x6ab8
+10006abc:	80 01 00 44 	lwz     r0,68(r1)  # file 0x6abc
+10006ac0:	83 c1 00 38 	lwz     r30,56(r1)  # file 0x6ac0
+10006ac4:	83 e1 00 3c 	lwz     r31,60(r1)  # file 0x6ac4
+10006ac8:	7c 08 03 a6 	mtlr    r0  # file 0x6ac8
+10006acc:	38 21 00 40 	addi    r1,r1,64  # file 0x6acc
+10006ad0:	4e 80 00 20 	blr  # file 0x6ad0
+10006ad4:	80 1f 00 04 	lwz     r0,4(r31)  # file 0x6ad4
+10006ad8:	80 7e 00 00 	lwz     r3,0(r30)  # file 0x6ad8
+10006adc:	90 01 00 10 	stw     r0,16(r1)  # file 0x6adc
+10006ae0:	81 3f 00 0c 	lwz     r9,12(r31)  # file 0x6ae0
+10006ae4:	80 bf 00 08 	lwz     r5,8(r31)  # file 0x6ae4
+10006ae8:	55 29 07 b8 	rlwinm  r9,r9,0,30,28  # file 0x6ae8
+10006aec:	38 a5 ff f0 	addi    r5,r5,-16  # file 0x6aec
+10006af0:	4b ff f9 0d 	bl      100063fc <_init@@Base+0x38a8>  # file 0x6af0
+10006af4:	7c 7f 1b 79 	mr.     r31,r3  # file 0x6af4
+10006af8:	41 82 00 20 	beq     10006b18 <_init@@Base+0x3fc4>  # file 0x6af8
+10006afc:	7f e3 fb 78 	mr      r3,r31  # file 0x6afc
+10006b00:	80 01 00 44 	lwz     r0,68(r1)  # file 0x6b00
+10006b04:	83 c1 00 38 	lwz     r30,56(r1)  # file 0x6b04
+10006b08:	83 e1 00 3c 	lwz     r31,60(r1)  # file 0x6b08
+10006b0c:	7c 08 03 a6 	mtlr    r0  # file 0x6b0c
+10006b10:	38 21 00 40 	addi    r1,r1,64  # file 0x6b10
+10006b14:	4e 80 00 20 	blr  # file 0x6b14
+10006b18:	80 61 00 14 	lwz     r3,20(r1)  # file 0x6b18
+10006b1c:	80 81 00 1c 	lwz     r4,28(r1)  # file 0x6b1c
+10006b20:	48 02 74 61 	bl      1002df80 <munmap@plt>  # file 0x6b20
+10006b24:	7f e3 fb 78 	mr      r3,r31  # file 0x6b24
+10006b28:	4b ff ff d8 	b       10006b00 <_init@@Base+0x3fac>  # file 0x6b28

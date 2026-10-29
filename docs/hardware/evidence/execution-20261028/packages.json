@@ -1,0 +1,216 @@
+{
+  "34.16-37101-1-16": {
+    "path": "/home/ben/Moggie/dl/stock-firmware/34.16-37101-1-16.upd",
+    "records": [
+      {
+        "flags": "0x0",
+        "offset": "0x0",
+        "payload_offset": "0x10",
+        "payload_size": 12,
+        "prefix": "2200000010000000ed900000",
+        "sha256": "4d728ce51aedaae66c24c5fbb06f6707bd80234dad70e1a0757318fbc36218d1",
+        "size": 28,
+        "type": "0x1"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0x1c",
+        "payload_offset": "0x2c",
+        "payload_size": 28,
+        "prefix": "01000000100000000200000005000000",
+        "sha256": "540a25f8ed42fa68316687827c043d8bc00d4f7d93001db1260a62faed3491aa",
+        "size": 44,
+        "type": "0x2"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0x48",
+        "payload_offset": "0x58",
+        "payload_size": 28,
+        "prefix": "feffffff3000000000000000feffffff",
+        "sha256": "72a07112f150b88982440cb3fadc7d51afb90e01956ddee8f82a9aa43370be1b",
+        "size": 44,
+        "type": "0x2"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0x74",
+        "payload_offset": "0x84",
+        "payload_size": 3243,
+        "prefix": "23212f62696e2f73680a6b696c6c5f61",
+        "sha256": "fcfacd4af5e19e8bdd4890e4f5cdd5e19bc6e24d51204e384a898ef1df4cedc7",
+        "size": 3259,
+        "type": "0x3"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0xd2f",
+        "payload_offset": "0xd3f",
+        "payload_size": 708608,
+        "prefix": "480000057c6802a67fa4eb783863fffc",
+        "sha256": "d86680f7b4059475541890ed2d1d1cd3013f53d83d9bb17cd76b86e3299729cb",
+        "size": 708624,
+        "type": "0x6"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0xadd3f",
+        "payload_offset": "0xadd4f",
+        "payload_size": 4014080,
+        "prefix": "737173680000012c0000000000000000",
+        "sha256": "4c69dda984a91729933ec8525793135b3acbcb19f0c68e2bad4cb431e26600b9",
+        "size": 4014096,
+        "type": "0x4"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0x481d4f",
+        "payload_offset": "0x481d5f",
+        "payload_size": 1,
+        "prefix": "00",
+        "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+        "size": 17,
+        "type": "0x5"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0x481d60",
+        "payload_offset": "0x481d70",
+        "payload_size": 512,
+        "prefix": "e4033565010000000100000000000000",
+        "sha256": "73212cf19c07c0e5c78851ee6ac71200c55be65abd0d15d5536ec5087eebd26b",
+        "size": 528,
+        "type": "0x9"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0x481f70",
+        "payload_offset": "0x481f80",
+        "payload_size": 512,
+        "prefix": "e4033565010000000100000000000000",
+        "sha256": "73212cf19c07c0e5c78851ee6ac71200c55be65abd0d15d5536ec5087eebd26b",
+        "size": 528,
+        "type": "0xa"
+      },
+      {
+        "flags": "0x1",
+        "offset": "0x482180",
+        "payload_offset": "0x482190",
+        "payload_size": 128,
+        "prefix": "7e74f345c01aaebe4cb252196366b705",
+        "sha256": "bf79a0455a8d72bf21038303144d6bc5d670902f562877c7c97c5c04d448db1e",
+        "size": 144,
+        "type": "0xffffffff"
+      }
+    ],
+    "sha256": "84632e02bdce626bf10ae846839e90d66e510a627320fff8690c2bdb998733f2",
+    "size": 4727312
+  },
+  "57.23-74170-1-16": {
+    "path": "/home/ben/sonos-bench-analysis/zp5s/57.23-74170-1-16.upd",
+    "records": [
+      {
+        "flags": "0x0",
+        "offset": "0x0",
+        "payload_offset": "0x10",
+        "payload_size": 12,
+        "prefix": "3900000017000000ba210100",
+        "sha256": "9abf92d0f1820ad9acc874bc70961325470ba4181f1df9c2365294a3e4c6d7e9",
+        "size": 28,
+        "type": "0x1"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0x1c",
+        "payload_offset": "0x2c",
+        "payload_size": 68,
+        "prefix": "323032315f31315f504154434845533a",
+        "sha256": "fe1a03928a695883b3f8b9c02490f5a2e610cbfc70f818b9bd9033a531e84363",
+        "size": 84,
+        "type": "0x15"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0x70",
+        "payload_offset": "0x80",
+        "payload_size": 28,
+        "prefix": "01000000100000000200000005000000",
+        "sha256": "540a25f8ed42fa68316687827c043d8bc00d4f7d93001db1260a62faed3491aa",
+        "size": 44,
+        "type": "0x2"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0x9c",
+        "payload_offset": "0xac",
+        "payload_size": 132,
+        "prefix": "fdffffff020000000000000000000000",
+        "sha256": "d33c2404149e40e0a890249f97cf9591ddc6499ea75fae4bcff97d1dc608339a",
+        "size": 148,
+        "type": "0x2"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0x130",
+        "payload_offset": "0x140",
+        "payload_size": 28,
+        "prefix": "feffffff3000000000000000feffffff",
+        "sha256": "72a07112f150b88982440cb3fadc7d51afb90e01956ddee8f82a9aa43370be1b",
+        "size": 44,
+        "type": "0x2"
+      },
+      {
+        "flags": "0x0",
+        "offset": "0x15c",
+        "payload_offset": "0x16c",
+        "payload_size": 149511,
+        "prefix": "621da74d0000016c0001000000000000",
+        "sha256": "3b2e7146bb019dbfb9f5816924692b2d3a955c5af5996307148cff3dc2fdcac3",
+        "size": 149527,
+        "type": "0x16"
+      },
+      {
+        "flags": "0x4",
+        "offset": "0x24973",
+        "payload_offset": "0x24983",
+        "payload_size": 176010,
+        "prefix": "886499ca0000013a0001000000000000",
+        "sha256": "8d25a5cddff1256631c5edea0e5a1825e716b912bc7def37a9d13ab04d8adbc9",
+        "size": 176026,
+        "type": "0x3"
+      },
+      {
+        "flags": "0x4",
+        "offset": "0x4f90d",
+        "payload_offset": "0x4f91d",
+        "payload_size": 708954,
+        "prefix": "886499ca0000013a0001000000000000",
+        "sha256": "02c47c1f73090f0c63e59e26482b466d3e9c66e05ac8c4b29eb6772fce312239",
+        "size": 708970,
+        "type": "0x6"
+      },
+      {
+        "flags": "0x4",
+        "offset": "0xfca77",
+        "payload_offset": "0xfca87",
+        "payload_size": 4571482,
+        "prefix": "886499ca0000013a0001000000000000",
+        "sha256": "869ae0cffae612ce94f003bf5aa37941d01124462467b5343bb05827919dcf0a",
+        "size": 4571498,
+        "type": "0x4"
+      },
+      {
+        "flags": "0x1",
+        "offset": "0x558be1",
+        "payload_offset": "0x558bf1",
+        "payload_size": 364,
+        "prefix": "621da74d0000016c0001000000000000",
+        "sha256": "e6e583001d383f41d4aca2a7a2a6197a9978abb2fceed605f1a0da572a61fe20",
+        "size": 380,
+        "type": "0x11"
+      }
+    ],
+    "sha256": "e19a7bb28f2d940346c605ccfcff81f8d9a7dd1771ee991841ac1f9e07223ad4",
+    "size": 5606749
+  }
+}

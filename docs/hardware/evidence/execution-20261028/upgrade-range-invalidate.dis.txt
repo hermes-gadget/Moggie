@@ -1,0 +1,171 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x10008c88 --stop-address=0x10008f10 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+10008c88 <__frame_state_for@@Base-0xc7a0>:
+10008c88:	39 20 00 10 	li      r9,16  # file 0x8c88
+10008c8c:	7c 08 02 a6 	mflr    r0  # file 0x8c8c
+10008c90:	7d 29 03 a6 	mtctr   r9  # file 0x8c90
+10008c94:	94 21 ff a0 	stwu    r1,-96(r1)  # file 0x8c94
+10008c98:	7d 80 00 26 	mfcr    r12  # file 0x8c98
+10008c9c:	93 61 00 4c 	stw     r27,76(r1)  # file 0x8c9c
+10008ca0:	93 81 00 50 	stw     r28,80(r1)  # file 0x8ca0
+10008ca4:	7c 9b 23 78 	mr      r27,r4  # file 0x8ca4
+10008ca8:	93 c1 00 58 	stw     r30,88(r1)  # file 0x8ca8
+10008cac:	7c 7c 1b 78 	mr      r28,r3  # file 0x8cac
+10008cb0:	93 e1 00 5c 	stw     r31,92(r1)  # file 0x8cb0
+10008cb4:	3b c0 00 00 	li      r30,0  # file 0x8cb4
+10008cb8:	90 01 00 64 	stw     r0,100(r1)  # file 0x8cb8
+10008cbc:	7c bf 2b 78 	mr      r31,r5  # file 0x8cbc
+10008cc0:	93 21 00 44 	stw     r25,68(r1)  # file 0x8cc0
+10008cc4:	39 61 00 08 	addi    r11,r1,8  # file 0x8cc4
+10008cc8:	93 41 00 48 	stw     r26,72(r1)  # file 0x8cc8
+10008ccc:	38 00 ff ff 	li      r0,-1  # file 0x8ccc
+10008cd0:	93 a1 00 54 	stw     r29,84(r1)  # file 0x8cd0
+10008cd4:	91 81 00 40 	stw     r12,64(r1)  # file 0x8cd4
+10008cd8:	7d 2b f2 14 	add     r9,r11,r30  # file 0x8cd8
+10008cdc:	98 09 00 18 	stb     r0,24(r9)  # file 0x8cdc
+10008ce0:	3b de 00 01 	addi    r30,r30,1  # file 0x8ce0
+10008ce4:	42 00 ff f4 	bdnz    10008cd8 <_init@@Base+0x6184>  # file 0x8ce4
+10008ce8:	38 00 ff 85 	li      r0,-123  # file 0x8ce8
+10008cec:	98 01 00 28 	stb     r0,40(r1)  # file 0x8cec
+10008cf0:	39 20 00 19 	li      r9,25  # file 0x8cf0
+10008cf4:	38 00 00 03 	li      r0,3  # file 0x8cf4
+10008cf8:	99 21 00 29 	stb     r9,41(r1)  # file 0x8cf8
+10008cfc:	3c 60 10 02 	lis     r3,4098  # file 0x8cfc
+10008d00:	98 01 00 2a 	stb     r0,42(r1)  # file 0x8d00
+10008d04:	39 60 00 00 	li      r11,0  # file 0x8d04
+10008d08:	39 20 00 20 	li      r9,32  # file 0x8d08
+10008d0c:	99 61 00 2f 	stb     r11,47(r1)  # file 0x8d0c
+10008d10:	38 00 00 08 	li      r0,8  # file 0x8d10
+10008d14:	99 21 00 2b 	stb     r9,43(r1)  # file 0x8d14
+10008d18:	38 63 a4 dc 	addi    r3,r3,-23332  # file 0x8d18
+10008d1c:	98 01 00 2c 	stb     r0,44(r1)  # file 0x8d1c
+10008d20:	38 80 00 02 	li      r4,2  # file 0x8d20
+10008d24:	99 61 00 2d 	stb     r11,45(r1)  # file 0x8d24
+10008d28:	99 61 00 2e 	stb     r11,46(r1)  # file 0x8d28
+10008d2c:	48 02 53 cd 	bl      1002e0f8 <open@plt>  # file 0x8d2c
+10008d30:	7c 7d 1b 79 	mr.     r29,r3  # file 0x8d30
+10008d34:	38 60 ff ff 	li      r3,-1  # file 0x8d34
+10008d38:	41 80 00 9c 	blt     10008dd4 <_init@@Base+0x6280>  # file 0x8d38
+10008d3c:	2e 1f 00 00 	cmpwi   cr4,r31,0  # file 0x8d3c
+10008d40:	40 92 00 dc 	bne     cr4,10008e1c <_init@@Base+0x62c8>  # file 0x8d40
+10008d44:	57 9e 28 34 	slwi    r30,r28,5  # file 0x8d44
+10008d48:	3b 5b ff ff 	addi    r26,r27,-1  # file 0x8d48
+10008d4c:	57 49 28 34 	slwi    r9,r26,5  # file 0x8d4c
+10008d50:	3b 69 00 1f 	addi    r27,r9,31  # file 0x8d50
+10008d54:	3b 81 00 10 	addi    r28,r1,16  # file 0x8d54
+10008d58:	3f 20 10 03 	lis     r25,4099  # file 0x8d58
+10008d5c:	40 92 00 5c 	bne     cr4,10008db8 <_init@@Base+0x6264>  # file 0x8d5c
+10008d60:	7f 9b f0 00 	cmpw    cr7,r27,r30  # file 0x8d60
+10008d64:	41 9c 00 6c 	blt     cr7,10008dd0 <_init@@Base+0x627c>  # file 0x8d64
+10008d68:	57 df 48 2c 	slwi    r31,r30,9  # file 0x8d68
+10008d6c:	39 3f 00 05 	addi    r9,r31,5  # file 0x8d6c
+10008d70:	3c 80 c0 0c 	lis     r4,-16372  # file 0x8d70
+10008d74:	91 21 00 10 	stw     r9,16(r1)  # file 0x8d74
+10008d78:	38 00 00 01 	li      r0,1  # file 0x8d78
+10008d7c:	39 21 00 30 	addi    r9,r1,48  # file 0x8d7c
+10008d80:	90 01 00 14 	stw     r0,20(r1)  # file 0x8d80
+10008d84:	60 84 4d 04 	ori     r4,r4,19716  # file 0x8d84
+10008d88:	91 21 00 18 	stw     r9,24(r1)  # file 0x8d88
+10008d8c:	7f a3 eb 78 	mr      r3,r29  # file 0x8d8c
+10008d90:	7f 85 e3 78 	mr      r5,r28  # file 0x8d90
+10008d94:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x8d94
+10008d98:	48 02 53 81 	bl      1002e118 <ioctl@plt>  # file 0x8d98
+10008d9c:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x8d9c
+10008da0:	40 9e 00 68 	bne     cr7,10008e08 <_init@@Base+0x62b4>  # file 0x8da0
+10008da4:	88 01 00 30 	lbz     r0,48(r1)  # file 0x8da4
+10008da8:	2f 80 00 ff 	cmpwi   cr7,r0,255  # file 0x8da8
+10008dac:	41 9e 00 80 	beq     cr7,10008e2c <_init@@Base+0x62d8>  # file 0x8dac
+10008db0:	3b de 00 20 	addi    r30,r30,32  # file 0x8db0
+10008db4:	41 92 ff ac 	beq     cr4,10008d60 <_init@@Base+0x620c>  # file 0x8db4
+10008db8:	7f 43 d3 78 	mr      r3,r26  # file 0x8db8
+10008dbc:	4b ff f3 bd 	bl      10008178 <_init@@Base+0x5624>  # file 0x8dbc
+10008dc0:	54 63 28 34 	slwi    r3,r3,5  # file 0x8dc0
+10008dc4:	38 63 00 1f 	addi    r3,r3,31  # file 0x8dc4
+10008dc8:	7f 83 f0 00 	cmpw    cr7,r3,r30  # file 0x8dc8
+10008dcc:	40 9c ff 9c 	bge     cr7,10008d68 <_init@@Base+0x6214>  # file 0x8dcc
+10008dd0:	38 60 00 00 	li      r3,0  # file 0x8dd0
+10008dd4:	80 01 00 64 	lwz     r0,100(r1)  # file 0x8dd4
+10008dd8:	81 81 00 40 	lwz     r12,64(r1)  # file 0x8dd8
+10008ddc:	83 21 00 44 	lwz     r25,68(r1)  # file 0x8ddc
+10008de0:	7c 08 03 a6 	mtlr    r0  # file 0x8de0
+10008de4:	83 41 00 48 	lwz     r26,72(r1)  # file 0x8de4
+10008de8:	7d 80 81 20 	mtcrf   8,r12  # file 0x8de8
+10008dec:	83 61 00 4c 	lwz     r27,76(r1)  # file 0x8dec
+10008df0:	83 81 00 50 	lwz     r28,80(r1)  # file 0x8df0
+10008df4:	83 a1 00 54 	lwz     r29,84(r1)  # file 0x8df4
+10008df8:	83 c1 00 58 	lwz     r30,88(r1)  # file 0x8df8
+10008dfc:	83 e1 00 5c 	lwz     r31,92(r1)  # file 0x8dfc
+10008e00:	38 21 00 60 	addi    r1,r1,96  # file 0x8e00
+10008e04:	4e 80 00 20 	blr  # file 0x8e04
+10008e08:	7f e4 fb 78 	mr      r4,r31  # file 0x8e08
+10008e0c:	7f a3 eb 78 	mr      r3,r29  # file 0x8e0c
+10008e10:	4b ff f5 c5 	bl      100083d4 <_init@@Base+0x5880>  # file 0x8e10
+10008e14:	3b de 00 20 	addi    r30,r30,32  # file 0x8e14
+10008e18:	4b ff ff 9c 	b       10008db4 <_init@@Base+0x6260>  # file 0x8e18
+10008e1c:	7f 83 e3 78 	mr      r3,r28  # file 0x8e1c
+10008e20:	4b ff f3 59 	bl      10008178 <_init@@Base+0x5624>  # file 0x8e20
+10008e24:	54 7e 28 34 	slwi    r30,r3,5  # file 0x8e24
+10008e28:	4b ff ff 20 	b       10008d48 <_init@@Base+0x61f4>  # file 0x8e28
+10008e2c:	3c 80 c0 0c 	lis     r4,-16372  # file 0x8e2c
+10008e30:	38 1f 02 05 	addi    r0,r31,517  # file 0x8e30
+10008e34:	60 84 4d 04 	ori     r4,r4,19716  # file 0x8e34
+10008e38:	90 01 00 10 	stw     r0,16(r1)  # file 0x8e38
+10008e3c:	7f a3 eb 78 	mr      r3,r29  # file 0x8e3c
+10008e40:	7f 85 e3 78 	mr      r5,r28  # file 0x8e40
+10008e44:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x8e44
+10008e48:	48 02 52 d1 	bl      1002e118 <ioctl@plt>  # file 0x8e48
+10008e4c:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x8e4c
+10008e50:	40 be ff b8 	bne     cr7,10008e08 <_init@@Base+0x62b4>  # file 0x8e50
+10008e54:	88 01 00 30 	lbz     r0,48(r1)  # file 0x8e54
+10008e58:	2f 80 00 ff 	cmpwi   cr7,r0,255  # file 0x8e58
+10008e5c:	40 9e ff 54 	bne     cr7,10008db0 <_init@@Base+0x625c>  # file 0x8e5c
+10008e60:	3c 80 80 08 	lis     r4,-32760  # file 0x8e60
+10008e64:	93 e1 00 38 	stw     r31,56(r1)  # file 0x8e64
+10008e68:	38 00 40 00 	li      r0,16384  # file 0x8e68
+10008e6c:	60 84 4d 02 	ori     r4,r4,19714  # file 0x8e6c
+10008e70:	90 01 00 3c 	stw     r0,60(r1)  # file 0x8e70
+10008e74:	7f a3 eb 78 	mr      r3,r29  # file 0x8e74
+10008e78:	38 a1 00 38 	addi    r5,r1,56  # file 0x8e78
+10008e7c:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x8e7c
+10008e80:	48 02 52 99 	bl      1002e118 <ioctl@plt>  # file 0x8e80
+10008e84:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x8e84
+10008e88:	40 9e ff 80 	bne     cr7,10008e08 <_init@@Base+0x62b4>  # file 0x8e88
+10008e8c:	3c 80 c0 0c 	lis     r4,-16372  # file 0x8e8c
+10008e90:	93 e1 00 10 	stw     r31,16(r1)  # file 0x8e90
+10008e94:	38 00 00 10 	li      r0,16  # file 0x8e94
+10008e98:	39 21 00 20 	addi    r9,r1,32  # file 0x8e98
+10008e9c:	90 01 00 14 	stw     r0,20(r1)  # file 0x8e9c
+10008ea0:	60 84 4d 03 	ori     r4,r4,19715  # file 0x8ea0
+10008ea4:	91 21 00 18 	stw     r9,24(r1)  # file 0x8ea4
+10008ea8:	7f a3 eb 78 	mr      r3,r29  # file 0x8ea8
+10008eac:	7f 85 e3 78 	mr      r5,r28  # file 0x8eac
+10008eb0:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x8eb0
+10008eb4:	48 02 52 65 	bl      1002e118 <ioctl@plt>  # file 0x8eb4
+10008eb8:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x8eb8
+10008ebc:	40 9e 00 40 	bne     cr7,10008efc <_init@@Base+0x63a8>  # file 0x8ebc
+10008ec0:	3d 20 10 03 	lis     r9,4099  # file 0x8ec0
+10008ec4:	80 09 dd 80 	lwz     r0,-8832(r9)  # file 0x8ec4
+10008ec8:	2f 80 00 00 	cmpwi   cr7,r0,0  # file 0x8ec8
+10008ecc:	41 9e fe e4 	beq     cr7,10008db0 <_init@@Base+0x625c>  # file 0x8ecc
+10008ed0:	80 99 dd c0 	lwz     r4,-8768(r25)  # file 0x8ed0
+10008ed4:	3d 20 10 03 	lis     r9,4099  # file 0x8ed4
+10008ed8:	80 69 dd 7c 	lwz     r3,-8836(r9)  # file 0x8ed8
+10008edc:	3d 20 10 03 	lis     r9,4099  # file 0x8edc
+10008ee0:	38 84 40 00 	addi    r4,r4,16384  # file 0x8ee0
+10008ee4:	80 a9 dd c4 	lwz     r5,-8764(r9)  # file 0x8ee4
+10008ee8:	90 99 dd c0 	stw     r4,-8768(r25)  # file 0x8ee8
+10008eec:	7c 08 03 a6 	mtlr    r0  # file 0x8eec
+10008ef0:	3b de 00 20 	addi    r30,r30,32  # file 0x8ef0
+10008ef4:	4e 80 00 21 	blrl  # file 0x8ef4
+10008ef8:	4b ff fe bc 	b       10008db4 <_init@@Base+0x6260>  # file 0x8ef8
+10008efc:	57 de 00 34 	clrrwi  r30,r30,5  # file 0x8efc
+10008f00:	57 c4 48 2c 	slwi    r4,r30,9  # file 0x8f00
+10008f04:	7f a3 eb 78 	mr      r3,r29  # file 0x8f04
+10008f08:	4b ff f4 cd 	bl      100083d4 <_init@@Base+0x5880>  # file 0x8f08
+10008f0c:	4b ff ff 08 	b       10008e14 <_init@@Base+0x62c0>  # file 0x8f0c

@@ -1,0 +1,168 @@
+{
+  "offset": "0x2e3000",
+  "properties": [
+    {
+      "name": "compatible",
+      "node": "/",
+      "offset": "0x2e30cc",
+      "value": [
+        "fsl,mpc8315erdb"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/localbus@e0005000",
+      "offset": "0x2e32d0",
+      "value": [
+        "fsl,mpc8315-elbc",
+        "fsl,elbc",
+        "simple-bus"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/localbus@e0005000/nand@1,0",
+      "offset": "0x2e33b8",
+      "value": [
+        "fsl,mpc8315-fcm-nand",
+        "fsl,elbc-fcm-nand"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000",
+      "offset": "0x2e34d8",
+      "value": [
+        "fsl,mpc8315-immr",
+        "simple-bus"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/wdt@200",
+      "offset": "0x2e3560",
+      "value": [
+        "mpc83xx_wdt"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/i2c@3000",
+      "offset": "0x2e35d0",
+      "value": [
+        "fsl-i2c"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/spi@7000",
+      "offset": "0x2e364c",
+      "value": [
+        "fsl,spi"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/dma@82a8",
+      "offset": "0x2e36dc",
+      "value": [
+        "fsl,mpc8315-dma",
+        "fsl,elo-dma"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/dma@82a8/dma-channel@0",
+      "offset": "0x2e3778",
+      "value": [
+        "fsl,mpc8315-dma-channel",
+        "fsl,elo-dma-channel"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/dma@82a8/dma-channel@80",
+      "offset": "0x2e3810",
+      "value": [
+        "fsl,mpc8315-dma-channel",
+        "fsl,elo-dma-channel"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/dma@82a8/dma-channel@100",
+      "offset": "0x2e38a8",
+      "value": [
+        "fsl,mpc8315-dma-channel",
+        "fsl,elo-dma-channel"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/dma@82a8/dma-channel@180",
+      "offset": "0x2e3940",
+      "value": [
+        "fsl,mpc8315-dma-channel",
+        "fsl,elo-dma-channel"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/usb@23000",
+      "offset": "0x2e39d8",
+      "value": [
+        "fsl-usb2-dr"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/mdio@24520",
+      "offset": "0x2e3a90",
+      "value": [
+        "fsl,gianfar-mdio"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/ethernet@25000",
+      "offset": "0x2e3b8c",
+      "value": [
+        "gianfar"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/serial@4500",
+      "offset": "0x2e3c44",
+      "value": [
+        "ns16550"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/immr@e0000000/tdm@16000",
+      "offset": "0x2e3d3c",
+      "value": [
+        "fsl,mpc8315-tdm"
+      ]
+    },
+    {
+      "name": "compatible",
+      "node": "/pcie@e0009000",
+      "offset": "0x2e3e04",
+      "value": [
+        "fsl,mpc8315-pcie",
+        "fsl,mpc8314-pcie"
+      ]
+    },
+    {
+      "name": "bootargs",
+      "node": "/chosen",
+      "offset": "0x2e3f84",
+      "value": [
+        "root=31:03 ro console=ttyS0,38400 mtdparts=e0600000.flash:1024k(u-boot),7168k(jffs2),5120k(Ramdisk),16384k(rootfs),2048k(kernel),1024k(obsolete-dtb)"
+      ]
+    }
+  ],
+  "size": 20000
+}

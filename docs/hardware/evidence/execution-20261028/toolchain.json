@@ -1,0 +1,4 @@
+{
+  "objdump": "/home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump",
+  "version": "GNU objdump (GNU Binutils) 2.45.1"
+}

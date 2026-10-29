@@ -1,0 +1,102 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -D -b binary -m powerpc:common -EB --adjust-vma=0xc0000000 --start-address=0xc00b7318 --stop-address=0xc00b748c /home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed:     file format binary
+
+
+Disassembly of section .data:
+
+c00b7318 <.data+0xb7318>:
+c00b7318:	3c 00 80 08 	lis     r0,-32760  # file 0xb7318
+c00b731c:	60 00 4d 06 	ori     r0,r0,19718  # file 0xb731c
+c00b7320:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7320
+c00b7324:	41 9e 07 fc 	beq     cr7,0xc00b7b20  # file 0xb7324
+c00b7328:	7f 85 00 40 	cmplw   cr7,r5,r0  # file 0xb7328
+c00b732c:	41 9d 00 ac 	bgt     cr7,0xc00b73d8  # file 0xb732c
+c00b7330:	3c 00 40 04 	lis     r0,16388  # file 0xb7330
+c00b7334:	60 00 4d 24 	ori     r0,r0,19748  # file 0xb7334
+c00b7338:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7338
+c00b733c:	41 9e 0d b8 	beq     cr7,0xc00b80f4  # file 0xb733c
+c00b7340:	7f 85 00 40 	cmplw   cr7,r5,r0  # file 0xb7340
+c00b7344:	41 9d 00 44 	bgt     cr7,0xc00b7388  # file 0xb7344
+c00b7348:	3c 00 20 00 	lis     r0,8192  # file 0xb7348
+c00b734c:	60 00 4d 21 	ori     r0,r0,19745  # file 0xb734c
+c00b7350:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7350
+c00b7354:	41 9e 08 bc 	beq     cr7,0xc00b7c10  # file 0xb7354
+c00b7358:	7f 85 00 40 	cmplw   cr7,r5,r0  # file 0xb7358
+c00b735c:	41 9d 00 18 	bgt     cr7,0xc00b7374  # file 0xb735c
+c00b7360:	3c 00 20 00 	lis     r0,8192  # file 0xb7360
+c00b7364:	60 00 4d 20 	ori     r0,r0,19744  # file 0xb7364
+c00b7368:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7368
+c00b736c:	41 9e 08 84 	beq     cr7,0xc00b7bf0  # file 0xb736c
+c00b7370:	48 00 0d e8 	b       0xc00b8158  # file 0xb7370
+c00b7374:	3c 00 40 04 	lis     r0,16388  # file 0xb7374
+c00b7378:	60 00 4d 07 	ori     r0,r0,19719  # file 0xb7378
+c00b737c:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb737c
+c00b7380:	41 9e 01 10 	beq     cr7,0xc00b7490  # file 0xb7380
+c00b7384:	48 00 0d d4 	b       0xc00b8158  # file 0xb7384
+c00b7388:	3c 00 40 c8 	lis     r0,16584  # file 0xb7388
+c00b738c:	60 00 4d 0a 	ori     r0,r0,19722  # file 0xb738c
+c00b7390:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7390
+c00b7394:	41 9e 09 20 	beq     cr7,0xc00b7cb4  # file 0xb7394
+c00b7398:	7f 85 00 40 	cmplw   cr7,r5,r0  # file 0xb7398
+c00b739c:	41 9d 00 18 	bgt     cr7,0xc00b73b4  # file 0xb739c
+c00b73a0:	3c 00 40 20 	lis     r0,16416  # file 0xb73a0
+c00b73a4:	60 00 4d 01 	ori     r0,r0,19713  # file 0xb73a4
+c00b73a8:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb73a8
+c00b73ac:	41 9e 01 e8 	beq     cr7,0xc00b7594  # file 0xb73ac
+c00b73b0:	48 00 0d a8 	b       0xc00b8158  # file 0xb73b0
+c00b73b4:	3c 00 80 08 	lis     r0,-32760  # file 0xb73b4
+c00b73b8:	60 00 4d 02 	ori     r0,r0,19714  # file 0xb73b8
+c00b73bc:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb73bc
+c00b73c0:	41 9e 02 20 	beq     cr7,0xc00b75e0  # file 0xb73c0
+c00b73c4:	3c 00 80 08 	lis     r0,-32760  # file 0xb73c4
+c00b73c8:	60 00 4d 05 	ori     r0,r0,19717  # file 0xb73c8
+c00b73cc:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb73cc
+c00b73d0:	41 9e 06 d8 	beq     cr7,0xc00b7aa8  # file 0xb73d0
+c00b73d4:	48 00 0d 84 	b       0xc00b8158  # file 0xb73d4
+c00b73d8:	3c 00 80 20 	lis     r0,-32736  # file 0xb73d8
+c00b73dc:	60 00 4d 25 	ori     r0,r0,19749  # file 0xb73dc
+c00b73e0:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb73e0
+c00b73e4:	41 9e 0b bc 	beq     cr7,0xc00b7fa0  # file 0xb73e4
+c00b73e8:	7f 85 00 40 	cmplw   cr7,r5,r0  # file 0xb73e8
+c00b73ec:	41 9d 00 54 	bgt     cr7,0xc00b7440  # file 0xb73ec
+c00b73f0:	3c 00 80 08 	lis     r0,-32760  # file 0xb73f0
+c00b73f4:	60 00 4d 0c 	ori     r0,r0,19724  # file 0xb73f4
+c00b73f8:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb73f8
+c00b73fc:	41 9e 09 8c 	beq     cr7,0xc00b7d88  # file 0xb73fc
+c00b7400:	7f 85 00 40 	cmplw   cr7,r5,r0  # file 0xb7400
+c00b7404:	41 9d 00 18 	bgt     cr7,0xc00b741c  # file 0xb7404
+c00b7408:	3c 00 80 08 	lis     r0,-32760  # file 0xb7408
+c00b740c:	60 00 4d 0b 	ori     r0,r0,19723  # file 0xb740c
+c00b7410:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7410
+c00b7414:	41 9e 08 fc 	beq     cr7,0xc00b7d10  # file 0xb7414
+c00b7418:	48 00 0d 40 	b       0xc00b8158  # file 0xb7418
+c00b741c:	3c 00 80 08 	lis     r0,-32760  # file 0xb741c
+c00b7420:	60 00 4d 22 	ori     r0,r0,19746  # file 0xb7420
+c00b7424:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7424
+c00b7428:	41 9e 08 08 	beq     cr7,0xc00b7c30  # file 0xb7428
+c00b742c:	3c 00 80 20 	lis     r0,-32736  # file 0xb742c
+c00b7430:	60 00 4d 23 	ori     r0,r0,19747  # file 0xb7430
+c00b7434:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7434
+c00b7438:	41 9e 09 d4 	beq     cr7,0xc00b7e0c  # file 0xb7438
+c00b743c:	48 00 0d 1c 	b       0xc00b8158  # file 0xb743c
+c00b7440:	3c 00 c0 0c 	lis     r0,-16372  # file 0xb7440
+c00b7444:	60 00 4d 03 	ori     r0,r0,19715  # file 0xb7444
+c00b7448:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7448
+c00b744c:	41 9e 02 dc 	beq     cr7,0xc00b7728  # file 0xb744c
+c00b7450:	7f 85 00 40 	cmplw   cr7,r5,r0  # file 0xb7450
+c00b7454:	41 9d 00 18 	bgt     cr7,0xc00b746c  # file 0xb7454
+c00b7458:	3c 00 80 c8 	lis     r0,-32568  # file 0xb7458
+c00b745c:	60 00 4d 09 	ori     r0,r0,19721  # file 0xb745c
+c00b7460:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7460
+c00b7464:	41 9e 07 4c 	beq     cr7,0xc00b7bb0  # file 0xb7464
+c00b7468:	48 00 0c f0 	b       0xc00b8158  # file 0xb7468
+c00b746c:	3c 00 c0 0c 	lis     r0,-16372  # file 0xb746c
+c00b7470:	60 00 4d 04 	ori     r0,r0,19716  # file 0xb7470
+c00b7474:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7474
+c00b7478:	41 9e 04 64 	beq     cr7,0xc00b78dc  # file 0xb7478
+c00b747c:	3c 00 c0 10 	lis     r0,-16368  # file 0xb747c
+c00b7480:	60 00 4d 08 	ori     r0,r0,19720  # file 0xb7480
+c00b7484:	7f 85 00 00 	cmpw    cr7,r5,r0  # file 0xb7484
+c00b7488:	41 9e 00 50 	beq     cr7,0xc00b74d8  # file 0xb7488

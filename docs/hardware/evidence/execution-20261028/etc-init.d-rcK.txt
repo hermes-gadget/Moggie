@@ -1,0 +1,7 @@
+# Stock file: etc/init.d/rcK; display strips trailing whitespace; hashes cover original bytes
+   1: #!/bin/sh
+   2: # Preserve seed
+   3: /etc/init.d/Krandom
+   4: sync
+   5: sleep 1
+   6: sync

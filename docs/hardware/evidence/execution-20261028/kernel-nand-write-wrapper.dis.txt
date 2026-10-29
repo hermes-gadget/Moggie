@@ -1,0 +1,20 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -D -b binary -m powerpc:common -EB --adjust-vma=0xc0000000 --start-address=0xc00bcd0c --stop-address=0xc00bcd38 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed:     file format binary
+
+
+Disassembly of section .data:
+
+c00bcd0c <.data+0xbcd0c>:
+c00bcd0c:	7c 08 02 a6 	mflr    r0  # file 0xbcd0c
+c00bcd10:	94 21 ff f0 	stwu    r1,-16(r1)  # file 0xbcd10
+c00bcd14:	39 40 00 00 	li      r10,0  # file 0xbcd14
+c00bcd18:	90 01 00 14 	stw     r0,20(r1)  # file 0xbcd18
+c00bcd1c:	38 00 00 00 	li      r0,0  # file 0xbcd1c
+c00bcd20:	90 01 00 08 	stw     r0,8(r1)  # file 0xbcd20
+c00bcd24:	4b ff fc 9d 	bl      0xc00bc9c0  # file 0xbcd24
+c00bcd28:	80 01 00 14 	lwz     r0,20(r1)  # file 0xbcd28
+c00bcd2c:	38 21 00 10 	addi    r1,r1,16  # file 0xbcd2c
+c00bcd30:	7c 08 03 a6 	mtlr    r0  # file 0xbcd30
+c00bcd34:	4e 80 00 20 	blr  # file 0xbcd34

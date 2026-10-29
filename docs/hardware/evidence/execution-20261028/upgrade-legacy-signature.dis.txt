@@ -1,0 +1,66 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x100074e4 --stop-address=0x100075c8 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+100074e4 <__frame_state_for@@Base-0xdf44>:
+100074e4:	7c 08 02 a6 	mflr    r0  # file 0x74e4
+100074e8:	94 21 fe d0 	stwu    r1,-304(r1)  # file 0x74e8
+100074ec:	93 c1 01 28 	stw     r30,296(r1)  # file 0x74ec
+100074f0:	90 01 01 34 	stw     r0,308(r1)  # file 0x74f0
+100074f4:	38 00 00 01 	li      r0,1  # file 0x74f4
+100074f8:	81 23 00 04 	lwz     r9,4(r3)  # file 0x74f8
+100074fc:	93 e1 01 2c 	stw     r31,300(r1)  # file 0x74fc
+10007500:	7c 7f 1b 78 	mr      r31,r3  # file 0x7500
+10007504:	81 69 00 08 	lwz     r11,8(r9)  # file 0x7504
+10007508:	38 60 00 00 	li      r3,0  # file 0x7508
+1000750c:	81 3f 02 18 	lwz     r9,536(r31)  # file 0x750c
+10007510:	3b cb ff f0 	addi    r30,r11,-16  # file 0x7510
+10007514:	93 a1 01 24 	stw     r29,292(r1)  # file 0x7514
+10007518:	2b 9e 01 00 	cmplwi  cr7,r30,256  # file 0x7518
+1000751c:	93 81 01 20 	stw     r28,288(r1)  # file 0x751c
+10007520:	3b a1 00 10 	addi    r29,r1,16  # file 0x7520
+10007524:	39 29 00 01 	addi    r9,r9,1  # file 0x7524
+10007528:	7f a5 eb 78 	mr      r5,r29  # file 0x7528
+1000752c:	91 3f 02 18 	stw     r9,536(r31)  # file 0x752c
+10007530:	7f c6 f3 78 	mr      r6,r30  # file 0x7530
+10007534:	40 9d 00 28 	ble     cr7,1000755c <_init@@Base+0x4a08>  # file 0x7534
+10007538:	7c 03 03 78 	mr      r3,r0  # file 0x7538
+1000753c:	80 01 01 34 	lwz     r0,308(r1)  # file 0x753c
+10007540:	83 81 01 20 	lwz     r28,288(r1)  # file 0x7540
+10007544:	83 a1 01 24 	lwz     r29,292(r1)  # file 0x7544
+10007548:	7c 08 03 a6 	mtlr    r0  # file 0x7548
+1000754c:	83 c1 01 28 	lwz     r30,296(r1)  # file 0x754c
+10007550:	83 e1 01 2c 	lwz     r31,300(r1)  # file 0x7550
+10007554:	38 21 01 30 	addi    r1,r1,304  # file 0x7554
+10007558:	4e 80 00 20 	blr  # file 0x7558
+1000755c:	80 9f 00 00 	lwz     r4,0(r31)  # file 0x755c
+10007560:	3b 81 01 10 	addi    r28,r1,272  # file 0x7560
+10007564:	4b ff ea c5 	bl      10006028 <_init@@Base+0x34d4>  # file 0x7564
+10007568:	7f 84 e3 78 	mr      r4,r28  # file 0x7568
+1000756c:	7f 83 f0 00 	cmpw    cr7,r3,r30  # file 0x756c
+10007570:	3c 60 10 03 	lis     r3,4099  # file 0x7570
+10007574:	38 63 e4 18 	addi    r3,r3,-7144  # file 0x7574
+10007578:	38 00 00 01 	li      r0,1  # file 0x7578
+1000757c:	40 9e ff bc 	bne     cr7,10007538 <_init@@Base+0x49e4>  # file 0x757c
+10007580:	48 02 6a 81 	bl      1002e000 <ZZ0061@plt>  # file 0x7580
+10007584:	81 3f 00 0c 	lwz     r9,12(r31)  # file 0x7584
+10007588:	7f 86 e3 78 	mr      r6,r28  # file 0x7588
+1000758c:	80 69 00 1c 	lwz     r3,28(r9)  # file 0x758c
+10007590:	7f a8 eb 78 	mr      r8,r29  # file 0x7590
+10007594:	7f c9 f3 78 	mr      r9,r30  # file 0x7594
+10007598:	38 80 00 01 	li      r4,1  # file 0x7598
+1000759c:	38 a0 00 02 	li      r5,2  # file 0x759c
+100075a0:	38 e0 00 10 	li      r7,16  # file 0x75a0
+100075a4:	48 02 6a 95 	bl      1002e038 <ZZ0109@plt>  # file 0x75a4
+100075a8:	38 00 00 06 	li      r0,6  # file 0x75a8
+100075ac:	2f 83 00 01 	cmpwi   cr7,r3,1  # file 0x75ac
+100075b0:	40 be ff 88 	bne     cr7,10007538 <_init@@Base+0x49e4>  # file 0x75b0
+100075b4:	81 3f 02 1c 	lwz     r9,540(r31)  # file 0x75b4
+100075b8:	38 00 00 00 	li      r0,0  # file 0x75b8
+100075bc:	39 29 00 01 	addi    r9,r9,1  # file 0x75bc
+100075c0:	91 3f 02 1c 	stw     r9,540(r31)  # file 0x75c0
+100075c4:	4b ff ff 74 	b       10007538 <_init@@Base+0x49e4>  # file 0x75c4

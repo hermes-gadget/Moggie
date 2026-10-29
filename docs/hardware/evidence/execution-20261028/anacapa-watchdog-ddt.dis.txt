@@ -1,0 +1,49 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x101b9fc0 --stop-address=0x101ba060 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+101b9fc0 <strlcpy@@Base+0x288c4>:
+101b9fc0:	7c 08 02 a6 	mflr    r0  # file 0x1b9fc0
+101b9fc4:	94 21 ff e0 	stwu    r1,-32(r1)  # file 0x1b9fc4
+101b9fc8:	bf 81 00 10 	stmw    r28,16(r1)  # file 0x1b9fc8
+101b9fcc:	7d 80 00 26 	mfcr    r12  # file 0x1b9fcc
+101b9fd0:	7c 7d 1b 78 	mr      r29,r3  # file 0x1b9fd0
+101b9fd4:	90 01 00 24 	stw     r0,36(r1)  # file 0x1b9fd4
+101b9fd8:	83 fd 00 c0 	lwz     r31,192(r29)  # file 0x1b9fd8
+101b9fdc:	38 60 00 00 	li      r3,0  # file 0x1b9fdc
+101b9fe0:	91 81 00 0c 	stw     r12,12(r1)  # file 0x1b9fe0
+101b9fe4:	7c 9e 23 78 	mr      r30,r4  # file 0x1b9fe4
+101b9fe8:	2e 1f 00 00 	cmpwi   cr4,r31,0  # file 0x1b9fe8
+101b9fec:	3b 80 ff ff 	li      r28,-1  # file 0x1b9fec
+101b9ff0:	41 b2 00 14 	beq     cr4,101ba004 <strlcpy@@Base+0x28908>  # file 0x1b9ff0
+101b9ff4:	48 23 c3 15 	bl      103f6308 <time@plt>  # file 0x1b9ff4
+101b9ff8:	7c 7f 18 50 	subf    r3,r31,r3  # file 0x1b9ff8
+101b9ffc:	2f 83 00 3b 	cmpwi   cr7,r3,59  # file 0x1b9ffc
+101ba000:	41 9d 00 10 	bgt     cr7,101ba010 <strlcpy@@Base+0x28914>  # file 0x1ba000
+101ba004:	2f 9e 00 00 	cmpwi   cr7,r30,0  # file 0x1ba004
+101ba008:	3b 80 00 00 	li      r28,0  # file 0x1ba008
+101ba00c:	41 9e 00 30 	beq     cr7,101ba03c <strlcpy@@Base+0x28940>  # file 0x1ba00c
+101ba010:	41 92 00 0c 	beq     cr4,101ba01c <strlcpy@@Base+0x28920>  # file 0x1ba010
+101ba014:	80 dd 00 c4 	lwz     r6,196(r29)  # file 0x1ba014
+101ba018:	48 00 00 08 	b       101ba020 <strlcpy@@Base+0x28924>  # file 0x1ba018
+101ba01c:	38 c0 ff ff 	li      r6,-1  # file 0x1ba01c
+101ba020:	3c 60 10 32 	lis     r3,4146  # file 0x1ba020
+101ba024:	3c a0 10 34 	lis     r5,4148  # file 0x1ba024
+101ba028:	38 80 00 00 	li      r4,0  # file 0x1ba028
+101ba02c:	38 63 5a 10 	addi    r3,r3,23056  # file 0x1ba02c
+101ba030:	38 a5 56 cc 	addi    r5,r5,22220  # file 0x1ba030
+101ba034:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x1ba034
+101ba038:	48 12 c2 a5 	bl      102e62dc <modff@@Base+0x1b338>  # file 0x1ba038
+101ba03c:	80 01 00 24 	lwz     r0,36(r1)  # file 0x1ba03c
+101ba040:	7f 83 e3 78 	mr      r3,r28  # file 0x1ba040
+101ba044:	81 81 00 0c 	lwz     r12,12(r1)  # file 0x1ba044
+101ba048:	bb 81 00 10 	lmw     r28,16(r1)  # file 0x1ba048
+101ba04c:	7c 08 03 a6 	mtlr    r0  # file 0x1ba04c
+101ba050:	38 21 00 20 	addi    r1,r1,32  # file 0x1ba050
+101ba054:	7d 80 81 20 	mtcrf   8,r12  # file 0x1ba054
+101ba058:	4e 80 00 20 	blr  # file 0x1ba058
+101ba05c:	4b ff ff 64 	b       101b9fc0 <strlcpy@@Base+0x288c4>  # file 0x1ba05c

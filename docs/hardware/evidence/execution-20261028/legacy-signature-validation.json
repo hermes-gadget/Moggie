@@ -1,0 +1,14 @@
+{
+  "altered_prefix_rejected": true,
+  "boundary": "Offline cryptographic validity of these bytes; no device acceptance, model compatibility or complete caller proof.",
+  "package_sha256": "84632e02bdce626bf10ae846839e90d66e510a627320fff8690c2bdb998733f2",
+  "prefix_end": "0x482180",
+  "prefix_md5": "08b5d59c20f82c96bfaf264b7ce4ac63",
+  "prefix_sha256": "5620c9d97c73039d788319b88830814c3167b67a14b3dc484c63b264295e0081",
+  "prefix_start": 0,
+  "public_der_sha256": "50ff475d72eeadbaef22fe0b83eb7dd1c566cbeed22e648aa9c7c09577949e15",
+  "scheme": "RSASSA-PKCS1-v1_5 / MD5",
+  "signature_file": "0x482190",
+  "signature_size": 128,
+  "verified": true
+}

@@ -1,0 +1,33 @@
+# Stock file: bin/repartition.sh; display strips trailing whitespace; hashes cover original bytes
+   1: #!/bin/sh
+   2:
+   3: PARTITION_TABLE="96 544 716"
+   4:
+   5: reboot_need=0
+   6: MODEL=`/bin/mdputil | /usr/sbin/keyval ^MODEL`
+   7:
+   8: /bin/check ${PARTITION_TABLE}
+   9: if [ $? -eq 1 ]
+  10: then
+  11: 	echo "Start Repartition"
+  12: 	if [ "${MODEL}" = "1" ]; then
+  13: 		/sbin/insmod /modules/audiodev.o
+  14: 	fi
+  15: 	sh /bin/jffs.sh backup
+  16: 	/bin/repartition ${PARTITION_TABLE}
+  17: 	if [ $? -eq 1 ]
+  18: 	then
+  19: 		reboot_need=1
+  20: 	fi
+  21: 	echo "Repartition done"
+  22: 	if [ $reboot_need -eq 1 ]
+  23: 	then
+  24: 		echo "Rebooting the unit"
+  25: 		/bin/sync
+  26: 		echo b > /proc/sysrq-trigger
+  27: 		/bin/sleep 10
+  28: 	fi
+  29: 	if [ "${MODEL}" = "1" ]; then
+  30: 		/sbin/rmmod audiodev
+  31: 	fi
+  32: fi

@@ -1,0 +1,85 @@
+{
+  "anacapa": {
+    "checked_disassembly_rows": 962,
+    "loads": [
+      {
+        "offset": 0,
+        "size": 4042504,
+        "va": 268435456
+      },
+      {
+        "offset": 4042752,
+        "size": 43452,
+        "va": 272543744
+      }
+    ],
+    "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/opt/bin/anacapad",
+    "sha256": "9db3247f232fa7e2dd1a42561782d38b95c6c4905029f16b22293471d6f23870",
+    "size": 4101056
+  },
+  "crypto": {
+    "checked_disassembly_rows": 1438,
+    "loads": [
+      {
+        "offset": 0,
+        "size": 46961,
+        "va": 0
+      },
+      {
+        "offset": 49152,
+        "size": 512,
+        "va": 114688
+      }
+    ],
+    "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1",
+    "sha256": "03653fc9205ff23ad583506684f93387c444ac2b726a01bfa1ff18b6d7594c6c",
+    "size": 51628
+  },
+  "driver": {
+    "checked_disassembly_rows": 166,
+    "format": "relocatable",
+    "load_section": ".text",
+    "loads": [
+      {
+        "offset": 52,
+        "size": 664,
+        "va": 0
+      }
+    ],
+    "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/modules/chk_driver.o",
+    "sha256": "7170378a0a2e3a3df8b64af2905c99a981e59e3cd9523656c1fd9fa5e757ce76",
+    "size": 3104
+  },
+  "kernel": {
+    "checked_disassembly_rows": 2467,
+    "format": "raw",
+    "loads": [
+      {
+        "offset": 0,
+        "size": 1511544,
+        "va": 3221225472
+      }
+    ],
+    "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed",
+    "sha256": "c0a562fa670d1f620c249c8e5857388a575d85fa4fe3f5ce587720719509bf51",
+    "size": 1511544
+  },
+  "upgrade": {
+    "checked_disassembly_rows": 3535,
+    "loads": [
+      {
+        "offset": 0,
+        "size": 116480,
+        "va": 268435456
+      },
+      {
+        "offset": 116480,
+        "size": 5800,
+        "va": 268617472
+      }
+    ],
+    "path": "/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/bin/upgrade",
+    "sha256": "d17809f33003856d66f5406e080081ca8f0e3954a8d5536bb8f541010b8cce1a",
+    "size": 124384
+  }
+}

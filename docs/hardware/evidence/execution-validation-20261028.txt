@@ -1,0 +1,42 @@
+Execution-surface evidence verification — 2026-10-28
+
+Generation: tools/stock_execution_evidence.py, exact command in EXECUTION-SURFACE.md.
+Second generation: same command/cache, --out build/stock-execution/reproduced.
+PASS: 2 pinned UPDs parsed to exact EOF; 16 allowlisted files extracted; 7 absent
+PASS: 8102 disassembly rows match source image bytes
+PASS: older UPD legacy RSA/MD5 signature verifies exact prefix; altered prefix rejected
+
+Independent check:
+python3 tools/check_stock_execution_evidence.py --evidence docs/hardware/evidence/execution-20261028 --cache build/stock-execution/34.16 --compare build/stock-execution/reproduced --document docs/hardware/EXECUTION-SURFACE.md
+PASS: 2 source packages; 20 records; 16 extracted hashes; 8102 disassembly rows
+PASS: 93 document links; 100 cited offset starts in bounds; 98 regenerated files identical
+
+Framing negative cases: empty stream, 15-byte header, wrong magic,
+header-inclusive size 15, size extending one byte beyond EOF.
+PASS: 5 malformed/truncated UPD framing cases rejected
+
+Adversarial evidence check: copied the packet to build/stock-execution/tampered,
+changed the first crypto-rsa.dis.txt instruction from 94 21 ff d0 to 94 21 ff d1,
+ran the independent checker, and required a nonzero return with AssertionError.
+PASS: independent checker rejects altered instruction bytes and encrypted-envelope boundaries
+The tamper checks were rerun against the expanded 98-file packet and latest checker.
+Envelope negative check: changed data_size by one in a fresh copied packet; checker rejected it.
+
+git diff --check: exit 0
+
+Report SHA-256:
+54a4c602d7d21e6888843de01bf279aa6019f783c41ad27b63dd2d994880e125  docs/hardware/EXECUTION-SURFACE.md
+
+PASS: offline legacy RSA/MD5 signature validates the older package prefix
+LIMIT: byte checks and one legacy signature do not prove later signatures,
+independent signer attribution, RE semantics, complete control flow or hardware behavior.
+No firmware program/script was executed; no speaker or hardware was accessed.
+
+Matching-kernel increment: PASS: raw-kernel instruction tampering and incorrect link-label base rejected.
+
+Board/table increment: PASS: incorrect bootsection sysctl value pointer rejected.
+
+Supervision increment: PASS: altered module relocation symbol rejected.
+
+Final adversarial rerun: PASS: crypto-byte, envelope-size, kernel-byte, kernel-base,
+sysctl-pointer and module-symbol alterations all rejected with AssertionError.

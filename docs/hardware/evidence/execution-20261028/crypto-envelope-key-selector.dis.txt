@@ -1,0 +1,108 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -d --start-address=0x70e8 --stop-address=0x7274 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/rootfs/lib/libsonoscrypto.so.1:     file format elf32-powerpc
+
+
+Disassembly of section .text:
+
+000070e8 <ZZ0039@@Base>:
+    70e8:	94 21 ff d0 	stwu    r1,-48(r1)  # file 0x70e8
+    70ec:	7c 08 02 a6 	mflr    r0  # file 0x70ec
+    70f0:	42 9f 00 05 	bcl     20,4*cr7+so,70f4 <ZZ0039@@Base+0xc>  # file 0x70f0
+    70f4:	93 c1 00 28 	stw     r30,40(r1)  # file 0x70f4
+    70f8:	7f c8 02 a6 	mflr    r30  # file 0x70f8
+    70fc:	90 01 00 34 	stw     r0,52(r1)  # file 0x70fc
+    7100:	68 84 00 03 	xori    r4,r4,3  # file 0x7100
+    7104:	93 41 00 18 	stw     r26,24(r1)  # file 0x7104
+    7108:	80 1e ff f0 	lwz     r0,-16(r30)  # file 0x7108
+    710c:	7c 84 00 d0 	neg     r4,r4  # file 0x710c
+    7110:	68 c6 00 14 	xori    r6,r6,20  # file 0x7110
+    7114:	93 61 00 1c 	stw     r27,28(r1)  # file 0x7114
+    7118:	7f c0 f2 14 	add     r30,r0,r30  # file 0x7118
+    711c:	93 01 00 10 	stw     r24,16(r1)  # file 0x711c
+    7120:	31 26 ff ff 	addic   r9,r6,-1  # file 0x7120
+    7124:	7c 09 31 10 	subfe   r0,r9,r6  # file 0x7124
+    7128:	93 21 00 14 	stw     r25,20(r1)  # file 0x7128
+    712c:	54 84 0f fe 	srwi    r4,r4,31  # file 0x712c
+    7130:	93 81 00 20 	stw     r28,32(r1)  # file 0x7130
+    7134:	7c 89 03 79 	or.     r9,r4,r0  # file 0x7134
+    7138:	93 a1 00 24 	stw     r29,36(r1)  # file 0x7138
+    713c:	93 e1 00 2c 	stw     r31,44(r1)  # file 0x713c
+    7140:	7c 7b 1b 78 	mr      r27,r3  # file 0x7140
+    7144:	7c ba 2b 78 	mr      r26,r5  # file 0x7144
+    7148:	40 82 00 94 	bne     71dc <ZZ0039@@Base+0xf4>  # file 0x7148
+    714c:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x714c
+    7150:	41 9e 00 8c 	beq     cr7,71dc <ZZ0039@@Base+0xf4>  # file 0x7150
+    7154:	80 03 00 00 	lwz     r0,0(r3)  # file 0x7154
+    7158:	3b 80 00 00 	li      r28,0  # file 0x7158
+    715c:	83 3e 80 00 	lwz     r25,-32768(r30)  # file 0x715c
+    7160:	54 18 07 7e 	clrlwi  r24,r0,29  # file 0x7160
+    7164:	57 9f 28 34 	slwi    r31,r28,5  # file 0x7164
+    7168:	7f bf ca 14 	add     r29,r31,r25  # file 0x7168
+    716c:	7f 43 d3 78 	mr      r3,r26  # file 0x716c
+    7170:	38 9d 00 04 	addi    r4,r29,4  # file 0x7170
+    7174:	38 a0 00 14 	li      r5,20  # file 0x7174
+    7178:	48 01 54 45 	bl      1c5bc <memcmp@plt>  # file 0x7178
+    717c:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x717c
+    7180:	41 9e 00 90 	beq     cr7,7210 <ZZ0039@@Base+0x128>  # file 0x7180
+    7184:	3b 9c 00 01 	addi    r28,r28,1  # file 0x7184
+    7188:	2b 9c 00 01 	cmplwi  cr7,r28,1  # file 0x7188
+    718c:	40 bd ff d8 	ble     cr7,7164 <ZZ0039@@Base+0x7c>  # file 0x718c
+    7190:	81 3e 80 04 	lwz     r9,-32764(r30)  # file 0x7190
+    7194:	38 80 00 01 	li      r4,1  # file 0x7194
+    7198:	80 7e 80 10 	lwz     r3,-32752(r30)  # file 0x7198
+    719c:	38 a0 00 15 	li      r5,21  # file 0x719c
+    71a0:	80 c9 00 00 	lwz     r6,0(r9)  # file 0x71a0
+    71a4:	48 01 55 c9 	bl      1c76c <fwrite@plt>  # file 0x71a4
+    71a8:	38 60 00 00 	li      r3,0  # file 0x71a8
+    71ac:	80 01 00 34 	lwz     r0,52(r1)  # file 0x71ac
+    71b0:	83 01 00 10 	lwz     r24,16(r1)  # file 0x71b0
+    71b4:	83 21 00 14 	lwz     r25,20(r1)  # file 0x71b4
+    71b8:	7c 08 03 a6 	mtlr    r0  # file 0x71b8
+    71bc:	83 41 00 18 	lwz     r26,24(r1)  # file 0x71bc
+    71c0:	83 61 00 1c 	lwz     r27,28(r1)  # file 0x71c0
+    71c4:	83 81 00 20 	lwz     r28,32(r1)  # file 0x71c4
+    71c8:	83 a1 00 24 	lwz     r29,36(r1)  # file 0x71c8
+    71cc:	83 c1 00 28 	lwz     r30,40(r1)  # file 0x71cc
+    71d0:	83 e1 00 2c 	lwz     r31,44(r1)  # file 0x71d0
+    71d4:	38 21 00 30 	addi    r1,r1,48  # file 0x71d4
+    71d8:	4e 80 00 20 	blr  # file 0x71d8
+    71dc:	80 01 00 34 	lwz     r0,52(r1)  # file 0x71dc
+    71e0:	38 60 00 00 	li      r3,0  # file 0x71e0
+    71e4:	83 01 00 10 	lwz     r24,16(r1)  # file 0x71e4
+    71e8:	83 21 00 14 	lwz     r25,20(r1)  # file 0x71e8
+    71ec:	7c 08 03 a6 	mtlr    r0  # file 0x71ec
+    71f0:	83 41 00 18 	lwz     r26,24(r1)  # file 0x71f0
+    71f4:	83 61 00 1c 	lwz     r27,28(r1)  # file 0x71f4
+    71f8:	83 81 00 20 	lwz     r28,32(r1)  # file 0x71f8
+    71fc:	83 a1 00 24 	lwz     r29,36(r1)  # file 0x71fc
+    7200:	83 c1 00 28 	lwz     r30,40(r1)  # file 0x7200
+    7204:	83 e1 00 2c 	lwz     r31,44(r1)  # file 0x7204
+    7208:	38 21 00 30 	addi    r1,r1,48  # file 0x7208
+    720c:	4e 80 00 20 	blr  # file 0x720c
+    7210:	7c 1f c8 2e 	lwzx    r0,r31,r25  # file 0x7210
+    7214:	7c 09 c0 39 	and.    r9,r0,r24  # file 0x7214
+    7218:	40 82 00 3c 	bne     7254 <ZZ0039@@Base+0x16c>  # file 0x7218
+    721c:	81 3e 80 04 	lwz     r9,-32764(r30)  # file 0x721c
+    7220:	38 bc 00 01 	addi    r5,r28,1  # file 0x7220
+    7224:	80 9e 80 0c 	lwz     r4,-32756(r30)  # file 0x7224
+    7228:	80 69 00 00 	lwz     r3,0(r9)  # file 0x7228
+    722c:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x722c
+    7230:	48 01 51 15 	bl      1c344 <fprintf@plt>  # file 0x7230
+    7234:	80 7b 00 04 	lwz     r3,4(r27)  # file 0x7234
+    7238:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x7238
+    723c:	41 9e 00 08 	beq     cr7,7244 <ZZ0039@@Base+0x15c>  # file 0x723c
+    7240:	93 a3 00 00 	stw     r29,0(r3)  # file 0x7240
+    7244:	80 9d 00 1c 	lwz     r4,28(r29)  # file 0x7244
+    7248:	80 7d 00 18 	lwz     r3,24(r29)  # file 0x7248
+    724c:	48 01 53 89 	bl      1c5d4 <ZZ0101@plt>  # file 0x724c
+    7250:	4b ff ff 5c 	b       71ac <ZZ0039@@Base+0xc4>  # file 0x7250
+    7254:	81 3e 80 04 	lwz     r9,-32764(r30)  # file 0x7254
+    7258:	38 bc 00 01 	addi    r5,r28,1  # file 0x7258
+    725c:	80 9e 80 08 	lwz     r4,-32760(r30)  # file 0x725c
+    7260:	80 69 00 00 	lwz     r3,0(r9)  # file 0x7260
+    7264:	4c c6 31 82 	crclr   4*cr1+eq  # file 0x7264
+    7268:	48 01 50 dd 	bl      1c344 <fprintf@plt>  # file 0x7268
+    726c:	38 60 00 00 	li      r3,0  # file 0x726c
+    7270:	4b ff ff 3c 	b       71ac <ZZ0039@@Base+0xc4>  # file 0x7270

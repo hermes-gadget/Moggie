@@ -1,0 +1,86 @@
+# Command: /home/ben/sonos-bench/toolchain/powerpc-e300c3--glibc--stable-2026.08-1/bin/powerpc-buildroot-linux-gnu-objdump -D -b binary -m powerpc:common -EB --adjust-vma=0xc0000000 --start-address=0xc016c1d4 --stop-address=0xc016c308 /home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed
+# VA, raw instruction bytes, instruction; file offset appended
+
+/home/ben/Moggie-wt/ota/build/stock-execution/34.16/kernel.decompressed:     file format binary
+
+
+Disassembly of section .data:
+
+c016c1d4 <.data+0x16c1d4>:
+c016c1d4:	7c 08 02 a6 	mflr    r0  # file 0x16c1d4
+c016c1d8:	94 21 ff e0 	stwu    r1,-32(r1)  # file 0x16c1d8
+c016c1dc:	38 80 01 f0 	li      r4,496  # file 0x16c1dc
+c016c1e0:	38 60 02 3c 	li      r3,572  # file 0x16c1e0
+c016c1e4:	90 01 00 24 	stw     r0,36(r1)  # file 0x16c1e4
+c016c1e8:	bf a1 00 14 	stmw    r29,20(r1)  # file 0x16c1e8
+c016c1ec:	4b ec 04 d5 	bl      0xc002c6c0  # file 0x16c1ec
+c016c1f0:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x16c1f0
+c016c1f4:	3f a0 c0 17 	lis     r29,-16361  # file 0x16c1f4
+c016c1f8:	7c 7e 1b 78 	mr      r30,r3  # file 0x16c1f8
+c016c1fc:	90 7d 25 9c 	stw     r3,9628(r29)  # file 0x16c1fc
+c016c200:	3b e3 01 80 	addi    r31,r3,384  # file 0x16c200
+c016c204:	38 80 00 00 	li      r4,0  # file 0x16c204
+c016c208:	38 a0 01 80 	li      r5,384  # file 0x16c208
+c016c20c:	40 be 00 14 	bne     cr7,0xc016c220  # file 0x16c20c
+c016c210:	3c 60 c0 14 	lis     r3,-16364  # file 0x16c210
+c016c214:	38 63 d1 48 	addi    r3,r3,-11960  # file 0x16c214
+c016c218:	4b ea 75 01 	bl      0xc0013718  # file 0x16c218
+c016c21c:	48 00 00 bc 	b       0xc016c2d8  # file 0x16c21c
+c016c220:	4b ea 2f cd 	bl      0xc000f1ec  # file 0x16c220
+c016c224:	38 a0 00 bc 	li      r5,188  # file 0x16c224
+c016c228:	38 80 00 00 	li      r4,0  # file 0x16c228
+c016c22c:	7f e3 fb 78 	mr      r3,r31  # file 0x16c22c
+c016c230:	4b ea 2f bd 	bl      0xc000f1ec  # file 0x16c230
+c016c234:	81 3d 25 9c 	lwz     r9,9628(r29)  # file 0x16c234
+c016c238:	38 00 00 01 	li      r0,1  # file 0x16c238
+c016c23c:	93 e9 01 74 	stw     r31,372(r9)  # file 0x16c23c
+c016c240:	3d 20 c0 0c 	lis     r9,-16372  # file 0x16c240
+c016c244:	39 29 fc c0 	addi    r9,r9,-832  # file 0x16c244
+c016c248:	90 1f 00 54 	stw     r0,84(r31)  # file 0x16c248
+c016c24c:	91 3f 00 30 	stw     r9,48(r31)  # file 0x16c24c
+c016c250:	3d 20 c0 0c 	lis     r9,-16372  # file 0x16c250
+c016c254:	3d 60 f8 00 	lis     r11,-2048  # file 0x16c254
+c016c258:	39 29 fd d4 	addi    r9,r9,-556  # file 0x16c258
+c016c25c:	91 7e 01 80 	stw     r11,384(r30)  # file 0x16c25c
+c016c260:	38 00 00 0f 	li      r0,15  # file 0x16c260
+c016c264:	91 3f 00 34 	stw     r9,52(r31)  # file 0x16c264
+c016c268:	90 1f 00 60 	stw     r0,96(r31)  # file 0x16c268
+c016c26c:	91 7f 00 04 	stw     r11,4(r31)  # file 0x16c26c
+c016c270:	4b f5 39 a1 	bl      0xc00bfc10  # file 0x16c270
+c016c274:	80 7d 25 9c 	lwz     r3,9628(r29)  # file 0x16c274
+c016c278:	38 80 00 01 	li      r4,1  # file 0x16c278
+c016c27c:	4b f5 19 0d 	bl      0xc00bdb88  # file 0x16c27c
+c016c280:	2f 83 00 00 	cmpwi   cr7,r3,0  # file 0x16c280
+c016c284:	40 9e 00 4c 	bne     cr7,0xc016c2d0  # file 0x16c284
+c016c288:	80 7d 25 9c 	lwz     r3,9628(r29)  # file 0x16c288
+c016c28c:	4b f4 8a 95 	bl      0xc00b4d20  # file 0x16c28c
+c016c290:	4b f5 40 dd 	bl      0xc00c036c  # file 0x16c290
+c016c294:	80 7d 25 9c 	lwz     r3,9628(r29)  # file 0x16c294
+c016c298:	3c 00 02 00 	lis     r0,512  # file 0x16c298
+c016c29c:	81 23 00 08 	lwz     r9,8(r3)  # file 0x16c29c
+c016c2a0:	3c 80 c0 15 	lis     r4,-16363  # file 0x16c2a0
+c016c2a4:	38 84 60 b4 	addi    r4,r4,24756  # file 0x16c2a4
+c016c2a8:	7f 09 00 00 	cmpw    cr6,r9,r0  # file 0x16c2a8
+c016c2ac:	3c 00 01 00 	lis     r0,256  # file 0x16c2ac
+c016c2b0:	7f 89 00 00 	cmpw    cr7,r9,r0  # file 0x16c2b0
+c016c2b4:	41 9e 00 30 	beq     cr7,0xc016c2e4  # file 0x16c2b4
+c016c2b8:	41 ba 00 2c 	beq     cr6,0xc016c2e4  # file 0x16c2b8
+c016c2bc:	3c 60 c0 14 	lis     r3,-16364  # file 0x16c2bc
+c016c2c0:	38 63 d1 84 	addi    r3,r3,-11900  # file 0x16c2c0
+c016c2c4:	4b ea 74 55 	bl      0xc0013718  # file 0x16c2c4
+c016c2c8:	80 7d 25 9c 	lwz     r3,9628(r29)  # file 0x16c2c8
+c016c2cc:	4b f5 22 cd 	bl      0xc00be598  # file 0x16c2cc
+c016c2d0:	80 7d 25 9c 	lwz     r3,9628(r29)  # file 0x16c2d0
+c016c2d4:	4b ec 05 99 	bl      0xc002c86c  # file 0x16c2d4
+c016c2d8:	3c 60 c0 14 	lis     r3,-16364  # file 0x16c2d8
+c016c2dc:	38 63 d1 a0 	addi    r3,r3,-11872  # file 0x16c2dc
+c016c2e0:	4b ea 6a cd 	bl      0xc0012dac  # file 0x16c2e0
+c016c2e4:	3d 20 c0 16 	lis     r9,-16362  # file 0x16c2e4
+c016c2e8:	80 a9 a2 38 	lwz     r5,-24008(r9)  # file 0x16c2e8
+c016c2ec:	4b f4 a2 85 	bl      0xc00b6570  # file 0x16c2ec
+c016c2f0:	80 01 00 24 	lwz     r0,36(r1)  # file 0x16c2f0
+c016c2f4:	38 60 00 00 	li      r3,0  # file 0x16c2f4
+c016c2f8:	bb a1 00 14 	lmw     r29,20(r1)  # file 0x16c2f8
+c016c2fc:	7c 08 03 a6 	mtlr    r0  # file 0x16c2fc
+c016c300:	38 21 00 20 	addi    r1,r1,32  # file 0x16c300
+c016c304:	4e 80 00 20 	blr  # file 0x16c304

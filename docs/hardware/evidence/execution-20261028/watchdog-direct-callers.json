@@ -1,0 +1,68 @@
+{
+  "boundary": "Direct relative BL encodings in executable ELF sections only; indirect and virtual orchestration excluded.",
+  "calls": [
+    {
+      "bytes": "4823a865",
+      "caller_file": "0xaa250",
+      "caller_va": "0x100aa250",
+      "target": "watchdog-register",
+      "target_va": "0x102e4ab4"
+    },
+    {
+      "bytes": "48227a29",
+      "caller_file": "0xbd08c",
+      "caller_va": "0x100bd08c",
+      "target": "watchdog-register",
+      "target_va": "0x102e4ab4"
+    },
+    {
+      "bytes": "4812a909",
+      "caller_file": "0x1ba1ac",
+      "caller_va": "0x101ba1ac",
+      "target": "watchdog-register",
+      "target_va": "0x102e4ab4"
+    },
+    {
+      "bytes": "48105ee9",
+      "caller_file": "0x1debcc",
+      "caller_va": "0x101debcc",
+      "target": "watchdog-register",
+      "target_va": "0x102e4ab4"
+    },
+    {
+      "bytes": "4808ace5",
+      "caller_file": "0x259dd0",
+      "caller_va": "0x10259dd0",
+      "target": "watchdog-register",
+      "target_va": "0x102e4ab4"
+    },
+    {
+      "bytes": "480010b1",
+      "caller_file": "0x2e3758",
+      "caller_va": "0x102e3758",
+      "target": "watchdog-setup",
+      "target_va": "0x102e4808"
+    },
+    {
+      "bytes": "48001341",
+      "caller_file": "0x2e3774",
+      "caller_va": "0x102e3774",
+      "target": "watchdog-register",
+      "target_va": "0x102e4ab4"
+    },
+    {
+      "bytes": "4bfffa19",
+      "caller_file": "0x2e434c",
+      "caller_va": "0x102e434c",
+      "target": "watchdog-action",
+      "target_va": "0x102e3d64"
+    },
+    {
+      "bytes": "4bfff699",
+      "caller_file": "0x2e46cc",
+      "caller_va": "0x102e46cc",
+      "target": "watchdog-action",
+      "target_va": "0x102e3d64"
+    }
+  ]
+}

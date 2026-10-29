@@ -1,0 +1,9 @@
+# Stock file: etc/init.d/Krandom; display strips trailing whitespace; hashes cover original bytes
+   1: #!/bin/sh
+   2: echo "Saving random seed..."
+   3: random_seed=/jffs/random-seed
+   4: touch $random_seed
+   5: chmod 600 $random_seed
+   6: poolfile=/proc/sys/kernel/random/poolsize
+   7: [ -r $poolfile ] && bytes=`cat $poolfile` || bytes=512
+   8: dd if=/dev/urandom of=$random_seed count=1 bs=$bytes 2> /dev/null
